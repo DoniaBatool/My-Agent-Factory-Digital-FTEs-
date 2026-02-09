@@ -1,0 +1,121 @@
+{
+  "fix_request_patterns": {
+    "english": [
+      "fix this",
+      "resolve this",
+      "solve this",
+      "correct this",
+      "fix the error",
+      "resolve the issue",
+      "this should be",
+      "this needs to be",
+      "change this to",
+      "update this to",
+      "modify this",
+      "adjust this",
+      "this is wrong",
+      "this doesn't work",
+      "this isn't working",
+      "error in",
+      "issue with",
+      "problem with",
+      "broken",
+      "failing",
+      "not working"
+    ],
+    "urdu_roman": [
+      "fix karo",
+      "theek karo",
+      "resolve karo",
+      "isko fix karo",
+      "ye error",
+      "ye issue",
+      "ye nai chal raha",
+      "ye kaam nai kar raha",
+      "isko theek karo",
+      "isko change karo",
+      "ye galat hai",
+      "ye sahi nai",
+      "isko aesa hona chahiye",
+      "ye aesa hona chahiye",
+      "error aaraha hai",
+      "issue aaraha hai",
+      "kaam nai kar raha"
+    ]
+  },
+  "skill_identification": {
+    "explicit_mention": [
+      "using skill",
+      "with skill",
+      "in skill",
+      "skill se",
+      "skill use karke"
+    ],
+    "context_based": [
+      "in this deployment",
+      "during setup",
+      "while testing",
+      "in the backend",
+      "in the frontend",
+      "during migration"
+    ]
+  },
+  "learning_indicators": {
+    "bug_fix": [
+      "was causing",
+      "fixed by",
+      "resolved by",
+      "solution:",
+      "fix:",
+      "se theek hua"
+    ],
+    "edge_case": [
+      "edge case",
+      "scenario",
+      "when",
+      "if",
+      "in case of",
+      "ager",
+      "jab"
+    ],
+    "configuration": [
+      "config",
+      "setting",
+      "parameter",
+      "option",
+      "environment variable",
+      "configuration"
+    ],
+    "dependency": [
+      "package",
+      "library",
+      "dependency",
+      "module",
+      "version"
+    ]
+  },
+  "update_targets": {
+    "tool_py": [
+      "code change",
+      "function added",
+      "logic updated",
+      "implementation fixed",
+      "code se",
+      "function mae"
+    ],
+    "readme": [
+      "troubleshooting",
+      "how to fix",
+      "solution for",
+      "if you see",
+      "error message"
+    ],
+    "skill_md": [
+      "edge case",
+      "pattern",
+      "best practice",
+      "limitation",
+      "consideration"
+    ]
+  }
+}
