@@ -1,0 +1,37 @@
+{
+  "name": "Digital Agent Factory",
+  "description": "Full-Time Equivalent (FTE) AI Agents with Reusable Intelligence — Spec-Driven, AI-Driven, and Test-Driven Development",
+  "version": "1.0.0",
+  "type": "ai-development-system",
+  "methodologies": [
+    "Spec-Driven Development (SDD)",
+    "AI-Driven Development (AIDD)",
+    "Test-Driven Development (TDD)"
+  ],
+  "structure": {
+    "agents": "agents/",
+    "skills": "skills/",
+    "specs": "speckit.*"
+  },
+  "workflow": {
+    "spec_first": true,
+    "require_task_ids": true,
+    "require_tests": true,
+    "auto_learning": true
+  },
+  "primary_agent": "orchestrator.md",
+  "spec_kit_files": {
+    "constitution": "speckit.constitution",
+    "specify": "speckit.specify",
+    "plan": "speckit.plan",
+    "tasks": "speckit.tasks"
+  },
+  "tags": [
+    "ai-agents",
+    "spec-driven",
+    "reusable-intelligence",
+    "fte-agents",
+    "skills-based",
+    "orchestration"
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "change_request_patterns": {
+    "english": [
+      "update",
+      "modify",
+      "change",
+      "refactor",
+      "rename",
+      "move",
+      "restructure",
+      "reorganize",
+      "update the",
+      "modify the",
+      "change the",
+      "refactor the",
+      "rename the",
+      "add to",
+      "remove from",
+      "delete from",
+      "replace in",
+      "swap in"
+    ],
+    "urdu_roman": [
+      "update karo",
+      "change karo",
+      "modify karo",
+      "refactor karo",
+      "rename karo",
+      "move karo",
+      "ko update karo",
+      "ko change karo",
+      "ko modify karo",
+      "mae change karo",
+      "mae update karo",
+      "se change karo",
+      "add karo",
+      "remove karo",
+      "delete karo",
+      "replace karo"
+    ]
+  },
+  "target_identification": {
+    "backend": [
+      "model",
+      "schema",
+      "endpoint",
+      "route",
+      "router",
+      "service",
+      "database",
+      "migration",
+      "API",
+      "backend"
+    ],
+    "frontend": [
+      "component",
+      "page",
+      "hook",
+      "type",
+      "interface",
+      "UI",
+      "form",
+      "frontend",
+      "react"
+    ],
+    "fullstack": [
+      "feature",
+      "module",
+      "system",
+      "architecture",
+      "project"
+    ]
+  },
+  "change_types": {
+    "addition": [
+      "add",
+      "create",
+      "introduce",
+      "insert",
+      "include"
+    ],
+    "modification": [
+      "update",
+      "modify",
+      "change",
+      "edit",
+      "alter"
+    ],
+    "removal": [
+      "remove",
+      "delete",
+      "drop",
+      "eliminate"
+    ],
+    "refactoring": [
+      "refactor",
+      "restructure",
+      "reorganize",
+      "clean up",
+      "optimize"
+    ],
+    "renaming": [
+      "rename",
+      "change name",
+      "call it",
+      "rename to"
+    ]
+  },
+  "impact_indicators": {
+    "high_impact": [
+      "breaking change",
+      "API change",
+      "schema change",
+      "rename",
+      "move",
+      "database"
+    ],
+    "medium_impact": [
+      "add field",
+      "add method",
+      "update endpoint",
+      "modify component"
+    ],
+    "low_impact": [
+      "fix typo",
+      "update comment",
+      "format code",
+      "add log"
+    ]
+  },
+  "propagation_targets": {
+    "always_check": [
+      "tests",
+      "documentation",
+      "types",
+      "interfaces",
+      "imports",
+      "exports"
+    ],
+    "conditional_check": [
+      "migrations",
+      "API specs",
+      "README",
+      "configuration"
+    ]
+  },
+  "consistency_checks": {
+    "cross_references": [
+      "import statements",
+      "type definitions",
+      "API calls",
+      "database queries",
+      "component usage"
+    ],
+    "naming_consistency": [
+      "variable names",
+      "function names",
+      "class names",
+      "file names",
+      "endpoint paths"
+    ]
+  }
+}
