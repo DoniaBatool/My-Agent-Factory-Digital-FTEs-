@@ -1,0 +1,23 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113641",
+      "reason": "Replaced TODO stub with a real ACID-style Transaction class (commit/rollback with reverse-order inverse ops), wait-for-graph deadlock detector and serialization-failure retry, 10 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_detect_deadlock_risk_finds_longer_cycle",
+        "test_tool.py::test_detect_deadlock_risk_finds_simple_cycle",
+        "test_tool.py::test_detect_deadlock_risk_no_cycle_in_linear_chain",
+        "test_tool.py::test_retry_on_serialization_failure_eventually_succeeds",
+        "test_tool.py::test_transaction_cannot_execute_after_commit",
+        "test_tool.py::test_transaction_cannot_rollback_after_commit",
+        "test_tool.py::test_transaction_commit_keeps_applied_state",
+        "test_tool.py::test_transaction_rollback_undoes_applied_ops_in_reverse_order",
+        "test_tool.py::test_validate_isolation_level_accepts_known_levels",
+        "test_tool.py::test_validate_isolation_level_rejects_unknown"
+      ]
+    }
+  ]
+}

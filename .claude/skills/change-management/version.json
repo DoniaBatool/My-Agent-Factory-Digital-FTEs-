@@ -1,0 +1,21 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-111129",
+      "reason": "Replaced TODO stub with real change-spec scaffolding, cross-file impact scanning, rollback-note generation + 8 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_rollback_note_always_includes_revert_step",
+        "test_tool.py::test_build_rollback_note_includes_migration_and_flag_when_given",
+        "test_tool.py::test_create_change_spec_numbers_sequentially",
+        "test_tool.py::test_create_change_spec_writes_three_files",
+        "test_tool.py::test_next_change_number_increments_past_existing",
+        "test_tool.py::test_next_change_number_starts_at_one",
+        "test_tool.py::test_scan_impact_finds_only_matching_files",
+        "test_tool.py::test_slugify"
+      ]
+    }
+  ]
+}

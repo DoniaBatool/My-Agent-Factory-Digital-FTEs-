@@ -1,0 +1,20 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112329",
+      "reason": "Replaced TODO stub with real cache-key building, TTL policy suggestion, glob-based invalidation matching + 7 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_cache_key_joins_parts_with_colon",
+        "test_tool.py::test_build_cache_key_rejects_part_containing_colon",
+        "test_tool.py::test_keys_matching_invalidation_pattern_no_match_returns_empty",
+        "test_tool.py::test_keys_matching_invalidation_pattern_scopes_to_prefix",
+        "test_tool.py::test_suggest_ttl_falls_back_to_default_for_unknown_resource",
+        "test_tool.py::test_suggest_ttl_matches_price_pattern_with_short_ttl",
+        "test_tool.py::test_suggest_ttl_matches_user_profile_pattern"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112423",
+      "reason": "Replaced TODO stub with real k8s Deployment manifest generation + resource-quantity validation + 6 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_deployment_manifest_includes_liveness_and_readiness_probes",
+        "test_tool.py::test_build_deployment_manifest_rejects_invalid_resource_quantity",
+        "test_tool.py::test_build_deployment_manifest_shape",
+        "test_tool.py::test_build_deployment_manifest_uses_given_resource_requests",
+        "test_tool.py::test_validate_k8s_quantity_accepts_valid_forms",
+        "test_tool.py::test_validate_k8s_quantity_rejects_invalid"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112233",
+      "reason": "Replaced TODO stub with real env-var validation, curl-based smoke checks, rollback-plan generation + 7 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_rollback_plan_always_includes_redeploy_step",
+        "test_tool.py::test_build_rollback_plan_includes_migration_and_flag_when_given",
+        "test_tool.py::test_check_env_vars_flags_empty_string_as_missing",
+        "test_tool.py::test_check_env_vars_flags_missing",
+        "test_tool.py::test_check_env_vars_never_leaks_values_in_result",
+        "test_tool.py::test_check_env_vars_ok_when_all_present",
+        "test_tool.py::test_run_smoke_check_reports_failure_for_unreachable_host"
+      ]
+    }
+  ]
+}

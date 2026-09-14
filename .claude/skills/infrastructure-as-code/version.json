@@ -1,0 +1,20 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112454",
+      "reason": "Replaced TODO stub with real Terraform HCL generation (S3, VPC) + variable validation + 7 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_generate_s3_bucket_includes_bucket_name",
+        "test_tool.py::test_generate_s3_bucket_includes_versioning_when_enabled",
+        "test_tool.py::test_generate_s3_bucket_omits_versioning_when_disabled",
+        "test_tool.py::test_generate_s3_bucket_rejects_invalid_resource_name",
+        "test_tool.py::test_generate_vpc_includes_cidr_block",
+        "test_tool.py::test_generate_vpc_rejects_invalid_cidr",
+        "test_tool.py::test_validate_required_variables_flags_missing_and_empty"
+      ]
+    }
+  ]
+}

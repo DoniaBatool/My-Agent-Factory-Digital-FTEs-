@@ -1,0 +1,20 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112650",
+      "reason": "Replaced TODO stub with real MCP tool schema validation + typed stub generation + 7 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_generate_tool_stub_notes_non_idempotency_when_specified",
+        "test_tool.py::test_generate_tool_stub_produces_typed_signature",
+        "test_tool.py::test_validate_tool_schema_flags_invalid_type",
+        "test_tool.py::test_validate_tool_schema_flags_missing_description",
+        "test_tool.py::test_validate_tool_schema_flags_missing_type",
+        "test_tool.py::test_validate_tool_schema_flags_required_field_not_declared",
+        "test_tool.py::test_validate_tool_schema_passes_well_formed_schema"
+      ]
+    }
+  ]
+}

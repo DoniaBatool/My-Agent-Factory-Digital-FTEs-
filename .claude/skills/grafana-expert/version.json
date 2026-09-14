@@ -1,0 +1,27 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110435",
+      "reason": "Restored + strengthened prerequisite/test logic that had regressed to a 1-of-6-checks stub; added 14 fixed regression tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_alert_rule_structure",
+        "test_tool.py::test_build_dashboard_json_creates_one_panel_per_title",
+        "test_tool.py::test_build_datasource_payload_custom",
+        "test_tool.py::test_build_datasource_payload_defaults",
+        "test_tool.py::test_build_install_command_docker_ignores_os",
+        "test_tool.py::test_build_install_command_linux_native_uses_apt",
+        "test_tool.py::test_build_install_command_macos_native_uses_brew",
+        "test_tool.py::test_build_install_command_rejects_unknown_os",
+        "test_tool.py::test_build_provisioning_yaml_contains_datasource_fields",
+        "test_tool.py::test_diagnose_flags_only_failed_checks",
+        "test_tool.py::test_diagnose_returns_empty_when_all_pass",
+        "test_tool.py::test_find_first_existing_returns_first_match",
+        "test_tool.py::test_find_first_existing_returns_none_when_nothing_exists",
+        "test_tool.py::test_run_tests_performs_six_distinct_checks_not_a_fake_one"
+      ]
+    }
+  ]
+}

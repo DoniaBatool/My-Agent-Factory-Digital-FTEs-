@@ -1,0 +1,19 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112354",
+      "reason": "Replaced TODO stub with real pool-size calculation formula + SQLAlchemy config generation + 6 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_calculate_pool_size_divides_evenly_across_instances",
+        "test_tool.py::test_calculate_pool_size_minimum_one_per_instance",
+        "test_tool.py::test_calculate_pool_size_never_exceeds_db_budget_across_all_instances",
+        "test_tool.py::test_calculate_pool_size_rejects_zero_instances",
+        "test_tool.py::test_generate_sqlalchemy_config_defaults",
+        "test_tool.py::test_generate_sqlalchemy_config_respects_overrides"
+      ]
+    }
+  ]
+}

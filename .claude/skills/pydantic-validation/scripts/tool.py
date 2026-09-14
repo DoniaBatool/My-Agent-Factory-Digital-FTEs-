@@ -1,107 +1,99 @@
 #!/usr/bin/env python3
 """
-Pydantic Validation Tool - Expert-Level Automation
-
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Pydantic Validation Tool - real stdlib-only schema validation helpers
+(works whether or not pydantic itself is installed in the target project).
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import json
+import re
+import sys
+
 
 class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+    GREEN, RED, END = '\033[92m', '\033[91m', '\033[0m'
+
 
 def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
 def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
+
+def coerce_value(value, target_type):
+    """Attempt to coerce value to target_type, raising ValueError on failure."""
+    if isinstance(value, target_type):
+        return value
     try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
+        if target_type is bool:
+            if isinstance(value, str):
+                if value.lower() in ("true", "1", "yes"):
+                    return True
+                if value.lower() in ("false", "0", "no"):
+                    return False
+            raise ValueError(f"cannot coerce {value!r} to bool")
+        return target_type(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"cannot coerce {value!r} to {target_type.__name__}") from exc
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
-    return 0
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
+def validate_schema(data: dict, schema: dict) -> list:
+    """Validate `data` against a simple field schema.
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+    schema: {field: {"type": type, "required": bool, "min": num, "max": num, "regex": str}}
+    Returns a list of error strings (empty list = valid).
+    """
+    errors = []
+    for field, rules in schema.items():
+        required = rules.get("required", False)
+        if field not in data or data[field] is None:
+            if required:
+                errors.append(f"'{field}' is required")
+            continue
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
+        value = data[field]
+        expected_type = rules.get("type")
+        if expected_type is not None and not isinstance(value, expected_type):
+            errors.append(f"'{field}' must be of type {expected_type.__name__}")
+            continue
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
+        if "min" in rules and value < rules["min"]:
+            errors.append(f"'{field}' must be >= {rules['min']}")
+        if "max" in rules and value > rules["max"]:
+            errors.append(f"'{field}' must be <= {rules['max']}")
+        if "regex" in rules and isinstance(value, str) and not re.match(rules["regex"], value):
+            errors.append(f"'{field}' does not match required pattern")
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
+    return errors
 
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
 
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
-
-def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
-
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
-
-    args = parser.parse_args()
-    if not args.command:
-        parser.print_help()
-        return 1
-
-    commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
+def build_error_response(errors: list) -> dict:
+    """Build a FastAPI/pydantic-style 422 error envelope from a list of error strings."""
+    return {
+        "detail": [{"msg": e, "type": "value_error"} for e in errors],
+        "valid": len(errors) == 0,
     }
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
-    sys.exit(main())
+EMAIL_REGEX = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
+
+
+def validate_email(value: str) -> bool:
+    return bool(re.match(EMAIL_REGEX, value))
+
+
+def cmd_test(args):
+    import subprocess
+    from pathlib import Path
+    tests_dir = Path(__file__).resolve().parent.parent / "tests"
+    result = subprocess.run([sys.executable, "-m", "pytest", "--import-mode=importlib", str(tests_dir), "-q"])
+    return result.returncode
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Pydantic Validation Tool")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("test").set_defaults(func=cmd_test)
+    args = parser.parse_args()
+    sys.exit(args.func(args))
+
+
+if __name__ == "__main__":
+    main()

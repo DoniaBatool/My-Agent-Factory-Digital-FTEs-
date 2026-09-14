@@ -1,107 +1,118 @@
 #!/usr/bin/env python3
 """
-Production Checklist Tool - Expert-Level Automation
+Production Checklist Tool - real go-live checks against a project directory
 
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Commands: run-checklist, test
 """
-import argparse, subprocess, sys, os
+import argparse
+import json
+import re
+import sys
 from pathlib import Path
 
-class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+SECRET_LIKE = re.compile(r"(?i)(api[_-]?key|secret|password)\s*[:=]\s*['\"][^'\"]{6,}['\"]")
 
-def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
-def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
+def check_env_gitignored(project_root: Path):
+    gitignore = project_root / ".gitignore"
+    if not gitignore.exists():
+        return False, "no .gitignore found"
+    text = gitignore.read_text()
+    if ".env" in text or "*.env" in text:
+        return True, ".env is git-ignored"
+    return False, ".env is not listed in .gitignore"
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
-    return 0
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
+def check_no_hardcoded_secrets(project_root: Path, extensions=(".py", ".ts", ".js")):
+    offenders = []
+    for path in project_root.rglob("*"):
+        if path.is_file() and path.suffix in extensions and "test" not in path.name.lower():
+            try:
+                text = path.read_text(errors="ignore")
+            except OSError:
+                continue
+            if SECRET_LIKE.search(text):
+                offenders.append(str(path.relative_to(project_root)))
+    return len(offenders) == 0, offenders
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
+def check_tests_exist(project_root: Path):
+    candidates = [project_root / "tests", project_root / "test"]
+    found = any(p.exists() and any(p.rglob("test_*.py")) for p in candidates)
+    return found, "tests/ directory with test_*.py files" if found else "no tests/ directory with test files found"
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
+def check_health_endpoint(project_root: Path):
+    for path in project_root.rglob("*.py"):
+        try:
+            text = path.read_text(errors="ignore")
+        except OSError:
+            continue
+        if re.search(r"(?i)['\"]\/?health['\"]", text):
+            return True, str(path)
+    return False, "no /health route found"
 
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
 
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
+def run_checklist(project_root: Path):
+    project_root = Path(project_root)
+    results = {}
+    ok, detail = check_env_gitignored(project_root)
+    results["env_gitignored"] = {"pass": ok, "detail": detail}
+    ok, offenders = check_no_hardcoded_secrets(project_root)
+    results["no_hardcoded_secrets"] = {"pass": ok, "detail": offenders or "none found"}
+    ok, detail = check_tests_exist(project_root)
+    results["tests_exist"] = {"pass": ok, "detail": detail}
+    ok, detail = check_health_endpoint(project_root)
+    results["health_endpoint"] = {"pass": ok, "detail": detail}
+    return results
+
+
+# ---------------------------------------------------------------------------
+# CLI ------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
+def cmd_run_checklist(args):
+    results = run_checklist(Path(args.project_root))
+    print(json.dumps(results, indent=2))
+    all_pass = all(r["pass"] for r in results.values())
+    print("GO-LIVE: READY" if all_pass else "GO-LIVE: NOT READY")
+    return 0 if all_pass else 1
+
+
+def cmd_test(args):
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        (root / ".gitignore").write_text(".env\n")
+        (root / "app.py").write_text("password = 'hunter2'\n")
+        (root / "tests").mkdir()
+        (root / "tests" / "test_app.py").write_text("def test_x(): assert True\n")
+        results = run_checklist(root)
+        ok = results["env_gitignored"]["pass"] is True
+        ok = ok and results["no_hardcoded_secrets"]["pass"] is False
+        ok = ok and results["tests_exist"]["pass"] is True
+        ok = ok and results["health_endpoint"]["pass"] is False
+    print("SELF-TEST PASS" if ok else "SELF-TEST FAIL")
+    return 0 if ok else 1
+
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
+    parser = argparse.ArgumentParser(description="Production Checklist Tool")
+    sub = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
+    run_p = sub.add_parser("run-checklist")
+    run_p.add_argument("project_root")
+
+    sub.add_parser("test")
 
     args = parser.parse_args()
     if not args.command:
         parser.print_help()
         return 1
 
-    commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
-    }
+    commands = {"run-checklist": cmd_run_checklist, "test": cmd_test}
+    return commands[args.command](args)
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

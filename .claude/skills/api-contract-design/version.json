@@ -1,0 +1,21 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112526",
+      "reason": "Replaced TODO stub with real OpenAPI path-spec building, contract completeness validation, breaking-change detection + 8 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_path_spec_includes_success_and_error_codes",
+        "test_tool.py::test_build_path_spec_post_requires_201",
+        "test_tool.py::test_check_breaking_change_detects_removed_endpoint",
+        "test_tool.py::test_check_breaking_change_detects_removed_response_code",
+        "test_tool.py::test_check_breaking_change_no_change_is_clean",
+        "test_tool.py::test_validate_contract_flags_missing_error_response",
+        "test_tool.py::test_validate_contract_flags_missing_success_response",
+        "test_tool.py::test_validate_contract_passes_for_complete_spec"
+      ]
+    }
+  ]
+}

@@ -1,89 +1,105 @@
 #!/usr/bin/env python3
 """
-Caching Strategy Tool - Expert-Level Automation
+Caching Strategy Tool - real cache-key building, TTL policy, invalidation matching
 
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Commands: build-key, suggest-ttl, match-invalidation, test
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import fnmatch
+import re
+import sys
 
-class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+TTL_POLICY = [
+    (r"session", 1800),
+    (r"user[_-]?profile", 3600),
+    (r"static|asset", 86400),
+    (r"price|quote|rate", 30),
+    (r"search|query", 60),
+]
+DEFAULT_TTL = 300
 
-def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
-def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
+def build_cache_key(namespace: str, *parts) -> str:
+    """Deterministic, collision-resistant cache key. Rejects unsanitized
+    ':' in parts (would silently create key collisions)."""
+    for p in parts:
+        if ":" in str(p):
+            raise ValueError(f"cache key part {p!r} contains ':' -- would break key parsing/collide")
+    return ":".join([namespace, *[str(p) for p in parts]])
+
+
+def suggest_ttl(resource_name: str) -> int:
+    """Suggest a TTL in seconds based on the resource name, using the
+    first matching policy pattern; falls back to DEFAULT_TTL."""
+    name = resource_name.lower()
+    for pattern, ttl in TTL_POLICY:
+        if re.search(pattern, name):
+            return ttl
+    return DEFAULT_TTL
+
+
+def keys_matching_invalidation_pattern(all_keys, pattern: str):
+    """Real glob-style matching (fnmatch), e.g. pattern 'user:42:*' should
+    match 'user:42:profile' and 'user:42:tasks' but not 'user:43:profile'."""
+    return sorted(k for k in all_keys if fnmatch.fnmatch(k, pattern))
+
+
+# ---------------------------------------------------------------------------
+# CLI ------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
+def cmd_build_key(args):
     try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
-
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
+        print(build_cache_key(args.namespace, *args.parts.split(",")))
+    except ValueError as e:
+        print(str(e))
+        return 1
     return 0
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
+
+def cmd_suggest_ttl(args):
+    print(suggest_ttl(args.resource))
     return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
+
+def cmd_match_invalidation(args):
+    keys = keys_matching_invalidation_pattern(args.keys.split(","), args.pattern)
+    print(", ".join(keys) if keys else "(no matches)")
     return 0
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
+def cmd_test(args):
+    ok = build_cache_key("user", 42, "profile") == "user:42:profile"
+    try:
+        build_cache_key("user", "42:evil")
+        ok = False
+    except ValueError:
+        pass
+    ok = ok and suggest_ttl("user_profile_v2") == 3600
+    ok = ok and suggest_ttl("btc_price_feed") == 30
+    ok = ok and suggest_ttl("totally_unrelated_thing") == DEFAULT_TTL
+    matches = keys_matching_invalidation_pattern(["user:42:profile", "user:42:tasks", "user:43:profile"], "user:42:*")
+    ok = ok and matches == ["user:42:profile", "user:42:tasks"]
+    print("SELF-TEST PASS" if ok else "SELF-TEST FAIL")
+    return 0 if ok else 1
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
-
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
-
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
+    parser = argparse.ArgumentParser(description="Caching Strategy Tool")
+    sub = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
+    key_p = sub.add_parser("build-key")
+    key_p.add_argument("--namespace", required=True)
+    key_p.add_argument("--parts", required=True, help="comma-separated key parts")
+
+    ttl_p = sub.add_parser("suggest-ttl")
+    ttl_p.add_argument("resource")
+
+    inv_p = sub.add_parser("match-invalidation")
+    inv_p.add_argument("--keys", required=True, help="comma-separated existing keys")
+    inv_p.add_argument("--pattern", required=True)
+
+    sub.add_parser("test")
 
     args = parser.parse_args()
     if not args.command:
@@ -91,17 +107,13 @@ def main():
         return 1
 
     commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
+        "build-key": cmd_build_key,
+        "suggest-ttl": cmd_suggest_ttl,
+        "match-invalidation": cmd_match_invalidation,
+        "test": cmd_test,
     }
+    return commands[args.command](args)
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

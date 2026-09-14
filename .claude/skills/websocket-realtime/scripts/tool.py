@@ -1,107 +1,87 @@
 #!/usr/bin/env python3
 """
-Websocket Realtime Tool - Expert-Level Automation
-
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+WebSocket Realtime Tool - real room broadcast targeting, message validation,
+heartbeat expiry and sliding-window rate limiting helpers.
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import json
+import sys
+
 
 class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+    GREEN, RED, END = '\033[92m', '\033[91m', '\033[0m'
+
 
 def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
 def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
-    return 0
+def build_room_key(namespace: str, room_id: str) -> str:
+    if not namespace or not room_id:
+        raise ValueError("namespace and room_id are required")
+    return f"{namespace}:{room_id}"
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+def broadcast_targets(connections: dict, room_id: str, exclude_conn_id: str = None) -> list:
+    """connections: {conn_id: {"room_id": ..., ...}}. Return conn_ids in room_id, sender excluded."""
+    return [
+        conn_id
+        for conn_id, meta in connections.items()
+        if meta.get("room_id") == room_id and conn_id != exclude_conn_id
+    ]
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
+_REQUIRED_MESSAGE_FIELDS = ("type", "data")
+_ALLOWED_TYPES = {"chat", "join", "leave", "ping", "pong", "event"}
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
 
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
+def validate_ws_message(payload: dict) -> list:
+    errors = []
+    if not isinstance(payload, dict):
+        return ["payload must be a JSON object"]
+    for field in _REQUIRED_MESSAGE_FIELDS:
+        if field not in payload:
+            errors.append(f"missing required field: {field}")
+    msg_type = payload.get("type")
+    if msg_type is not None and msg_type not in _ALLOWED_TYPES:
+        errors.append(f"unknown message type: {msg_type}")
+    return errors
 
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
+
+def heartbeat_expired(last_ping_ts: float, now_ts: float, timeout: float = 30.0) -> bool:
+    return (now_ts - last_ping_ts) > timeout
+
+
+def rate_limit_check(state: dict, conn_id: str, now: float, max_msgs: int = 10, window: float = 1.0) -> bool:
+    """Sliding-window rate limiter. Returns True if the message is allowed."""
+    bucket = state.setdefault(conn_id, [])
+    cutoff = now - window
+    bucket[:] = [t for t in bucket if t > cutoff]
+    if len(bucket) >= max_msgs:
+        return False
+    bucket.append(now)
+    return True
+
+
+def serialize_event(event_type: str, data) -> str:
+    return json.dumps({"type": event_type, "data": data})
+
+
+def cmd_test(args):
+    import subprocess
+    from pathlib import Path
+    tests_dir = Path(__file__).resolve().parent.parent / "tests"
+    result = subprocess.run([sys.executable, "-m", "pytest", "--import-mode=importlib", str(tests_dir), "-q"])
+    return result.returncode
+
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
-
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
-
+    parser = argparse.ArgumentParser(description="WebSocket Realtime Tool")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("test").set_defaults(func=cmd_test)
     args = parser.parse_args()
-    if not args.command:
-        parser.print_help()
-        return 1
+    sys.exit(args.func(args))
 
-    commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
-    }
 
-    return commands.get(args.command, lambda a: 1)(args)
-
-if __name__ == '__main__':
-    sys.exit(main())
+if __name__ == "__main__":
+    main()

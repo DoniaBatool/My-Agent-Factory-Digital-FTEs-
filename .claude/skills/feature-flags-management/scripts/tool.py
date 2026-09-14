@@ -1,107 +1,102 @@
 #!/usr/bin/env python3
 """
-Feature Flags Management Tool - Expert-Level Automation
-
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Feature Flags Management Tool - real deterministic rollout + flag validation helpers.
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import hashlib
+import json
+import sys
+
 
 class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+    GREEN, RED, END = '\033[92m', '\033[91m', '\033[0m'
+
 
 def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
 def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
-    return 0
+def stable_bucket(user_id: str, salt: str) -> int:
+    """Deterministically map (user_id, salt) to a stable bucket in [0, 100)."""
+    digest = hashlib.sha256(f"{salt}:{user_id}".encode("utf-8")).hexdigest()
+    return int(digest[:8], 16) % 100
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+def validate_flag_config(config: dict) -> list:
+    """Return a list of human-readable validation errors for a flag config (empty = valid)."""
+    errors = []
+    if not isinstance(config.get("global", True), bool):
+        errors.append("'global' must be a boolean")
+    pct = config.get("rollout_pct", 100)
+    if not isinstance(pct, int) or not (0 <= pct <= 100):
+        errors.append("'rollout_pct' must be an integer between 0 and 100")
+    overrides = config.get("user_overrides", {})
+    if not isinstance(overrides, dict):
+        errors.append("'user_overrides' must be an object mapping user_id -> bool")
+    return errors
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
+def is_enabled(flag_config: dict, flag_name: str, user_id: str = None) -> bool:
+    """Evaluate whether a flag is enabled for an (optional) user.
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
+    Precedence: global off -> False; user override -> that value;
+    otherwise a stable percentage rollout bucket.
+    """
+    errors = validate_flag_config(flag_config)
+    if errors:
+        raise ValueError(f"invalid flag config: {'; '.join(errors)}")
 
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
+    if flag_config.get("global", True) is False:
+        return False
 
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
+    overrides = flag_config.get("user_overrides", {})
+    if user_id is not None and user_id in overrides:
+        return bool(overrides[user_id])
+
+    rollout_pct = flag_config.get("rollout_pct", 100)
+    if user_id is None:
+        return rollout_pct >= 100
+    return stable_bucket(user_id, flag_name) < rollout_pct
+
+
+def merge_flag_configs(base: dict, override: dict) -> dict:
+    """Shallow-merge two flag configs, with override winning per top-level key,
+    except user_overrides dicts are merged together."""
+    merged = dict(base)
+    for key, value in override.items():
+        if key == "user_overrides" and isinstance(value, dict) and isinstance(merged.get(key), dict):
+            merged[key] = {**merged[key], **value}
+        else:
+            merged[key] = value
+    return merged
+
+
+_DEFAULT_STAGES = (1, 5, 25, 50, 100)
+
+
+def next_rollout_stage(current_pct: int, stages=_DEFAULT_STAGES) -> int:
+    """Return the next rollout percentage stage strictly greater than current_pct."""
+    for stage in stages:
+        if stage > current_pct:
+            return stage
+    return 100
+
+
+def cmd_test(args):
+    import subprocess
+    from pathlib import Path
+    tests_dir = Path(__file__).resolve().parent.parent / "tests"
+    result = subprocess.run([sys.executable, "-m", "pytest", "--import-mode=importlib", str(tests_dir), "-q"])
+    return result.returncode
+
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
-
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
-
+    parser = argparse.ArgumentParser(description="Feature Flags Management Tool")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("test").set_defaults(func=cmd_test)
     args = parser.parse_args()
-    if not args.command:
-        parser.print_help()
-        return 1
+    sys.exit(args.func(args))
 
-    commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
-    }
 
-    return commands.get(args.command, lambda a: 1)(args)
-
-if __name__ == '__main__':
-    sys.exit(main())
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,22 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110911",
+      "reason": "Replaced TODO stub with real static ownership-filter/IDOR checks + 9 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_accepts_client_supplied_user_id_false_for_server_derived_value",
+        "test_tool.py::test_accepts_client_supplied_user_id_flags_request_json",
+        "test_tool.py::test_build_scoped_query_includes_both_filters",
+        "test_tool.py::test_has_ownership_filter_false_for_unscoped_query",
+        "test_tool.py::test_has_ownership_filter_recognizes_owner_id_variant",
+        "test_tool.py::test_has_ownership_filter_true_for_scoped_query",
+        "test_tool.py::test_scan_source_does_not_flag_scoped_select",
+        "test_tool.py::test_scan_source_flags_client_supplied_user_id_red_flag",
+        "test_tool.py::test_scan_source_flags_unscoped_select"
+      ]
+    }
+  ]
+}

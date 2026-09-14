@@ -1,0 +1,24 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113612",
+      "reason": "Replaced TODO stub with real JSON log building, correlation id, context flattening, level filtering and redaction, 11 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_add_correlation_id_generates_when_missing",
+        "test_tool.py::test_add_correlation_id_preserves_given_id",
+        "test_tool.py::test_filter_log_level_allows_higher_or_equal",
+        "test_tool.py::test_filter_log_level_blocks_lower",
+        "test_tool.py::test_filter_log_level_rejects_unknown_level",
+        "test_tool.py::test_flatten_context_nested_dict",
+        "test_tool.py::test_parse_json_log_rejects_garbage",
+        "test_tool.py::test_parse_json_log_round_trip",
+        "test_tool.py::test_redact_fields_masks_sensitive",
+        "test_tool.py::test_to_json_log_produces_valid_json_with_redaction",
+        "test_tool.py::test_to_json_log_rejects_unknown_level"
+      ]
+    }
+  ]
+}

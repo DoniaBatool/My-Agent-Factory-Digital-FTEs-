@@ -1,0 +1,22 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110841",
+      "reason": "Replaced TODO stub with real salted PBKDF2 hashing, policy checks, reset tokens + 9 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_check_password_policy_flags_missing_character_classes",
+        "test_tool.py::test_check_password_policy_flags_short_password",
+        "test_tool.py::test_check_password_policy_passes_strong_password",
+        "test_tool.py::test_generate_reset_token_is_unique_and_carries_no_plaintext_link",
+        "test_tool.py::test_hash_password_is_salted_so_same_password_differs",
+        "test_tool.py::test_hash_password_never_stores_plaintext",
+        "test_tool.py::test_reset_token_expires",
+        "test_tool.py::test_verify_password_rejects_garbage_hash_without_raising",
+        "test_tool.py::test_verify_password_roundtrip"
+      ]
+    }
+  ]
+}

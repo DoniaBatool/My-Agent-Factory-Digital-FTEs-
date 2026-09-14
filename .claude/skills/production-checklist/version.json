@@ -1,0 +1,21 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-111223",
+      "reason": "Replaced TODO stub with real go-live checks (.env gitignored, no hardcoded secrets, tests exist, health endpoint present) + 8 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_check_env_gitignored_false_when_missing",
+        "test_tool.py::test_check_env_gitignored_true",
+        "test_tool.py::test_check_health_endpoint_found",
+        "test_tool.py::test_check_no_hardcoded_secrets_flags_offender",
+        "test_tool.py::test_check_no_hardcoded_secrets_ignores_test_files",
+        "test_tool.py::test_check_tests_exist_false_when_absent",
+        "test_tool.py::test_check_tests_exist_true",
+        "test_tool.py::test_run_checklist_returns_all_four_checks"
+      ]
+    }
+  ]
+}

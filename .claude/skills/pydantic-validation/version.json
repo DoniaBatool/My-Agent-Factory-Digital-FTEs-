@@ -1,0 +1,24 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113509",
+      "reason": "Replaced TODO stub with real stdlib-only schema validation, coercion, error envelope and email check, 11 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_error_response_valid_flag",
+        "test_tool.py::test_coerce_value_passthrough_same_type",
+        "test_tool.py::test_coerce_value_raises_on_bad_input",
+        "test_tool.py::test_coerce_value_string_to_bool_true_variants",
+        "test_tool.py::test_coerce_value_string_to_int",
+        "test_tool.py::test_validate_email",
+        "test_tool.py::test_validate_schema_accepts_valid_data",
+        "test_tool.py::test_validate_schema_min_max_bounds",
+        "test_tool.py::test_validate_schema_regex_check",
+        "test_tool.py::test_validate_schema_requires_required_fields",
+        "test_tool.py::test_validate_schema_type_check"
+      ]
+    }
+  ]
+}

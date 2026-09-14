@@ -1,0 +1,20 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-111156",
+      "reason": "Replaced TODO stub with real spec/plan/tasks scaffolding + acceptance-criteria parsing + 7 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_parse_acceptance_criteria_falls_back_to_sentences",
+        "test_tool.py::test_parse_acceptance_criteria_from_bullets",
+        "test_tool.py::test_parse_acceptance_criteria_from_numbered_list",
+        "test_tool.py::test_parse_acceptance_criteria_never_empty_for_nonempty_description",
+        "test_tool.py::test_scaffold_feature_creates_three_files",
+        "test_tool.py::test_scaffold_feature_slugifies_folder_name",
+        "test_tool.py::test_scaffold_feature_tasks_mirror_acceptance_criteria"
+      ]
+    }
+  ]
+}

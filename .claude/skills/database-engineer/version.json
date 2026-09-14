@@ -1,0 +1,20 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112039",
+      "reason": "Replaced TODO stub with real migration-safety checks, index suggestion, constraint checks + 7 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_check_constraints_flags_missing_primary_key",
+        "test_tool.py::test_check_constraints_flags_nullable_column",
+        "test_tool.py::test_check_migration_safety_clean_migration_has_no_risks",
+        "test_tool.py::test_check_migration_safety_flags_drop_column",
+        "test_tool.py::test_check_migration_safety_flags_not_null_without_default",
+        "test_tool.py::test_suggest_indexes_ignores_columns_seen_only_once",
+        "test_tool.py::test_suggest_indexes_ranks_most_frequent_column_first"
+      ]
+    }
+  ]
+}

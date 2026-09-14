@@ -1,0 +1,23 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113317",
+      "reason": "Replaced TODO stub with real user-isolation, pagination, cascade-delete-plan and preview helpers, 10 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_assert_owns_conversation_passes_for_owner",
+        "test_tool.py::test_assert_owns_conversation_rejects_other_user",
+        "test_tool.py::test_build_conversation_list_sorts_by_last_activity_desc",
+        "test_tool.py::test_cascade_delete_plan_only_targets_matching_conversation",
+        "test_tool.py::test_latest_message_preview_empty_when_no_messages",
+        "test_tool.py::test_latest_message_preview_truncates_long_content",
+        "test_tool.py::test_paginate_messages_before_id_walks_backward",
+        "test_tool.py::test_paginate_messages_returns_last_n_when_no_cursor",
+        "test_tool.py::test_paginate_messages_unknown_cursor_raises",
+        "test_tool.py::test_scoped_conversations_for_user_filters_correctly"
+      ]
+    }
+  ]
+}

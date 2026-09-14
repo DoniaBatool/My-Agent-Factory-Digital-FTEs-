@@ -1,0 +1,23 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113546",
+      "reason": "Replaced TODO stub with real retry-with-backoff, fallback chain, response schema validation, input sanitization and circuit-breaker cooldown gate, 10 tests (examples/ preserved)",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_fallback_chain_raises_primary_error_when_all_fail",
+        "test_tool.py::test_fallback_chain_uses_first_success",
+        "test_tool.py::test_retry_with_backoff_raises_after_exhausting_attempts",
+        "test_tool.py::test_retry_with_backoff_succeeds_eventually",
+        "test_tool.py::test_sanitize_user_input_strips_control_chars",
+        "test_tool.py::test_sanitize_user_input_truncates_long_text",
+        "test_tool.py::test_should_allow_request_allows_after_cooldown",
+        "test_tool.py::test_should_allow_request_blocks_during_cooldown",
+        "test_tool.py::test_validate_ai_response_schema_detects_missing_keys",
+        "test_tool.py::test_validate_ai_response_schema_passes_when_complete"
+      ]
+    }
+  ]
+}

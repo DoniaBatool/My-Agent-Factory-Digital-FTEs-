@@ -1,0 +1,19 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112301",
+      "reason": "Replaced TODO stub with real CI/Dockerfile pipeline audit + incident runbooks + 6 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_audit_pipeline_detects_dockerfile_without_healthcheck",
+        "test_tool.py::test_audit_pipeline_detects_healthcheck_present",
+        "test_tool.py::test_audit_pipeline_detects_present_ci_workflow",
+        "test_tool.py::test_audit_pipeline_flags_missing_ci_workflow",
+        "test_tool.py::test_generate_runbook_rejects_unknown_incident",
+        "test_tool.py::test_generate_runbook_returns_known_incident_steps"
+      ]
+    }
+  ]
+}

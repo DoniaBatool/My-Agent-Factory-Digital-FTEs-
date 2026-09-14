@@ -1,107 +1,101 @@
 #!/usr/bin/env python3
 """
-Robust Ai Assistant Tool - Expert-Level Automation
-
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Robust AI Assistant Tool - real retry/backoff, fallback-chain and response-validation helpers.
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import re
+import sys
+import time
+
 
 class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+    GREEN, RED, END = '\033[92m', '\033[91m', '\033[0m'
+
 
 def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
 def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
-    return 0
+def retry_with_backoff(fn, max_retries: int = 3, base_delay: float = 0.5,
+                        exceptions=(Exception,), sleep_fn=time.sleep):
+    """Call fn() with exponential backoff on failure. Raises the last exception if all attempts fail."""
+    last_exc = None
+    for attempt in range(max_retries):
+        try:
+            return fn()
+        except exceptions as exc:
+            last_exc = exc
+            if attempt < max_retries - 1:
+                sleep_fn(base_delay * (2 ** attempt))
+    raise last_exc
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+def fallback_chain(primary_fn, fallback_fns: list):
+    """Try primary_fn, then each fallback in order, returning the first success.
+    Raises the primary's exception if every option fails."""
+    fns = [primary_fn] + list(fallback_fns)
+    first_exc = None
+    for fn in fns:
+        try:
+            return fn()
+        except Exception as exc:
+            if first_exc is None:
+                first_exc = exc
+            continue
+    raise first_exc
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
+def validate_ai_response_schema(response: dict, required_keys: list) -> list:
+    """Return a list of missing/invalid keys in an AI response payload (empty = valid)."""
+    errors = []
+    if not isinstance(response, dict):
+        return ["response must be a JSON object"]
+    for key in required_keys:
+        if key not in response:
+            errors.append(f"missing required key: {key}")
+    return errors
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
 
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
+_CONTROL_CHARS = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
 
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
+
+def sanitize_user_input(text: str, max_len: int = 4000) -> str:
+    """Strip control characters and enforce a max length on user-supplied text."""
+    if not isinstance(text, str):
+        raise ValueError("text must be a string")
+    cleaned = _CONTROL_CHARS.sub("", text)
+    cleaned = cleaned.strip()
+    if len(cleaned) > max_len:
+        cleaned = cleaned[:max_len]
+    return cleaned
+
+
+def should_allow_request(breaker_state: dict, now: float, cooldown_seconds: float = 30.0) -> bool:
+    """Simple circuit-breaker gate: if tripped, block requests until cooldown elapses."""
+    if not breaker_state.get("tripped"):
+        return True
+    tripped_at = breaker_state.get("tripped_at", 0)
+    if now - tripped_at >= cooldown_seconds:
+        breaker_state["tripped"] = False
+        return True
+    return False
+
+
+def cmd_test(args):
+    import subprocess
+    from pathlib import Path
+    tests_dir = Path(__file__).resolve().parent.parent / "tests"
+    result = subprocess.run([sys.executable, "-m", "pytest", "--import-mode=importlib", str(tests_dir), "-q"])
+    return result.returncode
+
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
-
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
-
+    parser = argparse.ArgumentParser(description="Robust AI Assistant Tool")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("test").set_defaults(func=cmd_test)
     args = parser.parse_args()
-    if not args.command:
-        parser.print_help()
-        return 1
+    sys.exit(args.func(args))
 
-    commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
-    }
 
-    return commands.get(args.command, lambda a: 1)(args)
-
-if __name__ == '__main__':
-    sys.exit(main())
+if __name__ == "__main__":
+    main()

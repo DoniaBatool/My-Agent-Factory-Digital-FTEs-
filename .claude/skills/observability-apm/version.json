@@ -1,0 +1,23 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113416",
+      "reason": "Replaced TODO stub with real span parsing/tree-building, percentile aggregation (no numpy) and error-rate alerting, 10 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_aggregate_metrics_basic_stats",
+        "test_tool.py::test_aggregate_metrics_empty_list",
+        "test_tool.py::test_build_span_tree_nests_children_under_parent",
+        "test_tool.py::test_check_error_rate_flags_alert_above_threshold",
+        "test_tool.py::test_check_error_rate_no_alert_below_threshold",
+        "test_tool.py::test_check_error_rate_rejects_errors_exceeding_total",
+        "test_tool.py::test_detect_slow_spans_filters_and_sorts_desc",
+        "test_tool.py::test_parse_trace_span_computes_duration",
+        "test_tool.py::test_parse_trace_span_rejects_missing_fields",
+        "test_tool.py::test_parse_trace_span_rejects_negative_duration"
+      ]
+    }
+  ]
+}

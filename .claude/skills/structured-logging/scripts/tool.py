@@ -1,107 +1,95 @@
 #!/usr/bin/env python3
 """
-Structured Logging Tool - Expert-Level Automation
-
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Structured Logging Tool - real JSON log building, correlation id, flattening and level-filter helpers.
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import json
+import sys
+import uuid
+from datetime import datetime, timezone
+
 
 class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+    GREEN, RED, END = '\033[92m', '\033[91m', '\033[0m'
+
 
 def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
 def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
-    return 0
+_LEVELS = {"DEBUG": 10, "INFO": 20, "WARNING": 30, "ERROR": 40, "CRITICAL": 50}
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
+_SENSITIVE_KEYS = {"password", "token", "secret", "authorization", "api_key", "apikey"}
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
-
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
-
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
-
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
-
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
-
-def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
-
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
-
-    args = parser.parse_args()
-    if not args.command:
-        parser.print_help()
-        return 1
-
-    commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
+def redact_fields(fields: dict, sensitive_keys=None) -> dict:
+    keys = sensitive_keys or _SENSITIVE_KEYS
+    return {
+        k: ("***REDACTED***" if any(s in k.lower() for s in keys) else v)
+        for k, v in fields.items()
     }
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
-    sys.exit(main())
+def add_correlation_id(fields: dict, correlation_id: str = None) -> dict:
+    out = dict(fields)
+    out["correlation_id"] = correlation_id or str(uuid.uuid4())
+    return out
+
+
+def flatten_context(context: dict, prefix: str = "") -> dict:
+    """Flatten a nested dict into dot-notation keys, e.g. {'user': {'id': 1}} -> {'user.id': 1}."""
+    flat = {}
+    for key, value in context.items():
+        full_key = f"{prefix}.{key}" if prefix else key
+        if isinstance(value, dict):
+            flat.update(flatten_context(value, full_key))
+        else:
+            flat[full_key] = value
+    return flat
+
+
+def filter_log_level(configured_level: str, message_level: str) -> bool:
+    """Return True if a message at message_level should be emitted given configured_level."""
+    if configured_level not in _LEVELS or message_level not in _LEVELS:
+        raise ValueError("unknown log level")
+    return _LEVELS[message_level] >= _LEVELS[configured_level]
+
+
+def to_json_log(level: str, message: str, **fields) -> str:
+    if level not in _LEVELS:
+        raise ValueError(f"unknown log level: {level}")
+    safe_fields = redact_fields(flatten_context(fields))
+    record = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "level": level,
+        "message": message,
+        **safe_fields,
+    }
+    return json.dumps(record, sort_keys=True)
+
+
+def parse_json_log(line: str) -> dict:
+    try:
+        return json.loads(line)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"not a valid JSON log line: {exc}") from exc
+
+
+def cmd_test(args):
+    import subprocess
+    from pathlib import Path
+    tests_dir = Path(__file__).resolve().parent.parent / "tests"
+    result = subprocess.run([sys.executable, "-m", "pytest", "--import-mode=importlib", str(tests_dir), "-q"])
+    return result.returncode
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Structured Logging Tool")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("test").set_defaults(func=cmd_test)
+    args = parser.parse_args()
+    sys.exit(args.func(args))
+
+
+if __name__ == "__main__":
+    main()

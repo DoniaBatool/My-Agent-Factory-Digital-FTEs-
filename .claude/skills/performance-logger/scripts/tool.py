@@ -1,107 +1,106 @@
 #!/usr/bin/env python3
 """
-Performance Logger Tool - Expert-Level Automation
-
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Performance Logger Tool - real structured timing/log helpers with redaction and rate limiting.
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import json
+import sys
+
 
 class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+    GREEN, RED, END = '\033[92m', '\033[91m', '\033[0m'
+
 
 def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
 def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
-    return 0
+_SENSITIVE_KEYS = {"password", "token", "secret", "authorization", "api_key", "apikey", "access_token"}
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+def redact_sensitive(fields: dict) -> dict:
+    """Return a copy of fields with sensitive keys masked (case-insensitive substring match)."""
+    redacted = {}
+    for key, value in fields.items():
+        if any(s in key.lower() for s in _SENSITIVE_KEYS):
+            redacted[key] = "***REDACTED***"
+        else:
+            redacted[key] = value
+    return redacted
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
+def format_log_line(level: str, message: str, **fields) -> str:
+    """Build a single structured 'level=... message=... key=value ...' log line."""
+    safe_fields = redact_sensitive(fields)
+    parts = [f"level={level}", f"message={message!r}"]
+    for key in sorted(safe_fields):
+        parts.append(f"{key}={safe_fields[key]!r}")
+    return " ".join(parts)
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
 
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
+def compute_duration_ms(start: float, end: float) -> float:
+    if end < start:
+        raise ValueError("end must not precede start")
+    return (end - start) * 1000.0
 
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
 
-def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
+def is_slow(duration_ms: float, threshold_ms: float = 200.0) -> bool:
+    return duration_ms > threshold_ms
 
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
 
-    args = parser.parse_args()
-    if not args.command:
-        parser.print_help()
-        return 1
+def _percentile(sorted_values: list, pct: float) -> float:
+    if not sorted_values:
+        return 0.0
+    if len(sorted_values) == 1:
+        return sorted_values[0]
+    rank = (pct / 100.0) * (len(sorted_values) - 1)
+    lower = int(rank)
+    upper = min(lower + 1, len(sorted_values) - 1)
+    frac = rank - lower
+    return sorted_values[lower] + (sorted_values[upper] - sorted_values[lower]) * frac
 
-    commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
+
+def aggregate_timings(timings: list) -> dict:
+    if not timings:
+        return {"count": 0, "avg_ms": 0.0, "p95_ms": 0.0, "p99_ms": 0.0}
+    ordered = sorted(timings)
+    return {
+        "count": len(ordered),
+        "avg_ms": sum(ordered) / len(ordered),
+        "p95_ms": _percentile(ordered, 95),
+        "p99_ms": _percentile(ordered, 99),
     }
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
-    sys.exit(main())
+def rate_limited_logger(state: dict, key: str, max_per_window: int, window_seconds: float, now: float) -> bool:
+    """Sliding-window rate limiter. `state` is mutated in place to track timestamps per key.
+
+    Returns True if this call should be logged (i.e. is within the allowed rate).
+    """
+    bucket = state.setdefault(key, [])
+    cutoff = now - window_seconds
+    bucket[:] = [t for t in bucket if t > cutoff]
+    if len(bucket) >= max_per_window:
+        return False
+    bucket.append(now)
+    return True
+
+
+def cmd_test(args):
+    import subprocess
+    from pathlib import Path
+    tests_dir = Path(__file__).resolve().parent.parent / "tests"
+    result = subprocess.run([sys.executable, "-m", "pytest", "--import-mode=importlib", str(tests_dir), "-q"])
+    return result.returncode
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Performance Logger Tool")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("test").set_defaults(func=cmd_test)
+    args = parser.parse_args()
+    sys.exit(args.func(args))
+
+
+if __name__ == "__main__":
+    main()

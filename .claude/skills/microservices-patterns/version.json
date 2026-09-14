@@ -1,0 +1,19 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112726",
+      "reason": "Replaced TODO stub with a real Circuit Breaker state machine (CLOSED/OPEN/HALF_OPEN) and a real Saga executor with reverse-order compensation + 6 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_circuit_breaker_opens_after_threshold_failures",
+        "test_tool.py::test_circuit_breaker_recovers_to_half_open_after_timeout",
+        "test_tool.py::test_circuit_breaker_rejects_calls_while_open_without_invoking_func",
+        "test_tool.py::test_circuit_breaker_starts_closed",
+        "test_tool.py::test_run_saga_all_steps_succeed",
+        "test_tool.py::test_run_saga_compensates_completed_steps_on_failure"
+      ]
+    }
+  ]
+}

@@ -110,14 +110,31 @@ Test Case: "Test migration idempotency"
        # Should not fail on second run
    ```
 
+### Phase 3.5: Version & Regression Gate (MANDATORY)
+
+Before Phase 3's edits touch the live skill, they are made in a staged
+copy and promoted through
+`.claude/skills/_framework/skill_gate.py promote --skill <name> --staged-dir <path>`
+(full contract in `.claude/docs/skill-versioning-policy.md`).
+
+This exists because updating a skill's code, its docs, and its test
+notes in the same pass — with nothing independent checking the result —
+is exactly how a weaker rewrite gets mistaken for an improvement. The
+gate refuses the promotion if the staged version deletes/renames an
+existing test, or if any test that used to pass no longer does. A
+rejected promotion is reported to the user as "this fix would have
+regressed the skill, so it wasn't applied automatically" — never
+silently forced through by weakening the test that caught it.
+
 ### Phase 4: Verification
 
 **Agent verifies:**
+- ✅ Staged update passed the version & regression gate (exit code 0)
 - ✅ Skill files updated successfully
 - ✅ Learning documented clearly
 - ✅ Edge case added to coverage
 - ✅ Troubleshooting entry added
-- ✅ Test case documented
+- ✅ Test case added to `tests/test_tool.py` (not just described in prose)
 
 ### Phase 5: Confirmation
 

@@ -1,0 +1,22 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110802",
+      "reason": "Replaced generic 8-command TODO stub with a real stdlib-only HS256 JWT encode/verify implementation + 9 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_check_claims_flags_missing",
+        "test_tool.py::test_check_claims_ok_when_all_present",
+        "test_tool.py::test_decode_does_not_leak_which_check_failed_via_type",
+        "test_tool.py::test_decode_rejects_expired_token",
+        "test_tool.py::test_decode_rejects_malformed_token",
+        "test_tool.py::test_decode_rejects_wrong_secret",
+        "test_tool.py::test_encode_decode_roundtrip",
+        "test_tool.py::test_encode_requires_sub",
+        "test_tool.py::test_generate_secret_is_random_and_hex"
+      ]
+    }
+  ]
+}

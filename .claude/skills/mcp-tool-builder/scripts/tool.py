@@ -1,89 +1,105 @@
 #!/usr/bin/env python3
 """
-Mcp Tool Builder Tool - Expert-Level Automation
+MCP Tool Builder Tool - real input-schema validation + tool stub generation
 
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Commands: validate-schema, generate-stub, test
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import json
+import re
+import sys
 
-class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+VALID_JSON_SCHEMA_TYPES = {"string", "number", "integer", "boolean", "array", "object", "null"}
 
-def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
-def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
+def validate_tool_schema(schema: dict):
+    """Every property in an MCP tool's input schema should have a 'type'
+    and a 'description' -- ambiguous tool inputs are exactly what makes an
+    AI agent call a tool incorrectly. Returns list of violations."""
+    violations = []
+    props = schema.get("properties", {})
+    if not props:
+        violations.append("schema has no 'properties' -- a tool with no declared inputs is only valid if it truly takes none")
+    for name, prop in props.items():
+        if "type" not in prop:
+            violations.append(f"property '{name}' has no 'type'")
+        elif prop["type"] not in VALID_JSON_SCHEMA_TYPES:
+            violations.append(f"property '{name}' has invalid type '{prop['type']}'")
+        if "description" not in prop:
+            violations.append(f"property '{name}' has no 'description'")
+    required = schema.get("required", [])
+    for r in required:
+        if r not in props:
+            violations.append(f"'{r}' is in 'required' but not declared in 'properties'")
+    return violations
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
+
+def generate_tool_stub(tool_name: str, schema: dict, idempotent=True):
+    """Generate a Python function stub matching the schema's properties,
+    with a docstring reflecting whether it's idempotent (per this skill's
+    'idempotent operations with database constraints' guidance)."""
+    props = schema.get("properties", {})
+    args = ", ".join(f"{name}: {_py_type(p.get('type', 'string'))}" for name, p in props.items())
+    idempotency_note = "Idempotent: safe to call more than once with the same arguments." if idempotent else "NOT idempotent: calling twice creates two effects."
+    return (
+        f"def {tool_name}({args}):\n"
+        f'    """{schema.get("description", tool_name)}\n\n    {idempotency_note}\n    """\n'
+        f"    raise NotImplementedError\n"
+    )
+
+
+def _py_type(json_type: str) -> str:
+    return {"string": "str", "number": "float", "integer": "int", "boolean": "bool", "array": "list", "object": "dict"}.get(json_type, "str")
+
+
+# ---------------------------------------------------------------------------
+# CLI ------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
+def cmd_validate_schema(args):
+    schema = json.loads(args.schema)
+    violations = validate_tool_schema(schema)
+    if not violations:
+        print("OK: schema is well-formed")
+        return 0
+    for v in violations:
+        print(f"  - {v}")
+    return 1
+
+
+def cmd_generate_stub(args):
+    schema = json.loads(args.schema)
+    print(generate_tool_stub(args.name, schema, not args.not_idempotent))
     return 0
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+def cmd_test(args):
+    good = {"properties": {"task_id": {"type": "string", "description": "the task id"}}, "required": ["task_id"]}
+    ok = validate_tool_schema(good) == []
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
+    bad = {"properties": {"task_id": {"type": "string"}}}
+    violations = validate_tool_schema(bad)
+    ok = ok and any("description" in v for v in violations)
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
+    stub = generate_tool_stub("complete_task", good)
+    ok = ok and "def complete_task(task_id: str):" in stub and "Idempotent" in stub
+    print("SELF-TEST PASS" if ok else "SELF-TEST FAIL")
+    return 0 if ok else 1
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
-
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
-
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
+    parser = argparse.ArgumentParser(description="MCP Tool Builder Tool")
+    sub = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
+    val_p = sub.add_parser("validate-schema")
+    val_p.add_argument("--schema", required=True, help="JSON schema")
+
+    gen_p = sub.add_parser("generate-stub")
+    gen_p.add_argument("--name", required=True)
+    gen_p.add_argument("--schema", required=True, help="JSON schema")
+    gen_p.add_argument("--not-idempotent", action="store_true")
+
+    sub.add_parser("test")
 
     args = parser.parse_args()
     if not args.command:
@@ -91,17 +107,12 @@ def main():
         return 1
 
     commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
+        "validate-schema": cmd_validate_schema,
+        "generate-stub": cmd_generate_stub,
+        "test": cmd_test,
     }
+    return commands[args.command](args)
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

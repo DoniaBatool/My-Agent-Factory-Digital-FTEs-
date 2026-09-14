@@ -1,0 +1,19 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112553",
+      "reason": "Replaced TODO stub with real FastAPI route extraction + markdown doc generation + 6 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_extract_routes_captures_method_and_path",
+        "test_tool.py::test_extract_routes_empty_source_returns_empty_list",
+        "test_tool.py::test_extract_routes_finds_all_three_routes",
+        "test_tool.py::test_extract_routes_handles_path_params",
+        "test_tool.py::test_extract_routes_pairs_decorator_with_handler_name",
+        "test_tool.py::test_generate_markdown_docs_produces_table_with_all_routes"
+      ]
+    }
+  ]
+}

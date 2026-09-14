@@ -1,0 +1,23 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113443",
+      "reason": "Replaced TODO stub with real redaction, duration/percentile aggregation and sliding-window rate limiting, 10 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_aggregate_timings_basic",
+        "test_tool.py::test_aggregate_timings_empty",
+        "test_tool.py::test_compute_duration_ms_basic",
+        "test_tool.py::test_compute_duration_ms_rejects_negative",
+        "test_tool.py::test_format_log_line_includes_redacted_fields",
+        "test_tool.py::test_is_slow_threshold",
+        "test_tool.py::test_rate_limited_logger_allows_again_after_window_passes",
+        "test_tool.py::test_rate_limited_logger_allows_up_to_max",
+        "test_tool.py::test_rate_limited_logger_blocks_beyond_max_within_window",
+        "test_tool.py::test_redact_sensitive_masks_known_keys"
+      ]
+    }
+  ]
+}

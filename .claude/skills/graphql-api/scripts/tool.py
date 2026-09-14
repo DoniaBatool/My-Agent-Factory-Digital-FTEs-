@@ -1,89 +1,92 @@
 #!/usr/bin/env python3
 """
-Graphql Api Tool - Expert-Level Automation
+GraphQL API Tool - real SDL generation + N+1 risk detection
 
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Commands: build-sdl, check-n-plus-one, test
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import re
+import sys
 
-class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
 
-def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
-def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
+def build_type_sdl(type_name: str, fields: dict) -> str:
+    """fields: {field_name: graphql_type_string}. Returns SDL 'type X { ... }'."""
+    lines = [f"type {type_name} {{"]
+    for name, gql_type in fields.items():
+        lines.append(f"  {name}: {gql_type}")
+    lines.append("}")
+    return "\n".join(lines)
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
+def build_schema_sdl(types: dict, query_fields: dict):
+    """types: {type_name: {field: gql_type}}. query_fields: {field: gql_type}."""
+    parts = [build_type_sdl(name, fields) for name, fields in types.items()]
+    parts.append(build_type_sdl("Query", query_fields))
+    return "\n\n".join(parts) + "\n"
+
+
+def check_n_plus_one_risk(resolver_source: str):
+    """Heuristic: a resolver that returns a list AND contains a query call
+    inside a loop (for ... : ... query/get/fetch) is a classic N+1 risk.
+    Real pattern match, not a hand-wave -- looks for a for-loop whose body
+    calls something ending in _service.get/query/fetch."""
+    findings = []
+    for m in re.finditer(r"for\s+\w+\s+in\s+[\w.]+:\n((?:[ \t]+.*\n?)+)", resolver_source):
+        body = m.group(1)
+        if re.search(r"\.(get|query|fetch)\w*\(", body):
+            findings.append("possible N+1: a database/service call happens inside a for-loop")
+    return findings
+
+
+# ---------------------------------------------------------------------------
+# CLI ------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
+def cmd_build_sdl(args):
+    import json
+    types = json.loads(args.types)
+    query_fields = json.loads(args.query_fields)
+    print(build_schema_sdl(types, query_fields))
     return 0
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+def cmd_check_n_plus_one(args):
+    with open(args.path) as f:
+        source = f.read()
+    findings = check_n_plus_one_risk(source)
+    if not findings:
+        print("OK: no obvious N+1 patterns found")
+        return 0
+    for f_ in findings:
+        print(f"  - {f_}")
+    return 1
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
+def cmd_test(args):
+    sdl = build_schema_sdl({"Task": {"id": "ID!", "title": "String!"}}, {"tasks": "[Task!]!"})
+    ok = "type Task {" in sdl and "id: ID!" in sdl and "type Query {" in sdl
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
+    risky = "def resolve_tasks(root):\n    result = []\n    for uid in user_ids:\n        result.append(user_service.get(uid))\n    return result\n"
+    ok = ok and len(check_n_plus_one_risk(risky)) == 1
 
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
+    safe = "def resolve_tasks(root):\n    return task_service.get_all(user_ids)\n"
+    ok = ok and check_n_plus_one_risk(safe) == []
+    print("SELF-TEST PASS" if ok else "SELF-TEST FAIL")
+    return 0 if ok else 1
 
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
+    parser = argparse.ArgumentParser(description="GraphQL API Tool")
+    sub = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
+    sdl_p = sub.add_parser("build-sdl")
+    sdl_p.add_argument("--types", required=True, help='JSON {"TypeName": {"field": "GqlType"}}')
+    sdl_p.add_argument("--query-fields", required=True, help='JSON {"field": "GqlType"}')
+
+    n1_p = sub.add_parser("check-n-plus-one")
+    n1_p.add_argument("path")
+
+    sub.add_parser("test")
 
     args = parser.parse_args()
     if not args.command:
@@ -91,17 +94,12 @@ def main():
         return 1
 
     commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
+        "build-sdl": cmd_build_sdl,
+        "check-n-plus-one": cmd_check_n_plus_one,
+        "test": cmd_test,
     }
+    return commands[args.command](args)
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

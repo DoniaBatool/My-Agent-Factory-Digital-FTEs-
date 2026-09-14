@@ -1,0 +1,21 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-111057",
+      "reason": "Replaced TODO stub with real risk-based test planning, severity classification, bug-report formatting, and a run-tests command that genuinely shells out to pytest (previously always printed success) + 8 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_test_plan_ranks_high_risk_flows_first",
+        "test_tool.py::test_classify_severity_critical_for_data_loss",
+        "test_tool.py::test_classify_severity_defaults_to_medium_never_silently_low",
+        "test_tool.py::test_classify_severity_high_for_crash",
+        "test_tool.py::test_classify_severity_low_for_cosmetic",
+        "test_tool.py::test_format_bug_report_infers_severity_from_actual_behavior",
+        "test_tool.py::test_run_pytest_suite_reports_success_for_passing_tests",
+        "test_tool.py::test_run_pytest_suite_runs_real_pytest_and_reports_failure"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113128",
+      "reason": "Replaced TODO stub with real deterministic hash-based variant bucketing + two-proportion z-test significance check + 6 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_assign_variant_distributes_across_variants_for_many_users",
+        "test_tool.py::test_assign_variant_is_deterministic_for_same_user",
+        "test_tool.py::test_assign_variant_rejects_split_not_summing_to_one",
+        "test_tool.py::test_check_significance_detects_clear_lift",
+        "test_tool.py::test_check_significance_rejects_noise_level_difference",
+        "test_tool.py::test_check_significance_reports_conversion_rates"
+      ]
+    }
+  ]
+}

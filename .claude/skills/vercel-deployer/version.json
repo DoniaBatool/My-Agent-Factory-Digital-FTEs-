@@ -1,0 +1,25 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113737",
+      "reason": "Replaced TODO stub with real vercel.json validation, env var diffing, deploy command builder, build-output checks and domain validation, 12 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_env_var_diff_detects_add_remove_update",
+        "test_tool.py::test_build_env_var_diff_detects_removal",
+        "test_tool.py::test_check_build_output_dir_detects_nextjs_output",
+        "test_tool.py::test_check_build_output_dir_missing_output",
+        "test_tool.py::test_check_build_output_dir_rejects_unknown_framework",
+        "test_tool.py::test_generate_deploy_command_prod_flag",
+        "test_tool.py::test_generate_deploy_command_rejects_bad_project_name",
+        "test_tool.py::test_parse_vercel_json_accepts_valid_config",
+        "test_tool.py::test_parse_vercel_json_rejects_bad_version",
+        "test_tool.py::test_parse_vercel_json_rejects_non_list_builds",
+        "test_tool.py::test_validate_domain_name_accepts_valid",
+        "test_tool.py::test_validate_domain_name_rejects_invalid"
+      ]
+    }
+  ]
+}

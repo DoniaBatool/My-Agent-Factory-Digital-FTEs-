@@ -1,89 +1,109 @@
 #!/usr/bin/env python3
 """
-Devops Engineer Tool - Expert-Level Automation
+DevOps Engineer Tool - real pipeline audit + runbook generation
 
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Commands: audit-pipeline, generate-runbook, test
 """
-import argparse, subprocess, sys, os
+import argparse
+import json
+import sys
 from pathlib import Path
 
-class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+PIPELINE_EXPECTATIONS = {
+    "ci_workflow": (".github/workflows", "*.yml"),
+    "dockerfile": (".", "Dockerfile"),
+    "healthcheck_in_dockerfile": (".", "Dockerfile"),  # content check, see audit_pipeline
+}
 
-def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
-def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
+RUNBOOKS = {
+    "high_error_rate": [
+        "Check recent deploys -- roll back if a deploy correlates with the spike",
+        "Check DB connection pool exhaustion (see connection-pooling skill)",
+        "Check third-party dependency status pages",
+    ],
+    "deploy_failed": [
+        "Check build logs for the failing step",
+        "Verify all required env vars are set (see deployment-automation check-env-vars)",
+        "Re-run the pipeline once; if it fails twice, treat as a real regression, not flakiness",
+    ],
+    "database_connection_exhausted": [
+        "Check current connection count vs pool_size + max_overflow",
+        "Look for a connection leak (missing session.close() / context manager)",
+        "Temporarily lower per-instance pool size if running many instances",
+    ],
+}
 
-def run_command(cmd: str, timeout: int = 300):
+
+def audit_pipeline(project_root: Path):
+    project_root = Path(project_root)
+    findings = {}
+    ci_dir = project_root / ".github" / "workflows"
+    findings["ci_workflow"] = {"present": ci_dir.exists() and any(ci_dir.glob("*.yml"))}
+    dockerfile = project_root / "Dockerfile"
+    findings["dockerfile"] = {"present": dockerfile.exists()}
+    if dockerfile.exists():
+        text = dockerfile.read_text(errors="ignore")
+        findings["healthcheck_in_dockerfile"] = {"present": "HEALTHCHECK" in text}
+    else:
+        findings["healthcheck_in_dockerfile"] = {"present": False}
+    return findings
+
+
+def generate_runbook(incident_type: str):
+    if incident_type not in RUNBOOKS:
+        raise ValueError(f"Unknown incident type '{incident_type}'. Known: {sorted(RUNBOOKS)}")
+    return RUNBOOKS[incident_type]
+
+
+# ---------------------------------------------------------------------------
+# CLI ------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
+def cmd_audit_pipeline(args):
+    findings = audit_pipeline(Path(args.project_root))
+    print(json.dumps(findings, indent=2))
+    missing = [k for k, v in findings.items() if not v["present"]]
+    return 0 if not missing else 1
+
+
+def cmd_generate_runbook(args):
     try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
-
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
+        steps = generate_runbook(args.incident_type)
+    except ValueError as e:
+        print(str(e))
+        return 1
+    for i, s in enumerate(steps, 1):
+        print(f"{i}. {s}")
     return 0
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+def cmd_test(args):
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        (root / ".github" / "workflows").mkdir(parents=True)
+        (root / ".github" / "workflows" / "ci.yml").write_text("name: CI\n")
+        (root / "Dockerfile").write_text("FROM python:3.11\nHEALTHCHECK CMD curl -f http://localhost/health\n")
+        findings = audit_pipeline(root)
+        ok = findings["ci_workflow"]["present"] and findings["dockerfile"]["present"] and findings["healthcheck_in_dockerfile"]["present"]
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
+    steps = generate_runbook("deploy_failed")
+    ok = ok and len(steps) >= 1
+    print("SELF-TEST PASS" if ok else "SELF-TEST FAIL")
+    return 0 if ok else 1
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
-
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
-
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
-
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
+    parser = argparse.ArgumentParser(description="DevOps Engineer Tool")
+    sub = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
+    audit_p = sub.add_parser("audit-pipeline")
+    audit_p.add_argument("project_root")
+
+    runbook_p = sub.add_parser("generate-runbook")
+    runbook_p.add_argument("incident_type", choices=sorted(RUNBOOKS))
+
+    sub.add_parser("test")
 
     args = parser.parse_args()
     if not args.command:
@@ -91,17 +111,12 @@ def main():
         return 1
 
     commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
+        "audit-pipeline": cmd_audit_pipeline,
+        "generate-runbook": cmd_generate_runbook,
+        "test": cmd_test,
     }
+    return commands[args.command](args)
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

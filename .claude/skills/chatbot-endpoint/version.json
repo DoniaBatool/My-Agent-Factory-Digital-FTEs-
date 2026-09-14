@@ -1,0 +1,23 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113249",
+      "reason": "Replaced TODO stub with real payload validation, action-intent classification, response envelope + history trimming helpers, 10 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_response_envelope_rejects_bad_role",
+        "test_tool.py::test_build_response_envelope_shape",
+        "test_tool.py::test_classify_action_intent_defaults_to_chat",
+        "test_tool.py::test_classify_action_intent_detects_delete_all_needs_confirmation",
+        "test_tool.py::test_classify_action_intent_detects_delete_specific_no_confirmation",
+        "test_tool.py::test_new_conversation_id_is_unique",
+        "test_tool.py::test_trim_history_for_context_keeps_last_n",
+        "test_tool.py::test_validate_message_payload_accepts_valid",
+        "test_tool.py::test_validate_message_payload_rejects_empty_message",
+        "test_tool.py::test_validate_message_payload_rejects_non_string_conversation_id"
+      ]
+    }
+  ]
+}

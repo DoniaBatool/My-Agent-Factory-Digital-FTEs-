@@ -1,89 +1,101 @@
 #!/usr/bin/env python3
 """
-Api Docs Generator Tool - Expert-Level Automation
+API Docs Generator Tool - real FastAPI route extraction + markdown doc generation
 
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Commands: extract-routes, generate-docs, test
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import re
+import sys
 
-class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+ROUTE_RE = re.compile(r"@\w+\.(get|post|put|delete|patch)\(\s*[\"']([^\"']+)[\"']")
+FUNC_DEF_RE = re.compile(r"^\s*(?:async\s+)?def\s+(\w+)\s*\(")
 
-def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
-def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
+def extract_routes(source_code: str):
+    """Real regex-based extraction of FastAPI-style route decorators paired
+    with the function they decorate. Returns [{method, path, handler}]."""
+    routes = []
+    lines = source_code.splitlines()
+    for i, line in enumerate(lines):
+        m = ROUTE_RE.search(line)
+        if not m:
+            continue
+        method, path = m.group(1), m.group(2)
+        handler = None
+        for j in range(i + 1, min(i + 5, len(lines))):
+            fm = FUNC_DEF_RE.match(lines[j])
+            if fm:
+                handler = fm.group(1)
+                break
+        routes.append({"method": method.upper(), "path": path, "handler": handler})
+    return routes
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
+
+def generate_markdown_docs(routes):
+    lines = ["# API Reference", "", "| Method | Path | Handler |", "|---|---|---|"]
+    for r in routes:
+        lines.append(f"| {r['method']} | `{r['path']}` | `{r['handler'] or '(unknown)'}` |")
+    return "\n".join(lines) + "\n"
+
+
+# ---------------------------------------------------------------------------
+# CLI ------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
+def cmd_extract_routes(args):
+    import json
+    with open(args.path) as f:
+        source = f.read()
+    routes = extract_routes(source)
+    print(json.dumps(routes, indent=2))
+    return 0 if routes else 1
+
+
+def cmd_generate_docs(args):
+    with open(args.path) as f:
+        source = f.read()
+    routes = extract_routes(source)
+    docs = generate_markdown_docs(routes)
+    if args.output:
+        with open(args.output, "w") as f:
+            f.write(docs)
+        print(f"Wrote {args.output} ({len(routes)} routes)")
+    else:
+        print(docs)
     return 0
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+def cmd_test(args):
+    source = (
+        "@app.get('/tasks')\n"
+        "async def list_tasks():\n"
+        "    return []\n\n"
+        "@app.post('/tasks')\n"
+        "async def create_task(payload: TaskCreate):\n"
+        "    return payload\n"
+    )
+    routes = extract_routes(source)
+    ok = len(routes) == 2
+    ok = ok and routes[0] == {"method": "GET", "path": "/tasks", "handler": "list_tasks"}
+    docs = generate_markdown_docs(routes)
+    ok = ok and "list_tasks" in docs and "| GET | `/tasks` |" in docs
+    print("SELF-TEST PASS" if ok else "SELF-TEST FAIL")
+    return 0 if ok else 1
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
-
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
-
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
-
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
-
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
+    parser = argparse.ArgumentParser(description="API Docs Generator Tool")
+    sub = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
+    ex_p = sub.add_parser("extract-routes")
+    ex_p.add_argument("path")
+
+    gen_p = sub.add_parser("generate-docs")
+    gen_p.add_argument("path")
+    gen_p.add_argument("--output", default=None)
+
+    sub.add_parser("test")
 
     args = parser.parse_args()
     if not args.command:
@@ -91,17 +103,12 @@ def main():
         return 1
 
     commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
+        "extract-routes": cmd_extract_routes,
+        "generate-docs": cmd_generate_docs,
+        "test": cmd_test,
     }
+    return commands[args.command](args)
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

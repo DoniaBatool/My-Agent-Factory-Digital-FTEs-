@@ -1,107 +1,94 @@
 #!/usr/bin/env python3
 """
-Vercel Deployer Tool - Expert-Level Automation
-
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Vercel Deployer Tool - real vercel.json validation, env var diffing and deploy command building.
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import re
+import sys
+
 
 class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+    GREEN, RED, END = '\033[92m', '\033[91m', '\033[0m'
+
 
 def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
 def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
-    return 0
+def parse_vercel_json(config: dict) -> list:
+    """Validate a vercel.json-style config dict, return a list of error strings."""
+    errors = []
+    if "version" in config and config["version"] not in (1, 2, 3):
+        errors.append("'version' must be 1, 2, or 3")
+    if "builds" in config and not isinstance(config["builds"], list):
+        errors.append("'builds' must be a list")
+    if "routes" in config and not isinstance(config["routes"], list):
+        errors.append("'routes' must be a list")
+    if "env" in config and not isinstance(config["env"], dict):
+        errors.append("'env' must be an object")
+    return errors
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+def build_env_var_diff(current: dict, desired: dict) -> dict:
+    """Compute add/remove/update sets to reconcile current env vars with desired."""
+    add = {k: v for k, v in desired.items() if k not in current}
+    remove = [k for k in current if k not in desired]
+    update = {k: v for k, v in desired.items() if k in current and current[k] != v}
+    return {"add": add, "remove": remove, "update": update}
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
+def generate_deploy_command(project: str, prod: bool = False, env_file: str = None) -> str:
+    if not project or not re.match(r"^[a-zA-Z0-9._-]+$", project):
+        raise ValueError("invalid project name")
+    parts = ["vercel", "deploy", "--yes"]
+    if prod:
+        parts.append("--prod")
+    if env_file:
+        parts.extend(["--env-file", env_file])
+    parts.extend(["--name", project])
+    return " ".join(parts)
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
 
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
+_EXPECTED_OUTPUT_DIRS = {
+    "nextjs": ".next",
+    "vite": "dist",
+    "create-react-app": "build",
+    "static": "public",
+}
 
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
+
+def check_build_output_dir(files: list, framework: str) -> bool:
+    """Heuristic: does the given file listing contain the expected build output directory?"""
+    expected = _EXPECTED_OUTPUT_DIRS.get(framework)
+    if expected is None:
+        raise ValueError(f"unknown framework: {framework}")
+    return any(f == expected or f.startswith(expected + "/") for f in files)
+
+
+_DOMAIN_REGEX = re.compile(
+    r"^(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(\.(?!-)[a-zA-Z0-9-]{1,63}(?<!-))+$"
+)
+
+
+def validate_domain_name(domain: str) -> bool:
+    return bool(_DOMAIN_REGEX.match(domain))
+
+
+def cmd_test(args):
+    import subprocess
+    from pathlib import Path
+    tests_dir = Path(__file__).resolve().parent.parent / "tests"
+    result = subprocess.run([sys.executable, "-m", "pytest", "--import-mode=importlib", str(tests_dir), "-q"])
+    return result.returncode
+
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
-
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
-
+    parser = argparse.ArgumentParser(description="Vercel Deployer Tool")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("test").set_defaults(func=cmd_test)
     args = parser.parse_args()
-    if not args.command:
-        parser.print_help()
-        return 1
+    sys.exit(args.func(args))
 
-    commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
-    }
 
-    return commands.get(args.command, lambda a: 1)(args)
-
-if __name__ == '__main__':
-    sys.exit(main())
+if __name__ == "__main__":
+    main()

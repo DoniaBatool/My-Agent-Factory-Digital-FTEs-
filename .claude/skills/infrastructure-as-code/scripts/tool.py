@@ -1,89 +1,127 @@
 #!/usr/bin/env python3
 """
-Infrastructure As Code Tool - Expert-Level Automation
+Infrastructure as Code Tool - real Terraform HCL generation + variable validation
 
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Commands: generate-s3-bucket, generate-vpc, validate-variables, test
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import re
+import sys
 
-class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+VALID_HCL_IDENTIFIER = re.compile(r"^[a-zA-Z][a-zA-Z0-9_-]*$")
 
-def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
-def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
+def validate_hcl_identifier(name: str) -> bool:
+    return bool(VALID_HCL_IDENTIFIER.match(name))
+
+
+def generate_s3_bucket(resource_name: str, bucket_name: str, versioning=True, encrypted=True):
+    if not validate_hcl_identifier(resource_name):
+        raise ValueError(f"invalid Terraform resource name: {resource_name!r}")
+    lines = [f'resource "aws_s3_bucket" "{resource_name}" {{', f'  bucket = "{bucket_name}"', "}"]
+    if versioning:
+        lines += [
+            "", f'resource "aws_s3_bucket_versioning" "{resource_name}" {{',
+            f'  bucket = aws_s3_bucket.{resource_name}.id',
+            "  versioning_configuration {", '    status = "Enabled"', "  }", "}",
+        ]
+    if encrypted:
+        lines += [
+            "", f'resource "aws_s3_bucket_server_side_encryption_configuration" "{resource_name}" {{',
+            f'  bucket = aws_s3_bucket.{resource_name}.id',
+            "  rule {", "    apply_server_side_encryption_by_default {", '      sse_algorithm = "AES256"', "    }", "  }", "}",
+        ]
+    return "\n".join(lines) + "\n"
+
+
+def generate_vpc(resource_name: str, cidr_block: str, num_public_subnets=2):
+    if not validate_hcl_identifier(resource_name):
+        raise ValueError(f"invalid Terraform resource name: {resource_name!r}")
+    if not re.match(r"^\d+\.\d+\.\d+\.\d+/\d+$", cidr_block):
+        raise ValueError(f"invalid CIDR block: {cidr_block!r}")
+    lines = [
+        f'resource "aws_vpc" "{resource_name}" {{', f'  cidr_block           = "{cidr_block}"',
+        "  enable_dns_hostnames = true", "}", "",
+        f'resource "aws_subnet" "{resource_name}_public" {{', f"  count      = {num_public_subnets}",
+        f'  vpc_id     = aws_vpc.{resource_name}.id',
+        f'  cidr_block = cidrsubnet(aws_vpc.{resource_name}.cidr_block, 8, count.index)', "}",
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def validate_required_variables(required, provided: dict):
+    return [name for name in required if name not in provided or provided[name] in (None, "")]
+
+
+# ---------------------------------------------------------------------------
+# CLI ------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
+def cmd_generate_s3_bucket(args):
     try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
-
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
+        print(generate_s3_bucket(args.resource_name, args.bucket_name, not args.no_versioning, not args.no_encryption))
+    except ValueError as e:
+        print(str(e))
+        return 1
     return 0
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
+
+def cmd_generate_vpc(args):
+    try:
+        print(generate_vpc(args.resource_name, args.cidr, args.public_subnets))
+    except ValueError as e:
+        print(str(e))
+        return 1
     return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
+def cmd_validate_variables(args):
+    import json
+    provided = json.loads(args.provided)
+    missing = validate_required_variables(args.required.split(","), provided)
+    if not missing:
+        print("OK: all required variables provided")
+        return 0
+    print("MISSING: " + ", ".join(missing))
+    return 1
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
+def cmd_test(args):
+    hcl = generate_s3_bucket("data", "my-app-data-bucket")
+    ok = 'resource "aws_s3_bucket" "data"' in hcl and "versioning_configuration" in hcl
+    vpc_hcl = generate_vpc("main", "10.0.0.0/16")
+    ok = ok and 'cidr_block           = "10.0.0.0/16"' in vpc_hcl
+    try:
+        generate_vpc("main", "not-a-cidr")
+        ok = False
+    except ValueError:
+        pass
+    missing = validate_required_variables(["region", "project_name"], {"region": "us-east-1"})
+    ok = ok and missing == ["project_name"]
+    print("SELF-TEST PASS" if ok else "SELF-TEST FAIL")
+    return 0 if ok else 1
 
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
-
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
+    parser = argparse.ArgumentParser(description="Infrastructure as Code Tool")
+    sub = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
+    s3_p = sub.add_parser("generate-s3-bucket")
+    s3_p.add_argument("--resource-name", required=True)
+    s3_p.add_argument("--bucket-name", required=True)
+    s3_p.add_argument("--no-versioning", action="store_true")
+    s3_p.add_argument("--no-encryption", action="store_true")
+
+    vpc_p = sub.add_parser("generate-vpc")
+    vpc_p.add_argument("--resource-name", required=True)
+    vpc_p.add_argument("--cidr", required=True)
+    vpc_p.add_argument("--public-subnets", type=int, default=2)
+
+    var_p = sub.add_parser("validate-variables")
+    var_p.add_argument("--required", required=True, help="comma-separated")
+    var_p.add_argument("--provided", required=True, help="JSON object")
+
+    sub.add_parser("test")
 
     args = parser.parse_args()
     if not args.command:
@@ -91,17 +129,13 @@ def main():
         return 1
 
     commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
+        "generate-s3-bucket": cmd_generate_s3_bucket,
+        "generate-vpc": cmd_generate_vpc,
+        "validate-variables": cmd_validate_variables,
+        "test": cmd_test,
     }
+    return commands[args.command](args)
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

@@ -1,89 +1,166 @@
 #!/usr/bin/env python3
 """
-Microservices Patterns Tool - Expert-Level Automation
+Microservices Patterns Tool - real Circuit Breaker + Saga executor
 
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Commands: demo-circuit-breaker, run-saga, test
+
+These are genuine, runnable implementations of the two patterns this
+skill documents (not code samples in markdown) -- a real state machine
+and a real compensating-transaction executor.
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import sys
+import time
 
-class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
 
-def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
-def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
+class CircuitBreaker:
+    """CLOSED -> OPEN after `failure_threshold` consecutive failures.
+    OPEN -> HALF_OPEN after `recovery_timeout` seconds.
+    HALF_OPEN -> CLOSED on a success, or back to OPEN on a failure."""
 
-def run_command(cmd: str, timeout: int = 300):
+    def __init__(self, failure_threshold=5, recovery_timeout=60, clock=time.time):
+        self.failure_threshold = failure_threshold
+        self.recovery_timeout = recovery_timeout
+        self._clock = clock
+        self.state = "CLOSED"
+        self._failure_count = 0
+        self._opened_at = None
+
+    def _maybe_recover(self):
+        if self.state == "OPEN" and self._clock() - self._opened_at >= self.recovery_timeout:
+            self.state = "HALF_OPEN"
+
+    def call(self, func, *args, **kwargs):
+        self._maybe_recover()
+        if self.state == "OPEN":
+            raise CircuitOpenError("circuit is open -- call rejected without invoking func")
+        try:
+            result = func(*args, **kwargs)
+        except Exception:
+            self._on_failure()
+            raise
+        self._on_success()
+        return result
+
+    def _on_success(self):
+        self._failure_count = 0
+        self.state = "CLOSED"
+
+    def _on_failure(self):
+        self._failure_count += 1
+        if self.state == "HALF_OPEN" or self._failure_count >= self.failure_threshold:
+            self.state = "OPEN"
+            self._opened_at = self._clock()
+
+
+class CircuitOpenError(Exception):
+    pass
+
+
+def run_saga(steps):
+    """steps: list of (name, action, compensate) callables. Runs actions in
+    order; on any failure, runs compensate() for every already-succeeded
+    step in REVERSE order (choreography-style rollback). Returns
+    {"status": "completed"|"failed", "completed_steps": [...], "error": str|None}."""
+    completed = []
+    for name, action, _compensate in steps:
+        try:
+            action()
+            completed.append(name)
+        except Exception as e:
+            for comp_name, _action, compensate in reversed([s for s in steps if s[0] in completed]):
+                compensate()
+            return {"status": "failed", "completed_steps": completed, "error": str(e)}
+    return {"status": "completed", "completed_steps": completed, "error": None}
+
+
+# ---------------------------------------------------------------------------
+# CLI ------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
+def cmd_demo_circuit_breaker(args):
+    breaker = CircuitBreaker(failure_threshold=args.threshold, recovery_timeout=args.recovery_timeout)
+    calls = 0
+
+    def flaky():
+        nonlocal calls
+        calls += 1
+        if calls <= args.threshold:
+            raise RuntimeError("simulated failure")
+        return "ok"
+
+    for i in range(args.threshold + 1):
+        try:
+            result = breaker.call(flaky)
+            print(f"call {i + 1}: success ({result}), state={breaker.state}")
+        except CircuitOpenError:
+            print(f"call {i + 1}: rejected (circuit open), state={breaker.state}")
+        except RuntimeError:
+            print(f"call {i + 1}: failed, state={breaker.state}")
+    return 0
+
+
+def cmd_run_saga(args):
+    import json
+    log = []
+
+    def make_step(name, should_fail):
+        def action():
+            log.append(f"{name}: action")
+            if should_fail:
+                raise RuntimeError(f"{name} failed")
+        def compensate():
+            log.append(f"{name}: compensate")
+        return (name, action, compensate)
+
+    fail_at = args.fail_at
+    steps = [make_step(n, n == fail_at) for n in args.steps.split(",")]
+    result = run_saga(steps)
+    print(json.dumps({**result, "log": log}, indent=2))
+    return 0 if result["status"] == "completed" else 1
+
+
+def cmd_test(args):
+    breaker = CircuitBreaker(failure_threshold=2, recovery_timeout=100, clock=lambda: 0)
+    for _ in range(2):
+        try:
+            breaker.call(lambda: (_ for _ in ()).throw(RuntimeError("x")))
+        except RuntimeError:
+            pass
+    ok = breaker.state == "OPEN"
     try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
+        breaker.call(lambda: "should not run")
+        ok = False
+    except CircuitOpenError:
+        pass
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
-    return 0
+    log = []
+    def ok_action(): log.append("a")
+    def failing_action(): raise RuntimeError("boom")
+    def comp(name):
+        def c(): log.append(f"comp:{name}")
+        return c
+    steps = [("reserve", ok_action, comp("reserve")), ("charge", failing_action, comp("charge"))]
+    result = run_saga(steps)
+    ok = ok and result["status"] == "failed" and result["completed_steps"] == ["reserve"]
+    ok = ok and "comp:reserve" in log
+    print("SELF-TEST PASS" if ok else "SELF-TEST FAIL")
+    return 0 if ok else 1
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
-
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
-
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
-
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
-
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
-
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
-
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
+    parser = argparse.ArgumentParser(description="Microservices Patterns Tool")
+    sub = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
+    cb_p = sub.add_parser("demo-circuit-breaker")
+    cb_p.add_argument("--threshold", type=int, default=3)
+    cb_p.add_argument("--recovery-timeout", type=int, default=60)
+
+    saga_p = sub.add_parser("run-saga")
+    saga_p.add_argument("--steps", required=True, help="comma-separated step names")
+    saga_p.add_argument("--fail-at", default=None, help="step name to simulate failure at")
+
+    sub.add_parser("test")
 
     args = parser.parse_args()
     if not args.command:
@@ -91,17 +168,12 @@ def main():
         return 1
 
     commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
+        "demo-circuit-breaker": cmd_demo_circuit_breaker,
+        "run-saga": cmd_run_saga,
+        "test": cmd_test,
     }
+    return commands[args.command](args)
 
-    return commands.get(args.command, lambda a: 1)(args)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

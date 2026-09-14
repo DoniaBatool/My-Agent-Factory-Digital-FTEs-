@@ -1,0 +1,20 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112158",
+      "reason": "Replaced TODO stub with real Alembic migration generation + zero-downtime add-column checks + 7 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_check_zero_downtime_flags_not_null_without_default",
+        "test_tool.py::test_check_zero_downtime_ok_when_not_null_with_default",
+        "test_tool.py::test_check_zero_downtime_ok_when_nullable",
+        "test_tool.py::test_generate_add_column_migration_has_upgrade_and_downgrade",
+        "test_tool.py::test_generate_add_column_migration_includes_server_default_when_given",
+        "test_tool.py::test_generate_add_index_migration_custom_name_and_unique",
+        "test_tool.py::test_generate_add_index_migration_default_name"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113344",
+      "reason": "Replaced TODO stub with real hash-based stable rollout bucketing, config validation, override precedence and merge logic, 11 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_is_enabled_false_when_global_off",
+        "test_tool.py::test_is_enabled_full_rollout_enables_everyone",
+        "test_tool.py::test_is_enabled_raises_on_invalid_config",
+        "test_tool.py::test_is_enabled_respects_user_override_false_even_at_full_rollout",
+        "test_tool.py::test_is_enabled_respects_user_override_true_even_at_zero_rollout",
+        "test_tool.py::test_merge_flag_configs_merges_user_overrides",
+        "test_tool.py::test_next_rollout_stage_progression",
+        "test_tool.py::test_stable_bucket_distributes_across_users",
+        "test_tool.py::test_stable_bucket_is_deterministic",
+        "test_tool.py::test_validate_flag_config_accepts_valid",
+        "test_tool.py::test_validate_flag_config_rejects_out_of_range_pct"
+      ]
+    }
+  ]
+}

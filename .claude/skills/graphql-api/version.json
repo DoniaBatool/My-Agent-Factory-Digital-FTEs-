@@ -1,0 +1,18 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112620",
+      "reason": "Replaced TODO stub with real GraphQL SDL generation + N+1 risk heuristic detection + 5 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_schema_sdl_includes_all_types_and_query",
+        "test_tool.py::test_build_type_sdl_produces_valid_shape",
+        "test_tool.py::test_check_n_plus_one_clean_for_batched_query",
+        "test_tool.py::test_check_n_plus_one_detects_service_call_in_loop",
+        "test_tool.py::test_check_n_plus_one_ignores_loop_without_service_call"
+      ]
+    }
+  ]
+}

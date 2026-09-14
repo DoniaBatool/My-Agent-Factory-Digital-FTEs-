@@ -1,0 +1,25 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113709",
+      "reason": "Replaced TODO stub with real WCAG relative-luminance contrast ratio math, compliance thresholds, color scale and spacing scale generators, 12 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_check_wcag_compliance_fails_low_contrast_normal_text",
+        "test_tool.py::test_check_wcag_compliance_large_text_lower_threshold",
+        "test_tool.py::test_check_wcag_compliance_passes_high_contrast",
+        "test_tool.py::test_check_wcag_compliance_rejects_unknown_combo",
+        "test_tool.py::test_contrast_ratio_black_on_white_is_max",
+        "test_tool.py::test_contrast_ratio_is_symmetric",
+        "test_tool.py::test_contrast_ratio_same_color_is_one",
+        "test_tool.py::test_generate_color_scale_length_and_midpoint",
+        "test_tool.py::test_hex_to_rgb_full_form",
+        "test_tool.py::test_hex_to_rgb_rejects_invalid",
+        "test_tool.py::test_hex_to_rgb_short_form",
+        "test_tool.py::test_spacing_scale_linear_progression"
+      ]
+    }
+  ]
+}

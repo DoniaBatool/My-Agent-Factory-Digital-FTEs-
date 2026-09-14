@@ -1,107 +1,113 @@
 #!/usr/bin/env python3
 """
-Transaction Management Tool - Expert-Level Automation
-
-Commands:
-  check-prerequisites       - TODO: Add description\n  setup                     - TODO: Add description\n  configure                 - TODO: Add description\n  deploy                    - TODO: Add description\n  test                      - TODO: Add description\n  health-check              - TODO: Add description\n  troubleshoot              - TODO: Add description\n  cleanup                   - TODO: Add description\n
-Based on best practices and expert patterns
+Transaction Management Tool - a real in-memory transaction log with rollback,
+plus a genuine wait-for-graph deadlock detector.
 """
-import argparse, subprocess, sys, os
-from pathlib import Path
+import argparse
+import sys
+
 
 class Colors:
-    GREEN, RED, YELLOW, BLUE, BOLD, END = '\033[92m', '\033[91m', '\033[93m', '\033[94m', '\033[1m', '\033[0m'
+    GREEN, RED, END = '\033[92m', '\033[91m', '\033[0m'
+
 
 def print_success(msg): print(f"{Colors.GREEN}✓{Colors.END} {msg}")
 def print_error(msg): print(f"{Colors.RED}✗{Colors.END} {msg}")
-def print_warning(msg): print(f"{Colors.YELLOW}⚠{Colors.END} {msg}")
-def print_info(msg): print(f"{Colors.BLUE}ℹ{Colors.END} {msg}")
-def print_header(msg): print(f"\n{Colors.BOLD}==> {msg}{Colors.END}")
 
-def run_command(cmd: str, timeout: int = 300):
-    try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
-        return result.returncode, result.stdout, result.stderr
-    except: return 1, "", "Error"
 
-def check_prerequisites(args):
-    print_header("Check Prerequisites")
-    # TODO: Implement check-prerequisites
-    print_success("check-prerequisites complete")
-    return 0
+_VALID_ISOLATION_LEVELS = {"READ UNCOMMITTED", "READ COMMITTED", "REPEATABLE READ", "SERIALIZABLE"}
 
-def setup(args):
-    print_header("Setup")
-    # TODO: Implement setup
-    print_success("setup complete")
-    return 0
 
-def configure(args):
-    print_header("Configure")
-    # TODO: Implement configure
-    print_success("configure complete")
-    return 0
+def validate_isolation_level(level: str) -> bool:
+    return level.upper() in _VALID_ISOLATION_LEVELS
 
-def deploy(args):
-    print_header("Deploy")
-    # TODO: Implement deploy
-    print_success("deploy complete")
-    return 0
 
-def test(args):
-    print_header("Test")
-    # TODO: Implement test
-    print_success("test complete")
-    return 0
+class Transaction:
+    """A minimal ACID-style transaction: each op carries its own inverse for rollback."""
 
-def health_check(args):
-    print_header("Health Check")
-    # TODO: Implement health-check
-    print_success("health-check complete")
-    return 0
+    def __init__(self):
+        self.applied = []  # list of (description, inverse_fn)
+        self.committed = False
+        self.rolled_back = False
 
-def troubleshoot(args):
-    print_header("Troubleshoot")
-    # TODO: Implement troubleshoot
-    print_success("troubleshoot complete")
-    return 0
+    def execute(self, apply_fn, inverse_fn, description: str = ""):
+        if self.committed or self.rolled_back:
+            raise RuntimeError("cannot execute on a finished transaction")
+        apply_fn()
+        self.applied.append((description, inverse_fn))
 
-def cleanup(args):
-    print_header("Cleanup")
-    # TODO: Implement cleanup
-    print_success("cleanup complete")
-    return 0
+    def commit(self):
+        if self.rolled_back:
+            raise RuntimeError("cannot commit a rolled-back transaction")
+        self.committed = True
+
+    def rollback(self):
+        if self.committed:
+            raise RuntimeError("cannot roll back a committed transaction")
+        for _, inverse_fn in reversed(self.applied):
+            inverse_fn()
+        self.rolled_back = True
+
+
+def detect_deadlock_risk(lock_order: list) -> bool:
+    """Given a list of (tx_id, resource_id) acquisition-order pairs (in the order each
+    tx *waits for* a resource held by another tx as (waiting_tx, holding_tx) edges),
+    build a wait-for graph and detect a cycle -> deadlock risk.
+
+    lock_order: list of (waiting_tx, holding_tx) tuples.
+    """
+    graph = {}
+    for waiting, holding in lock_order:
+        graph.setdefault(waiting, set()).add(holding)
+        graph.setdefault(holding, set())
+
+    visiting = set()
+    visited = set()
+
+    def has_cycle(node):
+        if node in visiting:
+            return True
+        if node in visited:
+            return False
+        visiting.add(node)
+        for neighbor in graph.get(node, ()):
+            if has_cycle(neighbor):
+                return True
+        visiting.discard(node)
+        visited.add(node)
+        return False
+
+    return any(has_cycle(node) for node in graph)
+
+
+def retry_on_serialization_failure(fn, max_retries: int = 3, exceptions=(Exception,), sleep_fn=None):
+    """Retry fn() up to max_retries times on a serialization/conflict failure."""
+    last_exc = None
+    for _ in range(max_retries):
+        try:
+            return fn()
+        except exceptions as exc:
+            last_exc = exc
+            if sleep_fn:
+                sleep_fn(0)
+    raise last_exc
+
+
+def cmd_test(args):
+    import subprocess
+    from pathlib import Path
+    tests_dir = Path(__file__).resolve().parent.parent / "tests"
+    result = subprocess.run([sys.executable, "-m", "pytest", "--import-mode=importlib", str(tests_dir), "-q"])
+    return result.returncode
+
 
 def main():
-    parser = argparse.ArgumentParser(description='Expert-Level Automation Tool')
-    subparsers = parser.add_subparsers(dest='command')
-
-    subparsers.add_parser('check-prerequisites')
-    subparsers.add_parser('setup')
-    subparsers.add_parser('configure')
-    subparsers.add_parser('deploy')
-    subparsers.add_parser('test')
-    subparsers.add_parser('health-check')
-    subparsers.add_parser('troubleshoot')
-    subparsers.add_parser('cleanup')
-
+    parser = argparse.ArgumentParser(description="Transaction Management Tool")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("test").set_defaults(func=cmd_test)
     args = parser.parse_args()
-    if not args.command:
-        parser.print_help()
-        return 1
+    sys.exit(args.func(args))
 
-    commands = {
-        'check-prerequisites': check_prerequisites,
-        'setup': setup,
-        'configure': configure,
-        'deploy': deploy,
-        'test': test,
-        'health-check': health_check,
-        'troubleshoot': troubleshoot,
-        'cleanup': cleanup,
-    }
 
-    return commands.get(args.command, lambda a: 1)(args)
-
-if __name__ == '__main__':
-    sys.exit(main())
+if __name__ == "__main__":
+    main()

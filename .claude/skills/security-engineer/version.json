@@ -1,0 +1,22 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110948",
+      "reason": "Replaced TODO stub with real regex-based secret scanner, security-header checker, threat-model builder + 9 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_threat_model_pairs_matching_entry_and_asset",
+        "test_tool.py::test_check_headers_case_insensitive_match",
+        "test_tool.py::test_check_headers_flags_all_missing",
+        "test_tool.py::test_owasp_top10_has_ten_categories",
+        "test_tool.py::test_scan_secrets_clean_text_has_no_findings",
+        "test_tool.py::test_scan_secrets_finds_aws_key",
+        "test_tool.py::test_scan_secrets_finds_private_key_block",
+        "test_tool.py::test_scan_secrets_masks_the_actual_secret_value",
+        "test_tool.py::test_scan_secrets_reports_correct_line_number"
+      ]
+    }
+  ]
+}

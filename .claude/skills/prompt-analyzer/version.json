@@ -1,0 +1,21 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110726",
+      "reason": "Replaced generic 8-command TODO stub with real intent-detection/keyword-extraction/skill-mapping logic + 8 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_execution_plan_shape",
+        "test_tool.py::test_detect_intent_multiple_matches",
+        "test_tool.py::test_detect_intent_single_match",
+        "test_tool.py::test_detect_intent_unknown_when_nothing_matches",
+        "test_tool.py::test_extract_keywords_finds_known_terms",
+        "test_tool.py::test_extract_keywords_prefers_longer_match_over_substring",
+        "test_tool.py::test_map_to_skills_deduplicates_and_preserves_order",
+        "test_tool.py::test_map_to_skills_empty_for_unknown_keywords"
+      ]
+    }
+  ]
+}
