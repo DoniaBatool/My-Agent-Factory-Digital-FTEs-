@@ -12,6 +12,8 @@
 - [Agents](#agents)
 - [Reusable Intelligence (Skills)](#reusable-intelligence-skills)
 - [Methodology Integration](#methodology-integration)
+- [Skill Versioning & Regression Gate](#%EF%B8%8F-skill-versioning--regression-gate--architecture-deep-dive)
+- [Visual Guides](#%EF%B8%8F-visual-guides)
 - [Quick Start](#quick-start)
 - [Directory Structure](#directory-structure)
 
@@ -204,6 +206,58 @@ End-to-end flow from idea to production:
 
 ---
 
+## 🛡️ Skill Versioning & Regression Gate — Architecture Deep-Dive
+
+In late 2026, an external reviewer's LinkedIn comment flagged a real risk in how
+this repo's skills were being updated: letting an agent rewrite a skill's code
+**and** its tests in the same pass makes it easy to mistake a weaker test for an
+improvement. An audit confirmed it had already happened once
+(`grafana-expert` / `prometheus-monitoring` — see `.claude/CLAUDE.md` for the
+full incident writeup). The fix is now a permanent part of this repo's
+architecture.
+
+**The rule:** no skill's `scripts/tool.py` or `tests/` may be changed except by
+promotion through `.claude/skills/_framework/skill_gate.py`, which enforces
+three checks before anything live is touched:
+
+```mermaid
+flowchart TD
+    A["Edit skill in a FULL copy:\n&lt;skill&gt;.staged/"] --> B["skill_gate.py promote"]
+    B --> C{"1. Any live file\nsilently missing\nfrom staged?"}
+    C -- "yes" --> R["❌ REJECT\nnothing changes,\nreason logged"]
+    C -- "no" --> D{"2. Baseline test\ncount shrunk?"}
+    D -- "yes" --> R
+    D -- "no" --> E{"3. Full pytest\nsuite passes?"}
+    E -- "no" --> R
+    E -- "yes" --> F["✅ Archive old version"]
+    F --> G["Replace live directory"]
+    G --> H["Bump version.json"]
+    H --> I["Append CHANGELOG.md"]
+```
+
+**Why this matters for readers:** every skill in `.claude/skills/` now carries
+its own `version.json`, `CHANGELOG.md`, `tests/test_tool.py`, and an
+`_archive/` snapshot of every prior version — a skill's test suite can only
+grow, never silently shrink, and every promotion is reversible. 39 skills have
+been through this gate; 346 tests pass repo-wide.
+
+For the full incident writeup, the near-miss that led to an extra safeguard,
+and a dos/don'ts/red-flags list for anyone (human or AI) working on this repo
+next, see **[`.claude/CLAUDE.md`](.claude/CLAUDE.md)** and
+**[`.claude/docs/skill-versioning-policy.md`](.claude/docs/skill-versioning-policy.md)**.
+
+---
+
+## 🖼️ Visual Guides
+
+| Format | Link |
+|--------|------|
+| Architecture infographic (Canva) | [View on Canva](https://www.canva.com/d/jtX0z4YkbxmQXeR) |
+| Explainer video — problem, audit, fix, rollout, result (HyperFrames by HeyGen) | [Watch / download MP4](https://github.com/DoniaBatool/My-Agent-Factory-Digital-FTEs-/releases/download/media-v1/video.mp4) |
+| Slide deck — architecture & engineering mechanism, 14 slides (Canva) | [View on Canva](https://www.canva.com/d/5t9mI8-0ZRIQcT_) |
+
+---
+
 ## Quick Start
 
 ### 1. Invoke the Orchestrator (Recommended)
@@ -289,6 +343,8 @@ digital_factory/
 - [40 AI Systems for Company](40_AI_Systems%20for%20company%20(must%20have).md) — Broader AI systems context
 - [Wire Spec-KitPlus into Claude via MCP](Wire%20Spec-KitPlus%20into%20Claude%20via%20MCP.md) — MCP integration
 - [Creating Agents](creating_agents_md.md) — Spec-Kit and agent workflow
+- [.claude/CLAUDE.md](.claude/CLAUDE.md) — Full engineering instructions, plus the Skill Versioning & Regression Gate incident writeup, dos/don'ts, blacklist, greylist, and red flags for anyone working on this repo next
+- [.claude/docs/skill-versioning-policy.md](.claude/docs/skill-versioning-policy.md) — The versioning policy in full
 
 ---
 
