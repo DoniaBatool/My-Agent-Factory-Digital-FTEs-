@@ -1,0 +1,13 @@
+repos:
+  - repo: local
+    hooks:
+      - id: skill-gate-enforcement
+        name: Skill versioning gate enforcement
+        description: >
+          Blocks a commit if any skill's scripts/ or tests/ changed without
+          its version.json also changing -- catches direct edits that
+          bypassed skill_gate.py promote. See .claude/CLAUDE.md.
+        entry: python3 .claude/skills/_framework/ci_gate_check.py --staged
+        language: system
+        pass_filenames: false
+        always_run: true

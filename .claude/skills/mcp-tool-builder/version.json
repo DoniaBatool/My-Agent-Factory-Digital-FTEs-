@@ -15,6 +15,42 @@
         "test_tool.py::test_validate_tool_schema_flags_required_field_not_declared",
         "test_tool.py::test_validate_tool_schema_passes_well_formed_schema"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_validate_tool_schema_passes_well_formed_schema": {
+      "hash": "2c731a81dc43dc4bc751fdd54354497cf027c9ec38795e41b6f92efdf2aa5a48",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_tool_schema_flags_missing_description": {
+      "hash": "287de5a95e6d0d8be627ae7be0eebbaa315251a99788674f37badd9e9a5639ff",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_tool_schema_flags_missing_type": {
+      "hash": "90c00fc12452079ea1c86bfac581a3eda19be6406e25248af2e3fe0ad7fb4940",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_tool_schema_flags_invalid_type": {
+      "hash": "e90c18ff447c019173a762d5ddbc18e14dc987361cecd9baadbacd2a60f715a2",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_tool_schema_flags_required_field_not_declared": {
+      "hash": "1c2eaf332cf484f0d3d857e8df449d49da706d377a79e1177275fe04b21732f7",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_tool_stub_produces_typed_signature": {
+      "hash": "e53df375f95496b596a13b8734dd35469823b1afd9aa5fc4f46ef7be851bbf7a",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_tool_stub_notes_non_idempotency_when_specified": {
+      "hash": "f28071970114d0ad4e1ffe404ef0c2ffd6b8863fc7666cb1e4283bfe701819ba",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 49.0
 }

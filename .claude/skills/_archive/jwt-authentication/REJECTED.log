@@ -1,0 +1,5 @@
+
+[2026-09-18 08:30:28]
+REJECTED promotion of security-critical skill 'jwt-authentication': golden-file check failed:
+  - tests/test_tool.py: content changed (golden-file hash mismatch)
+Security-critical skills lock their test file's exact content. Any change, however reasonable it looks, needs --acknowledge-golden-change and --change-reason "...".

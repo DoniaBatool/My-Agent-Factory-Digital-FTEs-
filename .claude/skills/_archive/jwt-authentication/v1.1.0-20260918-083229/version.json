@@ -1,0 +1,67 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110802",
+      "reason": "Replaced generic 8-command TODO stub with a real stdlib-only HS256 JWT encode/verify implementation + 9 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_check_claims_flags_missing",
+        "test_tool.py::test_check_claims_ok_when_all_present",
+        "test_tool.py::test_decode_does_not_leak_which_check_failed_via_type",
+        "test_tool.py::test_decode_rejects_expired_token",
+        "test_tool.py::test_decode_rejects_malformed_token",
+        "test_tool.py::test_decode_rejects_wrong_secret",
+        "test_tool.py::test_encode_decode_roundtrip",
+        "test_tool.py::test_encode_requires_sub",
+        "test_tool.py::test_generate_secret_is_random_and_hex"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_encode_requires_sub": {
+      "hash": "385a6f40f9dce1518ba61be0f7e5b37bb32c5ad1cae605339b3cf5e53aab4c48",
+      "asserts": 1
+    },
+    "test_tool.py::test_encode_decode_roundtrip": {
+      "hash": "b0bf17ba0635fdf04e9229203c5737c4a31d7218112e943fad736a7604d18d85",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_rejects_wrong_secret": {
+      "hash": "c80d277e3aa41fca2e139c21cef0ea1562a27646cae21a69d1bb8cf61a0b74ce",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_rejects_expired_token": {
+      "hash": "69f8cd0da53637e4be6b5645b373989bed06177a7c299bf81c97f9a87bbbed43",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_rejects_malformed_token": {
+      "hash": "40a53af1b1885c25a2ed06e12710b1aaf71630a8ea416c08036baa1c3c377bc5",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_does_not_leak_which_check_failed_via_type": {
+      "hash": "497b12cf73dad78de0a36b5bcf8f929c6c0c118ec0e130db6f662ac7988d74f0",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_claims_flags_missing": {
+      "hash": "9ec24c78eec06080fbc2ed9e812f1dc9e29ca09506184a90f447e2fe529e85b6",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_claims_ok_when_all_present": {
+      "hash": "d9d5ae6a51f80b43c31f327fe985795823062b1edef7735c623092e4632563c6",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_secret_is_random_and_hex": {
+      "hash": "1ce027d4a5e7a65efd85fcd4746979a960a7bab80cd59441f7e8d0db8e164b02",
+      "asserts": 1
+    }
+  },
+  "mutation_score": 0.36363636363636365,
+  "coverage_pct": 49.0
+}

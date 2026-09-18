@@ -1,0 +1,27 @@
+name: Skill Versioning Gate
+
+on:
+  pull_request:
+    paths:
+      - ".claude/skills/**"
+
+jobs:
+  enforce-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install test dependencies
+        run: pip install pytest coverage
+
+      - name: Run full skill test suite
+        run: python3 -m pytest --import-mode=importlib .claude/skills -q
+
+      - name: Enforce that skill changes went through the gate
+        run: python3 .claude/skills/_framework/ci_gate_check.py --base "origin/${{ github.base_ref }}"

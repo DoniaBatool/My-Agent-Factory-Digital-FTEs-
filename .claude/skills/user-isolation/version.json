@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -17,6 +17,224 @@
         "test_tool.py::test_scan_source_flags_client_supplied_user_id_red_flag",
         "test_tool.py::test_scan_source_flags_unscoped_select"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260918-084756",
+      "reason": "Bulletproofing pass: added 31 new tests (CLI layer coverage for check-query/scaffold-query/scan-file/test commands, argparse required-positional enforcement, owner-column variants account_id/created_by, word-boundary correctness against substring false-positives, case-insensitivity, all client-supplied-user_id detector variants params/args/body/payload, multi-statement scan_source coverage, statement-truncation boundary). Coverage 40%->98%, mutation score verified 100% (2/2 mutants killed) plus 3 additional manual logic-mutation checks (any->all, word-boundary removal, missing args. alternative) all caught by the suite.",
+      "baseline_tests_verified": [
+        "test_tool.py::test_accepts_client_supplied_user_id_false_for_server_derived_value",
+        "test_tool.py::test_accepts_client_supplied_user_id_flags_request_json",
+        "test_tool.py::test_build_scoped_query_includes_both_filters",
+        "test_tool.py::test_has_ownership_filter_false_for_unscoped_query",
+        "test_tool.py::test_has_ownership_filter_recognizes_owner_id_variant",
+        "test_tool.py::test_has_ownership_filter_true_for_scoped_query",
+        "test_tool.py::test_scan_source_does_not_flag_scoped_select",
+        "test_tool.py::test_scan_source_flags_client_supplied_user_id_red_flag",
+        "test_tool.py::test_scan_source_flags_unscoped_select"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_accepts_client_supplied_user_id_false_for_unrelated_code",
+        "test_tool.py::test_accepts_client_supplied_user_id_flags_args_variant",
+        "test_tool.py::test_accepts_client_supplied_user_id_flags_body_variant",
+        "test_tool.py::test_accepts_client_supplied_user_id_flags_params_get",
+        "test_tool.py::test_accepts_client_supplied_user_id_flags_payload_bracket_variant",
+        "test_tool.py::test_build_scoped_query_respects_custom_columns",
+        "test_tool.py::test_cmd_check_query_scoped_prints_ok_and_returns_0",
+        "test_tool.py::test_cmd_check_query_unscoped_prints_fail_and_returns_1",
+        "test_tool.py::test_cmd_scaffold_query_prints_scoped_query",
+        "test_tool.py::test_cmd_scan_file_ok_when_no_issues",
+        "test_tool.py::test_cmd_scan_file_reports_issues_and_returns_1",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_has_ownership_filter_is_case_insensitive",
+        "test_tool.py::test_has_ownership_filter_recognizes_account_id_variant",
+        "test_tool.py::test_has_ownership_filter_recognizes_created_by_variant",
+        "test_tool.py::test_has_ownership_filter_word_boundary_rejects_substring_match",
+        "test_tool.py::test_main_check_query_missing_required_sql_exits_with_error",
+        "test_tool.py::test_main_dispatches_check_query_end_to_end",
+        "test_tool.py::test_main_dispatches_scaffold_query_with_custom_columns",
+        "test_tool.py::test_main_dispatches_scaffold_query_with_default_columns",
+        "test_tool.py::test_main_dispatches_scan_file_end_to_end",
+        "test_tool.py::test_main_dispatches_test_end_to_end",
+        "test_tool.py::test_main_scaffold_query_missing_required_table_exits_with_error",
+        "test_tool.py::test_main_scan_file_missing_required_path_exits_with_error",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_scan_source_client_supplied_finding_has_none_statement",
+        "test_tool.py::test_scan_source_flags_delete_without_ownership_filter",
+        "test_tool.py::test_scan_source_flags_multiple_unscoped_statements",
+        "test_tool.py::test_scan_source_returns_empty_list_for_code_with_no_sql_and_no_red_flags",
+        "test_tool.py::test_scan_source_statement_text_is_truncated_to_120_chars",
+        "test_tool.py::test_script_runs_as_main_entrypoint_via_subprocess"
+      ]
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_has_ownership_filter_true_for_scoped_query": {
+      "hash": "2d40737de25a0fa1acb4312dbf8852c07219652a7869057026c875b89af652f4",
+      "asserts": 1
+    },
+    "test_tool.py::test_has_ownership_filter_false_for_unscoped_query": {
+      "hash": "a416a5f3372f6df89629c16086d9ec825faff15af035ceb34e0ab67f19290f09",
+      "asserts": 1
+    },
+    "test_tool.py::test_has_ownership_filter_recognizes_owner_id_variant": {
+      "hash": "1b2ce351d77482ac9059c1a5b764e2b7f5882cd71e6d42819178e5602b00c8d2",
+      "asserts": 1
+    },
+    "test_tool.py::test_accepts_client_supplied_user_id_flags_request_json": {
+      "hash": "0845a656c41ad10cfe7b3e8a84c1e73b8c2694d4f1b0409a01ff2ac63530f9e6",
+      "asserts": 1
+    },
+    "test_tool.py::test_accepts_client_supplied_user_id_false_for_server_derived_value": {
+      "hash": "32aac67aab48a45ff6fc733b020ea4de4ebf4e2f2148db9b6582df255dd122b1",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_scoped_query_includes_both_filters": {
+      "hash": "7fddca888a5fe1bb4ee60a7b24a0b77e38a227e27f07541c5ebcbea0e0e123c3",
+      "asserts": 2
+    },
+    "test_tool.py::test_scan_source_flags_unscoped_select": {
+      "hash": "48eee096819ec95d0a9c313c0254c223442be8598965b3cfa7e271f18bfdec3d",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_source_does_not_flag_scoped_select": {
+      "hash": "13da080b2f45695a0771c27ef30f9174a99537cf42981968e0121785c7727221",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_source_flags_client_supplied_user_id_red_flag": {
+      "hash": "5eae17801a59a9be4dd0661ec6a6bcc8808caf72c683d069413224d2f2027eed",
+      "asserts": 1
+    },
+    "test_tool.py::test_has_ownership_filter_recognizes_account_id_variant": {
+      "hash": "0866fecd3820af2e2de0a5e50f100c7f314b00192790860116537f2c18e5c489",
+      "asserts": 1
+    },
+    "test_tool.py::test_has_ownership_filter_recognizes_created_by_variant": {
+      "hash": "8ea0c0d560c7b9d3db223ac8b8d8097db57b0b3f84b6cb4bfac9b666066b8af7",
+      "asserts": 1
+    },
+    "test_tool.py::test_has_ownership_filter_word_boundary_rejects_substring_match": {
+      "hash": "79fe5d699316c558112875e7206562f34c194e5c275adbebc10771e76f34c8ff",
+      "asserts": 1
+    },
+    "test_tool.py::test_has_ownership_filter_is_case_insensitive": {
+      "hash": "0e0407f806b82d9ce714ab7d30611810f4337981963c1c422200f0875cae64b2",
+      "asserts": 1
+    },
+    "test_tool.py::test_accepts_client_supplied_user_id_flags_params_get": {
+      "hash": "8fdc991419589d52137c63426203cbea5c21299b1341ef38e93ec527c29b18d7",
+      "asserts": 1
+    },
+    "test_tool.py::test_accepts_client_supplied_user_id_flags_args_variant": {
+      "hash": "1bf5cc721af405f09c0db7c18111faf1a689d7488b9975eb3cd28ad3d7a00ddf",
+      "asserts": 1
+    },
+    "test_tool.py::test_accepts_client_supplied_user_id_flags_body_variant": {
+      "hash": "af809435c3394d3678ed0353964842249ffbdee2cc449dec0ed92137be485ed6",
+      "asserts": 1
+    },
+    "test_tool.py::test_accepts_client_supplied_user_id_flags_payload_bracket_variant": {
+      "hash": "2911db90342c031315945fcfc9aa071b158dc73ef36c353426d2f8287efaadb7",
+      "asserts": 1
+    },
+    "test_tool.py::test_accepts_client_supplied_user_id_false_for_unrelated_code": {
+      "hash": "d1f0385bae4b6a320ce31fa02facea4eb69fe7a81f46814b588b80dba798571e",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_scoped_query_respects_custom_columns": {
+      "hash": "86c08bc62072969a7a9a12c777c333d3553a1532aca6c0e23ae6c52f747b832d",
+      "asserts": 2
+    },
+    "test_tool.py::test_scan_source_flags_multiple_unscoped_statements": {
+      "hash": "af24b0c1b2db55de4369514e7e4f605123ba94adcd02562e0dda2cdc4f49975f",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_source_flags_delete_without_ownership_filter": {
+      "hash": "682702db70b6e7a2dfafd5531d02cd19f2400f82ea9b6f1f08a0e2e093db6521",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_source_returns_empty_list_for_code_with_no_sql_and_no_red_flags": {
+      "hash": "a75235cfd8f7658d98621ba805a42fa979d814245ae93316261028351c990915",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_source_statement_text_is_truncated_to_120_chars": {
+      "hash": "cec43b76cde0ff5fde4e11c4748f7b8235bf8b1ec67700d3867558bdee52adb2",
+      "asserts": 2
+    },
+    "test_tool.py::test_scan_source_client_supplied_finding_has_none_statement": {
+      "hash": "9dcc33a33ab41077bdd92288bbd7084c320f1a99633e7ec405e60a3d3ebb520e",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_query_scoped_prints_ok_and_returns_0": {
+      "hash": "c26f31541629733cf8cf78ce3cee44303addb28448e280a263511eceb418ee84",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_query_unscoped_prints_fail_and_returns_1": {
+      "hash": "9188cf0598116654dfe874dc8dfaf3a32d5c2e2a90c1f2efcb0411f70c40329a",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_scaffold_query_prints_scoped_query": {
+      "hash": "2bf13e133926e8844ce6c21d4870b59252d77f30f0c07f0aaadcb6bf5dd925d9",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_scan_file_ok_when_no_issues": {
+      "hash": "cb8bee6c1f40a44871172cd557d6c13e97f7b04537e6f7291dceff1d8d773b8e",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_scan_file_reports_issues_and_returns_1": {
+      "hash": "8c311732adb94b10cf0a64a7d03dbc47a51216f1f55a5ad1d89c57dfe63499c5",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "4ee2c27b56baa69f4aabd845de7c2da65c8442ed865df2e7453027aeb9744dfe",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "5d390c0847d1b3cc394a010653e0b89d11491d63464759d725d6a04670f5b0fd",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_check_query_end_to_end": {
+      "hash": "c3d2338ec63c3d1748423451370c8261813d8d372c2af3c212e34898ac3d2174",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_scaffold_query_with_default_columns": {
+      "hash": "575882cbe30c8df9cc9d9080aebebafed321e2a87c0b33647afb666d7523774a",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_dispatches_scaffold_query_with_custom_columns": {
+      "hash": "3a038c51cd0bef54bd0a8be6e1f801afde81e52aec7cd11da8f8b5b918e0eacd",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_dispatches_scan_file_end_to_end": {
+      "hash": "170a0f97a9a4af09a78780d1e410fbc7c1c8d90e60715b86d734559f23fec595",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_end_to_end": {
+      "hash": "1f6713a3a3a5246fb2d4fb538ab6c017b4b9897df1011eee89f2b35e734e7c2f",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_check_query_missing_required_sql_exits_with_error": {
+      "hash": "f6e0c45b9faa51258e6c77290613068270709946bd8b74df3f688a75b1012c59",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_scaffold_query_missing_required_table_exits_with_error": {
+      "hash": "62a043c80fceebd9e952c47c15997dcb6d4b9fe0039b06b1fdb495da14a00024",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_scan_file_missing_required_path_exits_with_error": {
+      "hash": "5f5646dda0310f060aaa267feb1c05f60b29226cb9eed66c36381dd8fa09e873",
+      "asserts": 2
+    },
+    "test_tool.py::test_script_runs_as_main_entrypoint_via_subprocess": {
+      "hash": "cc79f43ec419cffa879c5afddc763500cf4e38133f9c950dc08f57d9655a0fce",
+      "asserts": 2
+    }
+  },
+  "mutation_score": 1.0,
+  "coverage_pct": 99.0
 }

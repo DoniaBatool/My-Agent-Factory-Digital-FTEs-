@@ -18,6 +18,54 @@
         "test_tool.py::test_validate_isolation_level_accepts_known_levels",
         "test_tool.py::test_validate_isolation_level_rejects_unknown"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_validate_isolation_level_accepts_known_levels": {
+      "hash": "2d92cf5eec1df05dcbffcf6751e89569453c09d0e42f1c4783a1d75ca6a0fb8d",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_isolation_level_rejects_unknown": {
+      "hash": "f0ecfbccdc9cb4c59e9ecd7b4c7b6caec648f9494eee288d70bb4034e98d4113",
+      "asserts": 1
+    },
+    "test_tool.py::test_transaction_commit_keeps_applied_state": {
+      "hash": "851cc483c08a3a9d9a749ceedaff6e11fceabca4e18b40c92ed350c04b20f5be",
+      "asserts": 2
+    },
+    "test_tool.py::test_transaction_rollback_undoes_applied_ops_in_reverse_order": {
+      "hash": "406d8811acca4fcffbe81a9174039963a858c281d3906bf0ff94584321616b96",
+      "asserts": 2
+    },
+    "test_tool.py::test_transaction_cannot_execute_after_commit": {
+      "hash": "b9dbe621eeec6e04dc8c0ab5ee53071a74f875139b8b22b5d9c17a188075c9ff",
+      "asserts": 0
+    },
+    "test_tool.py::test_transaction_cannot_rollback_after_commit": {
+      "hash": "1ef6f5a90585dd4f607631f9cbd456cab411c5e16006a40bde30989f625870bc",
+      "asserts": 0
+    },
+    "test_tool.py::test_detect_deadlock_risk_finds_simple_cycle": {
+      "hash": "9b8bc303856bc1dd59738e15468f085e72a83cfd0a9a8546f8da76a89460c85a",
+      "asserts": 1
+    },
+    "test_tool.py::test_detect_deadlock_risk_no_cycle_in_linear_chain": {
+      "hash": "564ca87710a07164a3eb25109b13892a90b077225b0fb08e75112dbed4000f42",
+      "asserts": 1
+    },
+    "test_tool.py::test_detect_deadlock_risk_finds_longer_cycle": {
+      "hash": "692de8a205fee42d849c03e5e55f4d0bab9109256d2c53f4daa2c4f0818593b4",
+      "asserts": 1
+    },
+    "test_tool.py::test_retry_on_serialization_failure_eventually_succeeds": {
+      "hash": "076141afc581d9ac170decd63264747426b987975927ff0f6c99112a441c91b3",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 81.0
 }

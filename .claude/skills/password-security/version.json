@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -17,6 +17,204 @@
         "test_tool.py::test_verify_password_rejects_garbage_hash_without_raising",
         "test_tool.py::test_verify_password_roundtrip"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260918-084220",
+      "reason": "Bulletproofing pass: added 27 new tests (CLI layer coverage, argparse required-flag enforcement, password-policy edge cases: exact-length boundary, individual rule violations, malformed hash segments, deterministic salt, reset-token exact-expiry boundary). Coverage 50%->99%, mutation score 62%->100% (8/8 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_password_policy_flags_missing_character_classes",
+        "test_tool.py::test_check_password_policy_flags_short_password",
+        "test_tool.py::test_check_password_policy_passes_strong_password",
+        "test_tool.py::test_generate_reset_token_is_unique_and_carries_no_plaintext_link",
+        "test_tool.py::test_hash_password_is_salted_so_same_password_differs",
+        "test_tool.py::test_hash_password_never_stores_plaintext",
+        "test_tool.py::test_reset_token_expires",
+        "test_tool.py::test_verify_password_rejects_garbage_hash_without_raising",
+        "test_tool.py::test_verify_password_roundtrip"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_check_password_policy_7_chars_fails_length_rule",
+        "test_tool.py::test_check_password_policy_exactly_8_chars_passes_length_rule",
+        "test_tool.py::test_check_password_policy_flags_all_five_rules_on_empty_string",
+        "test_tool.py::test_check_password_policy_flags_missing_digit_alone",
+        "test_tool.py::test_check_password_policy_flags_missing_lowercase_alone",
+        "test_tool.py::test_cmd_check_policy_ok_returns_0",
+        "test_tool.py::test_cmd_check_policy_violations_returns_1",
+        "test_tool.py::test_cmd_generate_reset_token_prints_token_and_expiry",
+        "test_tool.py::test_cmd_hash_password_accepts_strong_password",
+        "test_tool.py::test_cmd_hash_password_allows_weak_password_with_force",
+        "test_tool.py::test_cmd_hash_password_rejects_weak_password_without_force",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_cmd_verify_password_match_returns_0",
+        "test_tool.py::test_cmd_verify_password_mismatch_returns_1",
+        "test_tool.py::test_hash_password_accepts_explicit_salt_deterministically",
+        "test_tool.py::test_main_dispatches_check_policy_end_to_end",
+        "test_tool.py::test_main_dispatches_generate_reset_token_end_to_end",
+        "test_tool.py::test_main_dispatches_hash_password_end_to_end",
+        "test_tool.py::test_main_dispatches_hash_password_force_flag",
+        "test_tool.py::test_main_dispatches_verify_password_end_to_end",
+        "test_tool.py::test_main_verify_password_missing_required_hash_exits_with_error",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_reset_token_boundary_at_exact_expiry_is_invalid",
+        "test_tool.py::test_script_runs_as_main_entrypoint_via_subprocess",
+        "test_tool.py::test_verify_password_rejects_hash_with_non_integer_iterations",
+        "test_tool.py::test_verify_password_rejects_hash_with_wrong_number_of_segments",
+        "test_tool.py::test_verify_password_wrong_password_same_hash_structure_fails"
+      ]
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_hash_password_never_stores_plaintext": {
+      "hash": "a5ddbad354dbaabf9db62b95b9e4f56388db8f6b23c24754f8c2a987f4ff4db3",
+      "asserts": 1
+    },
+    "test_tool.py::test_hash_password_is_salted_so_same_password_differs": {
+      "hash": "ea5f9d8352f175c4387d202f34a7c5dc512dead1eeb1f1dc323eed57e1c17e96",
+      "asserts": 1
+    },
+    "test_tool.py::test_verify_password_roundtrip": {
+      "hash": "405534029a7aee7ea8f6be41c9572ad98b4825d3d9d0a21a62a2fb662c995a8c",
+      "asserts": 2
+    },
+    "test_tool.py::test_verify_password_rejects_garbage_hash_without_raising": {
+      "hash": "af2883b70004f51ae992fe9fc17b62c94d0c26ce3d7692f73c23e73ff0e13c98",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_password_policy_flags_short_password": {
+      "hash": "45590aabcd34d3659695b4534efe7ad214e553c68f8d72e2e78f01c72ec722ce",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_password_policy_flags_missing_character_classes": {
+      "hash": "dc85c500a13ffa82a04b861443d864f6a9ac12e7fbba656dea795e4f5e83e35c",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_password_policy_passes_strong_password": {
+      "hash": "65bc8776990fcb3576f934611b3534408137dc0518cc37d8b2f2e72849c91d0f",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_reset_token_is_unique_and_carries_no_plaintext_link": {
+      "hash": "c70e9ccf6ec1af4277e4c9feba9ce321190dca02cbdf1b13b8ed385bbc07f8f9",
+      "asserts": 2
+    },
+    "test_tool.py::test_reset_token_expires": {
+      "hash": "5197d29669f9c768af54c9292cf296887694443fd9457133f699fea4535eecea",
+      "asserts": 2
+    },
+    "test_tool.py::test_reset_token_boundary_at_exact_expiry_is_invalid": {
+      "hash": "5457b0093ef171a68146b7c96f93cdc5e7731fb76cf9588438874fa1ed0bb637",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_password_policy_flags_missing_digit_alone": {
+      "hash": "9e61db4d1d68d63f6fbc38fb4aa720ea83b2e69322362a1f68be03fbfb1983da",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_password_policy_flags_missing_lowercase_alone": {
+      "hash": "594f36965438d4739f8cb83a9e83b7046b4b6c41e264b4133fe8996acd632d41",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_password_policy_flags_all_five_rules_on_empty_string": {
+      "hash": "1f490aa415e64f9ccd15f435530ac90dd19a5f512514533b7b3760965a3331d6",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_password_policy_exactly_8_chars_passes_length_rule": {
+      "hash": "318dc7319c4dfaca8979d3d7b02375314ffaa7f648ff6b7364a584457c8b7284",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_password_policy_7_chars_fails_length_rule": {
+      "hash": "5730112276a574fc964fbde1ac7b3658e589baecc09375b5f2461f716c654605",
+      "asserts": 1
+    },
+    "test_tool.py::test_verify_password_rejects_hash_with_wrong_number_of_segments": {
+      "hash": "ccdb9e3a84de126c3f706ba862b9e7697d2ae5ae03706645c802810ec1cfae54",
+      "asserts": 1
+    },
+    "test_tool.py::test_verify_password_rejects_hash_with_non_integer_iterations": {
+      "hash": "d40b168c891f984925d8164d86dec806f73fca34d8992eeb20b09338040ffa8e",
+      "asserts": 1
+    },
+    "test_tool.py::test_verify_password_wrong_password_same_hash_structure_fails": {
+      "hash": "47eedcb5f02fd2f993cd517354284cb92d4e2430596ba7bfae753e4030478d56",
+      "asserts": 1
+    },
+    "test_tool.py::test_hash_password_accepts_explicit_salt_deterministically": {
+      "hash": "094215795a01eab76398e6c35e7c12294dcb8dfc5904f518cbd22c2210070bb7",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_hash_password_rejects_weak_password_without_force": {
+      "hash": "0350b7cf027d3ea4d92134ab89f589c4c5c9f24a73b21c636cafd81204397c8f",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_hash_password_allows_weak_password_with_force": {
+      "hash": "26f3533165443305f9257df8a1b3e37613b7a5ef19cbe6c7c180d441c0b9c9c6",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_hash_password_accepts_strong_password": {
+      "hash": "7f01de36441af9c6d39820033ac118bf249cee80f94a26d5c1479ca68052cd5a",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_verify_password_match_returns_0": {
+      "hash": "80ed9d40b80cb94305ef913477b0892e0e323275bbcd27350670da61902aadf3",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_verify_password_mismatch_returns_1": {
+      "hash": "3a460d448f0ddb5d30e117550ca3e4ab6706172cc3d6e59233b750d9afaf7d40",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_policy_ok_returns_0": {
+      "hash": "87fc00798d65a491c2ccc49db033c36bccb6e1527c82e974f7d441f758157222",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_policy_violations_returns_1": {
+      "hash": "e7c50f47e82608c0b3fe06450ae8613a8c0dd30279d9ccb768060c07caade027",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_generate_reset_token_prints_token_and_expiry": {
+      "hash": "dfc1d117253fd2b18d4f22b0797b7e09864608734c0020c5750dfcff39c8d8f7",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "4ee2c27b56baa69f4aabd845de7c2da65c8442ed865df2e7453027aeb9744dfe",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "5d390c0847d1b3cc394a010653e0b89d11491d63464759d725d6a04670f5b0fd",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_hash_password_end_to_end": {
+      "hash": "cc7bb8ff436409fadc96abee5538a98086b5abc1172c4b4be249a39344020a5c",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_hash_password_force_flag": {
+      "hash": "b756c663bb87ef9bc54f272cfe8dc1902b00c09aed5bb56ba84eaa2cf990cd2b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_verify_password_end_to_end": {
+      "hash": "0d5cc85d5a4745e2bdd11025c7abd2841295941366948974bf924ce4eec84697",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_check_policy_end_to_end": {
+      "hash": "702e18a4a42e6468a081e954264696d238d35d05d5f70a2673c6257764ac8770",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_generate_reset_token_end_to_end": {
+      "hash": "d39bcaa2dab41e3389e4918d82cb2742f81793cf6f85ca649da07e2c405d097d",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_verify_password_missing_required_hash_exits_with_error": {
+      "hash": "53f815f7e02c70cf986da171639184bac8f0f5332b11bc1d2fe505aee1789434",
+      "asserts": 0
+    },
+    "test_tool.py::test_script_runs_as_main_entrypoint_via_subprocess": {
+      "hash": "f623ec72ca37074ab3a23df99545880930cb5307d670779c312343001556f9f8",
+      "asserts": 2
+    }
+  },
+  "mutation_score": 1.0,
+  "coverage_pct": 99.0
 }

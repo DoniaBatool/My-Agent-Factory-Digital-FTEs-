@@ -16,6 +16,46 @@
         "test_tool.py::test_map_to_skills_deduplicates_and_preserves_order",
         "test_tool.py::test_map_to_skills_empty_for_unknown_keywords"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_detect_intent_single_match": {
+      "hash": "f1ea36ae6f3b6ef93d857f47761fafeba344daa5d0931904d4455bd96cad0f26",
+      "asserts": 1
+    },
+    "test_tool.py::test_detect_intent_multiple_matches": {
+      "hash": "1e41f96514b46a1831f5ef82358d6c444fbd24f0295ec9112b32614c16175d7b",
+      "asserts": 1
+    },
+    "test_tool.py::test_detect_intent_unknown_when_nothing_matches": {
+      "hash": "356827716440cc8d418f3bcb1277fa40e3d145dd1eb12b5759d6dbcfe3254109",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_keywords_finds_known_terms": {
+      "hash": "d992db3d35fc0aee4b55f7061bdf857a1a3416b204426657ba5989046f47da31",
+      "asserts": 3
+    },
+    "test_tool.py::test_extract_keywords_prefers_longer_match_over_substring": {
+      "hash": "a875f97ad7546e68ab8fda370ab666be9627143979a8951672af3aa8eaeb9a45",
+      "asserts": 1
+    },
+    "test_tool.py::test_map_to_skills_deduplicates_and_preserves_order": {
+      "hash": "9105036a3047db6604aaed4dfed78e9ca5035ea7d59422631e4cae68eee6f8a0",
+      "asserts": 3
+    },
+    "test_tool.py::test_build_execution_plan_shape": {
+      "hash": "2a9cff9ddbe1db29dc6be870b462c03a2f0eb31a2b396cbde115c036a9b4a93d",
+      "asserts": 3
+    },
+    "test_tool.py::test_map_to_skills_empty_for_unknown_keywords": {
+      "hash": "759a0f96902659ce8ca082943a349a132275087e38f5bbe9caab330184db5404",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 47.0
 }

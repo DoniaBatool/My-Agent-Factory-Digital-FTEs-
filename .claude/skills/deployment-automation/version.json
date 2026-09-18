@@ -15,6 +15,42 @@
         "test_tool.py::test_check_env_vars_ok_when_all_present",
         "test_tool.py::test_run_smoke_check_reports_failure_for_unreachable_host"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_check_env_vars_flags_missing": {
+      "hash": "2ed5b87b2709173b545e21ba250803b5c895b7e8a97bb49a07b0d90cdf4b9c96",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_env_vars_flags_empty_string_as_missing": {
+      "hash": "4863ef76143a7dfe91cc5a5ab4728ad72b96584b1e7ac147809bf0c732c32235",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_env_vars_ok_when_all_present": {
+      "hash": "df85c4162067ad3cadb5d5a353ed44caabc8f5194fa6ee3bed2f64f187698dd4",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_env_vars_never_leaks_values_in_result": {
+      "hash": "23fb8c3300a8b9106e99da8b0529166d8bf5a27219c3a07396cb4130988c0a60",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_rollback_plan_always_includes_redeploy_step": {
+      "hash": "f9fee6b48cc93b9a0e8e8a2bafbab82ad41a913f74daf70d3af8900747ab922a",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_rollback_plan_includes_migration_and_flag_when_given": {
+      "hash": "1b63b3d0884677233aff627d0710d1bd12396242a90dd43a28d4baa0aad3ded4",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_smoke_check_reports_failure_for_unreachable_host": {
+      "hash": "bd63b1ba213da459be66224c67a65026487d0da0cb7385d3bda99e2dc1e5e14c",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 37.0
 }

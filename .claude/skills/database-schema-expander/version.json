@@ -15,6 +15,42 @@
         "test_tool.py::test_generate_add_index_migration_custom_name_and_unique",
         "test_tool.py::test_generate_add_index_migration_default_name"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_check_zero_downtime_flags_not_null_without_default": {
+      "hash": "21ebe21a2ad1b612f741d62e24ac814c27f4ff87ffea18a8d4dc01323aefeb8a",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_zero_downtime_ok_when_nullable": {
+      "hash": "765b0444a12240c046f2fe5f397f1a5d94aa2c852a12a990f746d2dc93f5263d",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_zero_downtime_ok_when_not_null_with_default": {
+      "hash": "d3d633a8fa01c261fea0ee542e23184a943c7ceb34e7676c33f381f811cbeb53",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_add_column_migration_has_upgrade_and_downgrade": {
+      "hash": "add7a92c765da688580a40849c1273de24e7faa9c5d721a01e7b73fa86985128",
+      "asserts": 4
+    },
+    "test_tool.py::test_generate_add_column_migration_includes_server_default_when_given": {
+      "hash": "65e150bc19d7d22be50c5ba33786abc441b908731c0718663d0540620c50863c",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_add_index_migration_default_name": {
+      "hash": "a21d2c868b61f1502e13a7cb3cb6b04b521ad2aea609e326b8785642aee7e7dc",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_add_index_migration_custom_name_and_unique": {
+      "hash": "f56bcf678842d172f8644b7005798efad302e53767632b62041cb0fb9d3ca5f7",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 31.0
 }

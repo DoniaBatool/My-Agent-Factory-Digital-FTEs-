@@ -18,6 +18,54 @@
         "test_tool.py::test_parse_trace_span_rejects_missing_fields",
         "test_tool.py::test_parse_trace_span_rejects_negative_duration"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_parse_trace_span_computes_duration": {
+      "hash": "64c67a80934951908cdeae3ddbf938947608fe7eb5d312fd83fd8bf4263787eb",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_trace_span_rejects_missing_fields": {
+      "hash": "88671ed4592c53efe41f48bcfba7a71a96a0781b57dd3edc5c9daa6396a33063",
+      "asserts": 0
+    },
+    "test_tool.py::test_parse_trace_span_rejects_negative_duration": {
+      "hash": "27579f38a7489eb76deaf16d74edd0c74257946e34db82e9e335703491f39a3d",
+      "asserts": 0
+    },
+    "test_tool.py::test_build_span_tree_nests_children_under_parent": {
+      "hash": "bbcbffc7f87f43825bce5caa47b8c8992ab967ba7edb2c2163c84248f4a6049f",
+      "asserts": 3
+    },
+    "test_tool.py::test_detect_slow_spans_filters_and_sorts_desc": {
+      "hash": "d3285cacdb7d686766bac7cf764b004dd7c0cc8f03097fcc98103756e29ba57b",
+      "asserts": 1
+    },
+    "test_tool.py::test_aggregate_metrics_basic_stats": {
+      "hash": "ca156ed3f93399ae6b18e104a5690b95a119b423bf2c157c64625ca222e8b069",
+      "asserts": 4
+    },
+    "test_tool.py::test_aggregate_metrics_empty_list": {
+      "hash": "34032d55dfc84e99488c8aa0d3dae425ec545b68c365690ddf25e179e541e1d5",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_error_rate_flags_alert_above_threshold": {
+      "hash": "8f6cd23c54c7d1e8fb8fcfa3491dad27038a922a6312a13e8962ae6962cdee48",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_error_rate_no_alert_below_threshold": {
+      "hash": "898d8267df1d2c43b5188e7ba558bc615d1cbcdb23590796477eff0d60d1a79c",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_error_rate_rejects_errors_exceeding_total": {
+      "hash": "82163448d26379b6c54887d9094e74d1f4f8d9a9d075c13362cf667d53db51b0",
+      "asserts": 0
+    }
+  },
+  "coverage_pct": 78.0
 }

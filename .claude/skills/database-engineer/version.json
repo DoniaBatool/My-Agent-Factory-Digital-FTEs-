@@ -15,6 +15,42 @@
         "test_tool.py::test_suggest_indexes_ignores_columns_seen_only_once",
         "test_tool.py::test_suggest_indexes_ranks_most_frequent_column_first"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_check_migration_safety_flags_drop_column": {
+      "hash": "6508abc8adb5691eb58324a044641ed7a2d407f23ec49e62f49c4adfa62b2ac9",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_migration_safety_flags_not_null_without_default": {
+      "hash": "570b0773954344c5c0d64100e72a1b18903b6de5c5323023ddf63794bee564df",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_migration_safety_clean_migration_has_no_risks": {
+      "hash": "ac9c9eeb73474e8a228537921b1cfd69895a0aed419fab16abcafb3175dc7131",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_indexes_ranks_most_frequent_column_first": {
+      "hash": "71899e1c4b39d9ead3e43221635e7008ea8b810161809cb4ce04855d468a82f6",
+      "asserts": 2
+    },
+    "test_tool.py::test_suggest_indexes_ignores_columns_seen_only_once": {
+      "hash": "1346bac32a71a07427225c25d261d2c7cd1171e486ff085aee756fd835bb2b3d",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_constraints_flags_missing_primary_key": {
+      "hash": "14a098ae7e99d7a16acc8ed10309661049eb9b13d4f70b06a46749df81f99fbf",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_constraints_flags_nullable_column": {
+      "hash": "8069414d76ebc38700cb29f9d1756c0cdeeadd687c266bddcf7c3eb657eaef5c",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 41.0
 }

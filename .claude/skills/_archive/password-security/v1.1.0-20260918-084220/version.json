@@ -1,0 +1,67 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110841",
+      "reason": "Replaced TODO stub with real salted PBKDF2 hashing, policy checks, reset tokens + 9 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_check_password_policy_flags_missing_character_classes",
+        "test_tool.py::test_check_password_policy_flags_short_password",
+        "test_tool.py::test_check_password_policy_passes_strong_password",
+        "test_tool.py::test_generate_reset_token_is_unique_and_carries_no_plaintext_link",
+        "test_tool.py::test_hash_password_is_salted_so_same_password_differs",
+        "test_tool.py::test_hash_password_never_stores_plaintext",
+        "test_tool.py::test_reset_token_expires",
+        "test_tool.py::test_verify_password_rejects_garbage_hash_without_raising",
+        "test_tool.py::test_verify_password_roundtrip"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_hash_password_never_stores_plaintext": {
+      "hash": "a5ddbad354dbaabf9db62b95b9e4f56388db8f6b23c24754f8c2a987f4ff4db3",
+      "asserts": 1
+    },
+    "test_tool.py::test_hash_password_is_salted_so_same_password_differs": {
+      "hash": "ea5f9d8352f175c4387d202f34a7c5dc512dead1eeb1f1dc323eed57e1c17e96",
+      "asserts": 1
+    },
+    "test_tool.py::test_verify_password_roundtrip": {
+      "hash": "405534029a7aee7ea8f6be41c9572ad98b4825d3d9d0a21a62a2fb662c995a8c",
+      "asserts": 2
+    },
+    "test_tool.py::test_verify_password_rejects_garbage_hash_without_raising": {
+      "hash": "af2883b70004f51ae992fe9fc17b62c94d0c26ce3d7692f73c23e73ff0e13c98",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_password_policy_flags_short_password": {
+      "hash": "45590aabcd34d3659695b4534efe7ad214e553c68f8d72e2e78f01c72ec722ce",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_password_policy_flags_missing_character_classes": {
+      "hash": "dc85c500a13ffa82a04b861443d864f6a9ac12e7fbba656dea795e4f5e83e35c",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_password_policy_passes_strong_password": {
+      "hash": "65bc8776990fcb3576f934611b3534408137dc0518cc37d8b2f2e72849c91d0f",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_reset_token_is_unique_and_carries_no_plaintext_link": {
+      "hash": "c70e9ccf6ec1af4277e4c9feba9ce321190dca02cbdf1b13b8ed385bbc07f8f9",
+      "asserts": 2
+    },
+    "test_tool.py::test_reset_token_expires": {
+      "hash": "5197d29669f9c768af54c9292cf296887694443fd9457133f699fea4535eecea",
+      "asserts": 2
+    }
+  },
+  "mutation_score": 0.625,
+  "coverage_pct": 50.0
+}

@@ -20,6 +20,62 @@
         "test_tool.py::test_validate_ws_message_detects_missing_fields",
         "test_tool.py::test_validate_ws_message_rejects_unknown_type"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_build_room_key_basic": {
+      "hash": "f21e726ef2e6bea487ccc3878a96bea681dd2ba5ece27d57469bd2ef0bfc0269",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_room_key_rejects_empty": {
+      "hash": "b121556852735eb093a447e1e71b2a160685f568dbb514cd85e12beda59c3303",
+      "asserts": 0
+    },
+    "test_tool.py::test_broadcast_targets_filters_by_room_and_excludes_sender": {
+      "hash": "9cce200a9eec6150afcf8fb5f60a53c02637c455a96ada2843d6fbf4f3757d2a",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_ws_message_detects_missing_fields": {
+      "hash": "61747d035b8a2928818e9553ad6c88ca31a26035a7cb1188529a8fff75c956f4",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_ws_message_rejects_unknown_type": {
+      "hash": "d1c47d3554d31f60e5ed95a3ea1908a9734d2593030fbee2e99d87b2c18a4d31",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_ws_message_accepts_valid": {
+      "hash": "67d0d881dfbf1d5475b62e2bb450b62b12b03539e46b682d7b23463363552d7e",
+      "asserts": 1
+    },
+    "test_tool.py::test_heartbeat_expired_true_after_timeout": {
+      "hash": "43f8de32683cf76a6289347f5cb1a58cfd5af4b617b30de3be5b855777938018",
+      "asserts": 1
+    },
+    "test_tool.py::test_heartbeat_expired_false_within_timeout": {
+      "hash": "54f6740529771cee4db3ebfd7b219e0f96fda29e1f730aed7dc46cb237a648ee",
+      "asserts": 1
+    },
+    "test_tool.py::test_rate_limit_check_allows_up_to_max": {
+      "hash": "3146822f4fd0ceeb77469787032cc662ec8538f213965171fc41b78b5f0b5673",
+      "asserts": 1
+    },
+    "test_tool.py::test_rate_limit_check_blocks_beyond_max": {
+      "hash": "226332111dbee0840f5b8fb05d74445ec4d1e3b7fedc1221e187cde7528e4016",
+      "asserts": 1
+    },
+    "test_tool.py::test_rate_limit_check_resets_after_window": {
+      "hash": "5a347c1eda1ec6959d5dba8266525e36e232e877fc624b7fef13b144e819be7e",
+      "asserts": 1
+    },
+    "test_tool.py::test_serialize_event_produces_valid_json": {
+      "hash": "2529685afa3e375603b8b5d8165192b237c9f8418dbfd70795ccba22a4e67eac",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 77.0
 }

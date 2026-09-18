@@ -15,6 +15,42 @@
         "test_tool.py::test_suggest_ttl_matches_price_pattern_with_short_ttl",
         "test_tool.py::test_suggest_ttl_matches_user_profile_pattern"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_build_cache_key_joins_parts_with_colon": {
+      "hash": "fbb532525cf323464de6dc9e0ca36d313098a7c1ceee33726f692333167662ba",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_cache_key_rejects_part_containing_colon": {
+      "hash": "246fbc9580d88eafc325c1bfb7b7e570f6234134a2406ea7911c796af4fffe6b",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_ttl_matches_user_profile_pattern": {
+      "hash": "d240bde01a49858508864e19fdd4cb3de33c2f5bebb480a893aab4767d23f062",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_ttl_matches_price_pattern_with_short_ttl": {
+      "hash": "996246c938d84342af2f0839840dc598cecceb888a2947b4069fc6325c299baa",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_ttl_falls_back_to_default_for_unknown_resource": {
+      "hash": "b52c14ae5cadd628fd5667933a8293e4920c0dfebe7560e49001311cf807dd49",
+      "asserts": 1
+    },
+    "test_tool.py::test_keys_matching_invalidation_pattern_scopes_to_prefix": {
+      "hash": "fe40acc283fd6b80dd2dc0816da74cb2a6ca6e958076176b44a8ef7434873c27",
+      "asserts": 1
+    },
+    "test_tool.py::test_keys_matching_invalidation_pattern_no_match_returns_empty": {
+      "hash": "b88e5c868df261aa4e237eb627fc6ba05686633b83efeaa9cd255e78f4b36c5e",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 37.0
 }

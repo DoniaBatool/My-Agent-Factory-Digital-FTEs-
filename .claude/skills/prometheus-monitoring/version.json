@@ -22,6 +22,70 @@
         "test_tool.py::test_find_first_existing_returns_first_match",
         "test_tool.py::test_run_tests_performs_six_distinct_checks_not_a_fake_one"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_find_first_existing_returns_first_match": {
+      "hash": "a482e9960a729afe9040155347e27f238400d4dbc376ea043879e9b70e05b625",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_install_command_docker_ignores_os": {
+      "hash": "9d95656de3d899ac05ca291676a1680c840a91027d11a7245ed66ea3e5c45de6",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_install_command_macos_native_uses_brew": {
+      "hash": "36a9bda6ee3a439eef876e410d471e06c59494a365fca939cc5bec357579aa56",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_install_command_linux_native_uses_apt": {
+      "hash": "0b2201e565a62b18dafd59024e3fe03cee8ba91e67ee00163a1dcec417647b56",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_install_command_rejects_unknown_os": {
+      "hash": "b5f7cc3454a68d6e877fe1606718f7b0d78a020a4f64d42bfa6ca039728f4af6",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_scrape_config_defaults": {
+      "hash": "afa77d34da3493fc7864892dbcb5a1ff114be20ed2ce334244ad38346e75e539",
+      "asserts": 3
+    },
+    "test_tool.py::test_build_scrape_config_is_additive_with_existing_jobs": {
+      "hash": "507e0d87650cc726b9b27b4b31fece56d17d5691bcf361e2ed4a3a6f443d9cd0",
+      "asserts": 1
+    },
+    "test_tool.py::test_dict_to_yaml_renders_nested_structure": {
+      "hash": "076b742fce5c4c5ad55d5f8f9d4f7f75afbcff1a26e0eb30357d7e3fff236abb",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_exporter_command_known_type": {
+      "hash": "7ca025c697ba77e2988d453268d1650261e11ab79b414a750f55aec8fb2f2e98",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_exporter_command_rejects_unknown_type": {
+      "hash": "6d964ac49e40efe951d320844c5677002cc6fe91a43a179b07acecceb7d01155",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_query_url_instant_query": {
+      "hash": "ca4fd1023479236fb9f1621ba54059f45984a73425b669fe01e6ca32e85ef44a",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_query_url_range_query_uses_query_range_endpoint": {
+      "hash": "f3b8c93e98da2be990bfe149e49cfdb046295d161df5d54e0a2dfa29bb7868b9",
+      "asserts": 1
+    },
+    "test_tool.py::test_diagnose_flags_only_failed_checks": {
+      "hash": "3e7174e87bac8020e8141f791812df7960289b46679fba547c72208acacfb9cf",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_performs_six_distinct_checks_not_a_fake_one": {
+      "hash": "fc16f087fa9c6301a34b68d022989a2d15fd7885bed2e4a8600a838b3942a9f9",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 44.0
 }

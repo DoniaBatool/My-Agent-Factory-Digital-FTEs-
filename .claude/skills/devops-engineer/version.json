@@ -14,6 +14,38 @@
         "test_tool.py::test_generate_runbook_rejects_unknown_incident",
         "test_tool.py::test_generate_runbook_returns_known_incident_steps"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_audit_pipeline_flags_missing_ci_workflow": {
+      "hash": "6becff660f6d37a31ab55c57842a0c94595b10501f1c1b66cbe06b5ae5282e50",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_pipeline_detects_present_ci_workflow": {
+      "hash": "c955a72b71d4018ab4615f0be9fb26ce0f8e90d167039f66f7fa8f076ccfe478",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_pipeline_detects_dockerfile_without_healthcheck": {
+      "hash": "bd49e6261cc4b2b69519c0ec2c31c4547eb2dbc5ebb4502af3e2ae118f67b222",
+      "asserts": 2
+    },
+    "test_tool.py::test_audit_pipeline_detects_healthcheck_present": {
+      "hash": "07fcb2b0339123da9fd359fd0e4b48676070cadaedbfca99cf4d58226baa5fe9",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_runbook_returns_known_incident_steps": {
+      "hash": "a29496c2ee26e2872a929b5740660014554607ecaadcf31529e310e37a0ce0aa",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_runbook_rejects_unknown_incident": {
+      "hash": "8e814be507d867b3261f04c5fc986571a92e4240f11c50bf61fdd2e8627ae961",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 42.0
 }

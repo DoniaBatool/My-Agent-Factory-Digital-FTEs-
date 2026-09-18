@@ -19,6 +19,58 @@
         "test_tool.py::test_validate_schema_requires_required_fields",
         "test_tool.py::test_validate_schema_type_check"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_coerce_value_passthrough_same_type": {
+      "hash": "26b5ff52c82e62f14aa568b7da8a54332c3eba3dfa1326358f03ddb503363c9c",
+      "asserts": 1
+    },
+    "test_tool.py::test_coerce_value_string_to_int": {
+      "hash": "ee873b00554a364d41d1d5754d87755b955db3d624a389c71536e5b8fb77bc4e",
+      "asserts": 1
+    },
+    "test_tool.py::test_coerce_value_string_to_bool_true_variants": {
+      "hash": "4d116158bc3489536fdec1446d8402c4891b06b41a7b16c98346d431c69bb376",
+      "asserts": 2
+    },
+    "test_tool.py::test_coerce_value_raises_on_bad_input": {
+      "hash": "e183cd96468699c230d57d94be75d7acdb20a234831c71847e2baf165dc060cd",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_schema_requires_required_fields": {
+      "hash": "e98b0c4fa72d0c1319b1d48a0cee9a6997551d86cb20107559b5d5505326b3c8",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_type_check": {
+      "hash": "f100bb982be46276cdf1fc69f225fb4c98d58b167a212d07ed7f06ff51ad7b4d",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_min_max_bounds": {
+      "hash": "ae0b32d9268252a41dd2cfb450224c8642ff906c20eb4487c24b97d8e3273ee5",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_schema_regex_check": {
+      "hash": "7100d817114fed741d192b00eee7fb8f157cef3b7ecf08468209c3f5fc5cc33a",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_accepts_valid_data": {
+      "hash": "90fb95b5adbb138b753f6f44ee7605477ad9eb3a919cb0250050e7960b85b1e1",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_error_response_valid_flag": {
+      "hash": "311187b71a323455b4349836315abfe88d736555207b2ff5533486a67a37cca9",
+      "asserts": 3
+    },
+    "test_tool.py::test_validate_email": {
+      "hash": "d594c7b9cf5d187eb44e95c1920439542a9d8a4559147c84d23c03cfc2c512aa",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 79.0
 }

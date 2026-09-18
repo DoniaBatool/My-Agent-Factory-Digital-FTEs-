@@ -1,0 +1,4 @@
+
+[2026-09-18 08:42:01]
+REJECTED promotion of 'password-security': the staged version is missing 1 file(s)/dir(s) that exist in the live skill: ['.pytest_cache']
+If this staged copy was hand-built by cherry-picking files instead of copying the whole live directory first, this is accidental content loss (this happened once already: grafana-expert/README.md, prometheus-monitoring/README.md, and prompt-analyzer/EXAMPLES.md were briefly lost this way before this check existed). If the removal is deliberate, re-run with allow_file_removal=True / --allow-file-removal.

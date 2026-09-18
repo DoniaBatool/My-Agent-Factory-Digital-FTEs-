@@ -1,0 +1,67 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110911",
+      "reason": "Replaced TODO stub with real static ownership-filter/IDOR checks + 9 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_accepts_client_supplied_user_id_false_for_server_derived_value",
+        "test_tool.py::test_accepts_client_supplied_user_id_flags_request_json",
+        "test_tool.py::test_build_scoped_query_includes_both_filters",
+        "test_tool.py::test_has_ownership_filter_false_for_unscoped_query",
+        "test_tool.py::test_has_ownership_filter_recognizes_owner_id_variant",
+        "test_tool.py::test_has_ownership_filter_true_for_scoped_query",
+        "test_tool.py::test_scan_source_does_not_flag_scoped_select",
+        "test_tool.py::test_scan_source_flags_client_supplied_user_id_red_flag",
+        "test_tool.py::test_scan_source_flags_unscoped_select"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_has_ownership_filter_true_for_scoped_query": {
+      "hash": "2d40737de25a0fa1acb4312dbf8852c07219652a7869057026c875b89af652f4",
+      "asserts": 1
+    },
+    "test_tool.py::test_has_ownership_filter_false_for_unscoped_query": {
+      "hash": "a416a5f3372f6df89629c16086d9ec825faff15af035ceb34e0ab67f19290f09",
+      "asserts": 1
+    },
+    "test_tool.py::test_has_ownership_filter_recognizes_owner_id_variant": {
+      "hash": "1b2ce351d77482ac9059c1a5b764e2b7f5882cd71e6d42819178e5602b00c8d2",
+      "asserts": 1
+    },
+    "test_tool.py::test_accepts_client_supplied_user_id_flags_request_json": {
+      "hash": "0845a656c41ad10cfe7b3e8a84c1e73b8c2694d4f1b0409a01ff2ac63530f9e6",
+      "asserts": 1
+    },
+    "test_tool.py::test_accepts_client_supplied_user_id_false_for_server_derived_value": {
+      "hash": "32aac67aab48a45ff6fc733b020ea4de4ebf4e2f2148db9b6582df255dd122b1",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_scoped_query_includes_both_filters": {
+      "hash": "7fddca888a5fe1bb4ee60a7b24a0b77e38a227e27f07541c5ebcbea0e0e123c3",
+      "asserts": 2
+    },
+    "test_tool.py::test_scan_source_flags_unscoped_select": {
+      "hash": "48eee096819ec95d0a9c313c0254c223442be8598965b3cfa7e271f18bfdec3d",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_source_does_not_flag_scoped_select": {
+      "hash": "13da080b2f45695a0771c27ef30f9174a99537cf42981968e0121785c7727221",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_source_flags_client_supplied_user_id_red_flag": {
+      "hash": "5eae17801a59a9be4dd0661ec6a6bcc8808caf72c683d069413224d2f2027eed",
+      "asserts": 1
+    }
+  },
+  "mutation_score": 1.0,
+  "coverage_pct": 40.0
+}

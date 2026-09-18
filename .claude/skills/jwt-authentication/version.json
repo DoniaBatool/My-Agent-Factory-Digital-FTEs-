@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -17,6 +17,189 @@
         "test_tool.py::test_encode_requires_sub",
         "test_tool.py::test_generate_secret_is_random_and_hex"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260918-083229",
+      "reason": "Bulletproofing pass: added 24 new tests (CLI layer coverage, argparse required-flag enforcement, JWT edge cases: exact expiry boundary, malformed signature/payload, missing exp claim). Coverage 49%->98%, mutation score 36%->91% (10/11 mutants killed; 1 documented equivalent mutant).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_claims_flags_missing",
+        "test_tool.py::test_check_claims_ok_when_all_present",
+        "test_tool.py::test_decode_does_not_leak_which_check_failed_via_type",
+        "test_tool.py::test_decode_rejects_expired_token",
+        "test_tool.py::test_decode_rejects_malformed_token",
+        "test_tool.py::test_decode_rejects_wrong_secret",
+        "test_tool.py::test_encode_decode_roundtrip",
+        "test_tool.py::test_encode_requires_sub",
+        "test_tool.py::test_generate_secret_is_random_and_hex"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_check_claims_returns_empty_list_type_not_falsy_none",
+        "test_tool.py::test_cmd_check_claims_missing_prints_missing_and_returns_1",
+        "test_tool.py::test_cmd_check_claims_ok_prints_ok_and_returns_0",
+        "test_tool.py::test_cmd_generate_secret_prints_valid_hex",
+        "test_tool.py::test_cmd_issue_token_merges_extra_claims",
+        "test_tool.py::test_cmd_issue_token_then_cmd_verify_token_roundtrip",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_cmd_verify_token_invalid_prints_invalid_and_returns_1",
+        "test_tool.py::test_decode_expiry_boundary_at_exact_exp_is_expired",
+        "test_tool.py::test_decode_one_second_before_expiry_is_still_valid",
+        "test_tool.py::test_decode_rejects_malformed_signature_segment",
+        "test_tool.py::test_decode_rejects_payload_missing_exp_claim",
+        "test_tool.py::test_decode_rejects_payload_that_is_not_valid_json",
+        "test_tool.py::test_generate_secret_respects_byte_length",
+        "test_tool.py::test_main_check_claims_missing_payload_exits_with_error",
+        "test_tool.py::test_main_dispatches_check_claims_end_to_end",
+        "test_tool.py::test_main_dispatches_generate_secret_end_to_end",
+        "test_tool.py::test_main_dispatches_issue_and_verify_token_end_to_end",
+        "test_tool.py::test_main_issue_token_missing_secret_exits_with_error",
+        "test_tool.py::test_main_issue_token_missing_sub_exits_with_error",
+        "test_tool.py::test_main_verify_token_missing_secret_exits_with_error",
+        "test_tool.py::test_main_verify_token_missing_token_exits_with_error",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_script_runs_as_main_entrypoint_via_subprocess"
+      ]
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_encode_requires_sub": {
+      "hash": "385a6f40f9dce1518ba61be0f7e5b37bb32c5ad1cae605339b3cf5e53aab4c48",
+      "asserts": 1
+    },
+    "test_tool.py::test_encode_decode_roundtrip": {
+      "hash": "b0bf17ba0635fdf04e9229203c5737c4a31d7218112e943fad736a7604d18d85",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_rejects_wrong_secret": {
+      "hash": "c80d277e3aa41fca2e139c21cef0ea1562a27646cae21a69d1bb8cf61a0b74ce",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_rejects_expired_token": {
+      "hash": "69f8cd0da53637e4be6b5645b373989bed06177a7c299bf81c97f9a87bbbed43",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_rejects_malformed_token": {
+      "hash": "40a53af1b1885c25a2ed06e12710b1aaf71630a8ea416c08036baa1c3c377bc5",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_does_not_leak_which_check_failed_via_type": {
+      "hash": "497b12cf73dad78de0a36b5bcf8f929c6c0c118ec0e130db6f662ac7988d74f0",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_claims_flags_missing": {
+      "hash": "9ec24c78eec06080fbc2ed9e812f1dc9e29ca09506184a90f447e2fe529e85b6",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_claims_ok_when_all_present": {
+      "hash": "d9d5ae6a51f80b43c31f327fe985795823062b1edef7735c623092e4632563c6",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_secret_is_random_and_hex": {
+      "hash": "1ce027d4a5e7a65efd85fcd4746979a960a7bab80cd59441f7e8d0db8e164b02",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_secret_respects_byte_length": {
+      "hash": "9b70c7069ed2c8afa85d4cf6f6ddc01df8def667cdb67c7e32dd20a2e1539818",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_expiry_boundary_at_exact_exp_is_expired": {
+      "hash": "1a6a8a3a98957ff1176a2e11993ba5f6c53b1bcc0e0e8b8e5a00b3203542564b",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_one_second_before_expiry_is_still_valid": {
+      "hash": "1cf5288c2728afa2a86b0f09ed42126d7f8376ff136f40f8da7101c955ae363c",
+      "asserts": 1
+    },
+    "test_tool.py::test_decode_rejects_malformed_signature_segment": {
+      "hash": "aebeed9e2e9f25306cfb3c1368f36eba7516f303166a27251fae68a67fd590f5",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_rejects_payload_missing_exp_claim": {
+      "hash": "08391394c4cde651ee898b3cc6f6564ac77acd4e0f1943c0f3a396808aaf0159",
+      "asserts": 2
+    },
+    "test_tool.py::test_decode_rejects_payload_that_is_not_valid_json": {
+      "hash": "da136f217489d5288d1a4219503cbac02e6274359af74aff2ca4338cfa79dc97",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_claims_returns_empty_list_type_not_falsy_none": {
+      "hash": "9d34c00ba4f1a837107c8b7c3b74ac225731697b9ab666b65b09cdec5aafaf5e",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_generate_secret_prints_valid_hex": {
+      "hash": "7b36d460e343d2e4ba76ef20976b2e201efcac4738d184eff79d70c433f6df5a",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_issue_token_then_cmd_verify_token_roundtrip": {
+      "hash": "19aced05550a423797cc037bfc0a2099919740a0d5b87802c1d6072071aef0d3",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_issue_token_merges_extra_claims": {
+      "hash": "35599adbb5dd3be4fd0fe66851bda63d273abe5014ef1c2b7b24d80e66129567",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_verify_token_invalid_prints_invalid_and_returns_1": {
+      "hash": "6c0ec79be79ef01a6cdcc8513b83a2db3e67606b45e332283dfc4194d9cbe3cd",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_claims_missing_prints_missing_and_returns_1": {
+      "hash": "b00ff01229f6f83c5e76f10b672b4c3ba9481cb8e43c867ee1ee12a6bce82f3d",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_check_claims_ok_prints_ok_and_returns_0": {
+      "hash": "32fde876c0449261f6895ea8ab4791d9fc7351b8f0cc1b2ca5d180a8b09130be",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "4ee2c27b56baa69f4aabd845de7c2da65c8442ed865df2e7453027aeb9744dfe",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "5d390c0847d1b3cc394a010653e0b89d11491d63464759d725d6a04670f5b0fd",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_generate_secret_end_to_end": {
+      "hash": "632d41ebd3d148d22e76e6891681797518e8340d4d4625bcf0d863568560d5c8",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_issue_and_verify_token_end_to_end": {
+      "hash": "0bf38ec4b68475196c96e051f335c58377631d5f132ad26f5c9b125b39060591",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_dispatches_check_claims_end_to_end": {
+      "hash": "6560185a4ec3636bbf43d86750d2736f2516de4681ad2714ad9c91d8c4659a13",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_issue_token_missing_sub_exits_with_error": {
+      "hash": "10d40e6e65aeee850eb70791fa3cc2f7845f0668174bfafd99e0333594825fc0",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_issue_token_missing_secret_exits_with_error": {
+      "hash": "a8466bab2782dc48f8c1f637e204ace9352b18f8494d31544426b36c352b441e",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_verify_token_missing_token_exits_with_error": {
+      "hash": "a7ef282e5c7604afedcb9940f536071eac2caf190f7588abbfe5d8ad1bb0bd92",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_verify_token_missing_secret_exits_with_error": {
+      "hash": "d6d9796dc0c95b90b6d17cf7134d2dfcf3d20f436d683ddc4578c56a941b3207",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_check_claims_missing_payload_exits_with_error": {
+      "hash": "12a1c1e2f12dee43146c46848d47344432db842cc4787133025b40b59242b1ba",
+      "asserts": 0
+    },
+    "test_tool.py::test_script_runs_as_main_entrypoint_via_subprocess": {
+      "hash": "c2c5368675ef8b484c6786176d7c5ee4ac229f04236178275ab6f85a49fb1ce3",
+      "asserts": 2
+    }
+  },
+  "mutation_score": 0.9090909090909091,
+  "coverage_pct": 98.0
 }

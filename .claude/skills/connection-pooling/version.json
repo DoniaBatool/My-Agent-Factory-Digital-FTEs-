@@ -14,6 +14,38 @@
         "test_tool.py::test_generate_sqlalchemy_config_defaults",
         "test_tool.py::test_generate_sqlalchemy_config_respects_overrides"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_calculate_pool_size_divides_evenly_across_instances": {
+      "hash": "8e54376002778001b643b0094027796e6fde3eb018e291893e41bdd597dad387",
+      "asserts": 1
+    },
+    "test_tool.py::test_calculate_pool_size_never_exceeds_db_budget_across_all_instances": {
+      "hash": "78021f0479b7de238694c915f6cf1e97545d4a045aaed0ee59446912aadd87b0",
+      "asserts": 1
+    },
+    "test_tool.py::test_calculate_pool_size_minimum_one_per_instance": {
+      "hash": "8494d1f22a9279c1bb68825cd42447fcd6b90f42f898a42d509fb76698c95650",
+      "asserts": 1
+    },
+    "test_tool.py::test_calculate_pool_size_rejects_zero_instances": {
+      "hash": "8507237e0d0780279ceac7239a3a15057ce05cdb75bdf044c29bc8e4a3ab2c63",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_sqlalchemy_config_defaults": {
+      "hash": "3951a178495b91899ad8fd90909877afc2df71ce7e1f82094fc31e57d952a0c5",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_sqlalchemy_config_respects_overrides": {
+      "hash": "7eaa6e1fa1bef8456f6c1fd920c6d08ba77ffb95bf2283db75d44b751e1db241",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 30.0
 }

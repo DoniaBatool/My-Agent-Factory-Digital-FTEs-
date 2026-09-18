@@ -17,6 +17,50 @@
         "test_tool.py::test_date_edge_cases_feb_29_none_on_non_leap_year",
         "test_tool.py::test_date_edge_cases_feb_29_present_on_leap_year"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_boundary_values_for_int_includes_zero_and_extremes": {
+      "hash": "db9844f11ad6752d0688ba14f257e71fb2bc967d095ebd911644a1734d0e4d3c",
+      "asserts": 1
+    },
+    "test_tool.py::test_boundary_values_unknown_type_raises": {
+      "hash": "ccaa114aa05ded7334485cd5852dec48f6be33fa9f4695bd6d070fd7c09bd3fa",
+      "asserts": 1
+    },
+    "test_tool.py::test_date_edge_cases_feb_29_present_on_leap_year": {
+      "hash": "76b904f575aa2be9ae935549385edb9596152d9d2da923a3ce1728e8e3481916",
+      "asserts": 1
+    },
+    "test_tool.py::test_date_edge_cases_feb_29_none_on_non_leap_year": {
+      "hash": "6ec6a20a9391d235e6f080853c55a6469a80438141564c1a97288315630c54f7",
+      "asserts": 1
+    },
+    "test_tool.py::test_add_months_handles_jan_31_into_leap_feb": {
+      "hash": "8db476fcc2e0a7a78a9657d18f7670316a0aee144d00f093bb091debd0c757fd",
+      "asserts": 1
+    },
+    "test_tool.py::test_add_months_handles_jan_31_into_non_leap_feb": {
+      "hash": "ad4aac7f3f82cd1881b3bb57f677ff7f27ac157b403f4c0c9e03a90c38b5e024",
+      "asserts": 1
+    },
+    "test_tool.py::test_add_months_never_raises_valueerror_for_month_end_rollover": {
+      "hash": "1191633cdb42fe3610c6597de18969adc780b26f92e23880fec303ca76197462",
+      "asserts": 0
+    },
+    "test_tool.py::test_build_edge_case_matrix_produces_one_row_per_boundary_value": {
+      "hash": "feb746f77854ead9a6d2b5b30cc47147917e580245f9e920ac0ffa71c57a5904",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_edge_case_matrix_skips_unknown_type_gracefully": {
+      "hash": "58949e4683b346fbe98acb18fce6b0e9aa5b654c3e95f5dfdeafd9d239987d98",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 50.0
 }

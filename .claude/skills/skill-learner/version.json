@@ -16,6 +16,46 @@
         "test_tool.py::test_stage_skill_overwrites_stale_staged_copy",
         "test_tool.py::test_stage_skill_raises_for_unknown_skill"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_find_skill_for_issue_matches_jwt": {
+      "hash": "fa230554e7c2fc50a1cd1b039f798da45fac611383dc3d0f7a80e88896274cb1",
+      "asserts": 1
+    },
+    "test_tool.py::test_find_skill_for_issue_matches_multiword_keyword_over_substring": {
+      "hash": "3ae16e89137b941682a4f7f507474bacf945f4f8403723f956656de6f1890b47",
+      "asserts": 1
+    },
+    "test_tool.py::test_find_skill_for_issue_returns_empty_for_unrelated_text": {
+      "hash": "774eef88f4a6566bff9585b872e67998d3ce42e0c01ca3b0b683d4fe1edfff28",
+      "asserts": 1
+    },
+    "test_tool.py::test_capture_learning_records_all_fields": {
+      "hash": "6d819fccc74ff98df16f86a8249cf8e53c92703c70134712817be44cdde7f8d3",
+      "asserts": 3
+    },
+    "test_tool.py::test_append_learning_log_accumulates_entries": {
+      "hash": "832cb29e217295e5797b5b2cbdacb76e2f3d90605e3f357790aa29861d69b84f",
+      "asserts": 2
+    },
+    "test_tool.py::test_stage_skill_copies_live_dir_without_touching_it": {
+      "hash": "5dc6d17f927eccc1da480191fdd953ef16f10eb990f3474914f5168e62873fbf",
+      "asserts": 3
+    },
+    "test_tool.py::test_stage_skill_raises_for_unknown_skill": {
+      "hash": "3a61b96d3b0e1af91b17eb8f28790ef9e14008a273a99c229bb54ec9b613fa60",
+      "asserts": 1
+    },
+    "test_tool.py::test_stage_skill_overwrites_stale_staged_copy": {
+      "hash": "8d21d806f90dc4a93efad8d395b71a08419170e422886226d3fb93883d925517",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 41.0
 }

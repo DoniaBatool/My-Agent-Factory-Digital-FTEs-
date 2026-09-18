@@ -13,6 +13,34 @@
         "test_tool.py::test_check_n_plus_one_detects_service_call_in_loop",
         "test_tool.py::test_check_n_plus_one_ignores_loop_without_service_call"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_build_type_sdl_produces_valid_shape": {
+      "hash": "19fc9ad4d3f6ddb79e3f73575ebf90947702dffde8b6179a7fd11aff1a10ddc8",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_schema_sdl_includes_all_types_and_query": {
+      "hash": "5b6b501177d5a5c988877a83434edc89e66356ccf5c9f0489ecdaf33dfc8f236",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_n_plus_one_detects_service_call_in_loop": {
+      "hash": "a0d4fe98271f841a8a9f48b4159b8b5bbe5a755d05813e2439141badd66c987c",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_n_plus_one_clean_for_batched_query": {
+      "hash": "d3caec1c1798569cc66b63bea3b857686f79e9e65392bf1835d796bcae7dd787",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_n_plus_one_ignores_loop_without_service_call": {
+      "hash": "9146724cd8099a50fa7649c55d0bc0762763581290a8b04d18a22f36a2f54c2a",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 40.0
 }

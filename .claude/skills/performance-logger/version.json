@@ -18,6 +18,54 @@
         "test_tool.py::test_rate_limited_logger_blocks_beyond_max_within_window",
         "test_tool.py::test_redact_sensitive_masks_known_keys"
       ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
     }
-  ]
+  ],
+  "test_baseline": {
+    "test_tool.py::test_redact_sensitive_masks_known_keys": {
+      "hash": "5058420d95232cd5e20a0902dde1dc9799cbf04c903c1fc78b09dda4205dad52",
+      "asserts": 3
+    },
+    "test_tool.py::test_format_log_line_includes_redacted_fields": {
+      "hash": "6e80bdd4810e5778826d08e2d863f8cf058e62c09a60d03f4165326e2c1f64ea",
+      "asserts": 3
+    },
+    "test_tool.py::test_compute_duration_ms_basic": {
+      "hash": "93705489474f140e332fd9322841dccc8b1cfd4f483c104f24e6c0b12adbc07d",
+      "asserts": 1
+    },
+    "test_tool.py::test_compute_duration_ms_rejects_negative": {
+      "hash": "386f10e908c1ef84ee190d80e8ebd3d6181e705001abe05c8dcfdf83fd101999",
+      "asserts": 0
+    },
+    "test_tool.py::test_is_slow_threshold": {
+      "hash": "f513cac1b4cca90efb00fe72541179a189f39d97c687817a82472e3908da7cf5",
+      "asserts": 2
+    },
+    "test_tool.py::test_aggregate_timings_basic": {
+      "hash": "201cc3bc51fbf77360b7d6041ee4205f98ce835db2b568fa1d0c1b7519ef2b20",
+      "asserts": 2
+    },
+    "test_tool.py::test_aggregate_timings_empty": {
+      "hash": "6bd8aaa25d2abb28fa618847d7cb45be4bcc5fe6ac141ac840602891ffb27307",
+      "asserts": 1
+    },
+    "test_tool.py::test_rate_limited_logger_allows_up_to_max": {
+      "hash": "ed7abe200d7dfc7a0efe687f1fed77ae79e62c9c05830d43f0d4d36e7b11d485",
+      "asserts": 1
+    },
+    "test_tool.py::test_rate_limited_logger_blocks_beyond_max_within_window": {
+      "hash": "b2b7f5320750bcb5e9d292a9824f83fc9a90ed3037558d91d1e2dd3e4750c55e",
+      "asserts": 1
+    },
+    "test_tool.py::test_rate_limited_logger_allows_again_after_window_passes": {
+      "hash": "afd09cc8d7a14f83eff184a6d174864e07e97f974f309ccb3ebe0bd77f1228be",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 80.0
 }
