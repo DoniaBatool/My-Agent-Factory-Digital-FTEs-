@@ -1,0 +1,71 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113317",
+      "reason": "Replaced TODO stub with real user-isolation, pagination, cascade-delete-plan and preview helpers, 10 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_assert_owns_conversation_passes_for_owner",
+        "test_tool.py::test_assert_owns_conversation_rejects_other_user",
+        "test_tool.py::test_build_conversation_list_sorts_by_last_activity_desc",
+        "test_tool.py::test_cascade_delete_plan_only_targets_matching_conversation",
+        "test_tool.py::test_latest_message_preview_empty_when_no_messages",
+        "test_tool.py::test_latest_message_preview_truncates_long_content",
+        "test_tool.py::test_paginate_messages_before_id_walks_backward",
+        "test_tool.py::test_paginate_messages_returns_last_n_when_no_cursor",
+        "test_tool.py::test_paginate_messages_unknown_cursor_raises",
+        "test_tool.py::test_scoped_conversations_for_user_filters_correctly"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_assert_owns_conversation_passes_for_owner": {
+      "hash": "06e292574434be145ff9070f8ebaf1c20120b0e7a30638e96f77d7baacf9ac88",
+      "asserts": 0
+    },
+    "test_tool.py::test_assert_owns_conversation_rejects_other_user": {
+      "hash": "b20b55033b5fe8e81472f824dbec3643f64c2edd12be5602c9ca00c12896b23f",
+      "asserts": 0
+    },
+    "test_tool.py::test_latest_message_preview_truncates_long_content": {
+      "hash": "3333cd9c044bca5a05e07a437d6f5d9d39ed766ebe797502f65c42dfef4c1278",
+      "asserts": 2
+    },
+    "test_tool.py::test_latest_message_preview_empty_when_no_messages": {
+      "hash": "22e65b796fe35cf8fcfc4f13ffcaeaceca081fd97522bb20dbca47816d1f82b5",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_conversation_list_sorts_by_last_activity_desc": {
+      "hash": "5301c824052986e3f057111a132382f4bc1af7033f06a0978b39ec4138a42f87",
+      "asserts": 2
+    },
+    "test_tool.py::test_paginate_messages_returns_last_n_when_no_cursor": {
+      "hash": "5258c9a698bad3c2c599e7a254c782e240f57f5b3974cd0df59a7336c0d3c2b2",
+      "asserts": 3
+    },
+    "test_tool.py::test_paginate_messages_before_id_walks_backward": {
+      "hash": "82beb2759181de3784d195bc1165384808f73ed8f48eec413119463ec1800802",
+      "asserts": 1
+    },
+    "test_tool.py::test_paginate_messages_unknown_cursor_raises": {
+      "hash": "d6476e87eacc12a344c9aa80a8c28b891d0ff7105bb147b51e1b49c3fa50e300",
+      "asserts": 0
+    },
+    "test_tool.py::test_cascade_delete_plan_only_targets_matching_conversation": {
+      "hash": "08c10bad81e83ce38725b9f51919d6e066cb830ec8268e98ea2a0fc03482f194",
+      "asserts": 2
+    },
+    "test_tool.py::test_scoped_conversations_for_user_filters_correctly": {
+      "hash": "4e43bbcb1e02bf7dec4bc037f031057a9b0f97ee66b391f1ee2b113695e9febe",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 79.0
+}

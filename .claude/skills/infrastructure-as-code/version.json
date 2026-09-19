@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -20,6 +20,53 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-064006",
+      "reason": "Bulletproofing pass: added 31 new tests covering CLI layer (cmd_generate_s3_bucket, cmd_generate_vpc, cmd_validate_variables, cmd_test, main dispatch), required-arg enforcement (missing --resource-name/--bucket-name/--cidr/--required/--provided across all three generator subcommands), validate_hcl_identifier edge cases (leading digit, special chars, empty string), default-parameter pinning for s3 bucket versioning/encryption, custom subnet counts, malformed JSON to validate-variables, and a subprocess smoke test exercising the __main__ guard. Coverage 34%->97%. Mutation score measured at 90.9% (10/11 mutants killed); the one surviving mutant is a documented equivalent at scripts/tool.py:96 (the 'ok = False' line inside cmd_test's own self-test, reached only if generate_vpc's CIDR validation were broken -- unreachable without deliberately breaking the real validation it is meant to self-check, so it is left undisturbed rather than force-killed with a contrived test).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_generate_s3_bucket_includes_bucket_name",
+        "test_tool.py::test_generate_s3_bucket_includes_versioning_when_enabled",
+        "test_tool.py::test_generate_s3_bucket_omits_versioning_when_disabled",
+        "test_tool.py::test_generate_s3_bucket_rejects_invalid_resource_name",
+        "test_tool.py::test_generate_vpc_includes_cidr_block",
+        "test_tool.py::test_generate_vpc_rejects_invalid_cidr",
+        "test_tool.py::test_validate_required_variables_flags_missing_and_empty"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_cmd_generate_s3_bucket_flags_disable_features",
+        "test_tool.py::test_cmd_generate_s3_bucket_invalid_name_returns_1",
+        "test_tool.py::test_cmd_generate_s3_bucket_success_returns_0",
+        "test_tool.py::test_cmd_generate_vpc_invalid_cidr_returns_1",
+        "test_tool.py::test_cmd_generate_vpc_success_returns_0",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_cmd_validate_variables_all_present_returns_0",
+        "test_tool.py::test_cmd_validate_variables_malformed_json_raises",
+        "test_tool.py::test_cmd_validate_variables_missing_returns_1",
+        "test_tool.py::test_generate_s3_bucket_both_disabled_produces_minimal_hcl",
+        "test_tool.py::test_generate_s3_bucket_defaults_include_both_versioning_and_encryption",
+        "test_tool.py::test_generate_s3_bucket_includes_encryption_when_enabled",
+        "test_tool.py::test_generate_s3_bucket_omits_encryption_when_disabled",
+        "test_tool.py::test_generate_vpc_custom_subnet_count",
+        "test_tool.py::test_generate_vpc_rejects_invalid_resource_name",
+        "test_tool.py::test_main_generate_s3_bucket_end_to_end",
+        "test_tool.py::test_main_generate_s3_bucket_missing_required_bucket_name_raises_systemexit",
+        "test_tool.py::test_main_generate_s3_bucket_missing_required_resource_name_raises_systemexit",
+        "test_tool.py::test_main_generate_vpc_end_to_end",
+        "test_tool.py::test_main_generate_vpc_missing_required_cidr_raises_systemexit",
+        "test_tool.py::test_main_generate_vpc_missing_required_resource_name_raises_systemexit",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_main_validate_variables_end_to_end",
+        "test_tool.py::test_main_validate_variables_missing_provided_flag_raises_systemexit",
+        "test_tool.py::test_main_validate_variables_missing_required_flag_raises_systemexit",
+        "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard",
+        "test_tool.py::test_validate_hcl_identifier_accepts_valid_names",
+        "test_tool.py::test_validate_hcl_identifier_rejects_leading_digit",
+        "test_tool.py::test_validate_hcl_identifier_rejects_special_characters",
+        "test_tool.py::test_validate_required_variables_all_present_returns_empty_list"
+      ]
     }
   ],
   "test_baseline": {
@@ -50,7 +97,132 @@
     "test_tool.py::test_validate_required_variables_flags_missing_and_empty": {
       "hash": "eaa0b6f12334f73564d20478bab29be10f87fab62500164c3665021bf5420773",
       "asserts": 1
+    },
+    "test_tool.py::test_validate_hcl_identifier_accepts_valid_names": {
+      "hash": "90f2c9e96545703d6adc4d6f18901bd6d8ea44de24f4d02c8eb930f2be7f5623",
+      "asserts": 3
+    },
+    "test_tool.py::test_validate_hcl_identifier_rejects_leading_digit": {
+      "hash": "8694720b81014f126f931b11021a258cf8a588ea9af80b00e068c34a8adcdfa9",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_hcl_identifier_rejects_special_characters": {
+      "hash": "5e4e28954a37cfa5a52458ad929ab273fd70fed91a4259ac950696cc47c545b1",
+      "asserts": 3
+    },
+    "test_tool.py::test_generate_s3_bucket_includes_encryption_when_enabled": {
+      "hash": "9c7700d7ab793d23a439e0e3c32ba99965f356fae61925cc59f1c583a8f2a1c1",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_s3_bucket_omits_encryption_when_disabled": {
+      "hash": "252ac89babc5265585257f7c2aa8c343ebe912a564e5761518f74b6fcb4a1f47",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_s3_bucket_both_disabled_produces_minimal_hcl": {
+      "hash": "2e660415013d38d48617cfbbfcb2da36d51f161a9fe48701760e2239702dcab1",
+      "asserts": 3
+    },
+    "test_tool.py::test_generate_vpc_custom_subnet_count": {
+      "hash": "a2c71c69496194382b9851922cc23316f5cc2e3af301dbe5c47cf4b0ad34fb2a",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_vpc_rejects_invalid_resource_name": {
+      "hash": "8b62880a276740d140975db95db68b93c679ee50def4a792507bf4eb26897c1a",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_required_variables_all_present_returns_empty_list": {
+      "hash": "02ed0f06266955810091b32bec9db4e580fb148b0fafbf4ae21fadf774cd36ab",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_generate_s3_bucket_success_returns_0": {
+      "hash": "ac88a1f19605760a6a14e51a59cf0494aa228706edffb6470ba85dd5f6781885",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_generate_s3_bucket_flags_disable_features": {
+      "hash": "0e5fd288e790a6c55e851fa0566693a965e17a42a784c9f70311c1db388fd551",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_generate_s3_bucket_invalid_name_returns_1": {
+      "hash": "99c17de30a64f3385f66efa03075aa16a38f740b65fa7ce16c6225e4066230d3",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_generate_vpc_success_returns_0": {
+      "hash": "6d92d2d5f90501845eb4acf2681ff3e3c9dfecfcf44ee06b11a4dba6e72cc043",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_generate_vpc_invalid_cidr_returns_1": {
+      "hash": "bd837ca4a245dbd6b5a3be9ec4efad3267a6961e3699bdefed2aca163e7a6399",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_variables_all_present_returns_0": {
+      "hash": "1ba86180dfb0b0aebe17b3ae731ac8ab0c1ed763829e6756442baa6eb1cb4349",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_variables_missing_returns_1": {
+      "hash": "eba1fce7dd5cdbde99526e2b758a286075c62d87259ecb54698c74cab4febc88",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_variables_malformed_json_raises": {
+      "hash": "5f8ad99906677e9d167db9ef2f88a93de23d17996b1c750f0b1126acdbd0dd9a",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "4ee2c27b56baa69f4aabd845de7c2da65c8442ed865df2e7453027aeb9744dfe",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "20a91560641d7e5a098c20451bcbbd1939086de848a1de7141bf6f8426e1d7d3",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_s3_bucket_end_to_end": {
+      "hash": "bdc705b3eee8d658525ac27b4ff10df3a0dba890f5412d86dc418b89739c19a8",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_vpc_end_to_end": {
+      "hash": "53386fa5142b3355757ae995601852b9a463ab0fafe32f8f46f288ef4a3b29da",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_validate_variables_end_to_end": {
+      "hash": "54e0790844e545b24000f066308ef14f5acda257b095500c5b47eb05ea8701b9",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "83a16bb1a4a0805e120e0b4270225483cf2b74b29b3a3c3f1ba02b1536d88232",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_s3_bucket_missing_required_resource_name_raises_systemexit": {
+      "hash": "6ac6c60e6b124eb3b6f76b3a4aeff96badc07855010e1076ce615dcd523258c2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_s3_bucket_missing_required_bucket_name_raises_systemexit": {
+      "hash": "a3ed24ebef0c441507cd2c03d3cc9e468a8558902e2df627014061531742b140",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_vpc_missing_required_cidr_raises_systemexit": {
+      "hash": "e9357d4d8a35c36fdb4a61420aa125f9e5e23fe032a270223722dedeee635963",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_validate_variables_missing_required_flag_raises_systemexit": {
+      "hash": "7f1868773a754be9a2318cea7cac533a93c53b35a0adc55576ea2475f5e1240b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_validate_variables_missing_provided_flag_raises_systemexit": {
+      "hash": "a6c6ed9036339e8bec97740d3c6bb14f5c246910735dbe3328af054820e7d4ee",
+      "asserts": 2
+    },
+    "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard": {
+      "hash": "7afc38f33ebbef442fe89cd0ce28b989261f48d333ec24181688bbebc40810c9",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_s3_bucket_defaults_include_both_versioning_and_encryption": {
+      "hash": "1446fb58ecd4419522aee3cce52299e8e876232c3d956f18574e3cc1702ece90",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_vpc_missing_required_resource_name_raises_systemexit": {
+      "hash": "c277ddb3bcf46b55dbe2e5a44afec0a672699e7ee0ffcb8302e2b933c0f62f6b",
+      "asserts": 2
     }
   },
-  "coverage_pct": 34.0
+  "coverage_pct": 98.0,
+  "mutation_score": 0.9090909090909091
 }

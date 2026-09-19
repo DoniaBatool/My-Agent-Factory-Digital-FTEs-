@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -19,6 +19,33 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062029",
+      "reason": "Bulletproofing pass: added 12 new tests covering CLI layer (cmd_audit_pipeline, cmd_generate_runbook, cmd_test, main dispatch), required-arg enforcement (missing project_root, invalid incident_type choice via argparse), no-command help path, and a subprocess smoke test exercising the __main__ guard. Coverage 42%->97% (only __main__ guard line unreachable in-process). Mutation score measured at 100% (4/4 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_audit_pipeline_detects_dockerfile_without_healthcheck",
+        "test_tool.py::test_audit_pipeline_detects_healthcheck_present",
+        "test_tool.py::test_audit_pipeline_detects_present_ci_workflow",
+        "test_tool.py::test_audit_pipeline_flags_missing_ci_workflow",
+        "test_tool.py::test_generate_runbook_rejects_unknown_incident",
+        "test_tool.py::test_generate_runbook_returns_known_incident_steps"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_cmd_audit_pipeline_all_present_returns_0_and_prints_json",
+        "test_tool.py::test_cmd_audit_pipeline_missing_everything_returns_1",
+        "test_tool.py::test_cmd_generate_runbook_known_prints_numbered_steps_and_returns_0",
+        "test_tool.py::test_cmd_generate_runbook_unknown_prints_message_and_returns_1",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_main_audit_pipeline_end_to_end",
+        "test_tool.py::test_main_audit_pipeline_missing_required_positional_raises_systemexit",
+        "test_tool.py::test_main_generate_runbook_end_to_end",
+        "test_tool.py::test_main_generate_runbook_rejects_invalid_choice_via_argparse",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard"
+      ]
     }
   ],
   "test_baseline": {
@@ -45,7 +72,56 @@
     "test_tool.py::test_generate_runbook_rejects_unknown_incident": {
       "hash": "8e814be507d867b3261f04c5fc986571a92e4240f11c50bf61fdd2e8627ae961",
       "asserts": 1
+    },
+    "test_tool.py::test_cmd_audit_pipeline_all_present_returns_0_and_prints_json": {
+      "hash": "f49e1f084a199e7c30b15c619edc093feb4938270c922ec36169e8bd14024e6e",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_audit_pipeline_missing_everything_returns_1": {
+      "hash": "d5623eefb1169e6d11dd567c51a05a48f8b07e66a21da99b91a4913011cc4a6b",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_generate_runbook_known_prints_numbered_steps_and_returns_0": {
+      "hash": "3ee908f6b71a38878f9079f427f488ca4b49e31af2e61f37ac2249be2c5dd2b0",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_generate_runbook_unknown_prints_message_and_returns_1": {
+      "hash": "344305e6185dcbf4d58b4dfdc8fc9656e3212cb7c70eca683190ac6f5ea3074c",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5ba2146b0f26a9a94df9c0a403c3fa9ccbdf2059e5ddd72cfd9e0778b9461633",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "206c61de5af632fda15a2ec77a49077e50d88acfd7a8ff127ed85e1abdecca1e",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_audit_pipeline_end_to_end": {
+      "hash": "bea691ec4b4e5edc8c36e76214579ce60d0401181702863949d84bde4c534591",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_generate_runbook_end_to_end": {
+      "hash": "90d49710100a2be15ce661a41805077177bbd4de1b4ea626eab1c00d01467563",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "89f1f1e87f535fb4fb03c3dd5278f1c480403a8e4e9133540983087923207ba8",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_runbook_rejects_invalid_choice_via_argparse": {
+      "hash": "08f5486dac70636a8757a0b09b0618a9d70f1236ea276eb09d9fc69dc21d3d38",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_audit_pipeline_missing_required_positional_raises_systemexit": {
+      "hash": "6d5630723b1cb1b5603b504def209db731593f5b5f7821d59f9e90958e5fde65",
+      "asserts": 2
+    },
+    "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard": {
+      "hash": "86c7391b27c9bfdc33ab1cc00e789b3fbfd3666b23242a5dc85c3620bfa272cc",
+      "asserts": 2
     }
   },
-  "coverage_pct": 42.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

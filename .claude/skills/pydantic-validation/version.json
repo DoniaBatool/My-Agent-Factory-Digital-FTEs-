@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -24,6 +24,54 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063116",
+      "reason": "Bulletproofing pass: added 28 new tests covering coerce_value edge cases (bool passthrough/rejection of unrecognized or non-string input, float coercion, TypeError-wrapped-as-ValueError on None), validate_schema boundary values (exact min/max pass, one-below/above fail, None on required vs optional fields, type-mismatch short-circuiting min/max/regex checks without crashing, regex ignored for non-string values), validate_email malformed inputs, build_error_response ordering, previously-uncalled print_success/print_error helpers, and the CLI layer (cmd_test's subprocess invocation mocked for both exit codes, main()'s required-subcommand enforcement via SystemExit, unknown-subcommand rejection, and a subprocess __main__ smoke test that avoids the recursive pytest-invocation trap by exercising the missing-subcommand exit path). Coverage 79%->98% (only the __main__ guard line remains, by design). Mutation score measured at 100% (11/11 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_error_response_valid_flag",
+        "test_tool.py::test_coerce_value_passthrough_same_type",
+        "test_tool.py::test_coerce_value_raises_on_bad_input",
+        "test_tool.py::test_coerce_value_string_to_bool_true_variants",
+        "test_tool.py::test_coerce_value_string_to_int",
+        "test_tool.py::test_validate_email",
+        "test_tool.py::test_validate_schema_accepts_valid_data",
+        "test_tool.py::test_validate_schema_min_max_bounds",
+        "test_tool.py::test_validate_schema_regex_check",
+        "test_tool.py::test_validate_schema_requires_required_fields",
+        "test_tool.py::test_validate_schema_type_check"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_error_response_multiple_errors_preserve_order",
+        "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args",
+        "test_tool.py::test_cmd_test_propagates_nonzero_pytest_exit_code",
+        "test_tool.py::test_coerce_value_bool_passthrough_when_already_bool",
+        "test_tool.py::test_coerce_value_bool_rejects_non_string_non_bool",
+        "test_tool.py::test_coerce_value_bool_rejects_unrecognized_string",
+        "test_tool.py::test_coerce_value_string_to_float",
+        "test_tool.py::test_coerce_value_type_error_is_wrapped_as_value_error",
+        "test_tool.py::test_main_dispatches_test_command_failure",
+        "test_tool.py::test_main_dispatches_test_command_success",
+        "test_tool.py::test_main_no_command_exits_nonzero_because_subcommand_required",
+        "test_tool.py::test_main_rejects_unknown_subcommand",
+        "test_tool.py::test_print_success_and_print_error_format_output",
+        "test_tool.py::test_script_runs_as_main_via_subprocess_missing_command_exits_nonzero",
+        "test_tool.py::test_validate_email_rejects_embedded_whitespace",
+        "test_tool.py::test_validate_email_rejects_missing_at_sign",
+        "test_tool.py::test_validate_email_rejects_missing_tld",
+        "test_tool.py::test_validate_schema_explicit_none_on_optional_field_is_skipped",
+        "test_tool.py::test_validate_schema_explicit_none_on_required_field_is_an_error",
+        "test_tool.py::test_validate_schema_max_boundary_exact_value_is_valid",
+        "test_tool.py::test_validate_schema_min_boundary_exact_value_is_valid",
+        "test_tool.py::test_validate_schema_missing_optional_field_produces_no_error",
+        "test_tool.py::test_validate_schema_one_above_max_is_invalid",
+        "test_tool.py::test_validate_schema_one_below_min_is_invalid",
+        "test_tool.py::test_validate_schema_regex_rule_ignored_for_non_string_value",
+        "test_tool.py::test_validate_schema_regex_valid_value_produces_no_error",
+        "test_tool.py::test_validate_schema_required_defaults_to_false_when_omitted",
+        "test_tool.py::test_validate_schema_type_mismatch_skips_min_max_regex_without_crashing"
+      ]
     }
   ],
   "test_baseline": {
@@ -70,7 +118,120 @@
     "test_tool.py::test_validate_email": {
       "hash": "d594c7b9cf5d187eb44e95c1920439542a9d8a4559147c84d23c03cfc2c512aa",
       "asserts": 2
+    },
+    "test_tool.py::test_coerce_value_bool_passthrough_when_already_bool": {
+      "hash": "9113ce4f3beda40a3d2e50e9c420ca5124db344b25008276f7908cdd6c69edfe",
+      "asserts": 1
+    },
+    "test_tool.py::test_coerce_value_bool_rejects_unrecognized_string": {
+      "hash": "ee6596a034f1b571db93a5d6495b8d8bc18716f06d7fc061809b737e63a6e4a0",
+      "asserts": 0
+    },
+    "test_tool.py::test_coerce_value_bool_rejects_non_string_non_bool": {
+      "hash": "e5495c0c9f20bf495d084e49661fb7c7677ee551505ba644d263225afd4ca728",
+      "asserts": 0
+    },
+    "test_tool.py::test_coerce_value_string_to_float": {
+      "hash": "061381bb42036a726f92b0c4ea8a918bc4671c240277247d0b5b865a985a30f8",
+      "asserts": 1
+    },
+    "test_tool.py::test_coerce_value_type_error_is_wrapped_as_value_error": {
+      "hash": "9ff0e06efd26dbaec5a2dbf3758117402202ff6437c392a6e30797753cd55a9e",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_schema_min_boundary_exact_value_is_valid": {
+      "hash": "afee7e511cca2ffd1b557493136293df6454ebd3386265212ddf15f35bec10d7",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_max_boundary_exact_value_is_valid": {
+      "hash": "8267c427b9fca3366cc2162387dd9a46f342959649ee6bb39eb703df0496d151",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_one_below_min_is_invalid": {
+      "hash": "ca6343860345ce9629ef0bb134d60b074df538db31ba2eefdcb98258e1898519",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_one_above_max_is_invalid": {
+      "hash": "1775fefa318aad60a21853a314daf695e7a38b73348fcbe1b84163f0e923d7be",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_missing_optional_field_produces_no_error": {
+      "hash": "4d2a2b99b08002af50054050c92f9d3ef6b5945e923662bda1dd290ee8ebc390",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_explicit_none_on_required_field_is_an_error": {
+      "hash": "10c4153844b8c173c536327b5444ffc99dd415c4af761fc55802465a8bdfce1f",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_explicit_none_on_optional_field_is_skipped": {
+      "hash": "074a46a609af8e4dd3a2be53ed85d8506c005e184673d27db8255f5896f2f79a",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_type_mismatch_skips_min_max_regex_without_crashing": {
+      "hash": "44d88282fa0d1a96317c603d68de1ea78084ffec3a8b963658f208e2ce7098ec",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_schema_regex_rule_ignored_for_non_string_value": {
+      "hash": "84f3c11d93856e2e81f133d904edd2ba74580d0a92c0e3b98ef692be284eb83e",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_regex_valid_value_produces_no_error": {
+      "hash": "3555d83df4c952ed2e99c03862729849272d15abb83fc0207c6686145a1e4099",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_schema_required_defaults_to_false_when_omitted": {
+      "hash": "ec27305ca8d15d9ba360a3258fdd06d70b073f380467000c7cbc0e117596b75f",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_email_rejects_missing_at_sign": {
+      "hash": "ca96cf75d442296f15db5422a1fd79fe0d172d7821029d4e44742c6f92288722",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_email_rejects_missing_tld": {
+      "hash": "1de25ced77de7b5899d3f2b0a460035d1ee8170f3db6a51a1d59c11cac1cd28d",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_email_rejects_embedded_whitespace": {
+      "hash": "12596a5dd4c639ea8d83c73a54fcbc2f1d59c1b36d28fc3909870efca1bb9b8e",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_error_response_multiple_errors_preserve_order": {
+      "hash": "435d7575ff39881d70f1e2a88f176392f536f2b11bcf9707ce380e521b79a2c2",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args": {
+      "hash": "6e467dae1b46714fb23b3d540f4a12400ac1e781f0c782cfcce2ecf810cb289b",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_test_propagates_nonzero_pytest_exit_code": {
+      "hash": "75f72aaa396d5077ec1efe02b738178395b2ac2cef2de71cd45b300681c6a2f5",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_no_command_exits_nonzero_because_subcommand_required": {
+      "hash": "a7d9b4a1bf8fefcc299d6c173ad05fc32744cc1df56dbad30d92978dd0ac0460",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_test_command_success": {
+      "hash": "8e2202d82a74bc875d63fcd7f005f8563a58048a1f74d24c65f754e2d6e3c17e",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_test_command_failure": {
+      "hash": "986641d9fd58e8ee173546bb72d7423d18d1051c3f5c013f0dd4625b6cf21a6d",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_rejects_unknown_subcommand": {
+      "hash": "3c03f06f13409d210e82df03810079448e1a58f135b3e206c777bbe9e478eb46",
+      "asserts": 0
+    },
+    "test_tool.py::test_script_runs_as_main_via_subprocess_missing_command_exits_nonzero": {
+      "hash": "2ad2e848bcf639d8607a791d585da6b0de0ba2025a131aee3dfd043015a6cf21",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_success_and_print_error_format_output": {
+      "hash": "3b84fda1567ee0852c1019ab1f64a58ea989bcccb15f5a574b8cd172d0b11f6c",
+      "asserts": 2
     }
   },
-  "coverage_pct": 79.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

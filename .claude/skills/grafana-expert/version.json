@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -27,6 +27,69 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063404",
+      "reason": "Bulletproofing pass: added 40 new tests covering the full CLI layer (check_prerequisites, install, setup_datasource, create_dashboard, provision, configure_alerting, run_tests, troubleshoot, main dispatch), argparse choice validation (invalid --method), real run_command subprocess behavior (shell/capture/text flags, timeout handling, and generic-exception path), boolean-literal edge cases (dashboard overwrite flag, provisioning isDefault default, os.makedirs exist_ok idempotency), the partial-failure remediation-warning branch and per-check success/error icon selection in run_tests, the provisioning-directory-missing-alone-does-not-fail branch in check_prerequisites, and a subprocess smoke test of the __main__ guard via check-prerequisites. Coverage 42%->99% (only __main__ guard line unreachable in-process). Mutation score measured at 100% (21/21 mutants killed) after two iterations that found and fixed genuinely unobserved branches (run_tests warning-print threshold, per-check icon selection, os.makedirs exist_ok).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_alert_rule_structure",
+        "test_tool.py::test_build_dashboard_json_creates_one_panel_per_title",
+        "test_tool.py::test_build_datasource_payload_custom",
+        "test_tool.py::test_build_datasource_payload_defaults",
+        "test_tool.py::test_build_install_command_docker_ignores_os",
+        "test_tool.py::test_build_install_command_linux_native_uses_apt",
+        "test_tool.py::test_build_install_command_macos_native_uses_brew",
+        "test_tool.py::test_build_install_command_rejects_unknown_os",
+        "test_tool.py::test_build_provisioning_yaml_contains_datasource_fields",
+        "test_tool.py::test_diagnose_flags_only_failed_checks",
+        "test_tool.py::test_diagnose_returns_empty_when_all_pass",
+        "test_tool.py::test_find_first_existing_returns_first_match",
+        "test_tool.py::test_find_first_existing_returns_none_when_nothing_exists",
+        "test_tool.py::test_run_tests_performs_six_distinct_checks_not_a_fake_one"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_dashboard_json_sets_overwrite_true_and_schema_version",
+        "test_tool.py::test_build_provisioning_yaml_defaults_isdefault_false_when_key_absent",
+        "test_tool.py::test_check_prerequisites_all_present_returns_0",
+        "test_tool.py::test_check_prerequisites_missing_binary_returns_1",
+        "test_tool.py::test_check_prerequisites_missing_config_returns_1",
+        "test_tool.py::test_check_prerequisites_missing_provisioning_only_still_returns_0",
+        "test_tool.py::test_configure_alerting_defaults",
+        "test_tool.py::test_configure_alerting_writes_expected_json_custom",
+        "test_tool.py::test_create_dashboard_defaults_to_three_standard_panels",
+        "test_tool.py::test_create_dashboard_writes_expected_json_custom_panels",
+        "test_tool.py::test_install_defaults_method_to_docker_when_none",
+        "test_tool.py::test_install_docker_success_prints_default_url",
+        "test_tool.py::test_install_native_darwin_success_no_default_url",
+        "test_tool.py::test_install_run_command_failure_returns_1",
+        "test_tool.py::test_install_unsupported_os_returns_1",
+        "test_tool.py::test_main_check_prerequisites_dispatch",
+        "test_tool.py::test_main_configure_alerting_dispatch",
+        "test_tool.py::test_main_create_dashboard_dispatch",
+        "test_tool.py::test_main_install_dispatch",
+        "test_tool.py::test_main_install_invalid_method_choice_raises_systemexit",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_provision_dispatch",
+        "test_tool.py::test_main_setup_datasource_dispatch",
+        "test_tool.py::test_main_test_dispatch",
+        "test_tool.py::test_main_troubleshoot_dispatch",
+        "test_tool.py::test_provision_falls_back_to_relative_dir_when_none_found",
+        "test_tool.py::test_provision_writes_yaml_to_explicit_output_dir",
+        "test_tool.py::test_provision_writing_to_already_existing_dir_does_not_raise",
+        "test_tool.py::test_run_command_executes_shell_command_and_captures_text_output",
+        "test_tool.py::test_run_command_handles_generic_exception_gracefully",
+        "test_tool.py::test_run_command_handles_timeout",
+        "test_tool.py::test_run_tests_all_pass_returns_0",
+        "test_tool.py::test_run_tests_partial_failure_prints_remediation_warning",
+        "test_tool.py::test_run_tests_uses_correct_success_and_error_icon_per_check",
+        "test_tool.py::test_setup_datasource_bad_http_code_returns_1",
+        "test_tool.py::test_setup_datasource_run_command_nonzero_returns_1",
+        "test_tool.py::test_setup_datasource_success_returns_0",
+        "test_tool.py::test_subprocess_runs_as_script_check_prerequisites",
+        "test_tool.py::test_troubleshoot_all_present_returns_0",
+        "test_tool.py::test_troubleshoot_missing_everything_returns_1_with_remediation"
+      ]
     }
   ],
   "test_baseline": {
@@ -85,7 +148,168 @@
     "test_tool.py::test_run_tests_performs_six_distinct_checks_not_a_fake_one": {
       "hash": "be6346d4c86b37b1f008127d27466ad897c8fc84630de754925dec975e5d0637",
       "asserts": 2
+    },
+    "test_tool.py::test_run_command_executes_shell_command_and_captures_text_output": {
+      "hash": "50cde81d23a834a2bf7e4a1b800d86b138e476b6952ae86b2426e8b3bf5ced00",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_handles_timeout": {
+      "hash": "345a0de315587b8bd96002a3262b15aaea69179d4a6e5e2ae002b9a84d88e5f8",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_handles_generic_exception_gracefully": {
+      "hash": "6566d988ec6c37faccd729e0e3c5107b8c37e8e1c7c155017f9f55ef8e0c8ebf",
+      "asserts": 3
+    },
+    "test_tool.py::test_build_dashboard_json_sets_overwrite_true_and_schema_version": {
+      "hash": "de1398a7faefea01c7f2b82b1b0f2235455fad9f511bee2d71418700dc994231",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_provisioning_yaml_defaults_isdefault_false_when_key_absent": {
+      "hash": "7576e7a1fed81ed9ad4dbdac3a33d597624e269d916b1e25a81795b5247a5f62",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_all_present_returns_0": {
+      "hash": "e4b234ce6f82416e17d2ec3d1a5a3973df4f31351e5ffc2337dc25ea5a7eb799",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_missing_binary_returns_1": {
+      "hash": "e97eb31597389222af14c50ec95c4006bd9ad3b1ef3f68519263c90880895677",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_missing_provisioning_only_still_returns_0": {
+      "hash": "3f1710b5fc90de47ec20428d615cb970dcbf322b15b2d62fdc8c1f38792563aa",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_missing_config_returns_1": {
+      "hash": "02511c5b0cb06809dd8d60abbefe595af71980c2a373dcb783d22ff3dcd0c649",
+      "asserts": 1
+    },
+    "test_tool.py::test_install_docker_success_prints_default_url": {
+      "hash": "10d0dfce0947941eac340a471dfe6f5f0819b2fc5b9d81fa3fb26f2e361e39c7",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_native_darwin_success_no_default_url": {
+      "hash": "4945c5727d3d18e872ab00e562e38c0c42df44bdfb8d09426fe92fb99b50abde",
+      "asserts": 3
+    },
+    "test_tool.py::test_install_defaults_method_to_docker_when_none": {
+      "hash": "c52f5e5a5ea9931a3ef9112efe16ad8ab18093e1ce71d6996080e014ab7d4229",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_unsupported_os_returns_1": {
+      "hash": "ea177fad8fc451d97204402deda02ac2d323a1ab8bb145ec2b94ca42bf2fc22a",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_run_command_failure_returns_1": {
+      "hash": "08ad139564dcdf739fb78b16fb7421c10880b8897399bc1630af6425ae0c2133",
+      "asserts": 2
+    },
+    "test_tool.py::test_setup_datasource_success_returns_0": {
+      "hash": "ff03a9d660671cee7c2234322216aa4bbe1576d03d1a82197cdb7cfd2ea54f30",
+      "asserts": 1
+    },
+    "test_tool.py::test_setup_datasource_bad_http_code_returns_1": {
+      "hash": "d4f43e0735b138fd0cee28a997dbdff74088ca7fd7ca42dab3dddb5baa5143c8",
+      "asserts": 2
+    },
+    "test_tool.py::test_setup_datasource_run_command_nonzero_returns_1": {
+      "hash": "640164cd33826e04048d6a518497f864f1263da8fe74fc7c86c60ea7bf0ff932",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_dashboard_writes_expected_json_custom_panels": {
+      "hash": "155daa1834415aa1ea354521748a47e0de029292a53d588271125d9cb8fed231",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_dashboard_defaults_to_three_standard_panels": {
+      "hash": "b72540d28bbee64f7c2fa5a6ea0d5f165cda11ccd1e8e438cff9202369b554cb",
+      "asserts": 3
+    },
+    "test_tool.py::test_provision_writes_yaml_to_explicit_output_dir": {
+      "hash": "4dfa2d51420d58faee03d5099c1ce5081c7feefd780173b8052b7c72c9a9ebe2",
+      "asserts": 2
+    },
+    "test_tool.py::test_provision_falls_back_to_relative_dir_when_none_found": {
+      "hash": "3c2e3e4b14f1f498cec8f44fbc3c84fe80eb6d56e40f2010d4cbc1c431fd7eff",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_alerting_writes_expected_json_custom": {
+      "hash": "537369bdcba10b02629784bd4118ea5860f453b7acb8a68b1f715db5d628fbb6",
+      "asserts": 4
+    },
+    "test_tool.py::test_configure_alerting_defaults": {
+      "hash": "3d56d30dbeb347c8678c8e7ea9b7479c1b613de1eda8aba868d665a2c2f5c046",
+      "asserts": 4
+    },
+    "test_tool.py::test_run_tests_all_pass_returns_0": {
+      "hash": "dff0de745b36bcdad005a416bf3ee3eaee1ac3ab9484a0cef4f63d81a6b8e029",
+      "asserts": 1
+    },
+    "test_tool.py::test_troubleshoot_all_present_returns_0": {
+      "hash": "1a56573658ec62e2b2023c45dd433cc6e23e133205b69d6c495576ead39e555b",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_missing_everything_returns_1_with_remediation": {
+      "hash": "4cd069d536453a0c70dfbe4660b46815ab5f3524fd04b3ea0790ff92c04c4dce",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "20a91560641d7e5a098c20451bcbbd1939086de848a1de7141bf6f8426e1d7d3",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_check_prerequisites_dispatch": {
+      "hash": "c6127027b5a79fc40abc360c09d6de8d311e46a3f067b5e2b25ce43482007361",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_install_invalid_method_choice_raises_systemexit": {
+      "hash": "2b0b89fe7585ad85ddbb57058f991ebb2261959d7bae595d5da525e23c942c16",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_install_dispatch": {
+      "hash": "6aaec18871c152963e6d3db9a4d6536cfea9dbbaf8e49c4c995b9ec2555bed84",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_setup_datasource_dispatch": {
+      "hash": "e544a42f5eb6d6844233fbc17bd9e2eefa6e34d6fed7fac80b64fea84a146b4f",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_create_dashboard_dispatch": {
+      "hash": "92745c5dcdc4399b8e80b951daba96d32cd5e3babc160b0a1200cec4b04fba3b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_provision_dispatch": {
+      "hash": "80968e282660af272edf633cf28ce7c4c328fc9b59cefb16251163e0924136c4",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_configure_alerting_dispatch": {
+      "hash": "3e204be16696c2cfde284ac599ac96372429c6ebd5b5c875a518108fac106695",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_dispatch": {
+      "hash": "c245958185d3ab4fa507f6b182d5d1f49c0761b96e395bd5c9d3d5a9c6e3f8a2",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_troubleshoot_dispatch": {
+      "hash": "e2503f62cbac32719de1a04bf1b5778bd5c01dbedd37bf180f787e788c1efec9",
+      "asserts": 1
+    },
+    "test_tool.py::test_subprocess_runs_as_script_check_prerequisites": {
+      "hash": "711cbce68f8ecd379ecb08d87d99194a13b1494057d463acec273e20f296ea0e",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_partial_failure_prints_remediation_warning": {
+      "hash": "a97a6d161ec1b33d17fc1e5bf36fe66c247509727b71e5d73d898855bc3bd959",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_uses_correct_success_and_error_icon_per_check": {
+      "hash": "43336c4d13b36f3440f41d23b8aa16a0b2aed7ceb12e1f9f3577963299fc1585",
+      "asserts": 2
+    },
+    "test_tool.py::test_provision_writing_to_already_existing_dir_does_not_raise": {
+      "hash": "5eef52fcef43e764501cb5bd20738996491877b42f3f1a28511dcfa4fb08b68e",
+      "asserts": 2
     }
   },
-  "coverage_pct": 42.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

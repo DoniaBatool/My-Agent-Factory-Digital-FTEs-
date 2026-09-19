@@ -1,0 +1,51 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112423",
+      "reason": "Replaced TODO stub with real k8s Deployment manifest generation + resource-quantity validation + 6 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_deployment_manifest_includes_liveness_and_readiness_probes",
+        "test_tool.py::test_build_deployment_manifest_rejects_invalid_resource_quantity",
+        "test_tool.py::test_build_deployment_manifest_shape",
+        "test_tool.py::test_build_deployment_manifest_uses_given_resource_requests",
+        "test_tool.py::test_validate_k8s_quantity_accepts_valid_forms",
+        "test_tool.py::test_validate_k8s_quantity_rejects_invalid"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_validate_k8s_quantity_accepts_valid_forms": {
+      "hash": "77ea17cc1bd767fede8816f8b0b14b523565bafe095c5d3beb027f024d92a117",
+      "asserts": 3
+    },
+    "test_tool.py::test_validate_k8s_quantity_rejects_invalid": {
+      "hash": "19868833800c1611445aeb6125405ae2578ef3d04cdd98b524acdd4859afdc7d",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_deployment_manifest_shape": {
+      "hash": "333bf14d41511727b0f86a33a5a9246bce629fd8b73e9d06e04674c38a7c431b",
+      "asserts": 4
+    },
+    "test_tool.py::test_build_deployment_manifest_includes_liveness_and_readiness_probes": {
+      "hash": "0c1d9390b0ea9e792b971d10ad83a626b009450d7748def4142c176fc7a530a5",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_deployment_manifest_rejects_invalid_resource_quantity": {
+      "hash": "0d9e4d07d5b9e84ba30b9395d9c65a5b6e6a231e74ed7548d3f619d9e106858d",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_deployment_manifest_uses_given_resource_requests": {
+      "hash": "527b0e390424f21b3d49eb620fd0c07448c2a1c8843487222ae7fcb8f0b69e06",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 28.0
+}

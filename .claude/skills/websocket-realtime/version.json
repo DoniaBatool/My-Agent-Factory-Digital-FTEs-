@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -25,6 +25,46 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063011",
+      "reason": "Bulletproofing pass: added 19 new tests covering build_room_key's room_id-empty branch, broadcast_targets edge cases (no exclude, empty connections, no room match), validate_ws_message's non-dict payload / both-fields-missing / None-type-is-not-unknown / absent-type-vs-missing-field distinctions, heartbeat_expired's exact-timeout boundary (not expired) vs just-past boundary (expired), rate_limit_check's exact-cutoff eviction boundary and per-connection bucket isolation, serialize_event with None data, print_success/print_error output, cmd_test's subprocess construction (mocked to avoid recursive pytest spawn), main() dispatch/required-subcommand enforcement, and a subprocess smoke test hitting the __main__ guard. Coverage 77%->97%, mutation score measured at 100% (10/10 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_broadcast_targets_filters_by_room_and_excludes_sender",
+        "test_tool.py::test_build_room_key_basic",
+        "test_tool.py::test_build_room_key_rejects_empty",
+        "test_tool.py::test_heartbeat_expired_false_within_timeout",
+        "test_tool.py::test_heartbeat_expired_true_after_timeout",
+        "test_tool.py::test_rate_limit_check_allows_up_to_max",
+        "test_tool.py::test_rate_limit_check_blocks_beyond_max",
+        "test_tool.py::test_rate_limit_check_resets_after_window",
+        "test_tool.py::test_serialize_event_produces_valid_json",
+        "test_tool.py::test_validate_ws_message_accepts_valid",
+        "test_tool.py::test_validate_ws_message_detects_missing_fields",
+        "test_tool.py::test_validate_ws_message_rejects_unknown_type"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_broadcast_targets_empty_connections_returns_empty_list",
+        "test_tool.py::test_broadcast_targets_no_exclude_includes_everyone_in_room",
+        "test_tool.py::test_broadcast_targets_no_match_in_room_returns_empty_list",
+        "test_tool.py::test_build_room_key_rejects_empty_room_id",
+        "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args_and_returns_its_code",
+        "test_tool.py::test_heartbeat_expired_exact_boundary_is_not_expired",
+        "test_tool.py::test_heartbeat_expired_one_unit_past_boundary_is_expired",
+        "test_tool.py::test_main_missing_command_is_required_and_exits",
+        "test_tool.py::test_main_test_command_dispatches_via_func_and_exits_with_code",
+        "test_tool.py::test_print_error_outputs_cross_and_message",
+        "test_tool.py::test_print_success_outputs_checkmark_and_message",
+        "test_tool.py::test_rate_limit_check_different_connections_have_independent_buckets",
+        "test_tool.py::test_rate_limit_check_entry_exactly_at_window_cutoff_is_dropped",
+        "test_tool.py::test_serialize_event_with_none_data",
+        "test_tool.py::test_subprocess_no_args_hits_main_guard_and_exits_nonzero",
+        "test_tool.py::test_validate_ws_message_absent_type_key_reports_missing_not_unknown",
+        "test_tool.py::test_validate_ws_message_explicit_none_type_is_not_flagged_as_unknown",
+        "test_tool.py::test_validate_ws_message_rejects_non_dict_payload",
+        "test_tool.py::test_validate_ws_message_reports_both_missing_fields"
+      ]
     }
   ],
   "test_baseline": {
@@ -75,7 +115,84 @@
     "test_tool.py::test_serialize_event_produces_valid_json": {
       "hash": "2529685afa3e375603b8b5d8165192b237c9f8418dbfd70795ccba22a4e67eac",
       "asserts": 2
+    },
+    "test_tool.py::test_build_room_key_rejects_empty_room_id": {
+      "hash": "8f823fa726c092f9b1bccdd45aead4ea9792fe2bd7f68fea2f1dbb05b8aaade7",
+      "asserts": 0
+    },
+    "test_tool.py::test_broadcast_targets_no_exclude_includes_everyone_in_room": {
+      "hash": "014a6a0645f566d93f2423b6bdb6d710cd5e30148ecbc488583c4135cd874338",
+      "asserts": 1
+    },
+    "test_tool.py::test_broadcast_targets_empty_connections_returns_empty_list": {
+      "hash": "b83a4603423faa622111dc2399cf84a5a30853f24c68ec5d446e2cb8e8438046",
+      "asserts": 1
+    },
+    "test_tool.py::test_broadcast_targets_no_match_in_room_returns_empty_list": {
+      "hash": "a908afec7ee2b7ee0e8f49ea8815e78a382aa5be1febf3e1bfc0c76cdbf30038",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_ws_message_rejects_non_dict_payload": {
+      "hash": "2c818ced4805ef09cf29b9d4ca9aed60339f56eb3be2a426f9b76b51a71eb1e6",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_ws_message_reports_both_missing_fields": {
+      "hash": "9e490d77632b8f0967219a8379f987523477dd800d704c4986b17ff32e6f2802",
+      "asserts": 3
+    },
+    "test_tool.py::test_validate_ws_message_explicit_none_type_is_not_flagged_as_unknown": {
+      "hash": "907cc985e0baa657acdb666c1acd45dcb4d2f176f44d21e46c49349e7f3b697a",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_ws_message_absent_type_key_reports_missing_not_unknown": {
+      "hash": "a75d979720a2b8870c7c71b29522153313f001507e092909602d94517c1eb295",
+      "asserts": 1
+    },
+    "test_tool.py::test_heartbeat_expired_exact_boundary_is_not_expired": {
+      "hash": "d66c204c000b43be80f0ecef991abcece20b429083d8f90863beebfe935ed12c",
+      "asserts": 1
+    },
+    "test_tool.py::test_heartbeat_expired_one_unit_past_boundary_is_expired": {
+      "hash": "5e2eab68eda0cb09a6a2f3a150344ab12a455b369b8140239b90f5544f2499b0",
+      "asserts": 1
+    },
+    "test_tool.py::test_rate_limit_check_entry_exactly_at_window_cutoff_is_dropped": {
+      "hash": "6a81933cc9a942311bca81596637af14523b603fcabfa683de8d3839f6370617",
+      "asserts": 2
+    },
+    "test_tool.py::test_rate_limit_check_different_connections_have_independent_buckets": {
+      "hash": "71b9b80f2537c3fb4d9d952ec3e93960e8c7e2d87ce26447534285ef0a572f2e",
+      "asserts": 1
+    },
+    "test_tool.py::test_serialize_event_with_none_data": {
+      "hash": "df935600b45faf0c5b5be0f4c3eedc001793898b5a7afcc6d064992e4f3a4455",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_success_outputs_checkmark_and_message": {
+      "hash": "2d8ae6670944eb6ffbd6167e6dbd7bc2b68ecf166f74c08d4765f668adf131f8",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_outputs_cross_and_message": {
+      "hash": "f47d421622f88d5ec5f3059f7663cdad517a0a07b6b138645af5938b86a49dab",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args_and_returns_its_code": {
+      "hash": "a097efb6c0a4e80f79e2eac6564121b24b3bed5cafbd76dbf59f1ac1e82401f8",
+      "asserts": 5
+    },
+    "test_tool.py::test_main_test_command_dispatches_via_func_and_exits_with_code": {
+      "hash": "453326bd50a4e273a512186feff6cd7780db15f457c1f83080857bb9c04a0ffb",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_missing_command_is_required_and_exits": {
+      "hash": "e149abba2f1b681c0e2cee0125c6c0ef4c04adaa8437fd3cd75575dc725b0c4d",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_no_args_hits_main_guard_and_exits_nonzero": {
+      "hash": "828ba5ce4308c4df820fed08264f18a295494b193cd086e94c4075b368b2977c",
+      "asserts": 2
     }
   },
-  "coverage_pct": 77.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

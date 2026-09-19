@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -19,6 +19,40 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062735",
+      "reason": "Bulletproofing pass: added HALF_OPEN re-open-on-failure test, recovery-timeout boundary tests (exactly-at vs one-unit-short), failure-count-reset verification, saga edge cases (empty steps, first-step failure, reverse-order compensation), full CLI layer tests (cmd_demo_circuit_breaker incl. threshold=0 edge case, cmd_run_saga success/failure, cmd_test), main() dispatch end-to-end tests, required-arg enforcement (SystemExit for missing --steps), and subprocess smoke tests exercising the __main__ guard. Coverage 42%->98%, mutation score measured at 92.9% (13/14 mutants) -- the one surviving mutant (line 133, ok=False inside cmd_test's self-test) is a documented equivalent mutant: that branch is defensive code reachable only if the circuit breaker incorrectly lets a call through while OPEN, which never happens with a correct implementation, so no test can observe a difference.",
+      "baseline_tests_verified": [
+        "test_tool.py::test_circuit_breaker_opens_after_threshold_failures",
+        "test_tool.py::test_circuit_breaker_recovers_to_half_open_after_timeout",
+        "test_tool.py::test_circuit_breaker_rejects_calls_while_open_without_invoking_func",
+        "test_tool.py::test_circuit_breaker_starts_closed",
+        "test_tool.py::test_run_saga_all_steps_succeed",
+        "test_tool.py::test_run_saga_compensates_completed_steps_on_failure"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_circuit_breaker_below_threshold_stays_closed",
+        "test_tool.py::test_circuit_breaker_does_not_recover_before_timeout_elapses",
+        "test_tool.py::test_circuit_breaker_half_open_failure_returns_to_open",
+        "test_tool.py::test_circuit_breaker_success_resets_failure_count",
+        "test_tool.py::test_cli_subprocess_smoke_test_runs_main_guard",
+        "test_tool.py::test_cli_subprocess_smoke_test_saga_failure_exits_nonzero",
+        "test_tool.py::test_cmd_demo_circuit_breaker_prints_transitions",
+        "test_tool.py::test_cmd_demo_circuit_breaker_threshold_zero_succeeds_immediately",
+        "test_tool.py::test_cmd_run_saga_failure_path_returns_1_and_compensates",
+        "test_tool.py::test_cmd_run_saga_success_path_returns_0",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_main_demo_circuit_breaker_end_to_end_with_defaults",
+        "test_tool.py::test_main_run_saga_end_to_end",
+        "test_tool.py::test_main_run_saga_missing_required_steps_arg_exits",
+        "test_tool.py::test_main_test_subcommand_end_to_end",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_run_saga_compensation_runs_in_reverse_order",
+        "test_tool.py::test_run_saga_empty_steps_completes_with_no_steps",
+        "test_tool.py::test_run_saga_first_step_fails_nothing_to_compensate"
+      ]
     }
   ],
   "test_baseline": {
@@ -45,7 +79,84 @@
     "test_tool.py::test_run_saga_compensates_completed_steps_on_failure": {
       "hash": "7f20119837ca7bb9c7c96a3a8b71fc339d777793ea310a194f61c7d26398b324",
       "asserts": 4
+    },
+    "test_tool.py::test_circuit_breaker_half_open_failure_returns_to_open": {
+      "hash": "2efd2c62c040e791078a28a430c7128de49dd179eeaa2007821a944d6b09c986",
+      "asserts": 3
+    },
+    "test_tool.py::test_circuit_breaker_does_not_recover_before_timeout_elapses": {
+      "hash": "d14730925573a1f02bd583e4c0378e7c68f5cfbd52a56bc62cf5683c2117562f",
+      "asserts": 1
+    },
+    "test_tool.py::test_circuit_breaker_below_threshold_stays_closed": {
+      "hash": "7fb357841104e93cc81b3e01c89a5d671c6a42db67669b208f9c299237d1e982",
+      "asserts": 1
+    },
+    "test_tool.py::test_circuit_breaker_success_resets_failure_count": {
+      "hash": "429116bb024dacdf3c624a3431ef6dae70dd29f2b582da75bddd41bec9043ee6",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_saga_empty_steps_completes_with_no_steps": {
+      "hash": "ce1a899406ad46ee691a2c05c0c6181d6599fb8d98691224a9e4da78dab021b7",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_saga_first_step_fails_nothing_to_compensate": {
+      "hash": "f5adba5f64f9956a67a684fbff33e3049438cb8f36d8cc7f252e9c3a6dcc298e",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_saga_compensation_runs_in_reverse_order": {
+      "hash": "3d9523d7e1ca8361c99d8becb70a552a9b44f6e4994f1312f60b1e960f8df321",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_demo_circuit_breaker_prints_transitions": {
+      "hash": "8343386c00b716ec1781aaaec6bf336ad6380d207dc4c3fbae4701ce1e66fa04",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_run_saga_success_path_returns_0": {
+      "hash": "643bfe0b44c34b943984b5fb6432955cff07c9bcf96b4f5722e386b521cd3c1a",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_run_saga_failure_path_returns_1_and_compensates": {
+      "hash": "aa546d715962a31aa2b8a48110839ab881141dac87ff11374053457c2b410051",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5ba2146b0f26a9a94df9c0a403c3fa9ccbdf2059e5ddd72cfd9e0778b9461633",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "c7e1da23a19820f7a0b7faedb3933324d42236df7ddf5a74ca2d306e87ca0727",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_demo_circuit_breaker_end_to_end_with_defaults": {
+      "hash": "b326cf6653c59cb985f60729bf459d78c8b3dae1b220e666c4d27a596b84b9ae",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_run_saga_end_to_end": {
+      "hash": "78ed0e1a81e4237069467474adddbb6f0566d186799cf75a2cf13048e45c02f3",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_subcommand_end_to_end": {
+      "hash": "923b0f3a82a5982be84b9e6f2e84d03b6ab32f9e43331a3aa30c918bb7719a6b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_run_saga_missing_required_steps_arg_exits": {
+      "hash": "8dd47a0120d602b7fc0e689e29ebc9b7e2ff101324ae55b92d7f7506ca4d754d",
+      "asserts": 0
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_runs_main_guard": {
+      "hash": "7929fc97a7828fcf29cce3b1ab6ab5684d0d01e735580e1a978c753912af47f0",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_saga_failure_exits_nonzero": {
+      "hash": "c074d8f35158b14af0b353c3a44cb74b66f4fd6c3ee3f6946d460ec9cb22bba3",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_demo_circuit_breaker_threshold_zero_succeeds_immediately": {
+      "hash": "4b10840d4c37e2e52c8d7d8ba605371cd812a8ea10682f02b999b063e49e3393",
+      "asserts": 2
     }
   },
-  "coverage_pct": 42.0
+  "coverage_pct": 98.0,
+  "mutation_score": 0.9285714285714286
 }

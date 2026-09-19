@@ -1,0 +1,81 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113737",
+      "reason": "Replaced TODO stub with real vercel.json validation, env var diffing, deploy command builder, build-output checks and domain validation, 12 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_env_var_diff_detects_add_remove_update",
+        "test_tool.py::test_build_env_var_diff_detects_removal",
+        "test_tool.py::test_check_build_output_dir_detects_nextjs_output",
+        "test_tool.py::test_check_build_output_dir_missing_output",
+        "test_tool.py::test_check_build_output_dir_rejects_unknown_framework",
+        "test_tool.py::test_generate_deploy_command_prod_flag",
+        "test_tool.py::test_generate_deploy_command_rejects_bad_project_name",
+        "test_tool.py::test_parse_vercel_json_accepts_valid_config",
+        "test_tool.py::test_parse_vercel_json_rejects_bad_version",
+        "test_tool.py::test_parse_vercel_json_rejects_non_list_builds",
+        "test_tool.py::test_validate_domain_name_accepts_valid",
+        "test_tool.py::test_validate_domain_name_rejects_invalid"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_parse_vercel_json_accepts_valid_config": {
+      "hash": "efb6ce2b6bfa65f2d2a8931377f3ef70f3975825b9e8d2b10f84bd675d02d9e2",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_vercel_json_rejects_bad_version": {
+      "hash": "9b9b94255e6703ddf548cd704accec56f8b8fb816945815d528ef86c13262bd6",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_vercel_json_rejects_non_list_builds": {
+      "hash": "2639c6bde170ec5aaf269e0bdb4da76824a04e6bfb222952823679a7dcf530d8",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_env_var_diff_detects_add_remove_update": {
+      "hash": "4104b6de949cde51de73e9012583444f025a8197a729be8a9092034c6eb67a0e",
+      "asserts": 3
+    },
+    "test_tool.py::test_build_env_var_diff_detects_removal": {
+      "hash": "70b5079d74f2ca14bd435b67124d84018d667271081a5a6b31a2d02dceb1f3af",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_deploy_command_prod_flag": {
+      "hash": "7188b3f6c1ba93fbd82a819f981bf40d3107d4996bdae2610a8d2a8cce6af306",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_deploy_command_rejects_bad_project_name": {
+      "hash": "75d15c36a109255349a56ef7ddee8fcf030bc0611e787bf6753bce2e01407782",
+      "asserts": 0
+    },
+    "test_tool.py::test_check_build_output_dir_detects_nextjs_output": {
+      "hash": "2f58a5e0feeb7a383f3ccd0e986f116d2b96acc47aaecfa3ab430dff27dccddf",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_build_output_dir_missing_output": {
+      "hash": "11922a27f674ddbd4318e78eb131248a4a5e6f6e7b54c8b75e83a85c1d096a3f",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_build_output_dir_rejects_unknown_framework": {
+      "hash": "38a4ce2f09d79ff8025b1bd3afc7f5bae40bbcfd1413c5f836cac781d9c53346",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_domain_name_accepts_valid": {
+      "hash": "76ea35875f83f933b6aa65c39942809ac55d1e4681663ab89c9e420d62284979",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_domain_name_rejects_invalid": {
+      "hash": "9340f866176a37fa338832effab151181d1440557b594c8c05632352180550c4",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 75.0
+}

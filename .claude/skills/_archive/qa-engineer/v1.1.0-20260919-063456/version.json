@@ -1,0 +1,61 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-111057",
+      "reason": "Replaced TODO stub with real risk-based test planning, severity classification, bug-report formatting, and a run-tests command that genuinely shells out to pytest (previously always printed success) + 8 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_test_plan_ranks_high_risk_flows_first",
+        "test_tool.py::test_classify_severity_critical_for_data_loss",
+        "test_tool.py::test_classify_severity_defaults_to_medium_never_silently_low",
+        "test_tool.py::test_classify_severity_high_for_crash",
+        "test_tool.py::test_classify_severity_low_for_cosmetic",
+        "test_tool.py::test_format_bug_report_infers_severity_from_actual_behavior",
+        "test_tool.py::test_run_pytest_suite_reports_success_for_passing_tests",
+        "test_tool.py::test_run_pytest_suite_runs_real_pytest_and_reports_failure"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_classify_severity_critical_for_data_loss": {
+      "hash": "ad710e78c710a746556914eefb67435886b00d707946cc8fa267de791eca0804",
+      "asserts": 1
+    },
+    "test_tool.py::test_classify_severity_high_for_crash": {
+      "hash": "de2abae7e6ee18c98ede0c9696fa0cbfea74cfea89132a8512c78d2960a71790",
+      "asserts": 1
+    },
+    "test_tool.py::test_classify_severity_low_for_cosmetic": {
+      "hash": "798c8dbbb062b970dc10f68261d6d4af0abbee7a312c4594c550404674d7fc08",
+      "asserts": 1
+    },
+    "test_tool.py::test_classify_severity_defaults_to_medium_never_silently_low": {
+      "hash": "9575712fbf120622aa02b486f4debf79669267e75c669044f5baa6c103b53471",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_test_plan_ranks_high_risk_flows_first": {
+      "hash": "7aa7dc3bb93269e7ecadfd5e7a0ccc308dba4e51a6211b9b94ea5772d6280fd1",
+      "asserts": 2
+    },
+    "test_tool.py::test_format_bug_report_infers_severity_from_actual_behavior": {
+      "hash": "ea8c66ecd6f5f3a43ce9e9add87a3c7a2fc7c56ef9694e8d39e4e18cbeb42229",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_pytest_suite_runs_real_pytest_and_reports_failure": {
+      "hash": "ef688306c8433ff8117f7b0efb6c0e693abcdf0a4611d8a4ef50607ec33da1ed",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_pytest_suite_reports_success_for_passing_tests": {
+      "hash": "5326c89559b597656055140e2e98f1694cc7dc83dc90b571219e3b61c248e061",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 42.0
+}

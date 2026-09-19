@@ -1,0 +1,51 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112553",
+      "reason": "Replaced TODO stub with real FastAPI route extraction + markdown doc generation + 6 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_extract_routes_captures_method_and_path",
+        "test_tool.py::test_extract_routes_empty_source_returns_empty_list",
+        "test_tool.py::test_extract_routes_finds_all_three_routes",
+        "test_tool.py::test_extract_routes_handles_path_params",
+        "test_tool.py::test_extract_routes_pairs_decorator_with_handler_name",
+        "test_tool.py::test_generate_markdown_docs_produces_table_with_all_routes"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_extract_routes_finds_all_three_routes": {
+      "hash": "158d64a32afb802893e3ab1ad281bee5bd274ec05c083febce17e5df2ad900d9",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_routes_captures_method_and_path": {
+      "hash": "c430fac5326dc8da45345e13901b9386447cf94b65869ba280d13442d11b1bd9",
+      "asserts": 2
+    },
+    "test_tool.py::test_extract_routes_pairs_decorator_with_handler_name": {
+      "hash": "2fc04b2c623d509ba7daca88b44b16bac066b37772d471184e89b6476b2b998a",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_routes_handles_path_params": {
+      "hash": "85104e0da0653358cf5a9421f666f6cbc715af499b6791e911ea31c06befc1aa",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_routes_empty_source_returns_empty_list": {
+      "hash": "37876b035bc7c29eca56944a163227f0d39afe0dd6371458b87a58f8b2aa95f3",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_markdown_docs_produces_table_with_all_routes": {
+      "hash": "da776e578e2383fcc6eb04ea4759cbcf6095937c055d1572f9d05070f76bd166",
+      "asserts": 4
+    }
+  },
+  "coverage_pct": 44.0
+}

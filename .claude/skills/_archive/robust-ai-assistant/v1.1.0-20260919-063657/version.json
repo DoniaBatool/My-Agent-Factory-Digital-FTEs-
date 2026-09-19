@@ -1,0 +1,71 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113546",
+      "reason": "Replaced TODO stub with real retry-with-backoff, fallback chain, response schema validation, input sanitization and circuit-breaker cooldown gate, 10 tests (examples/ preserved)",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_fallback_chain_raises_primary_error_when_all_fail",
+        "test_tool.py::test_fallback_chain_uses_first_success",
+        "test_tool.py::test_retry_with_backoff_raises_after_exhausting_attempts",
+        "test_tool.py::test_retry_with_backoff_succeeds_eventually",
+        "test_tool.py::test_sanitize_user_input_strips_control_chars",
+        "test_tool.py::test_sanitize_user_input_truncates_long_text",
+        "test_tool.py::test_should_allow_request_allows_after_cooldown",
+        "test_tool.py::test_should_allow_request_blocks_during_cooldown",
+        "test_tool.py::test_validate_ai_response_schema_detects_missing_keys",
+        "test_tool.py::test_validate_ai_response_schema_passes_when_complete"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_retry_with_backoff_succeeds_eventually": {
+      "hash": "031eae6ee0ae162f7d6953f9366238d62a9f5fabcf2acfeda73a78908bb0a472",
+      "asserts": 2
+    },
+    "test_tool.py::test_retry_with_backoff_raises_after_exhausting_attempts": {
+      "hash": "b73d501dfcb5cedf225e4af6c7ca10041daf4fb2c5f7d4d6f683c24cfc5c03cb",
+      "asserts": 0
+    },
+    "test_tool.py::test_fallback_chain_uses_first_success": {
+      "hash": "56db487fd1d2c9b6f5571a276d9089a6d04da3d57f8090bdcc3e42417d2f2260",
+      "asserts": 1
+    },
+    "test_tool.py::test_fallback_chain_raises_primary_error_when_all_fail": {
+      "hash": "d1d81aa611daf9658b660d554bce4be859b3d2185c6ec03ac7e3357a6a76d4ff",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_ai_response_schema_detects_missing_keys": {
+      "hash": "f88561b24d34d6f596a6e071b36515b596ada5ad627b6863b441a315cb743cb8",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_ai_response_schema_passes_when_complete": {
+      "hash": "292642e367ec11f9a597898e53da3abb948542a5bda106015e64df8a65a447d5",
+      "asserts": 1
+    },
+    "test_tool.py::test_sanitize_user_input_strips_control_chars": {
+      "hash": "3b34669f2b6dab09cc2852f22c644a83a86f528639af960daa583b341a16a05d",
+      "asserts": 1
+    },
+    "test_tool.py::test_sanitize_user_input_truncates_long_text": {
+      "hash": "91cffc1d683cc6956518cfe6ceeea59e5b4a11f7b3eceaec8b8cf7e70c54afc6",
+      "asserts": 1
+    },
+    "test_tool.py::test_should_allow_request_blocks_during_cooldown": {
+      "hash": "bfa47d9d415c2052f6f4d7d5ca013fae93605c4b703966c447cd9e1ed64f7f01",
+      "asserts": 1
+    },
+    "test_tool.py::test_should_allow_request_allows_after_cooldown": {
+      "hash": "8d599d4e741c1f3160a3aaf80e99376170fbca7b3289e490d889429cb9e38e3d",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 79.0
+}

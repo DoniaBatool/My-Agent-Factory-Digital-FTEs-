@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -23,6 +23,60 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063847",
+      "reason": "Bulletproofing pass: added 35 new tests covering CLI layer (cmd_new_conversation_id, cmd_validate_payload, cmd_classify_intent, cmd_test with a mocked subprocess to avoid recursive pytest spawning, main dispatch via sys.argv/SystemExit), required-arg enforcement (SystemExit for both required flags and for the required subparsers.command itself), payload validation boundaries (non-dict payload, missing/non-string message, exact 8000/8001 char boundary, valid conversation_id), intent classification coverage (complete/update/add/list actions, non-string message rejection, complete-without-target confirmation, non-destructive bulk actions never confirming, 'everything' bulk-word variant, double-quoted target extraction, bulk+quoted-target still confirming), response envelope tool_calls pass-through, and trim_history_for_context's zero/negative/oversized max_messages branches, plus a subprocess smoke test exercising the __main__ guard. Coverage 58%->99%, mutation score measured at 100% (8/8 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_response_envelope_rejects_bad_role",
+        "test_tool.py::test_build_response_envelope_shape",
+        "test_tool.py::test_classify_action_intent_defaults_to_chat",
+        "test_tool.py::test_classify_action_intent_detects_delete_all_needs_confirmation",
+        "test_tool.py::test_classify_action_intent_detects_delete_specific_no_confirmation",
+        "test_tool.py::test_new_conversation_id_is_unique",
+        "test_tool.py::test_trim_history_for_context_keeps_last_n",
+        "test_tool.py::test_validate_message_payload_accepts_valid",
+        "test_tool.py::test_validate_message_payload_rejects_empty_message",
+        "test_tool.py::test_validate_message_payload_rejects_non_string_conversation_id"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_response_envelope_preserves_provided_tool_calls",
+        "test_tool.py::test_classify_action_intent_bulk_and_quoted_target_still_needs_confirmation",
+        "test_tool.py::test_classify_action_intent_complete_without_target_needs_confirmation",
+        "test_tool.py::test_classify_action_intent_detects_add_action",
+        "test_tool.py::test_classify_action_intent_detects_complete_action",
+        "test_tool.py::test_classify_action_intent_detects_everything_bulk_word",
+        "test_tool.py::test_classify_action_intent_detects_list_action",
+        "test_tool.py::test_classify_action_intent_detects_update_action",
+        "test_tool.py::test_classify_action_intent_extracts_double_quoted_target",
+        "test_tool.py::test_classify_action_intent_non_destructive_bulk_action_never_needs_confirmation",
+        "test_tool.py::test_classify_action_intent_rejects_non_string_message",
+        "test_tool.py::test_cmd_classify_intent_prints_json",
+        "test_tool.py::test_cmd_new_conversation_id_prints_uuid",
+        "test_tool.py::test_cmd_test_invokes_pytest_subprocess_with_expected_command",
+        "test_tool.py::test_cmd_test_propagates_nonzero_return_code",
+        "test_tool.py::test_cmd_validate_payload_invalid_json_prints_error_and_returns_one",
+        "test_tool.py::test_cmd_validate_payload_invalid_payload_prints_error_and_returns_one",
+        "test_tool.py::test_cmd_validate_payload_valid_prints_success",
+        "test_tool.py::test_main_classify_intent_missing_required_message_exits",
+        "test_tool.py::test_main_dispatches_classify_intent_end_to_end",
+        "test_tool.py::test_main_dispatches_new_conversation_id_end_to_end",
+        "test_tool.py::test_main_dispatches_test_subcommand_end_to_end",
+        "test_tool.py::test_main_dispatches_validate_payload_end_to_end",
+        "test_tool.py::test_main_validate_payload_missing_required_payload_exits",
+        "test_tool.py::test_main_with_no_command_exits_nonzero",
+        "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard",
+        "test_tool.py::test_trim_history_for_context_max_larger_than_list_returns_all",
+        "test_tool.py::test_trim_history_for_context_negative_max_returns_empty",
+        "test_tool.py::test_trim_history_for_context_zero_max_returns_empty",
+        "test_tool.py::test_validate_message_payload_accepts_message_at_exactly_8000_chars",
+        "test_tool.py::test_validate_message_payload_accepts_valid_conversation_id",
+        "test_tool.py::test_validate_message_payload_rejects_message_at_8001_chars",
+        "test_tool.py::test_validate_message_payload_rejects_missing_message_key",
+        "test_tool.py::test_validate_message_payload_rejects_non_dict_payload",
+        "test_tool.py::test_validate_message_payload_rejects_non_string_message"
+      ]
     }
   ],
   "test_baseline": {
@@ -65,7 +119,148 @@
     "test_tool.py::test_trim_history_for_context_keeps_last_n": {
       "hash": "eda172e94b2f3fb587485b66b9b25dc5705770aa01590f36bd3de405a5794d8a",
       "asserts": 2
+    },
+    "test_tool.py::test_validate_message_payload_rejects_non_dict_payload": {
+      "hash": "895a2f2f11bc7e2fb5dbe7f9fb59ad4c4809e010ab2c7cae81387f06b4222b93",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_message_payload_rejects_missing_message_key": {
+      "hash": "b0c83633aaa6e5f3c82808a15b069b4155cc0617c7ab0d0cfbcea921ca1df339",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_message_payload_rejects_non_string_message": {
+      "hash": "4f8e638c07359b6652ef4ba786ecd13453f780ff0772e8a9fe22b6658f05d23e",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_message_payload_accepts_message_at_exactly_8000_chars": {
+      "hash": "2d9a7d32923337b19f4a135c4e6ea4c0a12d9da660f495dcab0a29c11a9b80a1",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_message_payload_rejects_message_at_8001_chars": {
+      "hash": "1ddd5193c6e97661ae66158502b9bf2d5022eb64c85cb61119da0ef16e868cc8",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_message_payload_accepts_valid_conversation_id": {
+      "hash": "490cda9188fe398ced61b16e7f623eef948e616e13f35969ce235a7679da3709",
+      "asserts": 0
+    },
+    "test_tool.py::test_classify_action_intent_rejects_non_string_message": {
+      "hash": "5b5163e84634150cb183167bc8e9f5ce4b6dedaa8cb8b212fecf3ed4ec17b994",
+      "asserts": 0
+    },
+    "test_tool.py::test_classify_action_intent_detects_complete_action": {
+      "hash": "8eea5501a90656297f4cadbc6c9bd1c632452fcc7b21721e7d40a70a964f60ad",
+      "asserts": 1
+    },
+    "test_tool.py::test_classify_action_intent_detects_update_action": {
+      "hash": "0da71e048142b18fee105a22791c409fa0ec70398a30815218e3bb03e0421524",
+      "asserts": 1
+    },
+    "test_tool.py::test_classify_action_intent_detects_add_action": {
+      "hash": "1fec9205e697d2cee971b7275353d56ce82d6f05f8793985b63d9d06ec409380",
+      "asserts": 1
+    },
+    "test_tool.py::test_classify_action_intent_detects_list_action": {
+      "hash": "a350ffcbace9d6300073e2f54d5b09745b49810053876839436d2cee8d5085d4",
+      "asserts": 1
+    },
+    "test_tool.py::test_classify_action_intent_complete_without_target_needs_confirmation": {
+      "hash": "5b7025ef7012c26602472f3872a2344feecf3086462ab493793426b004fd9959",
+      "asserts": 3
+    },
+    "test_tool.py::test_classify_action_intent_non_destructive_bulk_action_never_needs_confirmation": {
+      "hash": "6a64230e358b02a2323bbed541e033d917227f6d5ddf3e49c2c9687070e46d3e",
+      "asserts": 3
+    },
+    "test_tool.py::test_classify_action_intent_detects_everything_bulk_word": {
+      "hash": "559bf4b6823653bb27bb74d4436092360f718ada31919b1ae834f95bfbfdc229",
+      "asserts": 2
+    },
+    "test_tool.py::test_classify_action_intent_extracts_double_quoted_target": {
+      "hash": "96bdf73114f90c2cfd055e84a90bf395c150592f8e6fdc5bbe2d34002387e43a",
+      "asserts": 1
+    },
+    "test_tool.py::test_classify_action_intent_bulk_and_quoted_target_still_needs_confirmation": {
+      "hash": "f65e7aa059d99fa4b14b58350449bb861c5388706925feaf28d27dcd94b607d2",
+      "asserts": 3
+    },
+    "test_tool.py::test_build_response_envelope_preserves_provided_tool_calls": {
+      "hash": "e75410a6007824bec15310ba64d3625b4c3b854728a51134c9a2a0ff59ea5f99",
+      "asserts": 1
+    },
+    "test_tool.py::test_trim_history_for_context_zero_max_returns_empty": {
+      "hash": "13fa6838059ba65cda68344d5882e855e6c3bdadc16be7991d9b4016ddb68809",
+      "asserts": 1
+    },
+    "test_tool.py::test_trim_history_for_context_negative_max_returns_empty": {
+      "hash": "71dd16694b96474532b9ed00c2e7d3ba4cc1611e9c12a9701ae29a56c292687a",
+      "asserts": 1
+    },
+    "test_tool.py::test_trim_history_for_context_max_larger_than_list_returns_all": {
+      "hash": "8fe5ac94494c255e6813307b65ccddcf462a22d809e4c85276fef596e6db6326",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_new_conversation_id_prints_uuid": {
+      "hash": "a971c8bc29628cc7a3ac4aed6edbde2ae0cfa4272a79730720d4d2989ba18d49",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_payload_valid_prints_success": {
+      "hash": "d5b4c963273e95bac44768e66fae29937f9c9258e8ec2da2e3a2a874fd39f2bd",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_payload_invalid_json_prints_error_and_returns_one": {
+      "hash": "93aebd474152c805a79ba21b0bff73ce55f40c7bff7ced9afe531e3f69e30861",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_validate_payload_invalid_payload_prints_error_and_returns_one": {
+      "hash": "d0f67c3cea8cd2c206e2428a34d8a953829b9c88735d44a89d63a7afe6906aaa",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_classify_intent_prints_json": {
+      "hash": "a9d91b33dee138eea341b2b82830fc72a3d63175d85a2f3ad55cb0d51346d791",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_subprocess_with_expected_command": {
+      "hash": "3747237cffab4a3fcc842721e8a2e894ae9551efe3f1d84cec39b387e8692007",
+      "asserts": 5
+    },
+    "test_tool.py::test_cmd_test_propagates_nonzero_return_code": {
+      "hash": "73d368aeb881ccf423b9cd7184967737b3cbd6a77bb5f58f00def476e762e207",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_new_conversation_id_end_to_end": {
+      "hash": "5eaa1a82e525d3e40a24aca1f0881995bd97c5c61a3d9f023e7f1529739a5e95",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_validate_payload_end_to_end": {
+      "hash": "99807cf292fdd0d25b54800582cdce1b58bf979339aa4171539e29b15a8f5bb3",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_classify_intent_end_to_end": {
+      "hash": "d622864392ad001978d4c26487df90174ddf52e2632688a664dfa601ed445ed5",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_subcommand_end_to_end": {
+      "hash": "a9601c91f31ee38c74043073ef849cc6e09512c53ef4e6d3c53c1932697102b9",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_with_no_command_exits_nonzero": {
+      "hash": "89d38e280c9b6a01a3bc2d0fedb7e8d2e13d5d4e06152f088454bfdb28d086a7",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_validate_payload_missing_required_payload_exits": {
+      "hash": "f27990fa4e93d35a3070d59d93bef9a527136fdfdb8d974dc6bd25a59ad9d543",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_classify_intent_missing_required_message_exits": {
+      "hash": "545e5d65d88590fb46e675fd4e2aa4a68599926b9fd2d5d7a5a693171cdc87da",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard": {
+      "hash": "b161f06b956ede97da2e2f7adf39c628e07af27dde2f6d3c68b7ac7aec847d48",
+      "asserts": 2
     }
   },
-  "coverage_pct": 58.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

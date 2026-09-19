@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -24,6 +24,45 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062530",
+      "reason": "Bulletproofing pass: added 30 new tests covering CLI layer (cmd_test with mocked subprocess to avoid the tool's inherent self-invoking recursion, main dispatch including the required-subparser missing-command SystemExit), a reference-hash re-implementation of stable_bucket to catch formula mutations, exact rollout-percentage boundary (bucket==pct disabled vs bucket+1 enabled), missing-global-key default-True behavior, non-bool/non-dict config validation errors, no-user-id rollout paths, merge_flag_configs fallback branch, custom-stages rollout progression including the no-greater-stage fallback, print_success/print_error output, and a subprocess smoke test of the __main__ guard via the no-command argparse-required path. Coverage 77%->98% (only __main__ guard line unreachable in-process). Mutation score measured at 100% (15/15 mutants killed) after adding a test for the missing-global-defaults-to-True behavior that an initial run showed surviving.",
+      "baseline_tests_verified": [
+        "test_tool.py::test_is_enabled_false_when_global_off",
+        "test_tool.py::test_is_enabled_full_rollout_enables_everyone",
+        "test_tool.py::test_is_enabled_raises_on_invalid_config",
+        "test_tool.py::test_is_enabled_respects_user_override_false_even_at_full_rollout",
+        "test_tool.py::test_is_enabled_respects_user_override_true_even_at_zero_rollout",
+        "test_tool.py::test_merge_flag_configs_merges_user_overrides",
+        "test_tool.py::test_next_rollout_stage_progression",
+        "test_tool.py::test_stable_bucket_distributes_across_users",
+        "test_tool.py::test_stable_bucket_is_deterministic",
+        "test_tool.py::test_validate_flag_config_accepts_valid",
+        "test_tool.py::test_validate_flag_config_rejects_out_of_range_pct"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_cmd_test_invokes_pytest_on_tests_dir_and_returns_its_code",
+        "test_tool.py::test_is_enabled_boundary_bucket_exactly_at_threshold_is_disabled",
+        "test_tool.py::test_is_enabled_boundary_bucket_one_above_threshold_is_enabled",
+        "test_tool.py::test_is_enabled_defaults_global_to_true_when_key_absent",
+        "test_tool.py::test_is_enabled_no_user_id_full_rollout_returns_true",
+        "test_tool.py::test_is_enabled_no_user_id_partial_rollout_returns_false",
+        "test_tool.py::test_main_dispatches_test_command_and_exits_with_its_code",
+        "test_tool.py::test_main_dispatches_test_command_nonzero_exit_code",
+        "test_tool.py::test_main_missing_command_raises_systemexit_2",
+        "test_tool.py::test_merge_flag_configs_override_wins_when_base_lacks_dict_value",
+        "test_tool.py::test_next_rollout_stage_custom_stages_falls_back_to_100_when_none_greater",
+        "test_tool.py::test_next_rollout_stage_custom_stages_returns_first_greater",
+        "test_tool.py::test_print_success_and_print_error_include_message",
+        "test_tool.py::test_stable_bucket_matches_reference_hash_formula",
+        "test_tool.py::test_stable_bucket_reference_formula_second_pair",
+        "test_tool.py::test_subprocess_runs_as_script_with_no_command_and_exits_2",
+        "test_tool.py::test_validate_flag_config_collects_multiple_errors_at_once",
+        "test_tool.py::test_validate_flag_config_rejects_non_bool_global",
+        "test_tool.py::test_validate_flag_config_rejects_non_dict_user_overrides"
+      ]
     }
   ],
   "test_baseline": {
@@ -70,7 +109,84 @@
     "test_tool.py::test_next_rollout_stage_progression": {
       "hash": "4a6604da7a1775d56cb81bae759243c4dcbfe6b22b18f1ab8605d626beb4f44c",
       "asserts": 4
+    },
+    "test_tool.py::test_stable_bucket_matches_reference_hash_formula": {
+      "hash": "2598a7399bec1485f5332910cb9b9e17283475c898bb273b6a5453eb1abc9d6e",
+      "asserts": 1
+    },
+    "test_tool.py::test_stable_bucket_reference_formula_second_pair": {
+      "hash": "558213770a002252520c7b9b3be0e73ea15c572045648ca351f876d157cec479",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_success_and_print_error_include_message": {
+      "hash": "73ed7dec6c96d6c73f6a0dbac9d006aedf501d128d7005a2f32aea4edf00a38e",
+      "asserts": 4
+    },
+    "test_tool.py::test_validate_flag_config_rejects_non_bool_global": {
+      "hash": "edbb3ad8dafdafa3ba86b050952c21e6f017ca0a6771e5cffdd1206163671d24",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_flag_config_rejects_non_dict_user_overrides": {
+      "hash": "723b52d530f25fe5275e46acd9d29d9bcc13a195dcbfb1303e21eac4ef6868b1",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_flag_config_collects_multiple_errors_at_once": {
+      "hash": "c050d17ec05f9ad62a2d5aa4f75c688d6d7d3476627dc24044761abb34de2183",
+      "asserts": 1
+    },
+    "test_tool.py::test_is_enabled_boundary_bucket_exactly_at_threshold_is_disabled": {
+      "hash": "ca62ca36e559db9db4c9f4c9ec85d7424ca40ac7d076c5e32dad546ed753339c",
+      "asserts": 1
+    },
+    "test_tool.py::test_is_enabled_boundary_bucket_one_above_threshold_is_enabled": {
+      "hash": "41ea0eb8c42818ad9fbb48bed7c4cdcaa740ced3d18ba32cc35305322d1f2807",
+      "asserts": 1
+    },
+    "test_tool.py::test_is_enabled_no_user_id_partial_rollout_returns_false": {
+      "hash": "8bcd60382d5870bbb740d1326c019c73f7b4c551c34a5660d8548defeab201a0",
+      "asserts": 1
+    },
+    "test_tool.py::test_is_enabled_no_user_id_full_rollout_returns_true": {
+      "hash": "e99479944ed12d65aef875058489295232190c45adb69bd441039fb479cccdad",
+      "asserts": 1
+    },
+    "test_tool.py::test_merge_flag_configs_override_wins_when_base_lacks_dict_value": {
+      "hash": "e47026b99c4c59e94a97d2389525509730bfc33e090cc39a2da97348126bd369",
+      "asserts": 1
+    },
+    "test_tool.py::test_next_rollout_stage_custom_stages_returns_first_greater": {
+      "hash": "84f731dbf22c9214580b6f5d6b9a9466e94653e17c0fb7838bd3241d768d18b3",
+      "asserts": 1
+    },
+    "test_tool.py::test_next_rollout_stage_custom_stages_falls_back_to_100_when_none_greater": {
+      "hash": "bcfb51b9e8ee459f2f2402d222bae6234d4d03992bdcc89637468994e8eb9229",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_on_tests_dir_and_returns_its_code": {
+      "hash": "24188346941c57d12dd7e58cfdaa8c8d0a46dbf03f7b7162e1a6692dc838df61",
+      "asserts": 6
+    },
+    "test_tool.py::test_main_dispatches_test_command_and_exits_with_its_code": {
+      "hash": "dbaa5e9f69e2f5b7767c0d36ee5ef93b994bedad285953ac8592b9fc62a98197",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_test_command_nonzero_exit_code": {
+      "hash": "6a5503f1ed5281fcf2a4165eac34b3d3c33ba3552c9f8138ab528d989bc420f4",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_missing_command_raises_systemexit_2": {
+      "hash": "78e2e03c66c6d3ec4bd3eac39e225fd43c9633d352e2df66c70057894d440e69",
+      "asserts": 1
+    },
+    "test_tool.py::test_subprocess_runs_as_script_with_no_command_and_exits_2": {
+      "hash": "e4db9e7177b56c9b783525013985dfcd4eb946f31a8ab74be5428a3b1df6d8ce",
+      "asserts": 2
+    },
+    "test_tool.py::test_is_enabled_defaults_global_to_true_when_key_absent": {
+      "hash": "532d016b49d9a05ae36c11439a9a8ae8d8a4fd667beb59639df14ec2bc3b45f2",
+      "asserts": 1
     }
   },
-  "coverage_pct": 77.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

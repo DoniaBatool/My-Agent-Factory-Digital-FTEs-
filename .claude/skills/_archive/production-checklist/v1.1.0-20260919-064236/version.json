@@ -1,0 +1,61 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-111223",
+      "reason": "Replaced TODO stub with real go-live checks (.env gitignored, no hardcoded secrets, tests exist, health endpoint present) + 8 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_check_env_gitignored_false_when_missing",
+        "test_tool.py::test_check_env_gitignored_true",
+        "test_tool.py::test_check_health_endpoint_found",
+        "test_tool.py::test_check_no_hardcoded_secrets_flags_offender",
+        "test_tool.py::test_check_no_hardcoded_secrets_ignores_test_files",
+        "test_tool.py::test_check_tests_exist_false_when_absent",
+        "test_tool.py::test_check_tests_exist_true",
+        "test_tool.py::test_run_checklist_returns_all_four_checks"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_check_env_gitignored_true": {
+      "hash": "b4c48d70adee4ca629e2b95505ec4e392d9d7e79c5bbadb895fefe73752ed9ef",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_env_gitignored_false_when_missing": {
+      "hash": "3f01c522fb857b7d9c2f70219c8eebeacf7d3bf1e7a24718ee62deb5712ea345",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_no_hardcoded_secrets_flags_offender": {
+      "hash": "0574bed240068dd1b434185d98c89587f6e2c656f1ec3d0643e5f6bf84e51432",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_no_hardcoded_secrets_ignores_test_files": {
+      "hash": "3e482efaa356d53c7fc227a1cef0ebed98cc900af53edbfbcff6bdd26a01e13a",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_tests_exist_true": {
+      "hash": "9a73be7ccc448546058a999bfd116423a58e73b2289f078ade06d6e6120594c7",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_tests_exist_false_when_absent": {
+      "hash": "9e2b160f89f5c9206d4ffb190fcae72e25b5b47c74462cef182e39699da633e2",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_health_endpoint_found": {
+      "hash": "86cd313c235c2a53eb4a66998f9e2fa98f6b1aad261abb95bc0e49a2c0739ae3",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_checklist_returns_all_four_checks": {
+      "hash": "31599beda69a5b0ad0867e93208f762f807261fefe8d371cc2eb35640a0a7213",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 58.0
+}

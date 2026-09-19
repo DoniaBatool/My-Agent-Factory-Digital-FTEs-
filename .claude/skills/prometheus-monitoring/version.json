@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -27,6 +27,73 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062647",
+      "reason": "Bulletproofing pass: added 44 new tests covering the CLI layer (every cmd_* function called directly and via main() end-to-end dispatch), argparse choice validation (SystemExit on invalid --method/--type), optional-arg defaults, real (unmocked) run_command success/timeout/exception paths, boundary conditions in run_tests' pass-count gate and per-check status marking, dict_to_yaml edge cases (empty list, scalar input), URL-encoding of special characters, and a subprocess-level __main__ smoke test. Coverage 44%->99% (only the __main__ guard line remains, by design). Mutation score measured at 100% (21/21 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_exporter_command_known_type",
+        "test_tool.py::test_build_exporter_command_rejects_unknown_type",
+        "test_tool.py::test_build_install_command_docker_ignores_os",
+        "test_tool.py::test_build_install_command_linux_native_uses_apt",
+        "test_tool.py::test_build_install_command_macos_native_uses_brew",
+        "test_tool.py::test_build_install_command_rejects_unknown_os",
+        "test_tool.py::test_build_query_url_instant_query",
+        "test_tool.py::test_build_query_url_range_query_uses_query_range_endpoint",
+        "test_tool.py::test_build_scrape_config_defaults",
+        "test_tool.py::test_build_scrape_config_is_additive_with_existing_jobs",
+        "test_tool.py::test_diagnose_flags_only_failed_checks",
+        "test_tool.py::test_dict_to_yaml_renders_nested_structure",
+        "test_tool.py::test_find_first_existing_returns_first_match",
+        "test_tool.py::test_run_tests_performs_six_distinct_checks_not_a_fake_one"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_add_exporter_failure_reports_stderr",
+        "test_tool.py::test_add_exporter_success",
+        "test_tool.py::test_add_exporter_type_none_defaults_to_node",
+        "test_tool.py::test_add_exporter_unknown_type_returns_1",
+        "test_tool.py::test_build_query_url_default_instant_is_true",
+        "test_tool.py::test_build_query_url_encodes_special_characters",
+        "test_tool.py::test_check_prerequisites_all_met",
+        "test_tool.py::test_check_prerequisites_missing_binary_reports_issue",
+        "test_tool.py::test_configure_scrape_defaults_when_args_none",
+        "test_tool.py::test_configure_scrape_writes_expected_yaml",
+        "test_tool.py::test_detect_os_lowercases_platform_system",
+        "test_tool.py::test_dict_to_yaml_empty_list_produces_no_item_lines",
+        "test_tool.py::test_dict_to_yaml_handles_list_of_dicts",
+        "test_tool.py::test_dict_to_yaml_scalar_input_returns_empty_string",
+        "test_tool.py::test_find_first_existing_returns_none_when_nothing_exists",
+        "test_tool.py::test_install_failure_reports_stderr",
+        "test_tool.py::test_install_method_none_defaults_to_docker",
+        "test_tool.py::test_install_native_success_does_not_print_docker_url",
+        "test_tool.py::test_install_success_docker_prints_default_url",
+        "test_tool.py::test_install_unsupported_os_returns_1",
+        "test_tool.py::test_main_add_exporter_end_to_end",
+        "test_tool.py::test_main_configure_scrape_end_to_end",
+        "test_tool.py::test_main_dispatches_check_prerequisites",
+        "test_tool.py::test_main_install_end_to_end",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_query_metrics_end_to_end",
+        "test_tool.py::test_main_query_metrics_without_explicit_query_uses_default",
+        "test_tool.py::test_main_rejects_invalid_exporter_type_choice",
+        "test_tool.py::test_main_rejects_invalid_method_choice",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_main_troubleshoot_end_to_end",
+        "test_tool.py::test_query_metrics_empty_output_is_failure",
+        "test_tool.py::test_query_metrics_no_response_message_when_stderr_empty",
+        "test_tool.py::test_query_metrics_nonzero_exit_reports_stderr",
+        "test_tool.py::test_query_metrics_range_flag_uses_query_range_endpoint",
+        "test_tool.py::test_query_metrics_success_prints_output",
+        "test_tool.py::test_run_command_real_exception_path",
+        "test_tool.py::test_run_command_real_success_returns_stdout",
+        "test_tool.py::test_run_command_real_timeout_expired",
+        "test_tool.py::test_run_tests_all_six_checks_pass",
+        "test_tool.py::test_run_tests_targets_api_fails_on_wrong_http_code",
+        "test_tool.py::test_script_runs_as_main_via_subprocess",
+        "test_tool.py::test_troubleshoot_no_issues",
+        "test_tool.py::test_troubleshoot_reports_issues"
+      ]
     }
   ],
   "test_baseline": {
@@ -85,7 +152,184 @@
     "test_tool.py::test_run_tests_performs_six_distinct_checks_not_a_fake_one": {
       "hash": "fc16f087fa9c6301a34b68d022989a2d15fd7885bed2e4a8600a838b3942a9f9",
       "asserts": 2
+    },
+    "test_tool.py::test_detect_os_lowercases_platform_system": {
+      "hash": "02bf5efb305aefe3ee679e1865074c935668d81e7dd5cf38e831de44be1a0199",
+      "asserts": 1
+    },
+    "test_tool.py::test_dict_to_yaml_handles_list_of_dicts": {
+      "hash": "74467d23b36a0c6465d6b6b4047d67326010463a7a99ba0e6809b86f1c477d45",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_query_url_encodes_special_characters": {
+      "hash": "2d111dfb11f4b075b7dfa40a0d1566e06b2fc08955b41eba62f33a216c5b8e8b",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_all_met": {
+      "hash": "590499dbb34455c8ab5ec49a9437132920e78b0198ebc32e46c55e5ec860d90c",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_missing_binary_reports_issue": {
+      "hash": "91f8d834acd5763c2b855b4622b4fbd8a775efd6b5812e7f8ca393cd77ee63dd",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_success_docker_prints_default_url": {
+      "hash": "df19bba9390387cf145c331f0d9bcf3bafc4b4ab3bd071533df463aecdbb81c7",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_failure_reports_stderr": {
+      "hash": "f519dc73434d08c325edf9f3ec89639fc5ad8b83584b6c2cba79438bd855115f",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_unsupported_os_returns_1": {
+      "hash": "3fafd8c654fcc7e41b156775e30317e71c74032b2ca109aac3f16cf5e0e03578",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_method_none_defaults_to_docker": {
+      "hash": "4ffac9b2a063f796f42342d8e959c5a49d84af7549136cc91cdf4627d7b93f00",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_scrape_writes_expected_yaml": {
+      "hash": "388df1c3f35b64bd6ea5bb397d90454c228fba56c99cd994e65b4c8114c83055",
+      "asserts": 3
+    },
+    "test_tool.py::test_configure_scrape_defaults_when_args_none": {
+      "hash": "619e6e5e32a717dfc2be2ef7e8357712539468aae5d2fac8cfbfe68d1f37e3e0",
+      "asserts": 2
+    },
+    "test_tool.py::test_add_exporter_success": {
+      "hash": "ba6c7a19f96621049ecef8897bddacb12e71fbfb063a2c5af7a9ad2816802d23",
+      "asserts": 2
+    },
+    "test_tool.py::test_add_exporter_unknown_type_returns_1": {
+      "hash": "eb0bb5af8bd83489e3d76ae5ba77c51973469b7a52c610c676c12a090fb8b534",
+      "asserts": 2
+    },
+    "test_tool.py::test_add_exporter_failure_reports_stderr": {
+      "hash": "10afd42d16afda3f15860bedcaf53b7ab4b340bbdd6e3e332810a9795bd14fcc",
+      "asserts": 2
+    },
+    "test_tool.py::test_add_exporter_type_none_defaults_to_node": {
+      "hash": "0759ae25b7958b9185f9bd6d1093efc5e38b685632d499937d9c5743876015a0",
+      "asserts": 2
+    },
+    "test_tool.py::test_query_metrics_success_prints_output": {
+      "hash": "7111206234040d46207456d6c5cd2bc6d22757015e9833066630104ce46648e7",
+      "asserts": 2
+    },
+    "test_tool.py::test_query_metrics_empty_output_is_failure": {
+      "hash": "443ffa7eeb283b774a52b5293bdfd37b7593155d327a9849218b6d2900bf58ef",
+      "asserts": 2
+    },
+    "test_tool.py::test_query_metrics_nonzero_exit_reports_stderr": {
+      "hash": "c453c85aabcddb1bde7155672151dda18bcfc4a2093ad3e52d23b82afab170a8",
+      "asserts": 2
+    },
+    "test_tool.py::test_query_metrics_no_response_message_when_stderr_empty": {
+      "hash": "1e43e0e6f8d66a6c8a866a5492d915d0f97e6a3d23f034f0ab00e3bcf72c3e52",
+      "asserts": 2
+    },
+    "test_tool.py::test_query_metrics_range_flag_uses_query_range_endpoint": {
+      "hash": "a1003c134d4e429dd118854aec8da29be04ad0d7bcb836b32b745911f873b8a8",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_all_six_checks_pass": {
+      "hash": "91e1d88372fd0c76326322c9ea9a5e48b229b0caefbe8ecb1979e2892cf4f452",
+      "asserts": 4
+    },
+    "test_tool.py::test_run_tests_targets_api_fails_on_wrong_http_code": {
+      "hash": "b8b98fc15c231e9a7d5e9e7fefcbc43569dcb539309f99f388a920ccbc79ada9",
+      "asserts": 4
+    },
+    "test_tool.py::test_troubleshoot_no_issues": {
+      "hash": "17efd1146b208376301e62bbb9ec4c87dcf92532c01c2fb21fcdc1e00a16fa8c",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_reports_issues": {
+      "hash": "def849261ebc780db5941dbf431dffe3c9778a2cb4c1c6fba4e2e5ad6f2c706d",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "679c69a61ac17b6620c1a0f4ed2b9184d69a81b851c9c2b0ed426513e1c11d25",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_rejects_invalid_method_choice": {
+      "hash": "6da621d5a58d108ad1e33fa15a87dc78ef7593f3f567240afc4f9dfaf750aff9",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_rejects_invalid_exporter_type_choice": {
+      "hash": "da0a05fd2ffc66f00c6fe379c9f69596b8952fab60adc895660e155bb41f911b",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_dispatches_check_prerequisites": {
+      "hash": "9c07787e04b7f7e5a2e460541394d30c55d139662915ded57b6c1da589387029",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_install_end_to_end": {
+      "hash": "be63c655a4c99e3d1657bc4ad55723e7b729c398f232636857a9edfc04e67141",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_configure_scrape_end_to_end": {
+      "hash": "9183fd23c56f821462740ed22f43c05084a574e5ec31742749d3e3f60cfa2de1",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_add_exporter_end_to_end": {
+      "hash": "dc9b00384047f41edc2589b6f5489c0e440b0409f35f897e72d671efbfcf2023",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_query_metrics_end_to_end": {
+      "hash": "cfd972fd5353df1c4e7738143cafaf94b536a3398894e2030d84839a4ad62294",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "7873eb19090df0a59113b905c8faf64ca14de81b1dfce2d9baab415be30a0992",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_troubleshoot_end_to_end": {
+      "hash": "9caefccd83d99b742511566b29bd805e7f6d6b3410c0ad283b06d9cc2d206643",
+      "asserts": 1
+    },
+    "test_tool.py::test_script_runs_as_main_via_subprocess": {
+      "hash": "18ea52ba046d4755ee046e4a101d2a04b379d486679c89ae99e00b103233edab",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_real_success_returns_stdout": {
+      "hash": "914b59d4b802a4c672eda35e0caa86bd31dd50ec56f1fa7ffad57adf508d6f74",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_real_timeout_expired": {
+      "hash": "de554544f7b57df9f8f9d1e3c91d6fb8ac182209cdeabdfb1a6e02ea8966569e",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_real_exception_path": {
+      "hash": "048d5c9c2b33d2b92cbdd152a9c2fc76eed105438f391f23b62c424adce954e2",
+      "asserts": 2
+    },
+    "test_tool.py::test_find_first_existing_returns_none_when_nothing_exists": {
+      "hash": "e5e96437bd77ea0dfde5adf079189ea849fd88ca3643317f5c79cd3d7b4ebde4",
+      "asserts": 1
+    },
+    "test_tool.py::test_dict_to_yaml_empty_list_produces_no_item_lines": {
+      "hash": "60d9b027f009039d38d7a96badafefc6c10cf8e594d434d5c2359e282574dc83",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_native_success_does_not_print_docker_url": {
+      "hash": "17ab88cbc0051c48e0198b8132f4287d198817a9c9242fb01b5c057d5e9064a9",
+      "asserts": 3
+    },
+    "test_tool.py::test_dict_to_yaml_scalar_input_returns_empty_string": {
+      "hash": "83af2f065b8db8e4505b5953b2026995ce4ddc56fbf736d6d7836279e754ad78",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_query_url_default_instant_is_true": {
+      "hash": "b08bc066d0c9143614edf0ea387c563d89acb22cda6500434e866cf5b20ff17c",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_query_metrics_without_explicit_query_uses_default": {
+      "hash": "d9993e5ed6d80eb459efc676b03a9c1e05a2c08eacde8a90a82b09f880e306ab",
+      "asserts": 2
     }
   },
-  "coverage_pct": 44.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

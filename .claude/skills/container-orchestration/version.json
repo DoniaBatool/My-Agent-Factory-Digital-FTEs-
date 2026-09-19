@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -19,6 +19,40 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062454",
+      "reason": "Bulletproofing pass: added 19 new tests covering the CLI layer (cmd_generate_deployment, cmd_validate_resources, cmd_test, main() dispatch and no-command help path), required-argument enforcement for --name/--image/positional value via SystemExit, k8s quantity regex edge cases (bare integer, decimal+Gi, case-sensitive suffix, negative values, trailing/leading garbage), and a subprocess smoke test exercising the __main__ guard. Coverage 28%->96%, mutation score measured at 83.3% (5/6 mutants; the sole survivor at scripts/tool.py:82 is an equivalent mutant -- the ok=False fallback inside cmd_test's self-test can only execute if build_deployment_manifest('x','y',cpu_request='not-a-quantity') failed to raise ValueError, which is structurally impossible since 'not-a-quantity' fails the k8s quantity regex; with only 6 total mutable comparison/boolean sites in this file, 5/6 is the maximum achievable score without a contrived test).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_deployment_manifest_includes_liveness_and_readiness_probes",
+        "test_tool.py::test_build_deployment_manifest_rejects_invalid_resource_quantity",
+        "test_tool.py::test_build_deployment_manifest_shape",
+        "test_tool.py::test_build_deployment_manifest_uses_given_resource_requests",
+        "test_tool.py::test_validate_k8s_quantity_accepts_valid_forms",
+        "test_tool.py::test_validate_k8s_quantity_rejects_invalid"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_cmd_generate_deployment_invalid_quantity_returns_1",
+        "test_tool.py::test_cmd_generate_deployment_success_prints_manifest",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_cmd_validate_resources_invalid_prints_invalid_message",
+        "test_tool.py::test_cmd_validate_resources_valid_prints_ok",
+        "test_tool.py::test_main_generate_deployment_end_to_end",
+        "test_tool.py::test_main_missing_required_image_arg_exits",
+        "test_tool.py::test_main_missing_required_name_arg_exits",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_main_validate_resources_end_to_end",
+        "test_tool.py::test_main_validate_resources_missing_positional_value_exits",
+        "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint",
+        "test_tool.py::test_validate_k8s_quantity_accepts_bare_integer_with_no_suffix",
+        "test_tool.py::test_validate_k8s_quantity_accepts_decimal_with_gi_suffix",
+        "test_tool.py::test_validate_k8s_quantity_is_case_sensitive_for_suffix",
+        "test_tool.py::test_validate_k8s_quantity_rejects_leading_garbage",
+        "test_tool.py::test_validate_k8s_quantity_rejects_negative_values",
+        "test_tool.py::test_validate_k8s_quantity_rejects_trailing_garbage"
+      ]
     }
   ],
   "test_baseline": {
@@ -45,7 +79,84 @@
     "test_tool.py::test_build_deployment_manifest_uses_given_resource_requests": {
       "hash": "527b0e390424f21b3d49eb620fd0c07448c2a1c8843487222ae7fcb8f0b69e06",
       "asserts": 1
+    },
+    "test_tool.py::test_validate_k8s_quantity_accepts_bare_integer_with_no_suffix": {
+      "hash": "faf0f5cfd878b9a48c7d08b7ad7bd871f503cd73ce5c127c7f90a5a3f3199be6",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_k8s_quantity_accepts_decimal_with_gi_suffix": {
+      "hash": "5b4ad333ec6c09a65fb1c469225c52783bb836bd68a4058fcb8a46b915c0f37f",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_k8s_quantity_is_case_sensitive_for_suffix": {
+      "hash": "c6e43ab76278f4ad06855f97cd952981278bc8c27fdeafb97293048c6a0a251d",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_k8s_quantity_rejects_negative_values": {
+      "hash": "648933b4e81c4358391a649868d9bd74f4d74ecbe8b86e2b82cdc282629a94c9",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_k8s_quantity_rejects_trailing_garbage": {
+      "hash": "0659686f84d3d6561956602ed5785feed6882a55b46fcf41460fd364c574cd65",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_k8s_quantity_rejects_leading_garbage": {
+      "hash": "49e01e4e3ad943c57c67246aa09d15b09e7b68d2512809e171095d20e14b7749",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_generate_deployment_success_prints_manifest": {
+      "hash": "04f47d969df3f35ab1a5f00cfeee3e42edc497efc22ea045fc28ef62173fe9d2",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_generate_deployment_invalid_quantity_returns_1": {
+      "hash": "1e3b6dc0ca16c9c37f2be619a32a9875f55f222e472236ce2019ff742d7b3275",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_resources_valid_prints_ok": {
+      "hash": "c5c1c3d71ab78842015fac860cb7f5f06d5562247ee1291d932d82c25ebda641",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_resources_invalid_prints_invalid_message": {
+      "hash": "5e8245e4632b1aa9bed6fb89bb7a828a6ddbc68103b5fe640be5d025e3e44efe",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5dcce7724a5df43b97459412d0dd8aa978488dc59958a77d600b82f7ce7e14ed",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "706740168087f6b7bf40836c6923f2e7c8e370556bdf6d06e3cc223e68282b73",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_deployment_end_to_end": {
+      "hash": "bd019117c534fa4ef57515f8d41897277753ffb249deb90817266f5cfcd41919",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_validate_resources_end_to_end": {
+      "hash": "6650e50595eafc1305917402ab21adc272265129385715173e233c3e979c6fa3",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "cc36831028b0cbd34c8a2c87bb8ac79495c7412100837661d49ee2c5522cd8c7",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_missing_required_name_arg_exits": {
+      "hash": "b7e38522d8e06341c2634ccb2b2baef0530b5d9f5c18f2805e605f9b19e265db",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_missing_required_image_arg_exits": {
+      "hash": "b13e1cfbd19ca4a6b2b1b2d7ba5b7d54927272da8d8d15fb34713bb9b30af275",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_validate_resources_missing_positional_value_exits": {
+      "hash": "1f5917c9c94b8f8273cc2947dfa6c9d824327ef65e35478ec3d95e4cd7dcbe7f",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint": {
+      "hash": "77d63a26c9b10afe5838b6a8e60a7a1f4fda4363395f07bc58c12b31edbc29cf",
+      "asserts": 2
     }
   },
-  "coverage_pct": 28.0
+  "coverage_pct": 97.0,
+  "mutation_score": 0.833
 }

@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -21,6 +21,48 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063456",
+      "reason": "Bulletproofing pass: added 25 new tests covering the CLI layer (every cmd_* function called directly and via main() end-to-end dispatch, including run-tests against a real passing/failing pytest target), required-argument enforcement (SystemExit when --flows, description positional, --title/--repro/--expected/--actual, or the run-tests target positional are omitted), classify_severity's rule-priority ordering when multiple patterns match the same text, multiword risk-keyword substring matching in build_test_plan, cmd_test's self-test failure branch, and a subprocess __main__ smoke test. Coverage 42%->98% (only the __main__ guard line remains, by design). Mutation score measured at 100% (14/14 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_test_plan_ranks_high_risk_flows_first",
+        "test_tool.py::test_classify_severity_critical_for_data_loss",
+        "test_tool.py::test_classify_severity_defaults_to_medium_never_silently_low",
+        "test_tool.py::test_classify_severity_high_for_crash",
+        "test_tool.py::test_classify_severity_low_for_cosmetic",
+        "test_tool.py::test_format_bug_report_infers_severity_from_actual_behavior",
+        "test_tool.py::test_run_pytest_suite_reports_success_for_passing_tests",
+        "test_tool.py::test_run_pytest_suite_runs_real_pytest_and_reports_failure"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_test_plan_defaults_unrecognized_flow_to_medium",
+        "test_tool.py::test_build_test_plan_matches_multiword_keyword",
+        "test_tool.py::test_classify_severity_matches_cannot_log_in_with_space",
+        "test_tool.py::test_classify_severity_prioritizes_critical_over_high_when_both_match",
+        "test_tool.py::test_cmd_build_test_plan_splits_flows_and_prints_json",
+        "test_tool.py::test_cmd_classify_severity_prints_result",
+        "test_tool.py::test_cmd_format_bug_report_splits_repro_steps_on_semicolons",
+        "test_tool.py::test_cmd_run_tests_prints_fail_gate_on_failure",
+        "test_tool.py::test_cmd_run_tests_prints_pass_gate_on_success",
+        "test_tool.py::test_cmd_test_reports_fail_when_classify_severity_broken",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_main_build_test_plan_end_to_end",
+        "test_tool.py::test_main_build_test_plan_requires_flows",
+        "test_tool.py::test_main_classify_severity_end_to_end",
+        "test_tool.py::test_main_classify_severity_requires_description_positional",
+        "test_tool.py::test_main_format_bug_report_end_to_end",
+        "test_tool.py::test_main_format_bug_report_requires_actual",
+        "test_tool.py::test_main_format_bug_report_requires_expected",
+        "test_tool.py::test_main_format_bug_report_requires_repro",
+        "test_tool.py::test_main_format_bug_report_requires_title",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_run_tests_end_to_end",
+        "test_tool.py::test_main_run_tests_requires_target_positional",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_script_runs_as_main_via_subprocess"
+      ]
     }
   ],
   "test_baseline": {
@@ -55,7 +97,108 @@
     "test_tool.py::test_run_pytest_suite_reports_success_for_passing_tests": {
       "hash": "5326c89559b597656055140e2e98f1694cc7dc83dc90b571219e3b61c248e061",
       "asserts": 2
+    },
+    "test_tool.py::test_classify_severity_prioritizes_critical_over_high_when_both_match": {
+      "hash": "f211bcde14b1e242601badaec0d1c29a3ca5f26e0d6b67205d7b17254d9e81a2",
+      "asserts": 1
+    },
+    "test_tool.py::test_classify_severity_matches_cannot_log_in_with_space": {
+      "hash": "518fa676050e91926e3fd7400d1736a214c8fac98c0539b09582c911b4d52085",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_test_plan_matches_multiword_keyword": {
+      "hash": "b75b45148ad3ccdf80843ecd0b9175c8564b2f0d2023b170f52ce2ead24d593f",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_test_plan_defaults_unrecognized_flow_to_medium": {
+      "hash": "6c606bff366dfb98900bbca455c5ca58c80b8ded90618fd0e6d6cfc6883cbc30",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_build_test_plan_splits_flows_and_prints_json": {
+      "hash": "9b9ab83faa7401ba6441e5ca35d315d8c7a8815ee830acba8ff11d45cb545ef6",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_classify_severity_prints_result": {
+      "hash": "f73bcd00f311c5790a9d298899903934a779ad18649da3cf102aaf45a7a48d72",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_format_bug_report_splits_repro_steps_on_semicolons": {
+      "hash": "ad2271315f792a9995fc979d1bd86aa39a196ce320cb52ec8f257da09978a5cb",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_run_tests_prints_pass_gate_on_success": {
+      "hash": "63a498d33a902e9b2bf0ed0210f50976e38b3d769a8e96529bafc5816f840cef",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_run_tests_prints_fail_gate_on_failure": {
+      "hash": "e4d29cb401d182b97208eb9ac078b4c8d71bfcc30db4c7da33a4ecfcfbdbf86b",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5dcce7724a5df43b97459412d0dd8aa978488dc59958a77d600b82f7ce7e14ed",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_reports_fail_when_classify_severity_broken": {
+      "hash": "e8def58f1190b174310a98a67afd1f358f9551b9b1a85f2112406308b0732aaf",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "679c69a61ac17b6620c1a0f4ed2b9184d69a81b851c9c2b0ed426513e1c11d25",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_build_test_plan_requires_flows": {
+      "hash": "1899b54a1045eff2ad4fae4360c7271ca36da216d67bc61bb8dae616c5ffc863",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_classify_severity_requires_description_positional": {
+      "hash": "c48cb2a43c3074f917b0e24bb36a80f730befdb62370ea489f8b78ec0b372665",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_format_bug_report_requires_title": {
+      "hash": "5c52cee70791139c0244e5e323b7786aa81a67658a8461a236c8b0c60b021fe0",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_format_bug_report_requires_repro": {
+      "hash": "7ac92e5e332071c388237d8d5a00e63304fc693e5d898e9e1dbd32706f896eae",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_format_bug_report_requires_expected": {
+      "hash": "f4b579a52d08115fad8e61b9a831f1534e5a67918e7cde084ceb1e00557470a2",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_format_bug_report_requires_actual": {
+      "hash": "939e70a8423ced583eb5e484a93acd0d15324bbaef9f175d9bf6299efea8babc",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_run_tests_requires_target_positional": {
+      "hash": "7514e5d65b2fd9f78e261a5117bce7b399c0d494fa480b4d7c75e3acca1f1276",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_build_test_plan_end_to_end": {
+      "hash": "a957c9236cac18679d75e56c739719dd8c1ce974e2b840a11014256a508ffbd2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_classify_severity_end_to_end": {
+      "hash": "8a7b2d51735aa640068e1fedd3dd3f03413531ca5edc7cfe34370682baf62dd2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_format_bug_report_end_to_end": {
+      "hash": "d7685c3b10cd758a357d96172bdebe4692f51357ef56aa5ae46bdb88bbbd1284",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_run_tests_end_to_end": {
+      "hash": "a8b8f5969ac4c477753afa5148928fe105424497e4db62b15d89369caa40d4df",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "e255d872217ad7f5e930e3868227616df2ff8b836c9f703e328bc259d78c4385",
+      "asserts": 2
+    },
+    "test_tool.py::test_script_runs_as_main_via_subprocess": {
+      "hash": "25ec234e5a94e5294dbe01cf4c6f03bad658d6dc20a61d56d0463fd95de18500",
+      "asserts": 2
     }
   },
-  "coverage_pct": 42.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

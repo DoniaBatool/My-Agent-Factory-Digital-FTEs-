@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -21,6 +21,47 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062349",
+      "reason": "Bulletproofing pass: added 24 new tests covering the full CLI layer (cmd_capture_learning, cmd_find_skill_for_issue, cmd_stage_skill, cmd_test, main() dispatch), per-argument required-arg enforcement (--issue/--root-cause/--fix each tested in isolation), default-log-path behavior, case-insensitive/multi-keyword matching, and a subprocess smoke test exercising the __main__ guard. Coverage 41%->98%, mutation score measured at 100% (11/11 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_append_learning_log_accumulates_entries",
+        "test_tool.py::test_capture_learning_records_all_fields",
+        "test_tool.py::test_find_skill_for_issue_matches_jwt",
+        "test_tool.py::test_find_skill_for_issue_matches_multiword_keyword_over_substring",
+        "test_tool.py::test_find_skill_for_issue_returns_empty_for_unrelated_text",
+        "test_tool.py::test_stage_skill_copies_live_dir_without_touching_it",
+        "test_tool.py::test_stage_skill_overwrites_stale_staged_copy",
+        "test_tool.py::test_stage_skill_raises_for_unknown_skill"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_append_learning_log_creates_parent_dirs",
+        "test_tool.py::test_capture_learning_defaults_edge_case_and_test_case_to_empty_string",
+        "test_tool.py::test_cmd_capture_learning_uses_default_log_when_none_given",
+        "test_tool.py::test_cmd_capture_learning_writes_log_and_prints_json",
+        "test_tool.py::test_cmd_find_skill_for_issue_prints_joined_skills_and_returns_0",
+        "test_tool.py::test_cmd_find_skill_for_issue_prints_placeholder_and_returns_1_when_no_match",
+        "test_tool.py::test_cmd_stage_skill_missing_prints_error_and_returns_1",
+        "test_tool.py::test_cmd_stage_skill_success_prints_next_steps",
+        "test_tool.py::test_cmd_test_self_test_passes_and_prints_pass",
+        "test_tool.py::test_find_skill_for_issue_is_case_insensitive",
+        "test_tool.py::test_find_skill_for_issue_matches_multiple_keywords_in_priority_order",
+        "test_tool.py::test_main_capture_learning_end_to_end",
+        "test_tool.py::test_main_capture_learning_missing_only_fix_exits",
+        "test_tool.py::test_main_capture_learning_missing_only_issue_exits",
+        "test_tool.py::test_main_capture_learning_missing_only_root_cause_exits",
+        "test_tool.py::test_main_capture_learning_missing_required_arg_exits",
+        "test_tool.py::test_main_find_skill_for_issue_end_to_end",
+        "test_tool.py::test_main_find_skill_for_issue_missing_positional_exits",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_stage_skill_end_to_end",
+        "test_tool.py::test_main_stage_skill_missing_positional_exits",
+        "test_tool.py::test_main_test_subcommand_end_to_end",
+        "test_tool.py::test_subprocess_no_args_exits_nonzero",
+        "test_tool.py::test_subprocess_runs_as_script_and_hits_main_guard"
+      ]
     }
   ],
   "test_baseline": {
@@ -55,7 +96,104 @@
     "test_tool.py::test_stage_skill_overwrites_stale_staged_copy": {
       "hash": "8d21d806f90dc4a93efad8d395b71a08419170e422886226d3fb93883d925517",
       "asserts": 1
+    },
+    "test_tool.py::test_find_skill_for_issue_matches_multiple_keywords_in_priority_order": {
+      "hash": "73faedbe815fbf666877f8d61c74b2fe0bab72b67842b05714b3e56f4420aa1c",
+      "asserts": 2
+    },
+    "test_tool.py::test_find_skill_for_issue_is_case_insensitive": {
+      "hash": "b5cbad298f9e96314446cb28eb35f5688aea615d7ab5f1037c1553fb5f407fed",
+      "asserts": 1
+    },
+    "test_tool.py::test_capture_learning_defaults_edge_case_and_test_case_to_empty_string": {
+      "hash": "84e39f63ce24bb97c20a65a756ca38f6e6454b6c4d5782164ff375f2fc515def",
+      "asserts": 2
+    },
+    "test_tool.py::test_append_learning_log_creates_parent_dirs": {
+      "hash": "50f72f7bda84235add1d77d43288abc16cf86c8047dbd81e84ea6bde3887c875",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_capture_learning_writes_log_and_prints_json": {
+      "hash": "ce04c9dd5dac6a9c25e6546b343010caa8516f93d71de643de81c90ca57b7d60",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_capture_learning_uses_default_log_when_none_given": {
+      "hash": "a7b6e13e4f6ff8584a8267bf5eddabb939dfd53addef8b695c61b7e1df4fb081",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_find_skill_for_issue_prints_joined_skills_and_returns_0": {
+      "hash": "2fcd74147f0c5a66235d9ea097c718f35396617f20b9d3164a6e774beeb7f158",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_find_skill_for_issue_prints_placeholder_and_returns_1_when_no_match": {
+      "hash": "ec7673db5c26b8aba017874b4fe847c76d06c230877d702f26457776eb5b15d5",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_stage_skill_success_prints_next_steps": {
+      "hash": "7d22c55b2fc4ce8bd8dac4b90ecff349fc6f8d76e4d9035ed1cb729678a535d1",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_stage_skill_missing_prints_error_and_returns_1": {
+      "hash": "f8bf1844cb101d10dfe54f21584c6739d08adf79d38f03bdb7bfbf81c0a82d29",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes_and_prints_pass": {
+      "hash": "c997d4804376cfa97300372a5d3cc161aa5724b3c679540049a9bcca6b5c97eb",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "679c69a61ac17b6620c1a0f4ed2b9184d69a81b851c9c2b0ed426513e1c11d25",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_capture_learning_end_to_end": {
+      "hash": "8e53709e6b090b07d511c5acc1471f19d72f32f5f12a313e3a9b878ffc87cdc9",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_find_skill_for_issue_end_to_end": {
+      "hash": "74c2434e202e845d4cbbb46e2d5f71345fb6c5e0302b9f94647aff916c8e5b02",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_stage_skill_end_to_end": {
+      "hash": "9a149a5db3064e597aff0c047ab5db3196b6d01699876151b46f6e59720adbcc",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_subcommand_end_to_end": {
+      "hash": "212b8da1622d83369b66edd7c456cbafe5ab459c35cdb15309602eda53fd72a0",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_capture_learning_missing_required_arg_exits": {
+      "hash": "f2999a8d09fa9504720edf5ff4a956b732486fd64dc193b73f0a08e5d6289639",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_find_skill_for_issue_missing_positional_exits": {
+      "hash": "4f2570c8a06c309701dac817dd5f75cda0beefb17beeb3011f051e9d248246d5",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_stage_skill_missing_positional_exits": {
+      "hash": "3fe9ea34fe2f49c9e8d6117d0e19f15c2de101b397ff23d2d46aab0a6f1aa0e9",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_runs_as_script_and_hits_main_guard": {
+      "hash": "b5f600e4d83eba2bc1064a7d08469e794017f6186f2c6b97e747d310c9adae3e",
+      "asserts": 2
+    },
+    "test_tool.py::test_subprocess_no_args_exits_nonzero": {
+      "hash": "455aa1eb2c44922b64fd3b8a34cf070faed06e9c3253968759b953d271057e9f",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_capture_learning_missing_only_issue_exits": {
+      "hash": "77f8f1e1f2f29c7734487c727d63055539d0de6e0c5b0de477bf1fc38b008f0c",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_capture_learning_missing_only_root_cause_exits": {
+      "hash": "e207f8ea9131b2a46ccb02c8780a5231011a96d30eb2375cad2c46a7cfb1e485",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_capture_learning_missing_only_fix_exits": {
+      "hash": "ae158cc5a64d3c4a7ad86a7b27e77545c1a7c2202a7ee912ca91b5944db0f475",
+      "asserts": 0
     }
   },
-  "coverage_pct": 41.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

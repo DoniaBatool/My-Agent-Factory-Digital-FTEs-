@@ -1,0 +1,56 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112454",
+      "reason": "Replaced TODO stub with real Terraform HCL generation (S3, VPC) + variable validation + 7 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_generate_s3_bucket_includes_bucket_name",
+        "test_tool.py::test_generate_s3_bucket_includes_versioning_when_enabled",
+        "test_tool.py::test_generate_s3_bucket_omits_versioning_when_disabled",
+        "test_tool.py::test_generate_s3_bucket_rejects_invalid_resource_name",
+        "test_tool.py::test_generate_vpc_includes_cidr_block",
+        "test_tool.py::test_generate_vpc_rejects_invalid_cidr",
+        "test_tool.py::test_validate_required_variables_flags_missing_and_empty"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_generate_s3_bucket_includes_bucket_name": {
+      "hash": "ac59366659e08f9f658ed898c85545d2d9770495ea9c039e94f586f2cd6a40a7",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_s3_bucket_includes_versioning_when_enabled": {
+      "hash": "6892b7e67592c9a69c42782f1e7565e37e46eac8c74a0983b153aedfdf963237",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_s3_bucket_omits_versioning_when_disabled": {
+      "hash": "483b0a82189354a7232d36f31b5e30c0596141d45b558090ca61da5f85ed3d38",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_s3_bucket_rejects_invalid_resource_name": {
+      "hash": "bdade5002cde234afe25782b636fe1893a54ae0c0200784c027e4eb8ba30f769",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_vpc_includes_cidr_block": {
+      "hash": "425b7dcaf67bf51b3c1a3e6e0938e45f7605f6288782beef761b34485a1c4785",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_vpc_rejects_invalid_cidr": {
+      "hash": "2692a355f7c1c313aee30932dc973659c443bd5f38f34686f23904f1160ebeb3",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_required_variables_flags_missing_and_empty": {
+      "hash": "eaa0b6f12334f73564d20478bab29be10f87fab62500164c3665021bf5420773",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 34.0
+}

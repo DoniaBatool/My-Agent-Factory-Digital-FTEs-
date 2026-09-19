@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -20,6 +20,51 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062641",
+      "reason": "Bulletproofing pass: added 29 new tests covering CLI layer (cmd_build_key, cmd_suggest_ttl, cmd_match_invalidation, cmd_test, main dispatch table via sys.argv), required-arg/positional enforcement (SystemExit for every required flag/positional across all 3 subcommands), TTL policy edge cases (each pattern in TTL_POLICY individually, case-insensitivity, first-match-wins ordering priority), invalidation glob edge cases (? wildcard, case sensitivity, sorted output), the no-extra-parts cache key case, and the CLI error-message path for a colon-containing key part. Coverage 37%->97%, mutation score measured at 91% (10/11 mutants); the one surviving mutant is a documented equivalent (tool.py:75, the 'ok = False' line inside cmd_test's own self-check exception handler, which is unreachable because build_cache_key always raises ValueError for a colon-containing part under correct code -- flipping it to True/False cannot be observed by any correct-code test path).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_cache_key_joins_parts_with_colon",
+        "test_tool.py::test_build_cache_key_rejects_part_containing_colon",
+        "test_tool.py::test_keys_matching_invalidation_pattern_no_match_returns_empty",
+        "test_tool.py::test_keys_matching_invalidation_pattern_scopes_to_prefix",
+        "test_tool.py::test_suggest_ttl_falls_back_to_default_for_unknown_resource",
+        "test_tool.py::test_suggest_ttl_matches_price_pattern_with_short_ttl",
+        "test_tool.py::test_suggest_ttl_matches_user_profile_pattern"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_cache_key_rejects_colon_in_any_part_position",
+        "test_tool.py::test_build_cache_key_with_no_extra_parts_returns_bare_namespace",
+        "test_tool.py::test_cmd_build_key_error_prints_message_and_returns_one",
+        "test_tool.py::test_cmd_build_key_prints_key_and_returns_zero",
+        "test_tool.py::test_cmd_match_invalidation_no_matches_prints_placeholder",
+        "test_tool.py::test_cmd_match_invalidation_prints_matches",
+        "test_tool.py::test_cmd_suggest_ttl_prints_ttl",
+        "test_tool.py::test_cmd_test_returns_zero_and_prints_pass",
+        "test_tool.py::test_keys_matching_invalidation_pattern_is_case_sensitive",
+        "test_tool.py::test_keys_matching_invalidation_pattern_returns_sorted_order",
+        "test_tool.py::test_keys_matching_invalidation_pattern_supports_question_mark_wildcard",
+        "test_tool.py::test_main_build_key_missing_required_namespace_exits",
+        "test_tool.py::test_main_build_key_missing_required_parts_exits",
+        "test_tool.py::test_main_dispatches_build_key_end_to_end",
+        "test_tool.py::test_main_dispatches_match_invalidation_end_to_end",
+        "test_tool.py::test_main_dispatches_suggest_ttl_end_to_end",
+        "test_tool.py::test_main_dispatches_test_subcommand_end_to_end",
+        "test_tool.py::test_main_match_invalidation_missing_required_keys_exits",
+        "test_tool.py::test_main_match_invalidation_missing_required_pattern_exits",
+        "test_tool.py::test_main_suggest_ttl_missing_positional_resource_exits",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_one",
+        "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard",
+        "test_tool.py::test_suggest_ttl_first_matching_pattern_wins_by_policy_order",
+        "test_tool.py::test_suggest_ttl_is_case_insensitive",
+        "test_tool.py::test_suggest_ttl_matches_asset_pattern",
+        "test_tool.py::test_suggest_ttl_matches_quote_and_rate_patterns",
+        "test_tool.py::test_suggest_ttl_matches_search_pattern",
+        "test_tool.py::test_suggest_ttl_matches_session_pattern",
+        "test_tool.py::test_suggest_ttl_matches_static_pattern"
+      ]
     }
   ],
   "test_baseline": {
@@ -50,7 +95,124 @@
     "test_tool.py::test_keys_matching_invalidation_pattern_no_match_returns_empty": {
       "hash": "b88e5c868df261aa4e237eb627fc6ba05686633b83efeaa9cd255e78f4b36c5e",
       "asserts": 1
+    },
+    "test_tool.py::test_build_cache_key_with_no_extra_parts_returns_bare_namespace": {
+      "hash": "b57edf4aebf754e7426bbbf51ffe35767bbc8da8a4e84ec7a5ad571a8c7d5f18",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_cache_key_rejects_colon_in_any_part_position": {
+      "hash": "c80511de75fc4e2a71aea70e74daa9953c78a385de60f0fc5fa4252dabb8a360",
+      "asserts": 0
+    },
+    "test_tool.py::test_suggest_ttl_matches_session_pattern": {
+      "hash": "52fcbf1610e057ba5b90bf8593fc5860dee29f4efdcdd7887bdba45cbc862313",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_ttl_matches_static_pattern": {
+      "hash": "5d8e8a7292b30450f6969d027bdba4fc7e045a98c138877407fafa2b6e9fa08a",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_ttl_matches_asset_pattern": {
+      "hash": "a3b5aa5cc9ef8186d7bb68ffbcacd37bb3b55991f56b878dddd4dbcb737160d9",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_ttl_matches_quote_and_rate_patterns": {
+      "hash": "883702703535c8e49bf9536cf80ff0852fd1845e9ab387a7efd3703803ecb721",
+      "asserts": 2
+    },
+    "test_tool.py::test_suggest_ttl_matches_search_pattern": {
+      "hash": "9b379bb2c27bf64f2941906c77b2652b4b73f063cba3576f050b31a9d8ba1f5d",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_ttl_is_case_insensitive": {
+      "hash": "26f511d359bba686af5aa63a8bba1253ee4784ff24c4449c1e486b8e76ccb1eb",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_ttl_first_matching_pattern_wins_by_policy_order": {
+      "hash": "00ac86e70ad5d464529052fa784b6966e23c2088a00955c8b21665cbae8d886c",
+      "asserts": 1
+    },
+    "test_tool.py::test_keys_matching_invalidation_pattern_supports_question_mark_wildcard": {
+      "hash": "9d122765a4d8228a633c16abd310d115ee93823918fa3e4dd86637623fab06c7",
+      "asserts": 1
+    },
+    "test_tool.py::test_keys_matching_invalidation_pattern_is_case_sensitive": {
+      "hash": "35d1122b39ffb596140306500f6340ec1675319a0c1b6117352ba46399522f03",
+      "asserts": 1
+    },
+    "test_tool.py::test_keys_matching_invalidation_pattern_returns_sorted_order": {
+      "hash": "b194d23dbda6658641b06dd7ca21a05f215d193b437a554ca8f0b7327a3e9eea",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_build_key_prints_key_and_returns_zero": {
+      "hash": "0dbdd202ccb40a102436250010ad0737f46d0dc0d0e2c171badfb59348f85434",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_build_key_error_prints_message_and_returns_one": {
+      "hash": "3e476e03bc16830ba4e043333120e9dd8aef7e2904b81e75876848eba109afcc",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_suggest_ttl_prints_ttl": {
+      "hash": "b92a96edb24bc6df6410dc4276939184734b4fd6fa97e12361863416483a0ed5",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_match_invalidation_prints_matches": {
+      "hash": "0c482c87db191d6fc78972314a673ed68e94d1337f4faf6c5759c720943cb8e5",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_match_invalidation_no_matches_prints_placeholder": {
+      "hash": "38a33a681b99a632a9201923321ffb90538bf6fe8a0caf424435dd659e9a728b",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_returns_zero_and_prints_pass": {
+      "hash": "c86f0c924f1ac2c98cefa7c02c277c511e56abb5c377741a876e354f18cf0d16",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_build_key_end_to_end": {
+      "hash": "5cca98de12d3f2a5525fbfa3a9b5db73b0db10452f0293503ad140f3063984e7",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_suggest_ttl_end_to_end": {
+      "hash": "c75aa9cecacd110f539eeee8b7b4ba7aa9351a5f1b286f8aad263855ef0d3aa6",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_match_invalidation_end_to_end": {
+      "hash": "092b59f30dbc7579c8f0935f879c13334bbef60690c1b2ebd7ccffa431ce4a56",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_subcommand_end_to_end": {
+      "hash": "ed908d98c7e17a25365f68d147fbaa0043c7a8401ea3a7f81ebe756f76398519",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_one": {
+      "hash": "a9e22a653ae0322d4a9142b2bde6de71e4492216e7dcbf95656222f3fc890298",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_build_key_missing_required_namespace_exits": {
+      "hash": "e3948917911543ac39c9bc4f0da5042fad600ffafe87af528b4a96f4639c65d8",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_build_key_missing_required_parts_exits": {
+      "hash": "b68f9375c314d854fbabb4d1c4d7eb5e999af2bfe7feebe9cc1e49f67a9de821",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_suggest_ttl_missing_positional_resource_exits": {
+      "hash": "192aa68d4aa262fa4e7b66cbe954dd8da57a97878c4cd6161e341915292b96ba",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_match_invalidation_missing_required_keys_exits": {
+      "hash": "bb62da9971effbf2df75f03f3496fd9e9237b315360353448920d20e2a440173",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_match_invalidation_missing_required_pattern_exits": {
+      "hash": "df07930df1306ada9c8ee235ea493bc86e8ea18c375f086e329206a98fe03dd3",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard": {
+      "hash": "edf44b9ed06e754f505ee40947403a7bd818954d8ae7b25bebc2277cf5562fc0",
+      "asserts": 2
     }
   },
-  "coverage_pct": 37.0
+  "coverage_pct": 97.0,
+  "mutation_score": 0.9090909090909091
 }

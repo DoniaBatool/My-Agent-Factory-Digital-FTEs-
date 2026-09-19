@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -19,6 +19,44 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062244",
+      "reason": "Bulletproofing pass: added 29-6=23 new tests covering CLI layer (cmd_assign_variant, cmd_check_significance, cmd_test, main dispatch table via sys.argv), required-arg enforcement (SystemExit for each required flag on both subcommands), boundary/edge cases (exact z-threshold tie via >=, se=0 zero-pool case, negative z beyond/below threshold, floating-point tolerance boundary on traffic_split sum, empty split, single-variant split), malformed JSON input, a hash-boundary correctness test for the bucketing comparison, and a subprocess smoke test exercising the __main__ guard. Coverage 37%->96%, mutation score measured at 100% (18/18 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_assign_variant_distributes_across_variants_for_many_users",
+        "test_tool.py::test_assign_variant_is_deterministic_for_same_user",
+        "test_tool.py::test_assign_variant_rejects_split_not_summing_to_one",
+        "test_tool.py::test_check_significance_detects_clear_lift",
+        "test_tool.py::test_check_significance_rejects_noise_level_difference",
+        "test_tool.py::test_check_significance_reports_conversion_rates"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_assign_variant_accepts_split_within_floating_tolerance",
+        "test_tool.py::test_assign_variant_rejects_empty_split",
+        "test_tool.py::test_assign_variant_rejects_split_outside_floating_tolerance",
+        "test_tool.py::test_assign_variant_returns_second_variant_when_bucket_exceeds_first_share",
+        "test_tool.py::test_assign_variant_single_variant_split_always_returns_it",
+        "test_tool.py::test_check_significance_boundary_exact_threshold_is_significant",
+        "test_tool.py::test_check_significance_negative_small_difference_not_significant",
+        "test_tool.py::test_check_significance_negative_z_beyond_threshold_is_significant",
+        "test_tool.py::test_check_significance_zero_pool_conversions_returns_zero_z_and_not_significant",
+        "test_tool.py::test_check_significance_zero_total_raises_zero_division",
+        "test_tool.py::test_cmd_assign_variant_malformed_json_raises",
+        "test_tool.py::test_cmd_assign_variant_prints_variant",
+        "test_tool.py::test_cmd_check_significance_prints_json",
+        "test_tool.py::test_cmd_test_returns_zero_and_prints_pass",
+        "test_tool.py::test_main_assign_variant_missing_required_split_exits",
+        "test_tool.py::test_main_assign_variant_missing_required_test_name_exits",
+        "test_tool.py::test_main_assign_variant_missing_required_user_id_exits",
+        "test_tool.py::test_main_check_significance_missing_required_total_exits",
+        "test_tool.py::test_main_dispatches_assign_variant_end_to_end",
+        "test_tool.py::test_main_dispatches_check_significance_end_to_end",
+        "test_tool.py::test_main_dispatches_test_subcommand_end_to_end",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_one",
+        "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard"
+      ]
     }
   ],
   "test_baseline": {
@@ -45,7 +83,100 @@
     "test_tool.py::test_check_significance_reports_conversion_rates": {
       "hash": "d520d124ecc91737a20f522f18b1213b2e004f9624174494fc13bf33ab8ad7f4",
       "asserts": 2
+    },
+    "test_tool.py::test_assign_variant_rejects_empty_split": {
+      "hash": "f9d71d8a0e5840127f6558457df7390188e45021d4e360e342b6744f7d52b925",
+      "asserts": 0
+    },
+    "test_tool.py::test_assign_variant_accepts_split_within_floating_tolerance": {
+      "hash": "a02b02866d605e7ce85e91aeb6872014edf1bd2fb5f858e4725be1a1423d0fe8",
+      "asserts": 1
+    },
+    "test_tool.py::test_assign_variant_rejects_split_outside_floating_tolerance": {
+      "hash": "8de4e95fe1159f32734cb410bdf09c45f32a995d563a9416bbfb04be5c194455",
+      "asserts": 0
+    },
+    "test_tool.py::test_assign_variant_single_variant_split_always_returns_it": {
+      "hash": "51b40f3598e3d46b46945d2d8894e5c276df05c15db8c1602c7616903e1ac99d",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_significance_zero_pool_conversions_returns_zero_z_and_not_significant": {
+      "hash": "7b68be20b314bf211a6903b96bd946e63c603a8a4214863444d2a4a7720be0ae",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_significance_negative_z_beyond_threshold_is_significant": {
+      "hash": "bffec0b6145de6c577c95493e2754050f4d5175b33b290f931cdb9c0dc0c24b9",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_significance_negative_small_difference_not_significant": {
+      "hash": "71e923f3505ac6bea8c16f501ad89912c3b05b4594bd2ea8d0c8f388575d5563",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_significance_boundary_exact_threshold_is_significant": {
+      "hash": "67c2ad3d780e096b6c05453cf86458cfdf55e475eb90033bca7c67cc02365424",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_significance_zero_total_raises_zero_division": {
+      "hash": "6833d97abf7d02ca9707c78de6fc6ee6cc6619a2411cc10c5010b73bb539306e",
+      "asserts": 0
+    },
+    "test_tool.py::test_cmd_assign_variant_prints_variant": {
+      "hash": "c0cfaef4150255aac82518009d4477bbd722822f7e9f27b3320df793a188f72d",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_assign_variant_malformed_json_raises": {
+      "hash": "e41ee50be26e3dcef14567d3b90e7d394d4f98f557b76aa2bd462555bedbdf50",
+      "asserts": 0
+    },
+    "test_tool.py::test_cmd_check_significance_prints_json": {
+      "hash": "9c838dc6754e1bc0ed55f6f0d9d02fa01bb7ce1db3a85d84d3e12f360622a7e7",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_returns_zero_and_prints_pass": {
+      "hash": "c86f0c924f1ac2c98cefa7c02c277c511e56abb5c377741a876e354f18cf0d16",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_assign_variant_end_to_end": {
+      "hash": "1fe9c620782f3ff97486fe9e1560ddca867dd3f84a4c0aecffd80e4731578e91",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_check_significance_end_to_end": {
+      "hash": "7510e2818972b3fcb9497051a5b0ca828f65b961cd6cddffc5896d23779d4b1a",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_subcommand_end_to_end": {
+      "hash": "ed908d98c7e17a25365f68d147fbaa0043c7a8401ea3a7f81ebe756f76398519",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_one": {
+      "hash": "a9e22a653ae0322d4a9142b2bde6de71e4492216e7dcbf95656222f3fc890298",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_assign_variant_missing_required_split_exits": {
+      "hash": "75a13b539ea897779b5da0a2f542be4b15e68a3ab4abe4645499d5c9c7845f55",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_check_significance_missing_required_total_exits": {
+      "hash": "28f60660dd2231c98fa5c615b4b43138525963d407f5e6811507c2d5895cc314",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard": {
+      "hash": "edf44b9ed06e754f505ee40947403a7bd818954d8ae7b25bebc2277cf5562fc0",
+      "asserts": 2
+    },
+    "test_tool.py::test_assign_variant_returns_second_variant_when_bucket_exceeds_first_share": {
+      "hash": "90da231feb9c6bacfdd2cddc9844ae7413d999cb36914ca9537649ce92abe582",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_assign_variant_missing_required_user_id_exits": {
+      "hash": "fe277550778edab7cefc8638702afa1f3dc5fb0d55b75bea9396b5a2b2df6ed5",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_assign_variant_missing_required_test_name_exits": {
+      "hash": "999690f1fac7057ee7296c3608aba43a2a19fd87505c612161e50510cd9296f7",
+      "asserts": 0
     }
   },
-  "coverage_pct": 37.0
+  "coverage_pct": 96.0,
+  "mutation_score": 1.0
 }

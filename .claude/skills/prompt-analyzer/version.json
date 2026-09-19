@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -21,6 +21,56 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062858",
+      "reason": "Bulletproofing pass: added 33 new tests covering the CLI layer (every cmd_* function called directly and via main() end-to-end), required-prompt positional-arg enforcement (SystemExit when omitted for analyze/detect-intent/extract-keywords), regex word-boundary correctness (recreate must not match create), both optimise/optimize spellings, the not-working phrase, case-insensitive keyword extraction, exact longest-keyword-first ordering guarantee, empty-string inputs, the analyze command's known-intent-but-no-skills success branch, cmd_test's failure branch, and a subprocess __main__ smoke test. Coverage 47%->98% (only the __main__ guard line remains, by design). Mutation score measured at 100% (3/3 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_execution_plan_shape",
+        "test_tool.py::test_detect_intent_multiple_matches",
+        "test_tool.py::test_detect_intent_single_match",
+        "test_tool.py::test_detect_intent_unknown_when_nothing_matches",
+        "test_tool.py::test_extract_keywords_finds_known_terms",
+        "test_tool.py::test_extract_keywords_prefers_longer_match_over_substring",
+        "test_tool.py::test_map_to_skills_deduplicates_and_preserves_order",
+        "test_tool.py::test_map_to_skills_empty_for_unknown_keywords"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_execution_plan_empty_prompt_has_no_intents_keywords_or_skills",
+        "test_tool.py::test_cmd_analyze_returns_0_when_intent_known_but_no_skills",
+        "test_tool.py::test_cmd_analyze_returns_0_when_skills_found",
+        "test_tool.py::test_cmd_analyze_returns_1_when_unknown_and_no_skills",
+        "test_tool.py::test_cmd_detect_intent_prints_joined_intents",
+        "test_tool.py::test_cmd_extract_keywords_prints_joined_keywords",
+        "test_tool.py::test_cmd_extract_keywords_prints_none_placeholder_when_empty",
+        "test_tool.py::test_cmd_map_skills_falls_back_to_prompt_extraction_when_no_keywords_arg",
+        "test_tool.py::test_cmd_map_skills_prompt_and_keywords_both_none_prints_placeholder",
+        "test_tool.py::test_cmd_map_skills_strips_whitespace_in_explicit_keywords",
+        "test_tool.py::test_cmd_map_skills_uses_explicit_keywords_arg",
+        "test_tool.py::test_cmd_test_reports_fail_when_selftest_assertion_fails",
+        "test_tool.py::test_cmd_test_self_test_passes_by_default",
+        "test_tool.py::test_detect_intent_empty_string_returns_unknown",
+        "test_tool.py::test_detect_intent_matches_both_optimise_and_optimize_spellings",
+        "test_tool.py::test_detect_intent_matches_not_working_phrase",
+        "test_tool.py::test_detect_intent_word_boundary_prevents_substring_false_positive",
+        "test_tool.py::test_extract_keywords_empty_string_returns_empty_list",
+        "test_tool.py::test_extract_keywords_is_case_insensitive",
+        "test_tool.py::test_extract_keywords_orders_longest_keyword_before_shorter_substring",
+        "test_tool.py::test_main_analyze_end_to_end_success",
+        "test_tool.py::test_main_analyze_end_to_end_unknown_returns_1",
+        "test_tool.py::test_main_analyze_requires_prompt_positional",
+        "test_tool.py::test_main_detect_intent_end_to_end",
+        "test_tool.py::test_main_detect_intent_requires_prompt_positional",
+        "test_tool.py::test_main_extract_keywords_end_to_end_none_found",
+        "test_tool.py::test_main_extract_keywords_requires_prompt_positional",
+        "test_tool.py::test_main_map_skills_end_to_end_with_explicit_keywords",
+        "test_tool.py::test_main_map_skills_end_to_end_with_prompt",
+        "test_tool.py::test_main_map_skills_no_args_prints_placeholder",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_script_runs_as_main_via_subprocess"
+      ]
     }
   ],
   "test_baseline": {
@@ -55,7 +105,140 @@
     "test_tool.py::test_map_to_skills_empty_for_unknown_keywords": {
       "hash": "759a0f96902659ce8ca082943a349a132275087e38f5bbe9caab330184db5404",
       "asserts": 1
+    },
+    "test_tool.py::test_detect_intent_word_boundary_prevents_substring_false_positive": {
+      "hash": "8a6d92d2bf9a687a8b6a56a5e8440b6b45b0d664ecb071b9a8aaba363be767d8",
+      "asserts": 1
+    },
+    "test_tool.py::test_detect_intent_matches_both_optimise_and_optimize_spellings": {
+      "hash": "ede7d4b67f8ac5ed1c5ed66ec3ba279fc9b05f66a65e8e04688fcd539bb98f20",
+      "asserts": 2
+    },
+    "test_tool.py::test_detect_intent_matches_not_working_phrase": {
+      "hash": "6c589b58c1bd607fdaa1a05352336ed126d97a8c07fd6f3fe1d58284d30edf05",
+      "asserts": 1
+    },
+    "test_tool.py::test_detect_intent_empty_string_returns_unknown": {
+      "hash": "7b2f876bdd34fca209774f1cccb2a84fff2dd9bffdda220190588df730afe337",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_keywords_is_case_insensitive": {
+      "hash": "70a564fd8466f647eb9870e64f26d15c80a7a94515c714842fcf5285b434bd24",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_keywords_empty_string_returns_empty_list": {
+      "hash": "88fc7af0d7ade598c3d8efe6f549ed248fdc1fb752f5a5148f7a0e7a0bea42ed",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_execution_plan_empty_prompt_has_no_intents_keywords_or_skills": {
+      "hash": "f6d2f1c4b8af4ace761ffc46a0046896228db0fc2a6e7b885d716d028e38f991",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_analyze_returns_0_when_skills_found": {
+      "hash": "be069a828ac959293046ddc018bb5f0dafe90620527190c17c34340f85e903b5",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_analyze_returns_0_when_intent_known_but_no_skills": {
+      "hash": "53e721f0e0caf9430720e6919fbb44111d681f9d04a5e53eee205f7b4e6b0121",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_analyze_returns_1_when_unknown_and_no_skills": {
+      "hash": "3b8163684a7a88a2c3d1461671886c67dcfeb8c991f7ef30c86e27e63fe66c6d",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_detect_intent_prints_joined_intents": {
+      "hash": "0908f15eb2428ed9d3a1b70179df6431c31057748241dcb3f7c7be2175441fa9",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_extract_keywords_prints_none_placeholder_when_empty": {
+      "hash": "84be5f14e1b2fc5619549d741b95fa955259d74635634a684846aa54c8be81a1",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_extract_keywords_prints_joined_keywords": {
+      "hash": "7b8319afd6ea097f3c80eb0ad04fbe59e4af4bdf389bb971a69eec3d5a06198d",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_map_skills_uses_explicit_keywords_arg": {
+      "hash": "92d6ffdb814b14e522d4e6b9ff7e9f06ff27b1d85d01236a0af3f78b18f36113",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_map_skills_strips_whitespace_in_explicit_keywords": {
+      "hash": "a2be312fbbdc48e7e04148988ed453e88a7ab383618120a9356ca49a23d9281a",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_map_skills_falls_back_to_prompt_extraction_when_no_keywords_arg": {
+      "hash": "d228d41f6200d9ef36c0051a80618155108c1a1fd919a3acd35f5f17376b3fbd",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_map_skills_prompt_and_keywords_both_none_prints_placeholder": {
+      "hash": "dfca7ce39e1a39ab347e5fd904859032ec3eb6a6e6c708eb561932d078818655",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes_by_default": {
+      "hash": "716954b756810e135f4bda1e513c273d61d9d6bfe2a14e446e636556e5535570",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_reports_fail_when_selftest_assertion_fails": {
+      "hash": "7e3382ef00546664cbb0f43149d32eddcd9dfe2f2e1920d724c1a8e33b102b14",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "679c69a61ac17b6620c1a0f4ed2b9184d69a81b851c9c2b0ed426513e1c11d25",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_analyze_requires_prompt_positional": {
+      "hash": "767bae06273c8cae0ba1611dc277eda267efca09116fdeb1dec1e8fe47157aaf",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_detect_intent_requires_prompt_positional": {
+      "hash": "1c10e8a6b2b83dd934a6dfd2b7b2c7c35d7e5a6115e664bbfc9151e0a4198b73",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_extract_keywords_requires_prompt_positional": {
+      "hash": "fd40a79e72c375f54456051908c5df3b5a416814860a319f30b6ff5d3174bb2d",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_analyze_end_to_end_success": {
+      "hash": "bcf6572ca4c963186d89d6d4984b11d8ddfc170ed263c24fc13568228b5c48ee",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_analyze_end_to_end_unknown_returns_1": {
+      "hash": "30df387c5f563cb509bad21e8183a493a08baf386b77c60efbc93dc21c34be41",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_detect_intent_end_to_end": {
+      "hash": "07ebbf4699162c7e7288165cb3360e229c24e113ba490801afe7d97b880b4471",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_extract_keywords_end_to_end_none_found": {
+      "hash": "0daeef85185e119bdd4bf4ca91d34913956dcbcdb1b90f66e76d72a876b961b0",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_map_skills_end_to_end_with_prompt": {
+      "hash": "3d1464290fc8b63d946c12b584e1f81b00b4d3466f9f14f63cd843bcbf76e99d",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_map_skills_end_to_end_with_explicit_keywords": {
+      "hash": "df0855d3bbfee601e810c61d7dbb95600d3110713b48d1d18bb6af1e6a8fd4b2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_map_skills_no_args_prints_placeholder": {
+      "hash": "4c9c63f0cb6ce0bf0781a0a976dcf1171d357d727dcc2be2155f31d4a0edfda2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "e255d872217ad7f5e930e3868227616df2ff8b836c9f703e328bc259d78c4385",
+      "asserts": 2
+    },
+    "test_tool.py::test_script_runs_as_main_via_subprocess": {
+      "hash": "cd4b7872a513ef633b59e454ab6ba580c26151a583899cc1ec0e34f3a40c9728",
+      "asserts": 2
+    },
+    "test_tool.py::test_extract_keywords_orders_longest_keyword_before_shorter_substring": {
+      "hash": "1e7e35a8511b1cd02c1f69f169f888dc566baeacce4d33042111d7030e857056",
+      "asserts": 2
     }
   },
-  "coverage_pct": 47.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

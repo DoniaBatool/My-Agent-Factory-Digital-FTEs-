@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -21,6 +21,55 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062417",
+      "reason": "Bulletproofing pass: added 32 new tests covering CLI layer (cmd_build_path_spec, cmd_validate_contract, cmd_check_breaking_change, cmd_test, main dispatch table via sys.argv), required-arg/positional enforcement (SystemExit for every required flag across all 3 subcommands), edge cases (_error_description unknown code fallback, method-name case normalization, unknown HTTP method default, custom response_schema/error_codes, empty spec, removed-method-on-kept-path breaking-change detection), malformed JSON file input, and a subprocess smoke test exercising the __main__ guard. Coverage 45%->99%, mutation score measured at 100% (9/9 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_path_spec_includes_success_and_error_codes",
+        "test_tool.py::test_build_path_spec_post_requires_201",
+        "test_tool.py::test_check_breaking_change_detects_removed_endpoint",
+        "test_tool.py::test_check_breaking_change_detects_removed_response_code",
+        "test_tool.py::test_check_breaking_change_no_change_is_clean",
+        "test_tool.py::test_validate_contract_flags_missing_error_response",
+        "test_tool.py::test_validate_contract_flags_missing_success_response",
+        "test_tool.py::test_validate_contract_passes_for_complete_spec"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_path_spec_custom_error_codes_replace_defaults",
+        "test_tool.py::test_build_path_spec_defaults_schema_to_empty_dict",
+        "test_tool.py::test_build_path_spec_delete_requires_204",
+        "test_tool.py::test_build_path_spec_embeds_custom_response_schema",
+        "test_tool.py::test_build_path_spec_put_requires_200",
+        "test_tool.py::test_build_path_spec_unknown_method_defaults_to_200",
+        "test_tool.py::test_build_path_spec_uppercase_method_is_normalized_to_lowercase",
+        "test_tool.py::test_check_breaking_change_detects_removed_method_on_kept_path",
+        "test_tool.py::test_check_breaking_change_empty_old_spec_is_clean",
+        "test_tool.py::test_cmd_build_path_spec_prints_json",
+        "test_tool.py::test_cmd_check_breaking_change_detects_and_returns_one",
+        "test_tool.py::test_cmd_check_breaking_change_no_changes_returns_zero",
+        "test_tool.py::test_cmd_test_returns_zero_and_prints_pass",
+        "test_tool.py::test_cmd_validate_contract_complete_spec_returns_zero",
+        "test_tool.py::test_cmd_validate_contract_malformed_json_raises",
+        "test_tool.py::test_cmd_validate_contract_with_violations_prints_them_and_returns_one",
+        "test_tool.py::test_error_description_known_codes",
+        "test_tool.py::test_error_description_unknown_code_returns_generic_error",
+        "test_tool.py::test_main_build_path_spec_missing_required_method_exits",
+        "test_tool.py::test_main_build_path_spec_missing_required_path_exits",
+        "test_tool.py::test_main_build_path_spec_missing_required_summary_exits",
+        "test_tool.py::test_main_check_breaking_change_missing_required_new_exits",
+        "test_tool.py::test_main_check_breaking_change_missing_required_old_exits",
+        "test_tool.py::test_main_dispatches_build_path_spec_end_to_end",
+        "test_tool.py::test_main_dispatches_check_breaking_change_end_to_end",
+        "test_tool.py::test_main_dispatches_test_subcommand_end_to_end",
+        "test_tool.py::test_main_dispatches_validate_contract_end_to_end",
+        "test_tool.py::test_main_validate_contract_missing_positional_spec_file_exits",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_one",
+        "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard",
+        "test_tool.py::test_validate_contract_empty_spec_has_no_violations",
+        "test_tool.py::test_validate_contract_unknown_method_defaults_to_200_requirement"
+      ]
     }
   ],
   "test_baseline": {
@@ -55,7 +104,136 @@
     "test_tool.py::test_check_breaking_change_no_change_is_clean": {
       "hash": "fa41fc2ba17accf4ae9415b2d78005d0f4a1174390bb75ff842b195ebc4ec57a",
       "asserts": 1
+    },
+    "test_tool.py::test_error_description_unknown_code_returns_generic_error": {
+      "hash": "51cf3343f4db0b16d2f3e7883b4ef11ac1a8469c3c7976daae31efa7d964a235",
+      "asserts": 1
+    },
+    "test_tool.py::test_error_description_known_codes": {
+      "hash": "57147c4a87e391a7c93c9a971993e9b126b473858e1d134bddf6bd4943d87124",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_path_spec_uppercase_method_is_normalized_to_lowercase": {
+      "hash": "1607fce44435d6611e9fcf0a5132e8ef8445b95a79b78821da6e072ab8779f92",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_path_spec_unknown_method_defaults_to_200": {
+      "hash": "daef6a7a240a30805bd779853dcfb052808d4bed3f409d92b8c43fe12097f739",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_path_spec_delete_requires_204": {
+      "hash": "fd6d2bbe099b2917d68268e00b5ded4a51280951818f68ac4146b82bfc9e5631",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_path_spec_put_requires_200": {
+      "hash": "e4d1bea90621f8d2abfc3e1df2c667e89b8ef4705669530c54011db0432d4638",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_path_spec_embeds_custom_response_schema": {
+      "hash": "8724be2deaec185977d6207441749a71d45c743c3aed7dc46e0e3f8b07180c22",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_path_spec_defaults_schema_to_empty_dict": {
+      "hash": "3a0d4943773e86218d02a6b71b380bb515f25e1aebdcc1b1fc31c38c16fd1a4f",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_path_spec_custom_error_codes_replace_defaults": {
+      "hash": "820af5882eb7b5b062a47631e9f442abc534bce081f28c462feda5d1051451e1",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_contract_empty_spec_has_no_violations": {
+      "hash": "4ee033b20dbd599806c91ba8e80c6893e58af33a51f472c4f347fd601222f320",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_contract_unknown_method_defaults_to_200_requirement": {
+      "hash": "d4e9a5d453cd6ce0692406129f478e29a1c90a322379dfd863e9a0be8ed4bc24",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_breaking_change_detects_removed_method_on_kept_path": {
+      "hash": "607ffda891c66792127f5626d6e31067d3d60fbca6b786ee3990b7441b5f739a",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_breaking_change_empty_old_spec_is_clean": {
+      "hash": "bfe44064aafdcb28d176c91606179f6a32c8748f3ae86c9e67c70d2e6a2561b0",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_build_path_spec_prints_json": {
+      "hash": "20a9604a29bf6c44f64340ef5350b21581f0e9a0e5f04e42f27a41a58744f085",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_contract_complete_spec_returns_zero": {
+      "hash": "377e66b2f91d67bd1db4304c55fc7453d6c22af073621b05214476f38a545697",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_contract_with_violations_prints_them_and_returns_one": {
+      "hash": "b0a25e650ac68646d8d1bfaf4c842aa8c31c7e1ab92f3f7765e4e6577aa40582",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_contract_malformed_json_raises": {
+      "hash": "cc6a170895969bb2d018aa2c89703b29ab2c3c0fe1842d5db60382f3117404c9",
+      "asserts": 0
+    },
+    "test_tool.py::test_cmd_check_breaking_change_detects_and_returns_one": {
+      "hash": "12c832eeb86be0f78ada423d951047389ff696a57d3bca76ec004a83da2df8f8",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_breaking_change_no_changes_returns_zero": {
+      "hash": "fee7e73d55d70d2e27ecc510f541b0e395172f80e17c2d384ad9866ad030ce3b",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_returns_zero_and_prints_pass": {
+      "hash": "c86f0c924f1ac2c98cefa7c02c277c511e56abb5c377741a876e354f18cf0d16",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_build_path_spec_end_to_end": {
+      "hash": "565cd1affc7b705b364061752c2efa79af4915732af2b230a1ee56f4707195dc",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_validate_contract_end_to_end": {
+      "hash": "333a6bddb0442dd7f1cd4a8c0594d5670e92aaf1f33ac8241cfb6a362e89f97c",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_check_breaking_change_end_to_end": {
+      "hash": "68eb5cdcf4ee9166fcd08d45aac74568e3e4b408a7ae809869c83cef76afbb9c",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_subcommand_end_to_end": {
+      "hash": "ed908d98c7e17a25365f68d147fbaa0043c7a8401ea3a7f81ebe756f76398519",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_one": {
+      "hash": "a9e22a653ae0322d4a9142b2bde6de71e4492216e7dcbf95656222f3fc890298",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_build_path_spec_missing_required_method_exits": {
+      "hash": "2990e164d76dba91f0030a3f4593459e88df65d58d370f7068274eca976a58d4",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_build_path_spec_missing_required_path_exits": {
+      "hash": "3115a16b1b81181b20556570b32217c82896ca2941481e4ae28f2f380d7849f9",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_build_path_spec_missing_required_summary_exits": {
+      "hash": "c52fe434c475821a436ac496ef66c52baf0eee068b4988cdc3e2a868e368a861",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_validate_contract_missing_positional_spec_file_exits": {
+      "hash": "7247dc18b4ab6ac4e195a4a46cd187936b31a782699afe776c10bc0356e6009e",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_check_breaking_change_missing_required_old_exits": {
+      "hash": "e0bca860c3ae4b675be63090332bfdb7e09acf48dd6cbe6becc1bd9eeb4b14df",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_check_breaking_change_missing_required_new_exits": {
+      "hash": "87034781deb2125d5b741d42e70fb5c66c4e351f345641bfc9f16ab335bd7aeb",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard": {
+      "hash": "edf44b9ed06e754f505ee40947403a7bd818954d8ae7b25bebc2277cf5562fc0",
+      "asserts": 2
     }
   },
-  "coverage_pct": 45.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

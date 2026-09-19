@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -21,6 +21,47 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-064236",
+      "reason": "Bulletproofing pass: added .gitignore wildcard-pattern and present-but-lacking-.env variants, secret-detection edge cases (case-insensitive key names, sub-6-char values not flagged, no files, extensions outside allowlist, multiple offenders, unreadable-file OSError handling via monkeypatched read_text), tests_exist singular test/ dir variant, health-endpoint case-insensitivity/no-leading-slash and unreadable-file OSError handling, run_checklist all-pass and offenders-detail tests, full CLI layer tests (cmd_run_checklist ready/not-ready incl. JSON-validity check, cmd_test), main() dispatch tests (no-command help path, end-to-end per subcommand), required positional-arg enforcement (SystemExit for missing project_root), and subprocess smoke tests exercising the __main__ guard. Coverage 58%->98%, mutation score measured at 100% (15/15 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_env_gitignored_false_when_missing",
+        "test_tool.py::test_check_env_gitignored_true",
+        "test_tool.py::test_check_health_endpoint_found",
+        "test_tool.py::test_check_no_hardcoded_secrets_flags_offender",
+        "test_tool.py::test_check_no_hardcoded_secrets_ignores_test_files",
+        "test_tool.py::test_check_tests_exist_false_when_absent",
+        "test_tool.py::test_check_tests_exist_true",
+        "test_tool.py::test_run_checklist_returns_all_four_checks"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_check_env_gitignored_false_when_gitignore_exists_but_lacks_env",
+        "test_tool.py::test_check_env_gitignored_true_via_wildcard_pattern",
+        "test_tool.py::test_check_health_endpoint_case_insensitive_and_no_leading_slash",
+        "test_tool.py::test_check_health_endpoint_not_found_detail_message",
+        "test_tool.py::test_check_health_endpoint_skips_unreadable_file_via_dangling_symlink",
+        "test_tool.py::test_check_no_hardcoded_secrets_case_insensitive_key_name",
+        "test_tool.py::test_check_no_hardcoded_secrets_ignores_extensions_outside_allowlist",
+        "test_tool.py::test_check_no_hardcoded_secrets_no_files_at_all_passes",
+        "test_tool.py::test_check_no_hardcoded_secrets_reports_multiple_offenders",
+        "test_tool.py::test_check_no_hardcoded_secrets_short_value_not_flagged",
+        "test_tool.py::test_check_no_hardcoded_secrets_skips_file_that_raises_oserror_on_read",
+        "test_tool.py::test_check_tests_exist_false_detail_message",
+        "test_tool.py::test_check_tests_exist_true_with_singular_test_dir",
+        "test_tool.py::test_cli_subprocess_smoke_test_all_pass_exits_zero",
+        "test_tool.py::test_cli_subprocess_smoke_test_runs_main_guard",
+        "test_tool.py::test_cmd_run_checklist_not_ready_when_any_fail",
+        "test_tool.py::test_cmd_run_checklist_ready_when_all_pass",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_main_run_checklist_end_to_end",
+        "test_tool.py::test_main_run_checklist_missing_positional_project_root_exits",
+        "test_tool.py::test_main_test_subcommand_end_to_end",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_run_checklist_all_pass",
+        "test_tool.py::test_run_checklist_reports_offenders_list_for_secrets"
+      ]
     }
   ],
   "test_baseline": {
@@ -55,7 +96,104 @@
     "test_tool.py::test_run_checklist_returns_all_four_checks": {
       "hash": "31599beda69a5b0ad0867e93208f762f807261fefe8d371cc2eb35640a0a7213",
       "asserts": 1
+    },
+    "test_tool.py::test_check_env_gitignored_true_via_wildcard_pattern": {
+      "hash": "50bc70d2a9393dd3bb7e552bb91b30509716509b56faeb4a0c91a883a6ff7cf6",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_env_gitignored_false_when_gitignore_exists_but_lacks_env": {
+      "hash": "02ae6d5a436fb270139e46a4935ea71fcb115901fb0fd62a333f81033699f4a6",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_no_hardcoded_secrets_case_insensitive_key_name": {
+      "hash": "0d90eaf747c01a5a8be5c1960e7665e6a31c27f1609ab286c88deb65541b6c04",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_no_hardcoded_secrets_short_value_not_flagged": {
+      "hash": "25009266d68187af676bc2eeeebdaa24e98d4494820c7fa8c3d31fb0a0c56aa7",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_no_hardcoded_secrets_no_files_at_all_passes": {
+      "hash": "1349adacc2bdabe43fa0b719b45d54a228c7a644eb5baa679a615a87d97429eb",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_no_hardcoded_secrets_ignores_extensions_outside_allowlist": {
+      "hash": "93ec8d9725e7eb17ae3cbf7d53c0d2cc751317781a8d75297e198fa866f7cc02",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_no_hardcoded_secrets_reports_multiple_offenders": {
+      "hash": "4a409516715a4463b7f8ea06525a472c63dffb2b71ccfe79af6f306df82980e9",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_tests_exist_true_with_singular_test_dir": {
+      "hash": "1a55bbfc34804ac0803f1d8e1a69bcd7dda2150010aef85a6ec1e55564debbfe",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_tests_exist_false_detail_message": {
+      "hash": "c2df89e897f4d34cd2c64958b651d08aad76cc24920d1d6b33bc8a6a2d260cac",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_health_endpoint_case_insensitive_and_no_leading_slash": {
+      "hash": "f85ba88fe83b0531bb26f4cbd999a9302b631c2d626d1ed1b0a528cc7139caf2",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_health_endpoint_not_found_detail_message": {
+      "hash": "a6cc431c30855ff79f0aa65f4d8157aa45d06ee2aeca5a6156d0a1198254ef24",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_checklist_all_pass": {
+      "hash": "4ba38197e64dac36d3a1c2919bd8d2e0aea5fc6b2b33affbd75ddee15daaa448",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_checklist_reports_offenders_list_for_secrets": {
+      "hash": "f570060bd86a622fbd53a2ff38663c17c181af8dddd41c582d75ce63d47db33f",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_run_checklist_ready_when_all_pass": {
+      "hash": "7f1e5b12bbd5589eb7efb682de981b200b3a43ef64522c0373633bc5a551cb4f",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_run_checklist_not_ready_when_any_fail": {
+      "hash": "8e840aa28befa80e604e5ab2e11114f7fe75e2747c5d233d2e58961e45b51bff",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5ba2146b0f26a9a94df9c0a403c3fa9ccbdf2059e5ddd72cfd9e0778b9461633",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "c7e1da23a19820f7a0b7faedb3933324d42236df7ddf5a74ca2d306e87ca0727",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_run_checklist_end_to_end": {
+      "hash": "327bf8f7c58866c396c91f1aa1f5d9ce71c7c0051a3ea3c7cf2030feb919e8d4",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_subcommand_end_to_end": {
+      "hash": "923b0f3a82a5982be84b9e6f2e84d03b6ab32f9e43331a3aa30c918bb7719a6b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_run_checklist_missing_positional_project_root_exits": {
+      "hash": "9ff271e6dfa7a52d3b6ea87510c77a4cc13888f8e7a3bfd23b8a245214cd04bd",
+      "asserts": 0
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_runs_main_guard": {
+      "hash": "8e0ef1dfb2b6157dd02fb811beba00952308075112f18f7c85909b25d369fa66",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_all_pass_exits_zero": {
+      "hash": "3c465f79bb72941708c31a6af450c1058cd93252080bcbfdda006d8ad8c88415",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_no_hardcoded_secrets_skips_file_that_raises_oserror_on_read": {
+      "hash": "20f662c72e2c2f4e724e9af1b00f9887415fd522d1eaba7808b36c8ce6006ef5",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_health_endpoint_skips_unreadable_file_via_dangling_symlink": {
+      "hash": "65fe07885be3568f152e50c70de4645b663e07d249bc733787541f0d3bc12237",
+      "asserts": 2
     }
   },
-  "coverage_pct": 58.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

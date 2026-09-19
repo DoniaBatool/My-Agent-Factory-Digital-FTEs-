@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -22,6 +22,45 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062130",
+      "reason": "Bulletproofing pass: added 21 new tests covering CLI layer (cmd_boundary_values, cmd_date_edge_cases, cmd_build_matrix, cmd_test, main dispatch), required-arg enforcement (missing --fields, missing type positional), malformed JSON input to build-matrix, the previously-uncovered feb_last_day_non_leap branch (both leap and non-leap outcomes), default-year behavior, float NaN and string boundary values, multi-field matrix accumulation, and a subprocess smoke test exercising the __main__ guard. Coverage 50%->98% (only __main__ guard line unreachable in-process). Mutation score measured at 100% (6/6 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_add_months_handles_jan_31_into_leap_feb",
+        "test_tool.py::test_add_months_handles_jan_31_into_non_leap_feb",
+        "test_tool.py::test_add_months_never_raises_valueerror_for_month_end_rollover",
+        "test_tool.py::test_boundary_values_for_int_includes_zero_and_extremes",
+        "test_tool.py::test_boundary_values_unknown_type_raises",
+        "test_tool.py::test_build_edge_case_matrix_produces_one_row_per_boundary_value",
+        "test_tool.py::test_build_edge_case_matrix_skips_unknown_type_gracefully",
+        "test_tool.py::test_date_edge_cases_feb_29_none_on_non_leap_year",
+        "test_tool.py::test_date_edge_cases_feb_29_present_on_leap_year"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_boundary_values_float_includes_nan",
+        "test_tool.py::test_boundary_values_string_includes_empty_and_unicode",
+        "test_tool.py::test_build_edge_case_matrix_empty_fields_returns_empty_list",
+        "test_tool.py::test_build_edge_case_matrix_multiple_fields_accumulates_rows",
+        "test_tool.py::test_cmd_boundary_values_prints_json_list_and_returns_0",
+        "test_tool.py::test_cmd_boundary_values_unknown_type_propagates_valueerror",
+        "test_tool.py::test_cmd_build_matrix_malformed_json_raises",
+        "test_tool.py::test_cmd_build_matrix_parses_json_fields_and_prints_matrix",
+        "test_tool.py::test_cmd_date_edge_cases_prints_each_case_and_returns_0",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_date_edge_cases_default_year_is_2028",
+        "test_tool.py::test_date_edge_cases_feb_last_day_leap_case",
+        "test_tool.py::test_date_edge_cases_feb_last_day_non_leap_case",
+        "test_tool.py::test_main_boundary_values_end_to_end",
+        "test_tool.py::test_main_boundary_values_missing_positional_raises_systemexit",
+        "test_tool.py::test_main_build_matrix_end_to_end",
+        "test_tool.py::test_main_build_matrix_missing_required_fields_flag_raises_systemexit",
+        "test_tool.py::test_main_date_edge_cases_end_to_end_with_year_flag",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard"
+      ]
     }
   ],
   "test_baseline": {
@@ -60,7 +99,92 @@
     "test_tool.py::test_build_edge_case_matrix_skips_unknown_type_gracefully": {
       "hash": "58949e4683b346fbe98acb18fce6b0e9aa5b654c3e95f5dfdeafd9d239987d98",
       "asserts": 1
+    },
+    "test_tool.py::test_date_edge_cases_feb_last_day_non_leap_case": {
+      "hash": "c66de4aea0b02ff30cb7fbef1e00d68f2d35f5a8d2fdca98a43aae017f429bf4",
+      "asserts": 1
+    },
+    "test_tool.py::test_date_edge_cases_feb_last_day_leap_case": {
+      "hash": "94c1954645aff129ada6bd682777abdf0154c832dfdbcce038e11aead3c149f0",
+      "asserts": 1
+    },
+    "test_tool.py::test_date_edge_cases_default_year_is_2028": {
+      "hash": "486ff583344996b1547d8fb3fe6eae370a9819c9142dfab5b04a86778c3b1462",
+      "asserts": 1
+    },
+    "test_tool.py::test_boundary_values_string_includes_empty_and_unicode": {
+      "hash": "5e978c2feb64594a3fb66a1bc62967cd66351278e660ed7fa434a839ab9487df",
+      "asserts": 2
+    },
+    "test_tool.py::test_boundary_values_float_includes_nan": {
+      "hash": "1cad6830b20b35465721271aa9ac405b156b16ed0dc4ed5e4ba834c569b43d15",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_edge_case_matrix_multiple_fields_accumulates_rows": {
+      "hash": "94d14bb4a26e2cb67476d3698517269980d39478d8d5619a60ccae406e0289e9",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_edge_case_matrix_empty_fields_returns_empty_list": {
+      "hash": "2954999ecc3e44bf84c51b771599914963148f46fa9b61f3eb79ccc7c1e59859",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_boundary_values_prints_json_list_and_returns_0": {
+      "hash": "63cad5f5d781ceadf7c69690130db686557b32967373e96942bf090d5a3407ed",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_boundary_values_unknown_type_propagates_valueerror": {
+      "hash": "ef88c42af2313eb169afd317c9b79c817fcd8bbe0f9b7726135d8fcd062e7c1a",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_date_edge_cases_prints_each_case_and_returns_0": {
+      "hash": "08ce37884014aea7060fc07001c0ca7f74a2433cc1a2af5ca432c5fda22c044f",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_build_matrix_parses_json_fields_and_prints_matrix": {
+      "hash": "9ded4d284e91e89261fa910df18d1d2005284ddf269873334583230dab7600cf",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_build_matrix_malformed_json_raises": {
+      "hash": "a88bc46b071e03da1c1e31e0847bdc7d1d8ea6a09d683e5dd73b4a61ec27e477",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "4ee2c27b56baa69f4aabd845de7c2da65c8442ed865df2e7453027aeb9744dfe",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "20a91560641d7e5a098c20451bcbbd1939086de848a1de7141bf6f8426e1d7d3",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_boundary_values_end_to_end": {
+      "hash": "535118f1d1723e2748855dece22001fade751e1e3e3d9c25a9a3141dd7fcf8f9",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_date_edge_cases_end_to_end_with_year_flag": {
+      "hash": "ff972daac3f36eb9a23c8b47a45f76e03c48b0550ec49b5a5ddf6b7bd605823e",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_build_matrix_end_to_end": {
+      "hash": "43cdea8cf2e34721544052615bbd367cf20dee9e451333c88132b6ab04ce170d",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "83a16bb1a4a0805e120e0b4270225483cf2b74b29b3a3c3f1ba02b1536d88232",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_build_matrix_missing_required_fields_flag_raises_systemexit": {
+      "hash": "18ee6a416ebc23aa65dd4e66c314dace9ecaaf0419b065fb161b948469679a12",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_boundary_values_missing_positional_raises_systemexit": {
+      "hash": "95ab5e7a83f61288ceba2178c559d9c8aea5f191a7cc669692548e25450eea1e",
+      "asserts": 2
+    },
+    "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard": {
+      "hash": "14e3a2561431260cc54a1095c0350171f70bd056ec18c329b8554fa7a1a204e3",
+      "asserts": 2
     }
   },
-  "coverage_pct": 50.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

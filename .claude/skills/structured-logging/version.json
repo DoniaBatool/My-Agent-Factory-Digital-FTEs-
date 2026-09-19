@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -24,6 +24,44 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062555",
+      "reason": "Bulletproofing pass: added 18 new tests covering redaction edge cases (case-insensitivity, substring match, custom key sets), correlation-id empty-string handling, flatten_context edge cases, level-filter error paths, to_json_log field/timestamp/sort_keys behavior, parse_json_log non-dict JSON, print_success/print_error output, cmd_test's subprocess construction (mocked to avoid recursive pytest spawn), main() dispatch/required-subcommand enforcement, and a subprocess smoke test hitting the __main__ guard. Coverage 80%->97%, mutation score measured at 100% (4/4 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_add_correlation_id_generates_when_missing",
+        "test_tool.py::test_add_correlation_id_preserves_given_id",
+        "test_tool.py::test_filter_log_level_allows_higher_or_equal",
+        "test_tool.py::test_filter_log_level_blocks_lower",
+        "test_tool.py::test_filter_log_level_rejects_unknown_level",
+        "test_tool.py::test_flatten_context_nested_dict",
+        "test_tool.py::test_parse_json_log_rejects_garbage",
+        "test_tool.py::test_parse_json_log_round_trip",
+        "test_tool.py::test_redact_fields_masks_sensitive",
+        "test_tool.py::test_to_json_log_produces_valid_json_with_redaction",
+        "test_tool.py::test_to_json_log_rejects_unknown_level"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_add_correlation_id_empty_string_treated_as_missing",
+        "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args_and_returns_its_code",
+        "test_tool.py::test_filter_log_level_rejects_unknown_configured_level",
+        "test_tool.py::test_flatten_context_empty_dict_returns_empty_dict",
+        "test_tool.py::test_flatten_context_honors_prefix_argument",
+        "test_tool.py::test_main_missing_command_is_required_and_exits",
+        "test_tool.py::test_main_test_command_dispatches_via_func_and_exits_with_code",
+        "test_tool.py::test_parse_json_log_accepts_non_dict_json",
+        "test_tool.py::test_print_error_outputs_cross_and_message",
+        "test_tool.py::test_print_success_outputs_checkmark_and_message",
+        "test_tool.py::test_redact_fields_case_insensitive_key_match",
+        "test_tool.py::test_redact_fields_no_matches_returns_values_unchanged",
+        "test_tool.py::test_redact_fields_substring_match_in_key",
+        "test_tool.py::test_redact_fields_with_custom_sensitive_keys",
+        "test_tool.py::test_subprocess_no_args_hits_main_guard_and_exits_nonzero",
+        "test_tool.py::test_to_json_log_output_has_deterministic_sorted_key_order",
+        "test_tool.py::test_to_json_log_timestamp_is_iso_parseable",
+        "test_tool.py::test_to_json_log_with_no_extra_fields"
+      ]
     }
   ],
   "test_baseline": {
@@ -70,7 +108,80 @@
     "test_tool.py::test_parse_json_log_rejects_garbage": {
       "hash": "5a7c9690cb4e9fc29974da58ea8b1748ff840a97fdce7da708c7fec5172a172c",
       "asserts": 0
+    },
+    "test_tool.py::test_redact_fields_case_insensitive_key_match": {
+      "hash": "22f04c027c8338cdf6688eac4c0d23e5f4e416c5ed1dadaade61c924220bd616",
+      "asserts": 2
+    },
+    "test_tool.py::test_redact_fields_substring_match_in_key": {
+      "hash": "4deadf20d0f9ec93983fcc7b9454ef32e6a334571f34a34a8003e7d612bef757",
+      "asserts": 1
+    },
+    "test_tool.py::test_redact_fields_with_custom_sensitive_keys": {
+      "hash": "47567bdaa3db0660692ad393690b9e8396a625227e6a259b7c4630202ae53de0",
+      "asserts": 2
+    },
+    "test_tool.py::test_redact_fields_no_matches_returns_values_unchanged": {
+      "hash": "f1b3cc0d4826fa7f07499e22e5ab2178934f8cf411aeb0617d9e1a6a7ce3a8c8",
+      "asserts": 1
+    },
+    "test_tool.py::test_add_correlation_id_empty_string_treated_as_missing": {
+      "hash": "bf3b7f2803dd912c79a36b62d007ac3132ac63a6d8b76a0eb0f0eca3c2ef249a",
+      "asserts": 2
+    },
+    "test_tool.py::test_flatten_context_empty_dict_returns_empty_dict": {
+      "hash": "7d63e38713580735e43b4d3829445a2b6e945833e4d354710c89e8cf586a3ba2",
+      "asserts": 1
+    },
+    "test_tool.py::test_flatten_context_honors_prefix_argument": {
+      "hash": "22eea0e6707ac16af51e005e23eb34c024c5fb0b8ed505333615c73e6f8951f0",
+      "asserts": 1
+    },
+    "test_tool.py::test_filter_log_level_rejects_unknown_configured_level": {
+      "hash": "cc45ee9847d0a80ee6e19d12f4e2396262ef19b37b1654f54ef21238ee530c2f",
+      "asserts": 0
+    },
+    "test_tool.py::test_to_json_log_with_no_extra_fields": {
+      "hash": "e778f2268e5efd1680c05fc4f0f69e023e2363fc78d45ff0fbe62e2dca28525c",
+      "asserts": 3
+    },
+    "test_tool.py::test_to_json_log_timestamp_is_iso_parseable": {
+      "hash": "26286c2b4900ca327a850371e106c1b1f43e05f5c249005f66ffadee9719068c",
+      "asserts": 0
+    },
+    "test_tool.py::test_parse_json_log_accepts_non_dict_json": {
+      "hash": "0b45d31ffe4c14585ca2192f10ad0ea9f93156e7b04b0cfc6542708c2cdf8cfa",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_success_outputs_checkmark_and_message": {
+      "hash": "2d8ae6670944eb6ffbd6167e6dbd7bc2b68ecf166f74c08d4765f668adf131f8",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_outputs_cross_and_message": {
+      "hash": "f47d421622f88d5ec5f3059f7663cdad517a0a07b6b138645af5938b86a49dab",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args_and_returns_its_code": {
+      "hash": "b682841c11bbe1db16b223b42787e6b0a427b9f64c6f947df0e1e6f13eaff1c6",
+      "asserts": 6
+    },
+    "test_tool.py::test_main_test_command_dispatches_via_func_and_exits_with_code": {
+      "hash": "5dd020c9c269aac8561ff8b4b1baaffcb90abcb17e5ddcad8d32af4c33f21a19",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_missing_command_is_required_and_exits": {
+      "hash": "e149abba2f1b681c0e2cee0125c6c0ef4c04adaa8437fd3cd75575dc725b0c4d",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_no_args_hits_main_guard_and_exits_nonzero": {
+      "hash": "828ba5ce4308c4df820fed08264f18a295494b193cd086e94c4075b368b2977c",
+      "asserts": 2
+    },
+    "test_tool.py::test_to_json_log_output_has_deterministic_sorted_key_order": {
+      "hash": "2b3b4e18eb1c5f6c71512e64369020de1ac70f45a3c8f71dba55e3cf66300e5a",
+      "asserts": 2
     }
   },
-  "coverage_pct": 80.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

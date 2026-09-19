@@ -1,0 +1,71 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113249",
+      "reason": "Replaced TODO stub with real payload validation, action-intent classification, response envelope + history trimming helpers, 10 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_response_envelope_rejects_bad_role",
+        "test_tool.py::test_build_response_envelope_shape",
+        "test_tool.py::test_classify_action_intent_defaults_to_chat",
+        "test_tool.py::test_classify_action_intent_detects_delete_all_needs_confirmation",
+        "test_tool.py::test_classify_action_intent_detects_delete_specific_no_confirmation",
+        "test_tool.py::test_new_conversation_id_is_unique",
+        "test_tool.py::test_trim_history_for_context_keeps_last_n",
+        "test_tool.py::test_validate_message_payload_accepts_valid",
+        "test_tool.py::test_validate_message_payload_rejects_empty_message",
+        "test_tool.py::test_validate_message_payload_rejects_non_string_conversation_id"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_new_conversation_id_is_unique": {
+      "hash": "2560e555f042a1f72a26b96ce6adc49bcef7f36c516a653499e356ff837fc6e1",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_message_payload_accepts_valid": {
+      "hash": "fd6207873cc30d1a4457ac9b6ad919d641d62017b5e064eabcf0b13cb6c5fc8b",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_message_payload_rejects_empty_message": {
+      "hash": "6f2e642434da97b9016a785215fc5837c2ec6ae7ec772a2e929900971a20e498",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_message_payload_rejects_non_string_conversation_id": {
+      "hash": "5ef3e41c2262ad38e1372dd05e135e7c581c531952942c2af688b69167a49250",
+      "asserts": 0
+    },
+    "test_tool.py::test_classify_action_intent_detects_delete_all_needs_confirmation": {
+      "hash": "1acfd7718cd8228983e709a16a0e2a5bb0d7ac1f30af51bf90459759d8bf1257",
+      "asserts": 2
+    },
+    "test_tool.py::test_classify_action_intent_detects_delete_specific_no_confirmation": {
+      "hash": "5d11f050f78f30c5fb0309c8762e7087246dd5d2fdbf31f8c229cfc2cbd4b890",
+      "asserts": 3
+    },
+    "test_tool.py::test_classify_action_intent_defaults_to_chat": {
+      "hash": "e51efb198a95491cd1a45edf53cbb3a25807975325157fb7ee38fef1c82cf09c",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_response_envelope_shape": {
+      "hash": "95f28f84fbbf70704cc65a569cbb2d8389f90c57a1c0117bde7298658baf184d",
+      "asserts": 4
+    },
+    "test_tool.py::test_build_response_envelope_rejects_bad_role": {
+      "hash": "bfeb905256cd6333093a774bbe6587e61c91605752554ba6400d93dd793fc496",
+      "asserts": 0
+    },
+    "test_tool.py::test_trim_history_for_context_keeps_last_n": {
+      "hash": "eda172e94b2f3fb587485b66b9b25dc5705770aa01590f36bd3de405a5794d8a",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 58.0
+}

@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -23,6 +23,41 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062702",
+      "reason": "Bulletproofing pass: added 16 new tests covering Transaction post-rollback state checks (execute/commit after rollback, no-op rollback), deadlock detection boundary cases (empty graph, self-loop), retry_on_serialization_failure exhaustion/exception-filtering/sleep_fn/zero-retries boundary, print_success/print_error output, cmd_test's subprocess construction (mocked to avoid recursive pytest spawn), main() dispatch/required-subcommand enforcement, and a subprocess smoke test hitting the __main__ guard. Coverage 81%->98%, mutation score measured at 100% (10/10 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_detect_deadlock_risk_finds_longer_cycle",
+        "test_tool.py::test_detect_deadlock_risk_finds_simple_cycle",
+        "test_tool.py::test_detect_deadlock_risk_no_cycle_in_linear_chain",
+        "test_tool.py::test_retry_on_serialization_failure_eventually_succeeds",
+        "test_tool.py::test_transaction_cannot_execute_after_commit",
+        "test_tool.py::test_transaction_cannot_rollback_after_commit",
+        "test_tool.py::test_transaction_commit_keeps_applied_state",
+        "test_tool.py::test_transaction_rollback_undoes_applied_ops_in_reverse_order",
+        "test_tool.py::test_validate_isolation_level_accepts_known_levels",
+        "test_tool.py::test_validate_isolation_level_rejects_unknown"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args_and_returns_its_code",
+        "test_tool.py::test_detect_deadlock_risk_empty_list_is_false",
+        "test_tool.py::test_detect_deadlock_risk_self_loop_is_cycle",
+        "test_tool.py::test_main_missing_command_is_required_and_exits",
+        "test_tool.py::test_main_test_command_dispatches_via_func_and_exits_with_code",
+        "test_tool.py::test_print_error_outputs_cross_and_message",
+        "test_tool.py::test_print_success_outputs_checkmark_and_message",
+        "test_tool.py::test_retry_on_serialization_failure_calls_sleep_fn_between_attempts",
+        "test_tool.py::test_retry_on_serialization_failure_does_not_catch_unlisted_exception_types",
+        "test_tool.py::test_retry_on_serialization_failure_raises_last_exception_after_exhausting_retries",
+        "test_tool.py::test_retry_on_serialization_failure_zero_max_retries_raises_type_error",
+        "test_tool.py::test_subprocess_no_args_hits_main_guard_and_exits_nonzero",
+        "test_tool.py::test_transaction_cannot_commit_after_rollback",
+        "test_tool.py::test_transaction_cannot_execute_after_rollback",
+        "test_tool.py::test_transaction_rollback_with_no_ops_still_marks_rolled_back",
+        "test_tool.py::test_validate_isolation_level_accepts_mixed_case"
+      ]
     }
   ],
   "test_baseline": {
@@ -65,7 +100,72 @@
     "test_tool.py::test_retry_on_serialization_failure_eventually_succeeds": {
       "hash": "076141afc581d9ac170decd63264747426b987975927ff0f6c99112a441c91b3",
       "asserts": 1
+    },
+    "test_tool.py::test_validate_isolation_level_accepts_mixed_case": {
+      "hash": "4d2fb366b2c42d811eb2ad43d2e77f1f57e447faf2244ef0c3b9015686cfe82a",
+      "asserts": 1
+    },
+    "test_tool.py::test_transaction_cannot_execute_after_rollback": {
+      "hash": "6dbb0b39387a347c67e5d83f5eda1828b7332cdec12daa9ef9b1ea3e4e4b5739",
+      "asserts": 0
+    },
+    "test_tool.py::test_transaction_cannot_commit_after_rollback": {
+      "hash": "6fa3560656d92d05705c9ee177e3e6c70a104348bb08f1d547fd528e32d0d045",
+      "asserts": 0
+    },
+    "test_tool.py::test_transaction_rollback_with_no_ops_still_marks_rolled_back": {
+      "hash": "9a2ac075ac5a59304a1e5e89e79dbdc7441d8706b1a29ccb2913f99d18c6a3d9",
+      "asserts": 2
+    },
+    "test_tool.py::test_detect_deadlock_risk_empty_list_is_false": {
+      "hash": "15b288daf2686388562a03998b852f59a47844fc106b2b9bd5c012faf85199e9",
+      "asserts": 1
+    },
+    "test_tool.py::test_detect_deadlock_risk_self_loop_is_cycle": {
+      "hash": "b97bcc49762e1ea2fa8c2a14a7a3e185229bc2056a6ce41152ed27ba73be78bc",
+      "asserts": 1
+    },
+    "test_tool.py::test_retry_on_serialization_failure_raises_last_exception_after_exhausting_retries": {
+      "hash": "ae1e65fb7654ac84c6a7caa61c03504d4f016befa68833e4c4e66df8c8e5ea2f",
+      "asserts": 0
+    },
+    "test_tool.py::test_retry_on_serialization_failure_does_not_catch_unlisted_exception_types": {
+      "hash": "c84a15017d7c75cd6e5a6dad2cb7bddec1c07db478b2a004589386a75f4b895b",
+      "asserts": 0
+    },
+    "test_tool.py::test_retry_on_serialization_failure_calls_sleep_fn_between_attempts": {
+      "hash": "ac3b4fd95fe65b417a0adfdc3b14be8eff3cc20f9d3d7c13a7f29a4356d51156",
+      "asserts": 2
+    },
+    "test_tool.py::test_retry_on_serialization_failure_zero_max_retries_raises_type_error": {
+      "hash": "8d649c2a9a94dd36d0b06f18200204c16154154486286f532b36b74c2db05d95",
+      "asserts": 0
+    },
+    "test_tool.py::test_print_success_outputs_checkmark_and_message": {
+      "hash": "2d8ae6670944eb6ffbd6167e6dbd7bc2b68ecf166f74c08d4765f668adf131f8",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_outputs_cross_and_message": {
+      "hash": "f47d421622f88d5ec5f3059f7663cdad517a0a07b6b138645af5938b86a49dab",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args_and_returns_its_code": {
+      "hash": "a097efb6c0a4e80f79e2eac6564121b24b3bed5cafbd76dbf59f1ac1e82401f8",
+      "asserts": 5
+    },
+    "test_tool.py::test_main_test_command_dispatches_via_func_and_exits_with_code": {
+      "hash": "453326bd50a4e273a512186feff6cd7780db15f457c1f83080857bb9c04a0ffb",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_missing_command_is_required_and_exits": {
+      "hash": "e149abba2f1b681c0e2cee0125c6c0ef4c04adaa8437fd3cd75575dc725b0c4d",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_no_args_hits_main_guard_and_exits_nonzero": {
+      "hash": "828ba5ce4308c4df820fed08264f18a295494b193cd086e94c4075b368b2977c",
+      "asserts": 2
     }
   },
-  "coverage_pct": 81.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

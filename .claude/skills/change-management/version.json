@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -21,6 +21,54 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063627",
+      "reason": "Bulletproofing pass: added 39 new tests covering CLI layer (cmd_create_change_spec, cmd_scan_impact, cmd_rollback_note, cmd_test, main dispatch table via sys.argv), required-arg enforcement (SystemExit for every required flag across all 3 subcommands), edge cases (slugify punctuation collapsing/empty string, non-numeric-prefix folders ignored by next_change_number, custom/default non_goals, all supported+custom scan_impact extensions, sorted scan results, OSError-on-unreadable-file resilience, missing-intermediate-directory creation, each build_rollback_note step-ordering combination), and a subprocess smoke test exercising the __main__ guard. Coverage 46%->99%, mutation score measured at 80% (8/10 mutants); the 2 surviving mutants are documented equivalents (tool.py:30, the parents=True and exist_ok=True flags on folder.mkdir() inside create_change_spec) -- folder's parent (changes_root) is unconditionally created on the immediately preceding line, and next_change_number() guarantees the computed folder name is always higher than every existing numbered folder, so the target directory can never already exist and its parent can never be missing; no correct-code test path can observe either flag's value.",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_rollback_note_always_includes_revert_step",
+        "test_tool.py::test_build_rollback_note_includes_migration_and_flag_when_given",
+        "test_tool.py::test_create_change_spec_numbers_sequentially",
+        "test_tool.py::test_create_change_spec_writes_three_files",
+        "test_tool.py::test_next_change_number_increments_past_existing",
+        "test_tool.py::test_next_change_number_starts_at_one",
+        "test_tool.py::test_scan_impact_finds_only_matching_files",
+        "test_tool.py::test_slugify"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_rollback_note_feature_flag_only_orders_before_revert",
+        "test_tool.py::test_build_rollback_note_migration_only_orders_before_revert",
+        "test_tool.py::test_build_rollback_note_neither_migration_nor_flag_is_just_revert",
+        "test_tool.py::test_cmd_create_change_spec_prints_created_path",
+        "test_tool.py::test_cmd_create_change_spec_splits_non_goals_on_semicolon",
+        "test_tool.py::test_cmd_rollback_note_prints_json",
+        "test_tool.py::test_cmd_scan_impact_no_hits_prints_message",
+        "test_tool.py::test_cmd_scan_impact_with_hits_prints_each_indented",
+        "test_tool.py::test_cmd_test_returns_zero_and_prints_pass",
+        "test_tool.py::test_create_change_spec_creates_missing_intermediate_directories",
+        "test_tool.py::test_create_change_spec_default_non_goals_placeholder",
+        "test_tool.py::test_create_change_spec_plan_and_tasks_content",
+        "test_tool.py::test_create_change_spec_uses_custom_non_goals",
+        "test_tool.py::test_main_create_change_spec_missing_required_feature_exits",
+        "test_tool.py::test_main_create_change_spec_missing_required_what_exits",
+        "test_tool.py::test_main_create_change_spec_missing_required_why_exits",
+        "test_tool.py::test_main_dispatches_create_change_spec_end_to_end",
+        "test_tool.py::test_main_dispatches_rollback_note_end_to_end",
+        "test_tool.py::test_main_dispatches_scan_impact_end_to_end_using_default_project_root",
+        "test_tool.py::test_main_dispatches_test_subcommand_end_to_end",
+        "test_tool.py::test_main_rollback_note_missing_required_change_name_exits",
+        "test_tool.py::test_main_scan_impact_missing_required_term_exits",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_one",
+        "test_tool.py::test_next_change_number_ignores_folders_without_numeric_prefix",
+        "test_tool.py::test_scan_impact_matches_across_supported_extensions",
+        "test_tool.py::test_scan_impact_returns_sorted_results",
+        "test_tool.py::test_scan_impact_skips_unreadable_file_without_crashing",
+        "test_tool.py::test_scan_impact_with_custom_extensions_argument",
+        "test_tool.py::test_slugify_collapses_repeated_punctuation_and_strips_edges",
+        "test_tool.py::test_slugify_empty_string_returns_empty",
+        "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard"
+      ]
     }
   ],
   "test_baseline": {
@@ -55,7 +103,132 @@
     "test_tool.py::test_build_rollback_note_always_includes_revert_step": {
       "hash": "a520d5d17e45e1869b402ab5a08a91e8371d2d63c62030534e4345dfaedfd2c1",
       "asserts": 1
+    },
+    "test_tool.py::test_slugify_collapses_repeated_punctuation_and_strips_edges": {
+      "hash": "18ab3428345cfc050409fa4edb6ea9ab28d4c2de573ad0eb5cd328d6d1b78d09",
+      "asserts": 1
+    },
+    "test_tool.py::test_slugify_empty_string_returns_empty": {
+      "hash": "0ed58a1ec28b69cf42a195bacda84320b393e4260696001b30ba7f98aa5e3b9b",
+      "asserts": 1
+    },
+    "test_tool.py::test_next_change_number_ignores_folders_without_numeric_prefix": {
+      "hash": "77aa389f171a15cf0f77edc8e1d6a9530a244b8cd6d66ae0fc64a69a4e8295a9",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_change_spec_uses_custom_non_goals": {
+      "hash": "0fb264d70d077b2000144ded9da3876cfff6762fdcd22516a8ea223e4e42716c",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_change_spec_default_non_goals_placeholder": {
+      "hash": "1ee68280a13f9f7ff6441406d2a6264ec3ecd84f4299d09b8ca16321ef141a68",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_change_spec_plan_and_tasks_content": {
+      "hash": "0abb4cd05653c9898166464ddaa64adbe7b191490a2069cb9fb2ea363ad00df4",
+      "asserts": 4
+    },
+    "test_tool.py::test_scan_impact_matches_across_supported_extensions": {
+      "hash": "98e692057208535fc3a5c3671cb71d7733d5b46074d42a73c5727a837a645973",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_impact_with_custom_extensions_argument": {
+      "hash": "5ff055f9716f500285eb9bb7fdf57b3bcd761179747df9febafeca3123e159ea",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_impact_returns_sorted_results": {
+      "hash": "f1638fec4fe79f92863c47f349de2f0cea8066e00eafbbbade19567f5ebcd39e",
+      "asserts": 2
+    },
+    "test_tool.py::test_scan_impact_skips_unreadable_file_without_crashing": {
+      "hash": "2ee86608a8c8ff8153b2b3ddf43ca8c31a1a76116183eae5e1e038b756e731cd",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_rollback_note_feature_flag_only_orders_before_revert": {
+      "hash": "7731fe4a42ad66298093afe55685d2ede8d4e1c70491122f5077e7645be70fa3",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_rollback_note_migration_only_orders_before_revert": {
+      "hash": "c59fdb03efd6a628245c83ef283358807b808b162a34496441271e709d991e0a",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_rollback_note_neither_migration_nor_flag_is_just_revert": {
+      "hash": "f5ca30163d711244362f6764fe5adf06919f4635b2153fa58711fb7fe2c9c946",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_create_change_spec_prints_created_path": {
+      "hash": "8c16dc55ecef97e08999de8ddad73bb13b6c2620c06a59dca92a9feb6392ab16",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_create_change_spec_splits_non_goals_on_semicolon": {
+      "hash": "fe7a2dd8298e8761511b31c89d3efad635c8d311630a5e14c0fcdd11e8e1d7f1",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_scan_impact_no_hits_prints_message": {
+      "hash": "35edfa7937164637bd83868612ac682f6cab9877386c9ad012f6d361a4bb9473",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_scan_impact_with_hits_prints_each_indented": {
+      "hash": "e5c21149c15bf533b5697d4b4dd0e81e667c8888988bed017cdc1e946940eedd",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_rollback_note_prints_json": {
+      "hash": "47849e5d65caf4fba36c8c5f46f74bdf02965886170583abb3b3a8e3d3374551",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_returns_zero_and_prints_pass": {
+      "hash": "c86f0c924f1ac2c98cefa7c02c277c511e56abb5c377741a876e354f18cf0d16",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_create_change_spec_end_to_end": {
+      "hash": "8a4f5a398039ce9abd8654dcf47e75d8c28a622a4e90592c2d2e2d671b95f19b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_scan_impact_end_to_end_using_default_project_root": {
+      "hash": "bcd59521b6f9848876ac419a7a769fce8446dd6252f42b0acfb1140bee4685b7",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_rollback_note_end_to_end": {
+      "hash": "1c5f261cd9c63950aed7f42784aa40103b2521da2425f8e0fb3894ef02ebe910",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_subcommand_end_to_end": {
+      "hash": "ed908d98c7e17a25365f68d147fbaa0043c7a8401ea3a7f81ebe756f76398519",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_one": {
+      "hash": "a9e22a653ae0322d4a9142b2bde6de71e4492216e7dcbf95656222f3fc890298",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_change_spec_missing_required_feature_exits": {
+      "hash": "c66263a8b4a40394508f95e3231b680a985738cf03bc83e9310966988bee356e",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_create_change_spec_missing_required_what_exits": {
+      "hash": "bc414ef38c2e9a8144a343ff98c1bdebd16248ce75bf44bd345ddf8dd9bd70cf",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_create_change_spec_missing_required_why_exits": {
+      "hash": "30598dc656c380953b68e013d66aaf80090a03c88b0869daa3324d4afc2bd119",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_scan_impact_missing_required_term_exits": {
+      "hash": "849fb139b33e6e8c381bea661477bf38758b9245b7b2dec2f578f054379b277c",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_rollback_note_missing_required_change_name_exits": {
+      "hash": "e37b0fa72028a3866a3cbbdb659d97bca487b4f39fe98733e19f53c8acf1afe6",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard": {
+      "hash": "45fba91754196324fe9cda9cb1ae1b74cc83c5a7fe106ca0b9f0f11515c1cf0a",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_change_spec_creates_missing_intermediate_directories": {
+      "hash": "4e0ca08d4a09f4a63595b081d8f1306985367d23f062a0e012035228980ca176",
+      "asserts": 2
     }
   },
-  "coverage_pct": 46.0
+  "coverage_pct": 99.0,
+  "mutation_score": 0.8
 }

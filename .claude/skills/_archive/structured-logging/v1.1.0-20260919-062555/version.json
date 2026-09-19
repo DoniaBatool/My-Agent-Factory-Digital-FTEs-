@@ -1,0 +1,76 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113612",
+      "reason": "Replaced TODO stub with real JSON log building, correlation id, context flattening, level filtering and redaction, 11 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_add_correlation_id_generates_when_missing",
+        "test_tool.py::test_add_correlation_id_preserves_given_id",
+        "test_tool.py::test_filter_log_level_allows_higher_or_equal",
+        "test_tool.py::test_filter_log_level_blocks_lower",
+        "test_tool.py::test_filter_log_level_rejects_unknown_level",
+        "test_tool.py::test_flatten_context_nested_dict",
+        "test_tool.py::test_parse_json_log_rejects_garbage",
+        "test_tool.py::test_parse_json_log_round_trip",
+        "test_tool.py::test_redact_fields_masks_sensitive",
+        "test_tool.py::test_to_json_log_produces_valid_json_with_redaction",
+        "test_tool.py::test_to_json_log_rejects_unknown_level"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_redact_fields_masks_sensitive": {
+      "hash": "d88e9609463e56ba348c1573d58931d2e4681c425efee61a2da20fd65c873909",
+      "asserts": 2
+    },
+    "test_tool.py::test_add_correlation_id_generates_when_missing": {
+      "hash": "dc9e6b1a79d73d9d2cddeffb9e7e0e7d915030c6ae0524467a84893e21a6992a",
+      "asserts": 2
+    },
+    "test_tool.py::test_add_correlation_id_preserves_given_id": {
+      "hash": "52abcb1b1bf4cb40cf21ee6f68a7806c401ad05ed1b208f4003abdd15055b42a",
+      "asserts": 1
+    },
+    "test_tool.py::test_flatten_context_nested_dict": {
+      "hash": "c32716cd18ba393ac841b90410a6c958c9d87ab7bb09dab1f1baf2d8d91f1ec3",
+      "asserts": 1
+    },
+    "test_tool.py::test_filter_log_level_allows_higher_or_equal": {
+      "hash": "d315d35806dad64ecd96664bf436807d36a45fa394c4b0428d4f78e54d02b36c",
+      "asserts": 2
+    },
+    "test_tool.py::test_filter_log_level_blocks_lower": {
+      "hash": "dcb11ed297d9ff66137cbdec3bed741a8f95cecba4bd990c5643ff437cba4780",
+      "asserts": 1
+    },
+    "test_tool.py::test_filter_log_level_rejects_unknown_level": {
+      "hash": "edffd54154ee86637e28643e1dd51afe38d80e5bee4da03fe63eae049e135636",
+      "asserts": 0
+    },
+    "test_tool.py::test_to_json_log_produces_valid_json_with_redaction": {
+      "hash": "b4b2bec321ed4b628bc78fe4a54bfc25c970eaa247495ab8f7868fddf6a6cba1",
+      "asserts": 3
+    },
+    "test_tool.py::test_to_json_log_rejects_unknown_level": {
+      "hash": "8dc420ddf4174712fac576671aa01797b01a431a1b6ba43b02154c4bc1bb76c6",
+      "asserts": 0
+    },
+    "test_tool.py::test_parse_json_log_round_trip": {
+      "hash": "993eaf54e552ab0c032d763d21a7ab9f8cb22e905cf21179858fcab9fe150341",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_json_log_rejects_garbage": {
+      "hash": "5a7c9690cb4e9fc29974da58ea8b1748ff840a97fdce7da708c7fec5172a172c",
+      "asserts": 0
+    }
+  },
+  "coverage_pct": 80.0
+}

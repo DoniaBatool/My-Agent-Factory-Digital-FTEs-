@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -19,6 +19,36 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062330",
+      "reason": "Bulletproofing pass: added 15 new tests covering the CLI layer (cmd_calculate_pool_size, cmd_generate_config, cmd_test, main() dispatch and no-command help path), required-argument enforcement for all 4 required argparse args via SystemExit, boundary case where available budget floors at num_instances, default reserved_for_admin behavior, and a subprocess smoke test exercising the __main__ guard. Coverage 30%->96%, mutation score measured at 92.3% (12/13 mutants; the sole survivor at scripts/tool.py:62 is an equivalent mutant -- the ok=False fallback inside cmd_test's self-test can only execute if calculate_pool_size(0,100) failed to raise ValueError, which is structurally impossible given the guard at the top of that function).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_calculate_pool_size_divides_evenly_across_instances",
+        "test_tool.py::test_calculate_pool_size_minimum_one_per_instance",
+        "test_tool.py::test_calculate_pool_size_never_exceeds_db_budget_across_all_instances",
+        "test_tool.py::test_calculate_pool_size_rejects_zero_instances",
+        "test_tool.py::test_generate_sqlalchemy_config_defaults",
+        "test_tool.py::test_generate_sqlalchemy_config_respects_overrides"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_calculate_pool_size_available_floors_at_num_instances_when_budget_too_small",
+        "test_tool.py::test_calculate_pool_size_reserved_default_is_five",
+        "test_tool.py::test_cmd_calculate_pool_size_invalid_instances_returns_1_and_prints_message",
+        "test_tool.py::test_cmd_calculate_pool_size_success_prints_json",
+        "test_tool.py::test_cmd_generate_config_no_pre_ping_flag_disables_pre_ping",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_main_calculate_pool_size_end_to_end",
+        "test_tool.py::test_main_generate_config_end_to_end",
+        "test_tool.py::test_main_missing_required_db_max_connections_arg_exits",
+        "test_tool.py::test_main_missing_required_instances_arg_exits",
+        "test_tool.py::test_main_missing_required_max_overflow_arg_exits",
+        "test_tool.py::test_main_missing_required_pool_size_arg_exits",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint"
+      ]
     }
   ],
   "test_baseline": {
@@ -45,7 +75,68 @@
     "test_tool.py::test_generate_sqlalchemy_config_respects_overrides": {
       "hash": "7eaa6e1fa1bef8456f6c1fd920c6d08ba77ffb95bf2283db75d44b751e1db241",
       "asserts": 2
+    },
+    "test_tool.py::test_cmd_calculate_pool_size_success_prints_json": {
+      "hash": "f6e786eb8280fa017591f2e326454f0258e9589245b1438eecf255a1c8eef35c",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_calculate_pool_size_invalid_instances_returns_1_and_prints_message": {
+      "hash": "aa851272f939e28b72efc32ee6e04cfa435721a0bca812e79bd118d34417b206",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_generate_config_no_pre_ping_flag_disables_pre_ping": {
+      "hash": "fd516a7096af07a45de4370362deb585a0da9ff6743e24bf5974dba28c9640e0",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5dcce7724a5df43b97459412d0dd8aa978488dc59958a77d600b82f7ce7e14ed",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "8beca073a9c60130d449b6ce6bffe67e4355daf1e0b48def274e60fb2b42b7b0",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_calculate_pool_size_end_to_end": {
+      "hash": "d676cda4b4b9ef2e4828069015fb7024e93600d3b735264a422642c5375d1c25",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_config_end_to_end": {
+      "hash": "095e58e16a5ffc162ac8dd8bfbfc88efa2460eca6ee733c9d9d189a6a92c6db9",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "cc36831028b0cbd34c8a2c87bb8ac79495c7412100837661d49ee2c5522cd8c7",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_missing_required_instances_arg_exits": {
+      "hash": "8da3a2edc0d70402ae6dbb1a481cc8d6c5bb63c7c9a58b46d6801dd02f46f61b",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_missing_required_pool_size_arg_exits": {
+      "hash": "4c7c7a3c94ecd69ed62269859f204151021bed01df5786633d3e2ddd5d47ae5d",
+      "asserts": 0
+    },
+    "test_tool.py::test_calculate_pool_size_reserved_default_is_five": {
+      "hash": "69d581e16702ed110699e83ea31328e28605d19a37893249e17058253011dd89",
+      "asserts": 1
+    },
+    "test_tool.py::test_calculate_pool_size_available_floors_at_num_instances_when_budget_too_small": {
+      "hash": "f12ca9b41c9278702204a00e72be45ce89ae99fbed953f700782cebec8a81b5d",
+      "asserts": 3
+    },
+    "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint": {
+      "hash": "664a5bd273e3a737b0aca491471373958c8341a4a4800cf61e984c7e42825e51",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_missing_required_max_overflow_arg_exits": {
+      "hash": "77e4ebd214d48e355973e57262a69951f439fe7e8af5d652712b5922bb5597a5",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_missing_required_db_max_connections_arg_exits": {
+      "hash": "69baf0abf89bebd25694a2e0a72206dabff88c971f99c7f3f9a55978c2529130",
+      "asserts": 0
     }
   },
-  "coverage_pct": 30.0
+  "coverage_pct": 97.0,
+  "mutation_score": 0.923
 }

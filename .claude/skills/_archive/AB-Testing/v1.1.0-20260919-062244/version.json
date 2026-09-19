@@ -1,0 +1,51 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113128",
+      "reason": "Replaced TODO stub with real deterministic hash-based variant bucketing + two-proportion z-test significance check + 6 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_assign_variant_distributes_across_variants_for_many_users",
+        "test_tool.py::test_assign_variant_is_deterministic_for_same_user",
+        "test_tool.py::test_assign_variant_rejects_split_not_summing_to_one",
+        "test_tool.py::test_check_significance_detects_clear_lift",
+        "test_tool.py::test_check_significance_rejects_noise_level_difference",
+        "test_tool.py::test_check_significance_reports_conversion_rates"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_assign_variant_is_deterministic_for_same_user": {
+      "hash": "839df9429fc6a6c8bf9d0afd3a1592d75c0b689ecbe0897dc5a03767152645fd",
+      "asserts": 1
+    },
+    "test_tool.py::test_assign_variant_distributes_across_variants_for_many_users": {
+      "hash": "7fef359e70a8109db6e4aba3d081ac9d972295357ecf6f9c59d9c5c75df674ff",
+      "asserts": 2
+    },
+    "test_tool.py::test_assign_variant_rejects_split_not_summing_to_one": {
+      "hash": "4d179a09eda9556a87ac6e747e13aa8e67c5fd9ae8b72ee0837f014b4cb5d5dd",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_significance_detects_clear_lift": {
+      "hash": "1a2a33d4434c71daf99e8ff76b8f7297e88a2669f1caa37518a49ac3df2103e7",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_significance_rejects_noise_level_difference": {
+      "hash": "170c85b57631012ea2d6f9c19e3643bff804c0d7c6449660964f74846084d55e",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_significance_reports_conversion_rates": {
+      "hash": "d520d124ecc91737a20f522f18b1213b2e004f9624174494fc13bf33ab8ad7f4",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 37.0
+}

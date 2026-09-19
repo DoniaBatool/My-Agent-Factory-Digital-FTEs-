@@ -80,3 +80,128 @@ def test_scoped_conversations_for_user_filters_correctly():
     conversations = [{"id": "c1", "user_id": "u1"}, {"id": "c2", "user_id": "u2"}]
     result = tool.scoped_conversations_for_user(conversations, "u1")
     assert [c["id"] for c in result] == ["c1"]
+
+# --- edge cases + CLI layer (added for bulletproofing pass) ---
+import sys as _sys
+
+
+class _Args:
+    def __init__(self, **kw):
+        self.__dict__.update(kw)
+
+
+def test_print_success_writes_checkmark_and_message(capsys):
+    tool.print_success("saved conversation")
+    out = capsys.readouterr().out
+    assert "saved conversation" in out
+    assert "✓" in out
+
+
+def test_print_error_writes_cross_and_message(capsys):
+    tool.print_error("delete failed")
+    out = capsys.readouterr().out
+    assert "delete failed" in out
+    assert "✗" in out
+
+
+def test_latest_message_preview_exact_boundary_length_not_truncated():
+    messages = [{"content": "x" * 80}]
+    preview = tool.latest_message_preview(messages, max_len=80)
+    assert preview == "x" * 80
+    assert not preview.endswith("…")
+
+
+def test_latest_message_preview_collapses_internal_whitespace():
+    messages = [{"content": "hello   \n\n  world"}]
+    assert tool.latest_message_preview(messages) == "hello world"
+
+
+def test_build_conversation_list_falls_back_to_conv_created_at_when_no_messages():
+    conversations = [{"id": "c1", "created_at": "2026-03-01T00:00:00"}]
+    result = tool.build_conversation_list(conversations, {})
+    assert result[0]["last_activity_at"] == "2026-03-01T00:00:00"
+    assert result[0]["message_count"] == 0
+    assert result[0]["preview"] == ""
+
+
+def test_paginate_messages_rejects_non_positive_limit():
+    with pytest.raises(ValueError):
+        tool.paginate_messages([{"id": "1"}], limit=0)
+
+
+def test_paginate_messages_returns_full_list_when_limit_exceeds_length():
+    messages = [{"id": str(i)} for i in range(3)]
+    page = tool.paginate_messages(messages, limit=10)
+    assert len(page["messages"]) == 3
+    assert page["has_more"] is False
+
+
+def test_paginate_messages_before_earliest_id_returns_empty_page_no_more():
+    messages = [{"id": str(i)} for i in range(5)]
+    page = tool.paginate_messages(messages, limit=2, before_id="0")
+    assert page["messages"] == []
+    assert page["has_more"] is False
+
+
+def test_cascade_delete_plan_no_matches_returns_empty():
+    messages = [{"id": "m1", "conversation_id": "other"}]
+    plan = tool.cascade_delete_plan("c1", messages)
+    assert plan["delete_message_ids"] == []
+    assert plan["count"] == 0
+
+
+def test_scoped_conversations_for_user_excludes_missing_user_id_key():
+    conversations = [{"id": "c1"}, {"id": "c2", "user_id": "u1"}]
+    result = tool.scoped_conversations_for_user(conversations, "u1")
+    assert [c["id"] for c in result] == ["c2"]
+
+
+def test_cmd_test_forwards_pytest_returncode_and_invokes_subprocess(monkeypatch):
+    calls = {}
+
+    class _FakeCompleted:
+        def __init__(self, returncode):
+            self.returncode = returncode
+
+    def _fake_run(cmd, *a, **kw):
+        calls["cmd"] = cmd
+        return _FakeCompleted(0)
+
+    import subprocess as _subprocess_mod
+    monkeypatch.setattr(_subprocess_mod, "run", _fake_run)
+    rc = tool.cmd_test(_Args())
+    assert rc == 0
+    assert calls["cmd"][0] == _sys.executable
+    assert "-m" in calls["cmd"] and "pytest" in calls["cmd"]
+    assert "--import-mode=importlib" in calls["cmd"]
+
+
+def test_cmd_test_forwards_nonzero_returncode_on_failure(monkeypatch):
+    class _FakeCompleted:
+        def __init__(self, returncode):
+            self.returncode = returncode
+
+    import subprocess as _subprocess_mod
+    monkeypatch.setattr(_subprocess_mod, "run", lambda cmd, *a, **kw: _FakeCompleted(1))
+    rc = tool.cmd_test(_Args())
+    assert rc == 1
+
+
+def test_main_requires_command_argument_and_exits(monkeypatch):
+    monkeypatch.setattr(_sys, "argv", ["tool.py"])
+    with pytest.raises(SystemExit):
+        tool.main()
+
+
+def test_main_dispatches_test_command_and_propagates_returncode(monkeypatch):
+    monkeypatch.setattr(tool, "cmd_test", lambda args: 42)
+    monkeypatch.setattr(_sys, "argv", ["tool.py", "test"])
+    with pytest.raises(SystemExit) as exc_info:
+        tool.main()
+    assert exc_info.value.code == 42
+
+
+def test_main_rejects_unknown_command(monkeypatch):
+    monkeypatch.setattr(_sys, "argv", ["tool.py", "bogus-command"])
+    with pytest.raises(SystemExit):
+        tool.main()

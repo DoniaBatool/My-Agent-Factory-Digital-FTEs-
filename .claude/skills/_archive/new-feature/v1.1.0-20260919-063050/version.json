@@ -1,0 +1,56 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-111156",
+      "reason": "Replaced TODO stub with real spec/plan/tasks scaffolding + acceptance-criteria parsing + 7 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_parse_acceptance_criteria_falls_back_to_sentences",
+        "test_tool.py::test_parse_acceptance_criteria_from_bullets",
+        "test_tool.py::test_parse_acceptance_criteria_from_numbered_list",
+        "test_tool.py::test_parse_acceptance_criteria_never_empty_for_nonempty_description",
+        "test_tool.py::test_scaffold_feature_creates_three_files",
+        "test_tool.py::test_scaffold_feature_slugifies_folder_name",
+        "test_tool.py::test_scaffold_feature_tasks_mirror_acceptance_criteria"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_parse_acceptance_criteria_from_bullets": {
+      "hash": "00df9683a46636c8a7eb3c020d1d64b433c6d33ab4c6519ac5e5774234eb2efa",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_acceptance_criteria_from_numbered_list": {
+      "hash": "b954e64f28649a4ee0f25f6c91c4c0d1d16f4ec0c95c661c0bce989668522572",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_acceptance_criteria_falls_back_to_sentences": {
+      "hash": "632cfd15f27d32e62f2972cbc5caca8b58423840e789e1fb8c2a5bfaa6548a82",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_acceptance_criteria_never_empty_for_nonempty_description": {
+      "hash": "90b0280b5b9a4baf2e07d81dde7db79453f3ac099419e836af1d5f0f1984db0c",
+      "asserts": 1
+    },
+    "test_tool.py::test_scaffold_feature_creates_three_files": {
+      "hash": "649c5b3915e2b4d0959d589232bba623592f6b7724feff85aa6bf1d91f662b78",
+      "asserts": 3
+    },
+    "test_tool.py::test_scaffold_feature_slugifies_folder_name": {
+      "hash": "08a14fee13dabfa55c57acc17532819ca7509b0d5dd2c2137415ef92628131e2",
+      "asserts": 1
+    },
+    "test_tool.py::test_scaffold_feature_tasks_mirror_acceptance_criteria": {
+      "hash": "71cac946569233afc377c08e510365564bef56bd69d1d28a72037c38d1ae812e",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 44.0
+}

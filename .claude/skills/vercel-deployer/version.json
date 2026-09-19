@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -25,6 +25,48 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062907",
+      "reason": "Bulletproofing pass: added 21 new tests covering vercel.json validation gaps (routes/env type checks, version boundaries 1 and 3, multi-error accumulation, empty config), env-var diff empty-input case, generate_deploy_command's default/env-file/empty-name paths, check_build_output_dir for all remaining frameworks plus exact-match vs partial-prefix distinction, domain-name edge cases (leading/trailing dot, leading/trailing hyphen in a label), print_success/print_error output, cmd_test's subprocess construction (mocked to avoid recursive pytest spawn), main() dispatch/required-subcommand enforcement, and a subprocess smoke test hitting the __main__ guard. Coverage 75%->97%, mutation score measured at 100% (6/6 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_env_var_diff_detects_add_remove_update",
+        "test_tool.py::test_build_env_var_diff_detects_removal",
+        "test_tool.py::test_check_build_output_dir_detects_nextjs_output",
+        "test_tool.py::test_check_build_output_dir_missing_output",
+        "test_tool.py::test_check_build_output_dir_rejects_unknown_framework",
+        "test_tool.py::test_generate_deploy_command_prod_flag",
+        "test_tool.py::test_generate_deploy_command_rejects_bad_project_name",
+        "test_tool.py::test_parse_vercel_json_accepts_valid_config",
+        "test_tool.py::test_parse_vercel_json_rejects_bad_version",
+        "test_tool.py::test_parse_vercel_json_rejects_non_list_builds",
+        "test_tool.py::test_validate_domain_name_accepts_valid",
+        "test_tool.py::test_validate_domain_name_rejects_invalid"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_env_var_diff_empty_dicts_produce_empty_diff",
+        "test_tool.py::test_check_build_output_dir_detects_vite_cra_and_static",
+        "test_tool.py::test_check_build_output_dir_does_not_match_partial_prefix",
+        "test_tool.py::test_check_build_output_dir_exact_match_without_trailing_slash",
+        "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args_and_returns_its_code",
+        "test_tool.py::test_generate_deploy_command_default_has_no_prod_or_env_flag",
+        "test_tool.py::test_generate_deploy_command_includes_env_file_flag",
+        "test_tool.py::test_generate_deploy_command_rejects_empty_project_name",
+        "test_tool.py::test_main_missing_command_is_required_and_exits",
+        "test_tool.py::test_main_test_command_dispatches_via_func_and_exits_with_code",
+        "test_tool.py::test_parse_vercel_json_accepts_version_boundaries_1_and_3",
+        "test_tool.py::test_parse_vercel_json_accumulates_all_errors_at_once",
+        "test_tool.py::test_parse_vercel_json_empty_config_has_no_errors",
+        "test_tool.py::test_parse_vercel_json_rejects_non_dict_env",
+        "test_tool.py::test_parse_vercel_json_rejects_non_list_routes",
+        "test_tool.py::test_print_error_outputs_cross_and_message",
+        "test_tool.py::test_print_success_outputs_checkmark_and_message",
+        "test_tool.py::test_subprocess_no_args_hits_main_guard_and_exits_nonzero",
+        "test_tool.py::test_validate_domain_name_rejects_label_with_leading_hyphen",
+        "test_tool.py::test_validate_domain_name_rejects_label_with_trailing_hyphen",
+        "test_tool.py::test_validate_domain_name_rejects_leading_or_trailing_dot"
+      ]
     }
   ],
   "test_baseline": {
@@ -75,7 +117,92 @@
     "test_tool.py::test_validate_domain_name_rejects_invalid": {
       "hash": "9340f866176a37fa338832effab151181d1440557b594c8c05632352180550c4",
       "asserts": 2
+    },
+    "test_tool.py::test_parse_vercel_json_rejects_non_list_routes": {
+      "hash": "b5056ced9b086d79db06ee9cde3da01226f7b06c08f8d44d900f2d0a8b187b2f",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_vercel_json_rejects_non_dict_env": {
+      "hash": "67834ff8ae024ed89ea9024f7aa46d8651050cc2b52f3335d857f75eb7d2c319",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_vercel_json_accepts_version_boundaries_1_and_3": {
+      "hash": "162a5e13dbdc3986a459b4c20ec49afc13e241aae262e180f91d7cec71580f73",
+      "asserts": 2
+    },
+    "test_tool.py::test_parse_vercel_json_accumulates_all_errors_at_once": {
+      "hash": "b7ed23f85066f0a7c8f656c866e177b85180b8cf72a26b0aa7a39e6ad4dda1a2",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_vercel_json_empty_config_has_no_errors": {
+      "hash": "420223de00a358b833b533f8007fee566e5b116df14a54f98f014f577e7b70be",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_env_var_diff_empty_dicts_produce_empty_diff": {
+      "hash": "50092676726c735b5baec58bb82ae3184f7f730187f09e6ccda12e16cfefbf58",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_deploy_command_default_has_no_prod_or_env_flag": {
+      "hash": "7e1208a4eaf393993c8776b43282b6390bb4d4ed7b3dc37ffeac8bd954cb6010",
+      "asserts": 3
+    },
+    "test_tool.py::test_generate_deploy_command_includes_env_file_flag": {
+      "hash": "273cf7fefb58d17d7653182860bcd9c7a0973e8e62d36fe5673d0f8b23e66e99",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_deploy_command_rejects_empty_project_name": {
+      "hash": "753fba615e9c6e516dfd17d8ac376bc4d7782458f72123ec68337017679d321f",
+      "asserts": 0
+    },
+    "test_tool.py::test_check_build_output_dir_detects_vite_cra_and_static": {
+      "hash": "5d85a60ea93a92f71a58ede9a716b550af85aa72223d0a29390c14e83a743c7d",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_build_output_dir_exact_match_without_trailing_slash": {
+      "hash": "daca2663f081a9dd6aba2b8a392ac284ddd75eead7a7de354ffa40ec31a51148",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_build_output_dir_does_not_match_partial_prefix": {
+      "hash": "0279179868f25962036261d78cc97e03ff747bfdba3addfd420240d7329a3ebe",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_domain_name_rejects_leading_or_trailing_dot": {
+      "hash": "a133bcca3416b8d8e3132c94374bdb7f0c7a340557528241f5aec80c72d19f8d",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_domain_name_rejects_label_with_trailing_hyphen": {
+      "hash": "b7410576087977d9b377f2072b6c84b47e09c98e245b4e4037f9d3c54582415a",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_domain_name_rejects_label_with_leading_hyphen": {
+      "hash": "50beed94973fc68aab32eae650e460de3d69af0c02e31c1209496b1d5a1846fa",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_success_outputs_checkmark_and_message": {
+      "hash": "2d8ae6670944eb6ffbd6167e6dbd7bc2b68ecf166f74c08d4765f668adf131f8",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_outputs_cross_and_message": {
+      "hash": "f47d421622f88d5ec5f3059f7663cdad517a0a07b6b138645af5938b86a49dab",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args_and_returns_its_code": {
+      "hash": "a097efb6c0a4e80f79e2eac6564121b24b3bed5cafbd76dbf59f1ac1e82401f8",
+      "asserts": 5
+    },
+    "test_tool.py::test_main_test_command_dispatches_via_func_and_exits_with_code": {
+      "hash": "453326bd50a4e273a512186feff6cd7780db15f457c1f83080857bb9c04a0ffb",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_missing_command_is_required_and_exits": {
+      "hash": "e149abba2f1b681c0e2cee0125c6c0ef4c04adaa8437fd3cd75575dc725b0c4d",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_no_args_hits_main_guard_and_exits_nonzero": {
+      "hash": "828ba5ce4308c4df820fed08264f18a295494b193cd086e94c4075b368b2977c",
+      "asserts": 2
     }
   },
-  "coverage_pct": 75.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

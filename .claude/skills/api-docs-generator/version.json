@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -19,6 +19,42 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062519",
+      "reason": "Bulletproofing pass: added 21 new tests covering CLI layer (cmd_extract_routes, cmd_generate_docs with/without --output, cmd_test, main dispatch table via sys.argv), required positional-arg enforcement (SystemExit for both subcommands), regex boundary correctness (handler found at the last line the 5-line search window checks, missed just past it, double-quoted decorators, sync def, patch method), the handler=None / '(unknown)' rendering path, empty-routes doc generation, and file-not-found / missing-file error propagation, plus a subprocess smoke test exercising the __main__ guard. Coverage 44%->99%, mutation score measured at 100% (3/3 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_extract_routes_captures_method_and_path",
+        "test_tool.py::test_extract_routes_empty_source_returns_empty_list",
+        "test_tool.py::test_extract_routes_finds_all_three_routes",
+        "test_tool.py::test_extract_routes_handles_path_params",
+        "test_tool.py::test_extract_routes_pairs_decorator_with_handler_name",
+        "test_tool.py::test_generate_markdown_docs_produces_table_with_all_routes"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_cmd_extract_routes_missing_file_raises_file_not_found",
+        "test_tool.py::test_cmd_extract_routes_returns_one_when_no_routes_found",
+        "test_tool.py::test_cmd_extract_routes_returns_zero_when_routes_found",
+        "test_tool.py::test_cmd_generate_docs_with_output_writes_file_and_reports_count",
+        "test_tool.py::test_cmd_generate_docs_without_output_prints_docs",
+        "test_tool.py::test_cmd_test_returns_zero_and_prints_pass",
+        "test_tool.py::test_extract_routes_finds_handler_at_boundary_of_search_window",
+        "test_tool.py::test_extract_routes_handler_none_when_no_def_follows",
+        "test_tool.py::test_extract_routes_misses_handler_just_outside_search_window",
+        "test_tool.py::test_extract_routes_supports_double_quoted_decorator",
+        "test_tool.py::test_extract_routes_supports_patch_method",
+        "test_tool.py::test_extract_routes_supports_sync_def",
+        "test_tool.py::test_generate_markdown_docs_empty_routes_still_has_header",
+        "test_tool.py::test_generate_markdown_docs_shows_unknown_for_missing_handler",
+        "test_tool.py::test_main_dispatches_extract_routes_end_to_end",
+        "test_tool.py::test_main_dispatches_generate_docs_end_to_end",
+        "test_tool.py::test_main_dispatches_test_subcommand_end_to_end",
+        "test_tool.py::test_main_extract_routes_missing_positional_path_exits",
+        "test_tool.py::test_main_generate_docs_missing_positional_path_exits",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_one",
+        "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard"
+      ]
     }
   ],
   "test_baseline": {
@@ -45,7 +81,92 @@
     "test_tool.py::test_generate_markdown_docs_produces_table_with_all_routes": {
       "hash": "da776e578e2383fcc6eb04ea4759cbcf6095937c055d1572f9d05070f76bd166",
       "asserts": 4
+    },
+    "test_tool.py::test_extract_routes_handler_none_when_no_def_follows": {
+      "hash": "8d97d535b2b81aca2b65d680dac7941bd4284fa9f154db97fb0f1885459842ba",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_routes_finds_handler_at_boundary_of_search_window": {
+      "hash": "bd8f7748c01599a29503087cdde848844bbaf073a20875529bfee1b1b7097696",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_routes_misses_handler_just_outside_search_window": {
+      "hash": "69296be82d0c8fefbec705c77e6ad08e4aca39638caff9611f70a52bb19a984f",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_routes_supports_double_quoted_decorator": {
+      "hash": "0c13420ae2f33a54c633fc971b75328c39d38bb5b565750b4b418c8be55c026a",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_routes_supports_sync_def": {
+      "hash": "2463d4ed69279e0f92b5998500894cbec99f5d73e62f81ef23c7bead41e5b705",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_routes_supports_patch_method": {
+      "hash": "9cb8c5a59a774448f0a3344161e67cd2e34612d89090568081ac4dbc3c5dd0cd",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_markdown_docs_shows_unknown_for_missing_handler": {
+      "hash": "6e96f11c6330d6748270394ed03eb485f0691495b7406a9ba4340f42fe266333",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_markdown_docs_empty_routes_still_has_header": {
+      "hash": "3641526bd5ea1cf3921348c5167b5ab90a766e5716e94ef36504a1da26cca0fe",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_extract_routes_returns_zero_when_routes_found": {
+      "hash": "20d1040cf9d1b9c04a190ffb2dbefa1abe02264563a445a8e99e86cac73685c2",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_extract_routes_returns_one_when_no_routes_found": {
+      "hash": "0bc9f8f5f4093c360b308711d926f2a13aa9be67567324200639a19d8a79af01",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_extract_routes_missing_file_raises_file_not_found": {
+      "hash": "5a9b959686a4ba03b6fb55ff8f67417b43fa3c403d1b945d0bbdf9e8cbb2c23a",
+      "asserts": 0
+    },
+    "test_tool.py::test_cmd_generate_docs_without_output_prints_docs": {
+      "hash": "79512458a77323c4a7c1ead2e2a4aaa7178a60bf31f62cabd35aad850f21a4c6",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_generate_docs_with_output_writes_file_and_reports_count": {
+      "hash": "8865a607e1691eb27f2506a2ef9b68d18de0718dc94638ae8840c9a5cfedaf5e",
+      "asserts": 5
+    },
+    "test_tool.py::test_cmd_test_returns_zero_and_prints_pass": {
+      "hash": "c86f0c924f1ac2c98cefa7c02c277c511e56abb5c377741a876e354f18cf0d16",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_extract_routes_end_to_end": {
+      "hash": "cc9fd98674726de9fcdcb7f2b47e463f2517ac66b8fbffca773a56d827b00904",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_generate_docs_end_to_end": {
+      "hash": "e0a7240bb1b8a0681ccee0d6dcab1dc27389ac1b6ae953f26f38bcf6dafd1d6d",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_subcommand_end_to_end": {
+      "hash": "ed908d98c7e17a25365f68d147fbaa0043c7a8401ea3a7f81ebe756f76398519",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_one": {
+      "hash": "a9e22a653ae0322d4a9142b2bde6de71e4492216e7dcbf95656222f3fc890298",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_extract_routes_missing_positional_path_exits": {
+      "hash": "9fff8475cb6a66686371d998dbeb3991e9da39c5c32fd635fc1eb8ca0c62afac",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_generate_docs_missing_positional_path_exits": {
+      "hash": "e0f3ceef39dff594b99cb7ecef0b0f529b5d51549ad3fb4268a854a7948d673b",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_smoke_runs_as_script_and_exercises_main_guard": {
+      "hash": "edf44b9ed06e754f505ee40947403a7bd818954d8ae7b25bebc2277cf5562fc0",
+      "asserts": 2
     }
   },
-  "coverage_pct": 44.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -18,6 +18,40 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063635",
+      "reason": "Bulletproofing pass: added 20 new tests covering CLI layer (cmd_build_sdl, cmd_check_n_plus_one, cmd_test, main dispatch), required-arg enforcement (missing --types, missing --query-fields, missing path positional), malformed JSON input to build-sdl, N+1 regex edge cases (case sensitivity, query/fetch verbs beyond get, word-boundary matching of get_by_id-style names, and the real greedy-body-capture behavior that merges vs separates adjacent for-loops), empty-fields SDL generation, and a subprocess smoke test exercising the __main__ guard. Coverage 40%->97% (only __main__ guard line unreachable in-process). Mutation score measured at 100% (5/5 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_schema_sdl_includes_all_types_and_query",
+        "test_tool.py::test_build_type_sdl_produces_valid_shape",
+        "test_tool.py::test_check_n_plus_one_clean_for_batched_query",
+        "test_tool.py::test_check_n_plus_one_detects_service_call_in_loop",
+        "test_tool.py::test_check_n_plus_one_ignores_loop_without_service_call"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_schema_sdl_multiple_types_and_empty_query_fields",
+        "test_tool.py::test_build_type_sdl_empty_fields_produces_empty_body",
+        "test_tool.py::test_check_n_plus_one_adjacent_same_indent_loops_merge_into_one_match",
+        "test_tool.py::test_check_n_plus_one_detects_multiple_separate_loops",
+        "test_tool.py::test_check_n_plus_one_is_case_sensitive_uppercase_call_not_flagged",
+        "test_tool.py::test_check_n_plus_one_matches_query_and_fetch_verbs_too",
+        "test_tool.py::test_check_n_plus_one_word_boundary_getxyz_still_matches_get_prefix",
+        "test_tool.py::test_cmd_build_sdl_malformed_types_json_raises",
+        "test_tool.py::test_cmd_build_sdl_prints_schema_and_returns_0",
+        "test_tool.py::test_cmd_check_n_plus_one_clean_file_returns_0",
+        "test_tool.py::test_cmd_check_n_plus_one_reports_findings_and_returns_1",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_main_build_sdl_end_to_end",
+        "test_tool.py::test_main_build_sdl_missing_required_query_fields_raises_systemexit",
+        "test_tool.py::test_main_build_sdl_missing_required_types_raises_systemexit",
+        "test_tool.py::test_main_check_n_plus_one_end_to_end",
+        "test_tool.py::test_main_check_n_plus_one_missing_positional_path_raises_systemexit",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard"
+      ]
     }
   ],
   "test_baseline": {
@@ -40,7 +74,88 @@
     "test_tool.py::test_check_n_plus_one_ignores_loop_without_service_call": {
       "hash": "9146724cd8099a50fa7649c55d0bc0762763581290a8b04d18a22f36a2f54c2a",
       "asserts": 1
+    },
+    "test_tool.py::test_build_type_sdl_empty_fields_produces_empty_body": {
+      "hash": "a3ccda39eecbe6422183a5c6bb073d24009fc781c6497983cba2dab24f2f2063",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_schema_sdl_multiple_types_and_empty_query_fields": {
+      "hash": "51f11b04363020e60bdd1bcc7827ed6df948c8f157c4bc49d28c4a1a1b630ad8",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_n_plus_one_is_case_sensitive_uppercase_call_not_flagged": {
+      "hash": "cedd602d87fafbdb311227f549145a1082724cd1d02696bf671fef091537081a",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_n_plus_one_matches_query_and_fetch_verbs_too": {
+      "hash": "6026ee3260b14ed84ede4bc324d7afe401b7375a4802594712447082953ac433",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_n_plus_one_detects_multiple_separate_loops": {
+      "hash": "60a5893b135418c6d3f9cbe72dc45eaf093943dad9955a54019974ce5541be26",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_n_plus_one_adjacent_same_indent_loops_merge_into_one_match": {
+      "hash": "0790e4abc45d88da0a1b202dc3adfb5714de7f0b707a0ed2f3d9536a7861a10d",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_n_plus_one_word_boundary_getxyz_still_matches_get_prefix": {
+      "hash": "af34ec5d35d00aeaa112e83aee72bd24cb9911ee73d9e9436bddf51572341460",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_build_sdl_prints_schema_and_returns_0": {
+      "hash": "b744c241eddd4accae73d7f418c26e0ea2e44e4639d01fb284290a9ba420559f",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_build_sdl_malformed_types_json_raises": {
+      "hash": "a8232f86438e804ec91f0d78ec395369479d937395bf621ea1d3a9078f6c7eab",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_check_n_plus_one_reports_findings_and_returns_1": {
+      "hash": "ba4d335aaf6ab950ec0ec262f32231b9e8a8a474ad0f330375192135822abc9b",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_n_plus_one_clean_file_returns_0": {
+      "hash": "c5392a32f62cd299db7f4cda269fd6b4070682d6af31658446ec575a28f164b4",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "4ee2c27b56baa69f4aabd845de7c2da65c8442ed865df2e7453027aeb9744dfe",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "20a91560641d7e5a098c20451bcbbd1939086de848a1de7141bf6f8426e1d7d3",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_build_sdl_end_to_end": {
+      "hash": "0c5b68be07b7007346b0bb9f55548ddaa86713884ef64cc04fb736ef7eb0c5a9",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_check_n_plus_one_end_to_end": {
+      "hash": "01d7960c6eba50e2af07d5cc45d579acd9fb6d2f18971748b634d56aa453a42b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "83a16bb1a4a0805e120e0b4270225483cf2b74b29b3a3c3f1ba02b1536d88232",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_build_sdl_missing_required_types_raises_systemexit": {
+      "hash": "411f00b0c1bcb1d7071546acaeb6c6baedfb9c697acd352874b12ea5330d18c0",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_build_sdl_missing_required_query_fields_raises_systemexit": {
+      "hash": "1959533899157cc270c0dcb8de181db61a8c56099667b89be225e2d493f64ac2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_check_n_plus_one_missing_positional_path_raises_systemexit": {
+      "hash": "a27f29ea603356ba2c494bfd88e32c123c5ae72ce0762b1249441c28ba722b91",
+      "asserts": 2
+    },
+    "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard": {
+      "hash": "cd744b21af40939f7153d24fc1393e88ad14d6ae7740a2a68283680b6908cf5a",
+      "asserts": 2
     }
   },
-  "coverage_pct": 40.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

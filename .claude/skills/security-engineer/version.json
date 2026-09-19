@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -22,6 +22,49 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063910",
+      "reason": "Bulletproofing pass: added 25 new tests covering scan_secrets masking boundary (exact 6-char match vs 7-char truncation via monkeypatched pattern set), multiple secret categories on one line, correct line-number tracking across repeated matches, check_headers partial-missing case, build_threat_model matching via entry-point keyword alone vs asset keyword alone vs no match, the CLI layer (every cmd_* function called directly and via main() end-to-end dispatch, malformed-JSON handling in check-headers), required-argument enforcement (SystemExit when path/--headers/--assets/--entry-points are omitted), cmd_test's self-test failure branch, and a subprocess __main__ smoke test. Coverage 43%->98% (only the __main__ guard line remains, by design). Mutation score measured at 100% (9/9 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_threat_model_pairs_matching_entry_and_asset",
+        "test_tool.py::test_check_headers_case_insensitive_match",
+        "test_tool.py::test_check_headers_flags_all_missing",
+        "test_tool.py::test_owasp_top10_has_ten_categories",
+        "test_tool.py::test_scan_secrets_clean_text_has_no_findings",
+        "test_tool.py::test_scan_secrets_finds_aws_key",
+        "test_tool.py::test_scan_secrets_finds_private_key_block",
+        "test_tool.py::test_scan_secrets_masks_the_actual_secret_value",
+        "test_tool.py::test_scan_secrets_reports_correct_line_number"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_threat_model_matches_via_entry_point_keyword_alone",
+        "test_tool.py::test_build_threat_model_no_keyword_match_returns_empty_list",
+        "test_tool.py::test_check_headers_partial_missing",
+        "test_tool.py::test_cmd_check_headers_all_present_returns_0",
+        "test_tool.py::test_cmd_check_headers_malformed_json_raises",
+        "test_tool.py::test_cmd_check_headers_missing_returns_1",
+        "test_tool.py::test_cmd_scan_secrets_returns_0_for_clean_file",
+        "test_tool.py::test_cmd_scan_secrets_returns_1_and_lists_findings",
+        "test_tool.py::test_cmd_test_reports_fail_when_scan_secrets_broken",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_cmd_threat_model_splits_comma_separated_args",
+        "test_tool.py::test_main_check_headers_end_to_end",
+        "test_tool.py::test_main_check_headers_requires_headers_flag",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_scan_secrets_end_to_end",
+        "test_tool.py::test_main_scan_secrets_requires_path_positional",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_main_threat_model_end_to_end",
+        "test_tool.py::test_main_threat_model_requires_assets_flag",
+        "test_tool.py::test_main_threat_model_requires_entry_points_flag",
+        "test_tool.py::test_scan_secrets_masks_exact_six_char_match_with_asterisks",
+        "test_tool.py::test_scan_secrets_masks_seven_char_match_with_truncation",
+        "test_tool.py::test_scan_secrets_multiple_categories_on_same_line",
+        "test_tool.py::test_scan_secrets_tracks_line_numbers_for_multiple_occurrences",
+        "test_tool.py::test_script_runs_as_main_via_subprocess"
+      ]
     }
   ],
   "test_baseline": {
@@ -60,7 +103,108 @@
     "test_tool.py::test_owasp_top10_has_ten_categories": {
       "hash": "30887e8d5aac0f32844b4ec96df2899b9bc3da8e0bd580fa32fefcce17d0fbe7",
       "asserts": 1
+    },
+    "test_tool.py::test_scan_secrets_masks_exact_six_char_match_with_asterisks": {
+      "hash": "18f16c9290a1ad76f337eeb2edfb7e948a2ec091c7180fdb4a87bab3128fa086",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_secrets_masks_seven_char_match_with_truncation": {
+      "hash": "b0e3e90797eac142d22fa2fae4fab67e87678d5b3a0334e721a1be0a37c22c0b",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_secrets_multiple_categories_on_same_line": {
+      "hash": "13191d91bbfac1a61da180a272aab6d4de20019f88f0d680b2c5901b8f0f81d7",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_secrets_tracks_line_numbers_for_multiple_occurrences": {
+      "hash": "084bd55392ecca34b0d5edf6718f92417de9ea4f55fd3f4a3893d06a4d48de0e",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_headers_partial_missing": {
+      "hash": "bb499c24856664f649cc17d99901d78412b861cf0d22e316a3c969d96b5d0ded",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_threat_model_matches_via_entry_point_keyword_alone": {
+      "hash": "63c8d59c3dd26ba6bdd86ce981fd8fcc5411834e933a7a0659a45d05bceffda1",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_threat_model_no_keyword_match_returns_empty_list": {
+      "hash": "993edb5e69a7d578d11a2fd18e4547febbfae131479517a90a1de06ff128d830",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_scan_secrets_returns_0_for_clean_file": {
+      "hash": "4cc3f2bfa60d6ddc81af415a1c8c68a512b5c2068d0eb9ccb0ec9d6e9c51711f",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_scan_secrets_returns_1_and_lists_findings": {
+      "hash": "bfc5d99569135c23d36ee533054463ed747f696fd754bfadc402a2ad4244f022",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_headers_all_present_returns_0": {
+      "hash": "ea3804a30785850d7ccd20faf91f930ecfffa154455cde348019f37b80420aba",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_headers_missing_returns_1": {
+      "hash": "6f9eb376ee92828e20ac90b81560a1ea2b8bda24ea868c0cc9461893f5d9716c",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_check_headers_malformed_json_raises": {
+      "hash": "7fcb63380498937669cfbea99c8939065e1588a93bdf35f889967d7a8885f7a0",
+      "asserts": 0
+    },
+    "test_tool.py::test_cmd_threat_model_splits_comma_separated_args": {
+      "hash": "afc9f77282e8ff124b0d7235d998492282d417e2a5e68c19097c87a5d0ab6f92",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5dcce7724a5df43b97459412d0dd8aa978488dc59958a77d600b82f7ce7e14ed",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_reports_fail_when_scan_secrets_broken": {
+      "hash": "63062e901c8c8ad646cf8bb4820f30c52167f329f3d6607a6e60cf3757a6fee2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "679c69a61ac17b6620c1a0f4ed2b9184d69a81b851c9c2b0ed426513e1c11d25",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_scan_secrets_requires_path_positional": {
+      "hash": "8cdb4464d294cfe04d7d80afb62cebf304f5b16fe54cdfd5b1895dac1678153d",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_check_headers_requires_headers_flag": {
+      "hash": "7098bfedef45a89eceaf1a164b04d9730a977c717ae16b6d8742a7d155f7c2b5",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_threat_model_requires_assets_flag": {
+      "hash": "c1ee18fca7fc783ffa976b65fdc0d26b9060786dda88e39c1f4fbaa89d46b52b",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_threat_model_requires_entry_points_flag": {
+      "hash": "7ee92121edc64da6551c3156eb338de949d0ceef40a93fb63d107a98fab2a569",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_scan_secrets_end_to_end": {
+      "hash": "5b0bac82c1e00ae124addac2a4249ffd4ba142611f2554488c432cce69a8c57c",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_check_headers_end_to_end": {
+      "hash": "76ec9d22a617eaf5d270235bdaec87aa5583b8e348dde352826e7f879e37e71e",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_threat_model_end_to_end": {
+      "hash": "acc83b60957d289e005a33bf99e0aee81dc17f6eb893f874f9e4dcb2442bc40b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "e255d872217ad7f5e930e3868227616df2ff8b836c9f703e328bc259d78c4385",
+      "asserts": 2
+    },
+    "test_tool.py::test_script_runs_as_main_via_subprocess": {
+      "hash": "1e6ce91cb6840196178e9fddcbdf4631892c4a124626c9b0e634aa74a94b333e",
+      "asserts": 2
     }
   },
-  "coverage_pct": 43.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

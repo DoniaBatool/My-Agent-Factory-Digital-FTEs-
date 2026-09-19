@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -20,6 +20,41 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062316",
+      "reason": "Bulletproofing pass: added CLI layer tests (cmd_validate_schema, cmd_generate_stub, cmd_test), main() dispatch tests (no-command help path, end-to-end per subcommand via monkeypatched argv), required-arg enforcement (SystemExit for missing --schema/--name), edge cases (_py_type default mapping, no-properties schema, default description/idempotent fallback), and a subprocess smoke test exercising the __main__ guard. Coverage 49%->98%, mutation score measured at 100% (6/6 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_generate_tool_stub_notes_non_idempotency_when_specified",
+        "test_tool.py::test_generate_tool_stub_produces_typed_signature",
+        "test_tool.py::test_validate_tool_schema_flags_invalid_type",
+        "test_tool.py::test_validate_tool_schema_flags_missing_description",
+        "test_tool.py::test_validate_tool_schema_flags_missing_type",
+        "test_tool.py::test_validate_tool_schema_flags_required_field_not_declared",
+        "test_tool.py::test_validate_tool_schema_passes_well_formed_schema"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_cli_subprocess_smoke_test_bad_schema_exits_nonzero",
+        "test_tool.py::test_cli_subprocess_smoke_test_runs_main_guard",
+        "test_tool.py::test_cmd_generate_stub_idempotent_by_default",
+        "test_tool.py::test_cmd_generate_stub_not_idempotent_flag",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_cmd_validate_schema_prints_ok_and_returns_0_for_well_formed_schema",
+        "test_tool.py::test_cmd_validate_schema_prints_violations_and_returns_1_for_bad_schema",
+        "test_tool.py::test_generate_tool_stub_defaults_to_idempotent_true",
+        "test_tool.py::test_generate_tool_stub_uses_schema_description_when_present",
+        "test_tool.py::test_generate_tool_stub_uses_tool_name_when_no_description",
+        "test_tool.py::test_main_generate_stub_end_to_end",
+        "test_tool.py::test_main_generate_stub_missing_required_name_arg_exits",
+        "test_tool.py::test_main_test_subcommand_end_to_end",
+        "test_tool.py::test_main_validate_schema_end_to_end",
+        "test_tool.py::test_main_validate_schema_missing_required_schema_arg_exits",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_py_type_defaults_to_str_for_unknown_json_type",
+        "test_tool.py::test_py_type_maps_all_known_json_schema_types",
+        "test_tool.py::test_validate_tool_schema_flags_no_properties"
+      ]
     }
   ],
   "test_baseline": {
@@ -50,7 +85,84 @@
     "test_tool.py::test_generate_tool_stub_notes_non_idempotency_when_specified": {
       "hash": "f28071970114d0ad4e1ffe404ef0c2ffd6b8863fc7666cb1e4283bfe701819ba",
       "asserts": 1
+    },
+    "test_tool.py::test_validate_tool_schema_flags_no_properties": {
+      "hash": "56a24106496ff038b86b55b87afe4eeac5065b44ea926e0f52a0b756f8c97297",
+      "asserts": 1
+    },
+    "test_tool.py::test_py_type_defaults_to_str_for_unknown_json_type": {
+      "hash": "98b564cb8ba0709a550dc0bc683b1a7a5a93e8377270f95cf014032b864b77cb",
+      "asserts": 1
+    },
+    "test_tool.py::test_py_type_maps_all_known_json_schema_types": {
+      "hash": "d01088dfb9fa1e3e1f41bd98b34eec4f3961c4c549fd57510abd3ff1a7b5910e",
+      "asserts": 4
+    },
+    "test_tool.py::test_generate_tool_stub_uses_tool_name_when_no_description": {
+      "hash": "10ba91eb0a28aecee9cb61a2580147ba91ace154a19fefe822ab2647145d0f30",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_tool_stub_uses_schema_description_when_present": {
+      "hash": "b1e934c304a347a7d54d9a66f3ac35aeec3d07dcd8049f5b1e42b4a66d502c1f",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_tool_stub_defaults_to_idempotent_true": {
+      "hash": "606388530f3a1399ffccc56b772e5e167d0d6a7d08c5dfa5c68ec81f9f0ad569",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_validate_schema_prints_ok_and_returns_0_for_well_formed_schema": {
+      "hash": "b86c0817d00ac2063ef9db472fbe1597b3b13817cf0f9c3f696778b606d6ba3f",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_validate_schema_prints_violations_and_returns_1_for_bad_schema": {
+      "hash": "19250f025abae9319b5855c14cd81c4c57b97a3eb577f7db07efed6ccfab8bb0",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_generate_stub_idempotent_by_default": {
+      "hash": "f4507bdf4a2855927ebb543d59ee9013df820f9971e4edc3a5791fa4046ad18a",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_generate_stub_not_idempotent_flag": {
+      "hash": "509a23e8cac9987a8148df987480c5e8349d5b22026bcaeb832930800d3131ac",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5ba2146b0f26a9a94df9c0a403c3fa9ccbdf2059e5ddd72cfd9e0778b9461633",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "c7e1da23a19820f7a0b7faedb3933324d42236df7ddf5a74ca2d306e87ca0727",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_validate_schema_end_to_end": {
+      "hash": "e89a57f4c3f70030d3dbf8fe3a6d18a60fbfe52f6415cfb82dccabb874a6f0b0",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_stub_end_to_end": {
+      "hash": "d58228c0013b06a4a9ee1935bd9f8f85274ede65e3a760131559c63339f73940",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_subcommand_end_to_end": {
+      "hash": "923b0f3a82a5982be84b9e6f2e84d03b6ab32f9e43331a3aa30c918bb7719a6b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_validate_schema_missing_required_schema_arg_exits": {
+      "hash": "83edcaca65abd8006884ae3e63acc8c25f8235ad0b35cc01f31f4906abe42dcf",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_generate_stub_missing_required_name_arg_exits": {
+      "hash": "45d60dd1b9ca634b1b4dcf050bb68ce05b19e54215e5dae0c32a5542d8ced485",
+      "asserts": 0
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_runs_main_guard": {
+      "hash": "2ab560ec4b56cc6f15cfb93456672560d6f304282c1c06434c517ad76215f1b3",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_bad_schema_exits_nonzero": {
+      "hash": "5b66d3f28b14271b26af24f158a27ca8b0b57d30b99737e802f92e22339874b6",
+      "asserts": 2
     }
   },
-  "coverage_pct": 49.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

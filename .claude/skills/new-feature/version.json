@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -20,6 +20,43 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063050",
+      "reason": "Bulletproofing pass: added slugify edge cases (multi-special-char collapse, empty string), acceptance-criteria edge cases (empty description, mixed bullet/numbered markers, blank-line handling), scaffold_feature edge cases (explicit acceptance_criteria overrides parsed ones, no-criteria default task, plan.md TBD sections), full CLI layer tests (cmd_scaffold, cmd_parse_acceptance_criteria, cmd_test), main() dispatch tests (no-command help path, default features-root, end-to-end per subcommand), required-arg enforcement (SystemExit for missing --name/--description/positional description), and subprocess smoke tests exercising the __main__ guard. Coverage 44%->97%, mutation score measured at 100% (7/7 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_parse_acceptance_criteria_falls_back_to_sentences",
+        "test_tool.py::test_parse_acceptance_criteria_from_bullets",
+        "test_tool.py::test_parse_acceptance_criteria_from_numbered_list",
+        "test_tool.py::test_parse_acceptance_criteria_never_empty_for_nonempty_description",
+        "test_tool.py::test_scaffold_feature_creates_three_files",
+        "test_tool.py::test_scaffold_feature_slugifies_folder_name",
+        "test_tool.py::test_scaffold_feature_tasks_mirror_acceptance_criteria"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_cli_subprocess_smoke_test_runs_main_guard",
+        "test_tool.py::test_cli_subprocess_smoke_test_scaffold_writes_files",
+        "test_tool.py::test_cmd_parse_acceptance_criteria_prints_json_list",
+        "test_tool.py::test_cmd_scaffold_prints_created_folder_and_file_list",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_main_parse_acceptance_criteria_end_to_end",
+        "test_tool.py::test_main_parse_acceptance_criteria_missing_positional_description_exits",
+        "test_tool.py::test_main_scaffold_end_to_end",
+        "test_tool.py::test_main_scaffold_missing_required_description_arg_exits",
+        "test_tool.py::test_main_scaffold_missing_required_name_arg_exits",
+        "test_tool.py::test_main_scaffold_uses_default_features_root",
+        "test_tool.py::test_main_test_subcommand_end_to_end",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_parse_acceptance_criteria_empty_description_returns_empty_list",
+        "test_tool.py::test_parse_acceptance_criteria_ignores_blank_lines_between_bullets",
+        "test_tool.py::test_parse_acceptance_criteria_mixed_bullets_and_numbers_both_captured",
+        "test_tool.py::test_scaffold_feature_plan_contains_tbd_sections",
+        "test_tool.py::test_scaffold_feature_uses_explicit_acceptance_criteria_over_parsed_ones",
+        "test_tool.py::test_scaffold_feature_with_no_criteria_defaults_tasks_to_implement_feature",
+        "test_tool.py::test_slugify_collapses_multiple_special_chars_and_strips_edges",
+        "test_tool.py::test_slugify_empty_string_yields_empty_string"
+      ]
     }
   ],
   "test_baseline": {
@@ -50,7 +87,92 @@
     "test_tool.py::test_scaffold_feature_tasks_mirror_acceptance_criteria": {
       "hash": "71cac946569233afc377c08e510365564bef56bd69d1d28a72037c38d1ae812e",
       "asserts": 2
+    },
+    "test_tool.py::test_slugify_collapses_multiple_special_chars_and_strips_edges": {
+      "hash": "da7d58bde9ce474af8ffcde10db81cfcde0e39d92fc45e95816082e7cfa9ec33",
+      "asserts": 1
+    },
+    "test_tool.py::test_slugify_empty_string_yields_empty_string": {
+      "hash": "4ed34fa350819e645caa3d4bf48fcca438c1da1df1fa64a91273204dee2dc37a",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_acceptance_criteria_empty_description_returns_empty_list": {
+      "hash": "c3c51b09513cbae57643a281bda58ad3c5abbbeee582c78ec5dec184341c7f9d",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_acceptance_criteria_mixed_bullets_and_numbers_both_captured": {
+      "hash": "77be92f9992b87baee2f57cd98ce27d6d6b4cdf8b517ece0fe1ff36a6150d840",
+      "asserts": 1
+    },
+    "test_tool.py::test_parse_acceptance_criteria_ignores_blank_lines_between_bullets": {
+      "hash": "c42364aa472be26ebb1e51a9f6009ffdbf6d9aa4e07990e8e1986d5023a680fe",
+      "asserts": 1
+    },
+    "test_tool.py::test_scaffold_feature_uses_explicit_acceptance_criteria_over_parsed_ones": {
+      "hash": "3bbfdcb6eec5e56d101aa43c6b92c4ef135f965f43ff2ffb061460d37743bded",
+      "asserts": 4
+    },
+    "test_tool.py::test_scaffold_feature_with_no_criteria_defaults_tasks_to_implement_feature": {
+      "hash": "9eee022ff06512c9c20b8689819d8d320d107a8822bf9c815442b66f34f898de",
+      "asserts": 1
+    },
+    "test_tool.py::test_scaffold_feature_plan_contains_tbd_sections": {
+      "hash": "90d9984ad589b0aeb9bdbd05e6a2cbf1b458d83d51af0583ba963b2b64768987",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_scaffold_prints_created_folder_and_file_list": {
+      "hash": "184e6f66751187ab7e8ca198b3bca79551ee30931da8ed0d7330d05800ba5389",
+      "asserts": 5
+    },
+    "test_tool.py::test_cmd_parse_acceptance_criteria_prints_json_list": {
+      "hash": "d1f5edf242bc2c38d2b88d2008546eb4301995b524defc16b64f1104c1a4de7b",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5ba2146b0f26a9a94df9c0a403c3fa9ccbdf2059e5ddd72cfd9e0778b9461633",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "c7e1da23a19820f7a0b7faedb3933324d42236df7ddf5a74ca2d306e87ca0727",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_scaffold_end_to_end": {
+      "hash": "f6d39bb260074e15388ef38ba2925f345f9b53db95a6e36a68b6ae9088bbeb97",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_scaffold_uses_default_features_root": {
+      "hash": "25608df11753160f78b26f5c3907e4f30cc151f05b4c8759f1eb50ca607565de",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_parse_acceptance_criteria_end_to_end": {
+      "hash": "aaab543e697efc069aa91c8af2c3cca46aa41b0e8af31185f48fbe3d51ab3224",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_subcommand_end_to_end": {
+      "hash": "923b0f3a82a5982be84b9e6f2e84d03b6ab32f9e43331a3aa30c918bb7719a6b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_scaffold_missing_required_name_arg_exits": {
+      "hash": "dc549bb0a587a52d232cd14e594c975a875c187cb8387e47ba92f0bc74abf5ed",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_scaffold_missing_required_description_arg_exits": {
+      "hash": "92e642340118ddecf55c8c184b7cb8776e41d75610d25fa47334f9a0a53a3158",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_parse_acceptance_criteria_missing_positional_description_exits": {
+      "hash": "b7bcf6aad7042e0c7e0f078af0f37463b4a13acc40383b4f5f81f7eecb7b9d0d",
+      "asserts": 0
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_runs_main_guard": {
+      "hash": "26500be572f201ffcff60ae8597b993c53e2de3e281df4d29036ae9d2884ba23",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_scaffold_writes_files": {
+      "hash": "8c21a4ebe5eec8bfd5e466cc27e98d98637f531fde31b632496984fea3b3ea5d",
+      "asserts": 2
     }
   },
-  "coverage_pct": 44.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

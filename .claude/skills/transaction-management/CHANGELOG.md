@@ -9,3 +9,9 @@ Established test-body-hash baseline for the new guardrails (test-body hashing, c
 
 ## 1.1.0 (baseline refresh) - 2026-09-16
 Backfilled guardrail baseline: coverage 81.0%.
+
+## 1.2.0 - 20260919-062702
+Bulletproofing pass: added 16 new tests covering Transaction post-rollback state checks (execute/commit after rollback, no-op rollback), deadlock detection boundary cases (empty graph, self-loop), retry_on_serialization_failure exhaustion/exception-filtering/sleep_fn/zero-retries boundary, print_success/print_error output, cmd_test's subprocess construction (mocked to avoid recursive pytest spawn), main() dispatch/required-subcommand enforcement, and a subprocess smoke test hitting the __main__ guard. Coverage 81%->98%, mutation score measured at 100% (10/10 mutants).
+- Verified 10 pre-existing test(s) still pass
+- 16 new test(s) added
+- Coverage of scripts/tool.py: 99.0%

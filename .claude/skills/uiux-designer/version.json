@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -25,6 +25,45 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062803",
+      "reason": "Bulletproofing pass: added 18 new tests covering hex parsing edge cases (mixed case, no-hash prefix, wrong-length rejection), _clamp boundaries, exact WCAG threshold values (>=4.5 passes, just-below fails, AAA/large boundary), generate_color_scale edge cases (zero steps rejected, single-step identity, lighten/darken direction, extreme-color bounds), spacing_scale invalid-input rejection, print_success/print_error output, cmd_test's subprocess construction (mocked to avoid recursive pytest spawn), main() dispatch/required-subcommand enforcement, and a subprocess smoke test hitting the __main__ guard. Coverage 81%->98%, mutation score measured at 100% (10/10 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_wcag_compliance_fails_low_contrast_normal_text",
+        "test_tool.py::test_check_wcag_compliance_large_text_lower_threshold",
+        "test_tool.py::test_check_wcag_compliance_passes_high_contrast",
+        "test_tool.py::test_check_wcag_compliance_rejects_unknown_combo",
+        "test_tool.py::test_contrast_ratio_black_on_white_is_max",
+        "test_tool.py::test_contrast_ratio_is_symmetric",
+        "test_tool.py::test_contrast_ratio_same_color_is_one",
+        "test_tool.py::test_generate_color_scale_length_and_midpoint",
+        "test_tool.py::test_hex_to_rgb_full_form",
+        "test_tool.py::test_hex_to_rgb_rejects_invalid",
+        "test_tool.py::test_hex_to_rgb_short_form",
+        "test_tool.py::test_spacing_scale_linear_progression"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_check_wcag_compliance_aaa_large_exact_threshold",
+        "test_tool.py::test_check_wcag_compliance_exact_threshold_is_pass",
+        "test_tool.py::test_check_wcag_compliance_just_below_threshold_fails",
+        "test_tool.py::test_clamp_bounds_values_to_0_255",
+        "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args_and_returns_its_code",
+        "test_tool.py::test_generate_color_scale_extreme_colors_stay_in_bounds",
+        "test_tool.py::test_generate_color_scale_lightens_before_midpoint_and_darkens_after",
+        "test_tool.py::test_generate_color_scale_rejects_zero_steps",
+        "test_tool.py::test_generate_color_scale_single_step_returns_base_color_unchanged",
+        "test_tool.py::test_hex_to_rgb_accepts_mixed_case_and_no_hash_prefix",
+        "test_tool.py::test_hex_to_rgb_rejects_wrong_length",
+        "test_tool.py::test_main_missing_command_is_required_and_exits",
+        "test_tool.py::test_main_test_command_dispatches_via_func_and_exits_with_code",
+        "test_tool.py::test_print_error_outputs_cross_and_message",
+        "test_tool.py::test_print_success_outputs_checkmark_and_message",
+        "test_tool.py::test_spacing_scale_rejects_zero_or_negative_base",
+        "test_tool.py::test_spacing_scale_rejects_zero_or_negative_steps",
+        "test_tool.py::test_subprocess_no_args_hits_main_guard_and_exits_nonzero"
+      ]
     }
   ],
   "test_baseline": {
@@ -75,7 +114,80 @@
     "test_tool.py::test_spacing_scale_linear_progression": {
       "hash": "a5568aae8a632613e64bfcb65d9090c8c5bb65d069efc6078f3652312544f56f",
       "asserts": 1
+    },
+    "test_tool.py::test_hex_to_rgb_accepts_mixed_case_and_no_hash_prefix": {
+      "hash": "ade4fe222e8fd51ffa2585147cf6696c0a825917de063ac8db00de9fc5426955",
+      "asserts": 1
+    },
+    "test_tool.py::test_hex_to_rgb_rejects_wrong_length": {
+      "hash": "720a3eee3e6013efb4c71571faa4ce44cf1a9e0c7e0c6c043c06307a64825378",
+      "asserts": 0
+    },
+    "test_tool.py::test_clamp_bounds_values_to_0_255": {
+      "hash": "1bc73fe67ec82c24d686ce0366c01b2aa31d18272f6402da0251b98d76c990e6",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_wcag_compliance_exact_threshold_is_pass": {
+      "hash": "5463a2abf03e2d139195c051f10cc487c379fec36c4937b8cf0de7ef13f9b354",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_wcag_compliance_just_below_threshold_fails": {
+      "hash": "1fb02431b110c2fc57469643ee0a2435b7305bdc26039f0e7b5d6df40d850dde",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_wcag_compliance_aaa_large_exact_threshold": {
+      "hash": "4388362d9ec427dc6aafa8149920fdfe8ebfcaab49cadd2b21d827c7d120a4ac",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_color_scale_rejects_zero_steps": {
+      "hash": "baa0922f9f3a3793f915d69fad19ce23103ccd6f8bdab02fcb9278c1d13844b2",
+      "asserts": 0
+    },
+    "test_tool.py::test_generate_color_scale_single_step_returns_base_color_unchanged": {
+      "hash": "72799a1e3825769f74f0bfcd6ff2cc2ec94720f08556cc664ed8bef99c089bf6",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_color_scale_lightens_before_midpoint_and_darkens_after": {
+      "hash": "43a6df198c3703fab5565c94061accc5032ed54f892be152b365d950cab87e3f",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_color_scale_extreme_colors_stay_in_bounds": {
+      "hash": "c1af1cdffd53a62ac2de243184d7f253c5199bd9767325869e5fb97b29fad7aa",
+      "asserts": 1
+    },
+    "test_tool.py::test_spacing_scale_rejects_zero_or_negative_base": {
+      "hash": "c5ba340c6b92265f40b14fcf2d1e8dfdcd0b625aad82b177c9742d566399198f",
+      "asserts": 0
+    },
+    "test_tool.py::test_spacing_scale_rejects_zero_or_negative_steps": {
+      "hash": "52e48c616437b7b5762ef3fca8e1fd4da62cde28c1e1646cef6191c72c7473cb",
+      "asserts": 0
+    },
+    "test_tool.py::test_print_success_outputs_checkmark_and_message": {
+      "hash": "2d8ae6670944eb6ffbd6167e6dbd7bc2b68ecf166f74c08d4765f668adf131f8",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_outputs_cross_and_message": {
+      "hash": "f47d421622f88d5ec5f3059f7663cdad517a0a07b6b138645af5938b86a49dab",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args_and_returns_its_code": {
+      "hash": "a097efb6c0a4e80f79e2eac6564121b24b3bed5cafbd76dbf59f1ac1e82401f8",
+      "asserts": 5
+    },
+    "test_tool.py::test_main_test_command_dispatches_via_func_and_exits_with_code": {
+      "hash": "453326bd50a4e273a512186feff6cd7780db15f457c1f83080857bb9c04a0ffb",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_missing_command_is_required_and_exits": {
+      "hash": "e149abba2f1b681c0e2cee0125c6c0ef4c04adaa8437fd3cd75575dc725b0c4d",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_no_args_hits_main_guard_and_exits_nonzero": {
+      "hash": "828ba5ce4308c4df820fed08264f18a295494b193cd086e94c4075b368b2977c",
+      "asserts": 2
     }
   },
-  "coverage_pct": 81.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

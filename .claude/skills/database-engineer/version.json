@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -20,6 +20,49 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062837",
+      "reason": "Bulletproofing pass: added 27 new tests covering regex edge cases (drop_table negative-lookahead for IF EXISTS, rename_column, alter_column_type, multiple simultaneous risks, LIKE case-insensitivity, all comparator operators, word-boundary correctness for dotted table-prefixed columns), check_constraints edge cases (multiline SQL, inline NOT NULL exclusion, malformed input with no parenthesised column list, and a documented regex quirk where VARCHAR(n) columns are never flagged due to the trailing \\b anchor being unsatisfiable after a literal closing paren), file-reading CLI commands via tmp_path fixtures, the full CLI layer (cmd_suggest_indexes, cmd_check_migration_safety, cmd_check_constraints, cmd_test, main() dispatch and no-command help path), required-argument enforcement for --where and both path positionals via SystemExit, and a subprocess smoke test exercising the __main__ guard. Coverage 41%->98%, mutation score measured at 100% (5/5 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_constraints_flags_missing_primary_key",
+        "test_tool.py::test_check_constraints_flags_nullable_column",
+        "test_tool.py::test_check_migration_safety_clean_migration_has_no_risks",
+        "test_tool.py::test_check_migration_safety_flags_drop_column",
+        "test_tool.py::test_check_migration_safety_flags_not_null_without_default",
+        "test_tool.py::test_suggest_indexes_ignores_columns_seen_only_once",
+        "test_tool.py::test_suggest_indexes_ranks_most_frequent_column_first"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_check_constraints_does_not_flag_inline_not_null_column",
+        "test_tool.py::test_check_constraints_handles_multiline_sql",
+        "test_tool.py::test_check_constraints_no_parenthesised_column_list_only_reports_missing_pk",
+        "test_tool.py::test_check_constraints_varchar_type_is_never_flagged_due_to_trailing_boundary",
+        "test_tool.py::test_check_migration_safety_detects_multiple_risks_at_once",
+        "test_tool.py::test_check_migration_safety_drop_table_if_exists_is_not_flagged",
+        "test_tool.py::test_check_migration_safety_drop_table_without_if_exists_is_flagged",
+        "test_tool.py::test_check_migration_safety_flags_alter_column_type",
+        "test_tool.py::test_check_migration_safety_flags_rename_column",
+        "test_tool.py::test_cmd_check_constraints_clean_file_returns_ok",
+        "test_tool.py::test_cmd_check_constraints_reads_file_and_reports_warnings",
+        "test_tool.py::test_cmd_check_migration_safety_clean_file_returns_ok",
+        "test_tool.py::test_cmd_check_migration_safety_reads_file_and_reports_risks",
+        "test_tool.py::test_cmd_suggest_indexes_prints_json",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_main_check_constraints_end_to_end",
+        "test_tool.py::test_main_check_migration_safety_end_to_end",
+        "test_tool.py::test_main_missing_required_path_positional_for_constraints_exits",
+        "test_tool.py::test_main_missing_required_path_positional_for_migration_safety_exits",
+        "test_tool.py::test_main_missing_required_where_arg_exits",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_suggest_indexes_end_to_end",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint",
+        "test_tool.py::test_suggest_indexes_captures_column_after_table_prefix_dot",
+        "test_tool.py::test_suggest_indexes_handles_all_comparator_operators",
+        "test_tool.py::test_suggest_indexes_matches_like_case_insensitively"
+      ]
     }
   ],
   "test_baseline": {
@@ -50,7 +93,116 @@
     "test_tool.py::test_check_constraints_flags_nullable_column": {
       "hash": "8069414d76ebc38700cb29f9d1756c0cdeeadd687c266bddcf7c3eb657eaef5c",
       "asserts": 1
+    },
+    "test_tool.py::test_check_migration_safety_drop_table_if_exists_is_not_flagged": {
+      "hash": "57b1bcee44ad17be3c6272b69967bd129f175af56732b60ed0a027b05d26ef5b",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_migration_safety_drop_table_without_if_exists_is_flagged": {
+      "hash": "7da20256125a8ec784ecb1ef98458ba10a48ccb5e6ee12d88c4ecb2dff47b0e2",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_migration_safety_flags_rename_column": {
+      "hash": "ebfb4f93cb42c1b83cfb4974cca4ca30fa0d7c850a3d59ce3c22875af6000c5f",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_migration_safety_flags_alter_column_type": {
+      "hash": "b7e0aa0b2243e099ad28b462acbc32d7172fa09ab13ec1cfade00bb3d9823e34",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_migration_safety_detects_multiple_risks_at_once": {
+      "hash": "8d3311a1fc2f95c1b7a6a69887ed867adde3919ca1f4b5879eee49379ca04287",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_indexes_matches_like_case_insensitively": {
+      "hash": "df97c9b1e44a9d4c785cda2b1ed7b1d371de8751d6aa2fbf3c8bc89dda1f3587",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_indexes_handles_all_comparator_operators": {
+      "hash": "c6c6898dd3ce8c180b04fa113d7aee90f10156b0f2bd8761b54dcae18ab3681f",
+      "asserts": 1
+    },
+    "test_tool.py::test_suggest_indexes_captures_column_after_table_prefix_dot": {
+      "hash": "4d507fc858f4868675b2651f7273e30151f17200b786a1e0ba1a2b05f7b7b3a0",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_constraints_varchar_type_is_never_flagged_due_to_trailing_boundary": {
+      "hash": "255cf168ace846ebac69adfa4e741aaf14f450d38b50e9dadda8920b2fa31217",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_constraints_does_not_flag_inline_not_null_column": {
+      "hash": "3f2878f948332ee5d5a78c20b1ab74b8e935e94be927f2ebbbec3d9a6b5c0209",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_constraints_handles_multiline_sql": {
+      "hash": "0b2ada1a4dffc3c89f04f447d4bf66fe2e9868b96f0ec98574a60feeda7d7fe5",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_constraints_no_parenthesised_column_list_only_reports_missing_pk": {
+      "hash": "cefcd42d1efd3ae1425f11161cb767f63343c1e91abaef471db6e37a54154ad4",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_suggest_indexes_prints_json": {
+      "hash": "fd982ae4437a3f3ac27503f2d69344551815a3b8d708b31ffc785b377f0b56dd",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_migration_safety_reads_file_and_reports_risks": {
+      "hash": "ae8095786274a68e0422dbc1d3a3e6e61fbf6902e891eb0a221258a10332c058",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_migration_safety_clean_file_returns_ok": {
+      "hash": "d1033d953fa34bee0cb6ae654db7b970d16b14783ccf5340b3c001da123cb4a3",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_constraints_reads_file_and_reports_warnings": {
+      "hash": "2d77b90465fa1ddb2842297600ce55d7ecdf6cc5409777797c7f536713f44bba",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_constraints_clean_file_returns_ok": {
+      "hash": "d5bf1ac2ac7ea9d52bf3ecbc96fb6c8dc3389fd30827a96f69153e141547cc6c",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5dcce7724a5df43b97459412d0dd8aa978488dc59958a77d600b82f7ce7e14ed",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "706740168087f6b7bf40836c6923f2e7c8e370556bdf6d06e3cc223e68282b73",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_suggest_indexes_end_to_end": {
+      "hash": "367c731e2bf573fbd7b5e3ffb923b733e87dee99cb7f4af578aa06be7176f656",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_check_migration_safety_end_to_end": {
+      "hash": "f7a1ef75ddb03016737e4cf2a4794cb06afe87b8789e34f917b46cba193de9a0",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_check_constraints_end_to_end": {
+      "hash": "34e581efe5586c02d930324b4976275cdffafc3387c7ad7dd79f8a365deace9a",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "cc36831028b0cbd34c8a2c87bb8ac79495c7412100837661d49ee2c5522cd8c7",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_missing_required_where_arg_exits": {
+      "hash": "785c635989cff5e49b06cb41abb7c8d42183acaa37e537a7e49a6cc64931317a",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_missing_required_path_positional_for_migration_safety_exits": {
+      "hash": "197a0982243f66cc1f40ce8153e9816cfffc257455882612ce76e59ce53503d0",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_missing_required_path_positional_for_constraints_exits": {
+      "hash": "d4dcb71aae4c9d29119bf0f7bb17ee18002add3f7aa6b6c2a2c2baf1ea82d4e7",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint": {
+      "hash": "f548777ff57ecd416da479b34008d91113449bb1937f16722cf2e1c627625159",
+      "asserts": 2
     }
   },
-  "coverage_pct": 41.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

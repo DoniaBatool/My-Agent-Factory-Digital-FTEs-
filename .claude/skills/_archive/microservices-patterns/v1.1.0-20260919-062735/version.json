@@ -1,0 +1,51 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112726",
+      "reason": "Replaced TODO stub with a real Circuit Breaker state machine (CLOSED/OPEN/HALF_OPEN) and a real Saga executor with reverse-order compensation + 6 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_circuit_breaker_opens_after_threshold_failures",
+        "test_tool.py::test_circuit_breaker_recovers_to_half_open_after_timeout",
+        "test_tool.py::test_circuit_breaker_rejects_calls_while_open_without_invoking_func",
+        "test_tool.py::test_circuit_breaker_starts_closed",
+        "test_tool.py::test_run_saga_all_steps_succeed",
+        "test_tool.py::test_run_saga_compensates_completed_steps_on_failure"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_circuit_breaker_starts_closed": {
+      "hash": "98f41bbc8de7e6ff19b1267758fd2f45efaadea1f88f8726cf54abe76005fc98",
+      "asserts": 1
+    },
+    "test_tool.py::test_circuit_breaker_opens_after_threshold_failures": {
+      "hash": "eb30423f4518cd439a833c3e5a2ad180415cff5f0fb64c10622a72e4930ef0b6",
+      "asserts": 1
+    },
+    "test_tool.py::test_circuit_breaker_rejects_calls_while_open_without_invoking_func": {
+      "hash": "a09c7892095800201b369ab482c6d8a8f49ef8eca184bf4f809bbc6ca7de5d4d",
+      "asserts": 1
+    },
+    "test_tool.py::test_circuit_breaker_recovers_to_half_open_after_timeout": {
+      "hash": "c18d4a754218cadc29f73d960c2094d5bdee0e52cc9d6a439b24ffaabd522267",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_saga_all_steps_succeed": {
+      "hash": "2221c114d624e4dca866ff4c6936c056ca93d03518d8eb77e73c3b975de15863",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_saga_compensates_completed_steps_on_failure": {
+      "hash": "7f20119837ca7bb9c7c96a3a8b71fc339d777793ea310a194f61c7d26398b324",
+      "asserts": 4
+    }
+  },
+  "coverage_pct": 42.0
+}

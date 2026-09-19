@@ -1,0 +1,61 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-112526",
+      "reason": "Replaced TODO stub with real OpenAPI path-spec building, contract completeness validation, breaking-change detection + 8 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_path_spec_includes_success_and_error_codes",
+        "test_tool.py::test_build_path_spec_post_requires_201",
+        "test_tool.py::test_check_breaking_change_detects_removed_endpoint",
+        "test_tool.py::test_check_breaking_change_detects_removed_response_code",
+        "test_tool.py::test_check_breaking_change_no_change_is_clean",
+        "test_tool.py::test_validate_contract_flags_missing_error_response",
+        "test_tool.py::test_validate_contract_flags_missing_success_response",
+        "test_tool.py::test_validate_contract_passes_for_complete_spec"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_build_path_spec_includes_success_and_error_codes": {
+      "hash": "1f180410dd9e5d32a337bedcfefd452a2d790e794424ddacca2fe7982062cc6d",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_path_spec_post_requires_201": {
+      "hash": "68bff2ef36567370429376b72b7d40afbb9c92bac3ec41b3d3d9da34f63ee478",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_contract_passes_for_complete_spec": {
+      "hash": "2be0e2569ac18a37f8d71b3fff5eaf2750f7debaa48360234d388f94aaccf343",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_contract_flags_missing_success_response": {
+      "hash": "92032ca97e4e1012d0f9019e9d5a83c4e9e85c2ab26aea3d180f4957cd0ee805",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_contract_flags_missing_error_response": {
+      "hash": "9bdc574c299e16abc6825839fd41f4f5e3671ace858896e52cb9d2bb7cc3c597",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_breaking_change_detects_removed_endpoint": {
+      "hash": "eef9de4c5965bf2ae7205046f8f96bc58a9b590c2f133f5169433585439f8b43",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_breaking_change_detects_removed_response_code": {
+      "hash": "1b6f61ab5ce666d330683e7f38546f80ee1af7cf35734f8fede3db0836aa9e0f",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_breaking_change_no_change_is_clean": {
+      "hash": "fa41fc2ba17accf4ae9415b2d78005d0f4a1174390bb75ff842b195ebc4ec57a",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 45.0
+}

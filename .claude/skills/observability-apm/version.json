@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -23,6 +23,44 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063449",
+      "reason": "Bulletproofing pass: added print_success/print_error output tests, boundary-value tests (zero-duration span, threshold-exact exclusion for detect_slow_spans and check_error_rate using strict >), edge cases (empty span list, missing parent_id key, precomputed-duration span bypassing revalidation, single-sample and empty-list percentile/aggregate paths, zero-total error rate, negative total/errors rejection), and CLI-layer tests for cmd_test (subprocess invocation mocked to verify exact command construction without recursive pytest spawning) and main()'s dispatch/required-subcommand enforcement. Coverage 78%->98%, mutation score measured at 100% (11/11 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_aggregate_metrics_basic_stats",
+        "test_tool.py::test_aggregate_metrics_empty_list",
+        "test_tool.py::test_build_span_tree_nests_children_under_parent",
+        "test_tool.py::test_check_error_rate_flags_alert_above_threshold",
+        "test_tool.py::test_check_error_rate_no_alert_below_threshold",
+        "test_tool.py::test_check_error_rate_rejects_errors_exceeding_total",
+        "test_tool.py::test_detect_slow_spans_filters_and_sorts_desc",
+        "test_tool.py::test_parse_trace_span_computes_duration",
+        "test_tool.py::test_parse_trace_span_rejects_missing_fields",
+        "test_tool.py::test_parse_trace_span_rejects_negative_duration"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_aggregate_metrics_single_sample",
+        "test_tool.py::test_build_span_tree_empty_list_yields_no_roots",
+        "test_tool.py::test_build_span_tree_missing_parent_id_key_treated_as_root",
+        "test_tool.py::test_check_error_rate_exactly_at_threshold_is_not_an_alert",
+        "test_tool.py::test_check_error_rate_rejects_negative_errors",
+        "test_tool.py::test_check_error_rate_rejects_negative_total",
+        "test_tool.py::test_check_error_rate_zero_total_has_zero_rate_no_alert",
+        "test_tool.py::test_cmd_test_invokes_pytest_subprocess_with_expected_args",
+        "test_tool.py::test_detect_slow_spans_excludes_span_exactly_at_threshold",
+        "test_tool.py::test_detect_slow_spans_skips_reparsing_spans_with_precomputed_duration",
+        "test_tool.py::test_main_missing_required_command_exits_nonzero",
+        "test_tool.py::test_main_test_subcommand_dispatches_to_cmd_test_and_exits_with_its_code",
+        "test_tool.py::test_main_test_subcommand_propagates_nonzero_exit_code",
+        "test_tool.py::test_parse_trace_span_zero_duration_is_allowed_not_negative",
+        "test_tool.py::test_percentile_empty_list_returns_zero",
+        "test_tool.py::test_percentile_exact_integer_rank_no_interpolation",
+        "test_tool.py::test_percentile_single_value_returns_that_value",
+        "test_tool.py::test_print_error_includes_cross_and_message",
+        "test_tool.py::test_print_success_includes_checkmark_and_message"
+      ]
     }
   ],
   "test_baseline": {
@@ -65,7 +103,84 @@
     "test_tool.py::test_check_error_rate_rejects_errors_exceeding_total": {
       "hash": "82163448d26379b6c54887d9094e74d1f4f8d9a9d075c13362cf667d53db51b0",
       "asserts": 0
+    },
+    "test_tool.py::test_print_success_includes_checkmark_and_message": {
+      "hash": "56e32533ccf377e39079f2dce8e1b796c7cd765150438b610ead3feb4105c38e",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_includes_cross_and_message": {
+      "hash": "cccf2f5524ff37b344f9b848208f4a8be9be8409004eeb7ff93f0c68592c330c",
+      "asserts": 2
+    },
+    "test_tool.py::test_parse_trace_span_zero_duration_is_allowed_not_negative": {
+      "hash": "1a196edd817025cbcb3c49ce444f86a912178e0ff42098f8a3b6e38aa77156be",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_span_tree_empty_list_yields_no_roots": {
+      "hash": "0c23ec18c171c2b8ebc1cecf0a99337dd415b0ba22656de8eea0c1fc196a5bef",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_span_tree_missing_parent_id_key_treated_as_root": {
+      "hash": "29389dadb5b5d9f3e9f2efea09a9fb23660ae5ef423872eedb54de4b226c11ea",
+      "asserts": 3
+    },
+    "test_tool.py::test_detect_slow_spans_excludes_span_exactly_at_threshold": {
+      "hash": "d398b1e149171976732e1cf0cb33267fef28d520e670f4f7b64e9629989c5107",
+      "asserts": 1
+    },
+    "test_tool.py::test_detect_slow_spans_skips_reparsing_spans_with_precomputed_duration": {
+      "hash": "b0304951af7c30d35586e9b935bc3457ba8c61d81cdc85245bb3ae8cbc89f4f0",
+      "asserts": 1
+    },
+    "test_tool.py::test_percentile_exact_integer_rank_no_interpolation": {
+      "hash": "3f8e443a7d78c18dd45ab96cb4005cd8c85f11d30de84293ab73441cde3cc8d1",
+      "asserts": 1
+    },
+    "test_tool.py::test_percentile_empty_list_returns_zero": {
+      "hash": "3364e088d525d2fea8bef177a5c740b6df8190187b689b4d80c212d0797fef44",
+      "asserts": 1
+    },
+    "test_tool.py::test_percentile_single_value_returns_that_value": {
+      "hash": "c62cd4d937100799441e250d3a0271f866d2b47dd568be9946d3851d223c4e33",
+      "asserts": 1
+    },
+    "test_tool.py::test_aggregate_metrics_single_sample": {
+      "hash": "35fa317fbbaf0ab8b21d6bcb097e392e8b6eeceb16492ff40faa15e9665fcd91",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_error_rate_zero_total_has_zero_rate_no_alert": {
+      "hash": "c64804a59d6f1b45d0ab2a76bc39437acff1274a8b572e87d712afb61d1f617e",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_error_rate_exactly_at_threshold_is_not_an_alert": {
+      "hash": "03facf146291e594caf08052df5a6c821cf4dce56801473679b208aa89814ce3",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_error_rate_rejects_negative_total": {
+      "hash": "92a3d28c93f0a3be19142d72da76b710434888140579cce3ca88549db2ede13e",
+      "asserts": 0
+    },
+    "test_tool.py::test_check_error_rate_rejects_negative_errors": {
+      "hash": "8d8e38d0b44b95bb770b66a84d82fd77f227630a7eecc59b3f0178ed47069008",
+      "asserts": 0
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_subprocess_with_expected_args": {
+      "hash": "615a2a8f06ec25a12b1d618939ed62eb63c53d1ddaec3906a53a0d6213081436",
+      "asserts": 7
+    },
+    "test_tool.py::test_main_test_subcommand_dispatches_to_cmd_test_and_exits_with_its_code": {
+      "hash": "165f29876ac8e0e3017fa3b125001dba923ae7b2a0e0ac67ca7f83b204fca075",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_test_subcommand_propagates_nonzero_exit_code": {
+      "hash": "c86ed47098c6eb4b334e55d3b401b0d5b3c7f2910b98b2bb91203e9730bd7f6c",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_missing_required_command_exits_nonzero": {
+      "hash": "7ce5967a701decf69e3aace8852686253c61e37482c44e0ccf12411c9c149bc4",
+      "asserts": 1
     }
   },
-  "coverage_pct": 78.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

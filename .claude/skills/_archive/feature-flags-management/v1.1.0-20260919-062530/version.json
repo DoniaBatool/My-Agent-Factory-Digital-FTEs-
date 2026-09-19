@@ -1,0 +1,76 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113344",
+      "reason": "Replaced TODO stub with real hash-based stable rollout bucketing, config validation, override precedence and merge logic, 11 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_is_enabled_false_when_global_off",
+        "test_tool.py::test_is_enabled_full_rollout_enables_everyone",
+        "test_tool.py::test_is_enabled_raises_on_invalid_config",
+        "test_tool.py::test_is_enabled_respects_user_override_false_even_at_full_rollout",
+        "test_tool.py::test_is_enabled_respects_user_override_true_even_at_zero_rollout",
+        "test_tool.py::test_merge_flag_configs_merges_user_overrides",
+        "test_tool.py::test_next_rollout_stage_progression",
+        "test_tool.py::test_stable_bucket_distributes_across_users",
+        "test_tool.py::test_stable_bucket_is_deterministic",
+        "test_tool.py::test_validate_flag_config_accepts_valid",
+        "test_tool.py::test_validate_flag_config_rejects_out_of_range_pct"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_stable_bucket_is_deterministic": {
+      "hash": "3b043b87caf565e39843d683c4241bea3e953c19a13384dda1d2b19d31be48bd",
+      "asserts": 2
+    },
+    "test_tool.py::test_stable_bucket_distributes_across_users": {
+      "hash": "c97029807e994163e3f14fed2313d5b83595e26597312ce426e0893f67c0e540",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_flag_config_accepts_valid": {
+      "hash": "9001f7b219bb4b339c9a7d4af508fab6898d4677bfafabfe8e1657993ab39f68",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_flag_config_rejects_out_of_range_pct": {
+      "hash": "48e90608dceec85c697d955181f10a7af2e5b372db00f707ad010b3e6308b3f7",
+      "asserts": 1
+    },
+    "test_tool.py::test_is_enabled_false_when_global_off": {
+      "hash": "65d63db95c6508cdbd1725ba32d7bbb3659b9efedf93d0e62683b6bac08bfc4f",
+      "asserts": 1
+    },
+    "test_tool.py::test_is_enabled_respects_user_override_true_even_at_zero_rollout": {
+      "hash": "362112f7b6b0a430478bdfa82c2f1b065e352393fa3452c02d589c9c2ea4c804",
+      "asserts": 1
+    },
+    "test_tool.py::test_is_enabled_respects_user_override_false_even_at_full_rollout": {
+      "hash": "10a49d284c73543b40238d96f62c69743fe786c0b2f82293482df1391d495249",
+      "asserts": 1
+    },
+    "test_tool.py::test_is_enabled_full_rollout_enables_everyone": {
+      "hash": "cc76edb212332bf79ec5db8aa3711349a75333aa2c7abfcc153ba8db24c07022",
+      "asserts": 1
+    },
+    "test_tool.py::test_is_enabled_raises_on_invalid_config": {
+      "hash": "1942f51dac70cba8f1da22e776360778af7d51d6d35c74417426966421fa38f8",
+      "asserts": 0
+    },
+    "test_tool.py::test_merge_flag_configs_merges_user_overrides": {
+      "hash": "1e6c7c4417204c8e726bf278bc8279b05033f6f95b66b458509f461961a7f290",
+      "asserts": 2
+    },
+    "test_tool.py::test_next_rollout_stage_progression": {
+      "hash": "4a6604da7a1775d56cb81bae759243c4dcbfe6b22b18f1ab8605d626beb4f44c",
+      "asserts": 4
+    }
+  },
+  "coverage_pct": 77.0
+}

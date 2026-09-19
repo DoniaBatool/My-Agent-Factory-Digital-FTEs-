@@ -1,0 +1,81 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-113709",
+      "reason": "Replaced TODO stub with real WCAG relative-luminance contrast ratio math, compliance thresholds, color scale and spacing scale generators, 12 tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_check_wcag_compliance_fails_low_contrast_normal_text",
+        "test_tool.py::test_check_wcag_compliance_large_text_lower_threshold",
+        "test_tool.py::test_check_wcag_compliance_passes_high_contrast",
+        "test_tool.py::test_check_wcag_compliance_rejects_unknown_combo",
+        "test_tool.py::test_contrast_ratio_black_on_white_is_max",
+        "test_tool.py::test_contrast_ratio_is_symmetric",
+        "test_tool.py::test_contrast_ratio_same_color_is_one",
+        "test_tool.py::test_generate_color_scale_length_and_midpoint",
+        "test_tool.py::test_hex_to_rgb_full_form",
+        "test_tool.py::test_hex_to_rgb_rejects_invalid",
+        "test_tool.py::test_hex_to_rgb_short_form",
+        "test_tool.py::test_spacing_scale_linear_progression"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_hex_to_rgb_full_form": {
+      "hash": "5b00393d2a388bbd6277507d0c031fb145198c235f784e8585fb26ccc382755c",
+      "asserts": 1
+    },
+    "test_tool.py::test_hex_to_rgb_short_form": {
+      "hash": "8ea0607f981d1100a8f40dd5a9ab973a5b3e4c96ad6c40e0e4b44d8d52b43337",
+      "asserts": 1
+    },
+    "test_tool.py::test_hex_to_rgb_rejects_invalid": {
+      "hash": "18b0744d5b5d64eec976da06b03c389fe4dd01336e8f058e3e709b092ae6da28",
+      "asserts": 0
+    },
+    "test_tool.py::test_contrast_ratio_black_on_white_is_max": {
+      "hash": "1f4291523c68e6ca6c1d6b1d2460a8ec09148e577f2782fab1fa6f64461b557d",
+      "asserts": 1
+    },
+    "test_tool.py::test_contrast_ratio_same_color_is_one": {
+      "hash": "08aab828d9dcd98b1e9d781b958f7b8e8ce466a7fd369193fb8ff9c5ae4378bf",
+      "asserts": 1
+    },
+    "test_tool.py::test_contrast_ratio_is_symmetric": {
+      "hash": "501f003ff2753bcc6035cdcdba88c0f1c145e0271d5411ea245c9e222745b27a",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_wcag_compliance_passes_high_contrast": {
+      "hash": "dbaca4f9eea66404b0d08d2d20f7ede2429d387254850016ad619b24a0a9ab68",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_wcag_compliance_fails_low_contrast_normal_text": {
+      "hash": "2f5c4f556da5fe6d8f752cfebbbab4cd339fd8fdd5fd9d451c29c0eb8252d166",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_wcag_compliance_large_text_lower_threshold": {
+      "hash": "5f89684ecb35a8cbe8dc1994dc322a437c16c55a92b99daecde40b7360446198",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_wcag_compliance_rejects_unknown_combo": {
+      "hash": "b8a86ebaea3c40dce8e6ea1b28c8cdcc757a3a97687f90e4e2fd7e19430756a9",
+      "asserts": 0
+    },
+    "test_tool.py::test_generate_color_scale_length_and_midpoint": {
+      "hash": "a673b524aaed9e4925c30e7dbafbef940e3b181f0b5a62bae8883f64433a487f",
+      "asserts": 2
+    },
+    "test_tool.py::test_spacing_scale_linear_progression": {
+      "hash": "a5568aae8a632613e64bfcb65d9090c8c5bb65d069efc6078f3652312544f56f",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 81.0
+}

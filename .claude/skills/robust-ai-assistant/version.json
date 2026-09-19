@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -23,6 +23,46 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063657",
+      "reason": "Bulletproofing pass: added 21 new tests covering retry_with_backoff (exact exponential sleep-delay sequence, single-attempt-never-sleeps, unlisted exception types propagate uncaught), fallback_chain (primary success never touches fallbacks, empty-fallback-list re-raises primary error), validate_ai_response_schema (non-dict response, empty required-keys list), sanitize_user_input (non-string rejection, exact-max-length boundary, whitespace stripping), should_allow_request (not-tripped passthrough, exact cooldown boundary allows, one-second-early still blocks), previously-uncalled print_success/print_error helpers, and the CLI layer (cmd_test's subprocess invocation mocked for both exit codes, main()'s required-subcommand enforcement, unknown-subcommand rejection, and a subprocess __main__ smoke test that avoids the recursive pytest-invocation trap). Coverage 79%->98% (only the __main__ guard line remains, by design). Mutation score measured at 100% (10/10 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_fallback_chain_raises_primary_error_when_all_fail",
+        "test_tool.py::test_fallback_chain_uses_first_success",
+        "test_tool.py::test_retry_with_backoff_raises_after_exhausting_attempts",
+        "test_tool.py::test_retry_with_backoff_succeeds_eventually",
+        "test_tool.py::test_sanitize_user_input_strips_control_chars",
+        "test_tool.py::test_sanitize_user_input_truncates_long_text",
+        "test_tool.py::test_should_allow_request_allows_after_cooldown",
+        "test_tool.py::test_should_allow_request_blocks_during_cooldown",
+        "test_tool.py::test_validate_ai_response_schema_detects_missing_keys",
+        "test_tool.py::test_validate_ai_response_schema_passes_when_complete"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args",
+        "test_tool.py::test_cmd_test_propagates_nonzero_pytest_exit_code",
+        "test_tool.py::test_fallback_chain_primary_success_never_calls_fallbacks",
+        "test_tool.py::test_fallback_chain_with_no_fallbacks_raises_primary_error",
+        "test_tool.py::test_main_dispatches_test_command_failure",
+        "test_tool.py::test_main_dispatches_test_command_success",
+        "test_tool.py::test_main_no_command_exits_nonzero_because_subcommand_required",
+        "test_tool.py::test_main_rejects_unknown_subcommand",
+        "test_tool.py::test_print_success_and_print_error_format_output",
+        "test_tool.py::test_retry_with_backoff_does_not_catch_unlisted_exception_types",
+        "test_tool.py::test_retry_with_backoff_single_attempt_never_sleeps",
+        "test_tool.py::test_retry_with_backoff_sleeps_with_exponential_delays",
+        "test_tool.py::test_sanitize_user_input_no_truncation_at_exact_max_len",
+        "test_tool.py::test_sanitize_user_input_rejects_non_string",
+        "test_tool.py::test_sanitize_user_input_strips_leading_and_trailing_whitespace",
+        "test_tool.py::test_script_runs_as_main_via_subprocess_missing_command_exits_nonzero",
+        "test_tool.py::test_should_allow_request_exact_cooldown_boundary_allows",
+        "test_tool.py::test_should_allow_request_one_second_before_cooldown_blocks",
+        "test_tool.py::test_should_allow_request_true_when_not_tripped",
+        "test_tool.py::test_validate_ai_response_schema_empty_required_keys_always_passes",
+        "test_tool.py::test_validate_ai_response_schema_rejects_non_dict_response"
+      ]
     }
   ],
   "test_baseline": {
@@ -65,7 +105,92 @@
     "test_tool.py::test_should_allow_request_allows_after_cooldown": {
       "hash": "8d599d4e741c1f3160a3aaf80e99376170fbca7b3289e490d889429cb9e38e3d",
       "asserts": 2
+    },
+    "test_tool.py::test_retry_with_backoff_sleeps_with_exponential_delays": {
+      "hash": "5b639355e7ab8d721187790e7f08322a1ef7f06c3f2b2432df6e0006bf3c3ded",
+      "asserts": 1
+    },
+    "test_tool.py::test_retry_with_backoff_single_attempt_never_sleeps": {
+      "hash": "7c26b192280f657580a7780305f0f5f23f31fa86925a4a12da926fe896e5aac7",
+      "asserts": 2
+    },
+    "test_tool.py::test_retry_with_backoff_does_not_catch_unlisted_exception_types": {
+      "hash": "ea954e28160483f5d7883c4e073cf32efbe75528c4123fd082289c557eaf63ec",
+      "asserts": 0
+    },
+    "test_tool.py::test_fallback_chain_primary_success_never_calls_fallbacks": {
+      "hash": "7d4008b525b70ccd7203a158d1b5833c1b90c1c192b589c9352bb3a1f7b8772b",
+      "asserts": 2
+    },
+    "test_tool.py::test_fallback_chain_with_no_fallbacks_raises_primary_error": {
+      "hash": "768baa33ece5807fc41195a66d9d2f246a883bfb310e442bb5662d2e62797cfa",
+      "asserts": 0
+    },
+    "test_tool.py::test_validate_ai_response_schema_rejects_non_dict_response": {
+      "hash": "949d8c66af2f651e4c48dc287e17ee99f3395cb5df940dc8bff0ad2d9a562de3",
+      "asserts": 1
+    },
+    "test_tool.py::test_validate_ai_response_schema_empty_required_keys_always_passes": {
+      "hash": "867f37535a0adb4d78299d07e2e0aa97b55e2065712bfcccd82b57c0fed49b51",
+      "asserts": 1
+    },
+    "test_tool.py::test_sanitize_user_input_rejects_non_string": {
+      "hash": "ee229630a9ef8e7070cc1a6af902dc2a8cd9ae62f175ae39a254b4d1ea76daa6",
+      "asserts": 0
+    },
+    "test_tool.py::test_sanitize_user_input_no_truncation_at_exact_max_len": {
+      "hash": "fa8f9eb8c730b7b8bb6c4e5ce8d4a237f2e6d1e288ee6f142825779b1855d33f",
+      "asserts": 2
+    },
+    "test_tool.py::test_sanitize_user_input_strips_leading_and_trailing_whitespace": {
+      "hash": "7ea048d7f59abc78eebfdfabe021a23d32004f9e99f6a2aad0f70b8b81677535",
+      "asserts": 1
+    },
+    "test_tool.py::test_should_allow_request_true_when_not_tripped": {
+      "hash": "06f9a0c46c2327971fceb2e1efba52960eeb4ac6870963d7243358b49e98b792",
+      "asserts": 2
+    },
+    "test_tool.py::test_should_allow_request_exact_cooldown_boundary_allows": {
+      "hash": "97ae4839969df5aaa9cdfb5b599426c0e050beb5e3efa343a5f3b729c2c64927",
+      "asserts": 2
+    },
+    "test_tool.py::test_should_allow_request_one_second_before_cooldown_blocks": {
+      "hash": "08134acad6a566b974e0a10283eabcd09617d1dbf04830354a43f6d8893b2ffd",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_success_and_print_error_format_output": {
+      "hash": "3b84fda1567ee0852c1019ab1f64a58ea989bcccb15f5a574b8cd172d0b11f6c",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_with_expected_args": {
+      "hash": "6e467dae1b46714fb23b3d540f4a12400ac1e781f0c782cfcce2ecf810cb289b",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_test_propagates_nonzero_pytest_exit_code": {
+      "hash": "75f72aaa396d5077ec1efe02b738178395b2ac2cef2de71cd45b300681c6a2f5",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_no_command_exits_nonzero_because_subcommand_required": {
+      "hash": "a7d9b4a1bf8fefcc299d6c173ad05fc32744cc1df56dbad30d92978dd0ac0460",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_test_command_success": {
+      "hash": "8e2202d82a74bc875d63fcd7f005f8563a58048a1f74d24c65f754e2d6e3c17e",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_test_command_failure": {
+      "hash": "986641d9fd58e8ee173546bb72d7423d18d1051c3f5c013f0dd4625b6cf21a6d",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_rejects_unknown_subcommand": {
+      "hash": "3c03f06f13409d210e82df03810079448e1a58f135b3e206c777bbe9e478eb46",
+      "asserts": 0
+    },
+    "test_tool.py::test_script_runs_as_main_via_subprocess_missing_command_exits_nonzero": {
+      "hash": "2ad2e848bcf639d8607a791d585da6b0de0ba2025a131aee3dfd043015a6cf21",
+      "asserts": 2
     }
   },
-  "coverage_pct": 79.0
+  "coverage_pct": 99.0,
+  "mutation_score": 1.0
 }

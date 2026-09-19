@@ -1,0 +1,61 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-111129",
+      "reason": "Replaced TODO stub with real change-spec scaffolding, cross-file impact scanning, rollback-note generation + 8 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_rollback_note_always_includes_revert_step",
+        "test_tool.py::test_build_rollback_note_includes_migration_and_flag_when_given",
+        "test_tool.py::test_create_change_spec_numbers_sequentially",
+        "test_tool.py::test_create_change_spec_writes_three_files",
+        "test_tool.py::test_next_change_number_increments_past_existing",
+        "test_tool.py::test_next_change_number_starts_at_one",
+        "test_tool.py::test_scan_impact_finds_only_matching_files",
+        "test_tool.py::test_slugify"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_slugify": {
+      "hash": "6f80e5db3b3f8cb3a6f6b6819c3ac71e4577e5885f9fd4904baaf170bba3c170",
+      "asserts": 1
+    },
+    "test_tool.py::test_next_change_number_starts_at_one": {
+      "hash": "e31c00857c8d534df3cafae801cb5de7c0fadb460527c72abf4372a38eef9e9c",
+      "asserts": 1
+    },
+    "test_tool.py::test_next_change_number_increments_past_existing": {
+      "hash": "bbd7b39319daf03dedaba0f59d8ab337ee2de2e32d3e2029db2b33857baf8797",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_change_spec_writes_three_files": {
+      "hash": "8c34ba5f32b6cf9c1c3402230ff1d3ab8790989f7dd77efb9f1c05ce4203797e",
+      "asserts": 4
+    },
+    "test_tool.py::test_create_change_spec_numbers_sequentially": {
+      "hash": "c1333977c5aded5bae5bdf12b00c9dbece1a9e50b963a0df205c97117401c4b2",
+      "asserts": 2
+    },
+    "test_tool.py::test_scan_impact_finds_only_matching_files": {
+      "hash": "b6613b1d45811013a58b62483201c17bc69a72979e941f84661837690db5a1ba",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_rollback_note_includes_migration_and_flag_when_given": {
+      "hash": "b09f657b249c2fdb47a88d400b2e6a4a2f7c5ef0fa945f08c44e2c5e67504120",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_rollback_note_always_includes_revert_step": {
+      "hash": "a520d5d17e45e1869b402ab5a08a91e8371d2d63c62030534e4345dfaedfd2c1",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 46.0
+}

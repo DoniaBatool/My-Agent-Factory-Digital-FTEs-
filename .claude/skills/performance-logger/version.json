@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -23,6 +23,43 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063810",
+      "reason": "Bulletproofing pass: added print_success/print_error output tests, redaction substring-matching and non-sensitive-value passthrough tests, format_log_line field-sort-order and no-extra-fields tests, boundary-value tests (zero-duration, is_slow exactly-at-threshold using strict >, rate limiter entry exactly at cutoff, max_per_window=0), independent-bucket-per-key test for the rate limiter, percentile/aggregate single-sample and empty-list edge cases, and CLI-layer tests for cmd_test (subprocess invocation mocked to avoid recursive pytest spawning) and main()'s dispatch/required-subcommand enforcement. Coverage 80%->98%, mutation score measured at 100% (9/9 mutants).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_aggregate_timings_basic",
+        "test_tool.py::test_aggregate_timings_empty",
+        "test_tool.py::test_compute_duration_ms_basic",
+        "test_tool.py::test_compute_duration_ms_rejects_negative",
+        "test_tool.py::test_format_log_line_includes_redacted_fields",
+        "test_tool.py::test_is_slow_threshold",
+        "test_tool.py::test_rate_limited_logger_allows_again_after_window_passes",
+        "test_tool.py::test_rate_limited_logger_allows_up_to_max",
+        "test_tool.py::test_rate_limited_logger_blocks_beyond_max_within_window",
+        "test_tool.py::test_redact_sensitive_masks_known_keys"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_aggregate_timings_single_sample",
+        "test_tool.py::test_cmd_test_invokes_pytest_subprocess_with_expected_args",
+        "test_tool.py::test_compute_duration_ms_zero_duration_allowed_not_negative",
+        "test_tool.py::test_format_log_line_sorts_fields_alphabetically_regardless_of_call_order",
+        "test_tool.py::test_format_log_line_with_no_extra_fields",
+        "test_tool.py::test_is_slow_exactly_at_threshold_is_not_slow",
+        "test_tool.py::test_main_missing_required_command_exits_nonzero",
+        "test_tool.py::test_main_test_subcommand_dispatches_to_cmd_test_and_exits_with_its_code",
+        "test_tool.py::test_main_test_subcommand_propagates_nonzero_exit_code",
+        "test_tool.py::test_percentile_empty_list_returns_zero",
+        "test_tool.py::test_percentile_exact_integer_rank_no_interpolation",
+        "test_tool.py::test_print_error_includes_cross_and_message",
+        "test_tool.py::test_print_success_includes_checkmark_and_message",
+        "test_tool.py::test_rate_limited_logger_different_keys_are_independent",
+        "test_tool.py::test_rate_limited_logger_item_exactly_at_cutoff_is_excluded",
+        "test_tool.py::test_rate_limited_logger_max_zero_always_blocks",
+        "test_tool.py::test_redact_sensitive_leaves_non_string_values_untouched_when_not_sensitive",
+        "test_tool.py::test_redact_sensitive_matches_substring_not_just_exact_key"
+      ]
     }
   ],
   "test_baseline": {
@@ -65,7 +102,80 @@
     "test_tool.py::test_rate_limited_logger_allows_again_after_window_passes": {
       "hash": "afd09cc8d7a14f83eff184a6d174864e07e97f974f309ccb3ebe0bd77f1228be",
       "asserts": 1
+    },
+    "test_tool.py::test_print_success_includes_checkmark_and_message": {
+      "hash": "56e32533ccf377e39079f2dce8e1b796c7cd765150438b610ead3feb4105c38e",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_includes_cross_and_message": {
+      "hash": "cccf2f5524ff37b344f9b848208f4a8be9be8409004eeb7ff93f0c68592c330c",
+      "asserts": 2
+    },
+    "test_tool.py::test_redact_sensitive_leaves_non_string_values_untouched_when_not_sensitive": {
+      "hash": "43c2311bd0dcb80aa43303fc7e5275e029dab325bd2fc5d0e9100a4afb786adc",
+      "asserts": 1
+    },
+    "test_tool.py::test_redact_sensitive_matches_substring_not_just_exact_key": {
+      "hash": "52dfa9ac6a8a2d3a058f8667448de553a260f5f0764960701a8a8151f99ffe38",
+      "asserts": 3
+    },
+    "test_tool.py::test_format_log_line_sorts_fields_alphabetically_regardless_of_call_order": {
+      "hash": "78e4c8d123e6a7c8851ba44154a3cc44f305eceb88fe59e348e302787cc8448e",
+      "asserts": 1
+    },
+    "test_tool.py::test_format_log_line_with_no_extra_fields": {
+      "hash": "8a74e1ca970bb9fcc7cd36289b5aabc985bb4c2fad99f296ae6f169f66823c78",
+      "asserts": 1
+    },
+    "test_tool.py::test_compute_duration_ms_zero_duration_allowed_not_negative": {
+      "hash": "bdfe923321afa63abba52211e9c59ae3127ed47606fd75c4973a78f216fd2ec6",
+      "asserts": 1
+    },
+    "test_tool.py::test_is_slow_exactly_at_threshold_is_not_slow": {
+      "hash": "d3068f8b3672da8442ea0b1cd3579cd54b2d6510e42dfac70645baae39af2a01",
+      "asserts": 1
+    },
+    "test_tool.py::test_percentile_exact_integer_rank_no_interpolation": {
+      "hash": "3f8e443a7d78c18dd45ab96cb4005cd8c85f11d30de84293ab73441cde3cc8d1",
+      "asserts": 1
+    },
+    "test_tool.py::test_percentile_empty_list_returns_zero": {
+      "hash": "3364e088d525d2fea8bef177a5c740b6df8190187b689b4d80c212d0797fef44",
+      "asserts": 1
+    },
+    "test_tool.py::test_aggregate_timings_single_sample": {
+      "hash": "2f347d4f5c0cb5b3497732fb21ac12f803330e88a1ea55bd3e3613061e28bd53",
+      "asserts": 3
+    },
+    "test_tool.py::test_rate_limited_logger_item_exactly_at_cutoff_is_excluded": {
+      "hash": "e37697967f2543d8680d233cec43f9b1113e0dbbab3d2594eff105891ff32d04",
+      "asserts": 2
+    },
+    "test_tool.py::test_rate_limited_logger_max_zero_always_blocks": {
+      "hash": "cef5b7986793dd9cb2efc05fd1dab284a229900387606209b6e5258f98224ce1",
+      "asserts": 2
+    },
+    "test_tool.py::test_rate_limited_logger_different_keys_are_independent": {
+      "hash": "b13a87f4d206ab758461bb1066f2f8635ad911755c4e288215c1ba1d3fccd5e4",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_invokes_pytest_subprocess_with_expected_args": {
+      "hash": "80c7ddea29401916d084fc39f0e5868858684167ce5a59ec66b87316482bc238",
+      "asserts": 7
+    },
+    "test_tool.py::test_main_test_subcommand_dispatches_to_cmd_test_and_exits_with_its_code": {
+      "hash": "165f29876ac8e0e3017fa3b125001dba923ae7b2a0e0ac67ca7f83b204fca075",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_test_subcommand_propagates_nonzero_exit_code": {
+      "hash": "c86ed47098c6eb4b334e55d3b401b0d5b3c7f2910b98b2bb91203e9730bd7f6c",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_missing_required_command_exits_nonzero": {
+      "hash": "7ce5967a701decf69e3aace8852686253c61e37482c44e0ccf12411c9c149bc4",
+      "asserts": 1
     }
   },
-  "coverage_pct": 80.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

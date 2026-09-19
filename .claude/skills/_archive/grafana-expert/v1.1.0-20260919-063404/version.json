@@ -1,0 +1,91 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110435",
+      "reason": "Restored + strengthened prerequisite/test logic that had regressed to a 1-of-6-checks stub; added 14 fixed regression tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_alert_rule_structure",
+        "test_tool.py::test_build_dashboard_json_creates_one_panel_per_title",
+        "test_tool.py::test_build_datasource_payload_custom",
+        "test_tool.py::test_build_datasource_payload_defaults",
+        "test_tool.py::test_build_install_command_docker_ignores_os",
+        "test_tool.py::test_build_install_command_linux_native_uses_apt",
+        "test_tool.py::test_build_install_command_macos_native_uses_brew",
+        "test_tool.py::test_build_install_command_rejects_unknown_os",
+        "test_tool.py::test_build_provisioning_yaml_contains_datasource_fields",
+        "test_tool.py::test_diagnose_flags_only_failed_checks",
+        "test_tool.py::test_diagnose_returns_empty_when_all_pass",
+        "test_tool.py::test_find_first_existing_returns_first_match",
+        "test_tool.py::test_find_first_existing_returns_none_when_nothing_exists",
+        "test_tool.py::test_run_tests_performs_six_distinct_checks_not_a_fake_one"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_find_first_existing_returns_first_match": {
+      "hash": "cd692f22c8805d8372cd494000dbffc168b0e3441436a5fc47be8d83776a4229",
+      "asserts": 1
+    },
+    "test_tool.py::test_find_first_existing_returns_none_when_nothing_exists": {
+      "hash": "bcf5a9dcbff35408aea7cab79cbef78ea20fb3059e283d12d78ef6ed58615465",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_install_command_docker_ignores_os": {
+      "hash": "1ed0ab7f2b18cf289ea0581f413d6898245d315af1418787803f375271916aa6",
+      "asserts": 2
+    },
+    "test_tool.py::test_build_install_command_macos_native_uses_brew": {
+      "hash": "46ad747415e88e0f49c6a08fe04adf3110a0910289b5f27d22f942261d70f19b",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_install_command_linux_native_uses_apt": {
+      "hash": "d8f7a79869f8f43ee6358025fed2cad7238b8c8f9348f7a4ac5577653382603f",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_install_command_rejects_unknown_os": {
+      "hash": "b5f7cc3454a68d6e877fe1606718f7b0d78a020a4f64d42bfa6ca039728f4af6",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_datasource_payload_defaults": {
+      "hash": "d2de0e7d5512cce3cb62e46ed61befdfd99932bf5f54dc1176d37562d259c1f9",
+      "asserts": 3
+    },
+    "test_tool.py::test_build_datasource_payload_custom": {
+      "hash": "133fb973bf11b783b73101f111fa96e044f16074f8b4dbaaa8616521021e3a10",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_dashboard_json_creates_one_panel_per_title": {
+      "hash": "bd421ad05a19c14c54163b273401981f3f60fcbc4a34545b351c500efc89e12d",
+      "asserts": 3
+    },
+    "test_tool.py::test_build_provisioning_yaml_contains_datasource_fields": {
+      "hash": "31367811f303e651c547b07cc714e7b9a5fbf8dd2ae565d1973ebcf369ee5598",
+      "asserts": 3
+    },
+    "test_tool.py::test_build_alert_rule_structure": {
+      "hash": "ad46a563765b600ff1ade496f2a388088aaeef57d1c3b6bd41a95dab1454d27f",
+      "asserts": 3
+    },
+    "test_tool.py::test_diagnose_flags_only_failed_checks": {
+      "hash": "0d6584eceacc1e7789217e668db4131ce64e73867c203b355b7f78b296c8c4d8",
+      "asserts": 2
+    },
+    "test_tool.py::test_diagnose_returns_empty_when_all_pass": {
+      "hash": "0fd534c5adc08a7de977084ce7ac805329918804061a6353e3208d6fdf6bef1c",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_performs_six_distinct_checks_not_a_fake_one": {
+      "hash": "be6346d4c86b37b1f008127d27466ad897c8fc84630de754925dec975e5d0637",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 42.0
+}

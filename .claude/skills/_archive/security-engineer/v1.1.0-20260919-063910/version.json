@@ -1,0 +1,66 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.1.0",
+      "date": "20260914-110948",
+      "reason": "Replaced TODO stub with real regex-based secret scanner, security-header checker, threat-model builder + 9 fixed tests",
+      "baseline_tests_verified": [],
+      "new_tests_added": [
+        "test_tool.py::test_build_threat_model_pairs_matching_entry_and_asset",
+        "test_tool.py::test_check_headers_case_insensitive_match",
+        "test_tool.py::test_check_headers_flags_all_missing",
+        "test_tool.py::test_owasp_top10_has_ten_categories",
+        "test_tool.py::test_scan_secrets_clean_text_has_no_findings",
+        "test_tool.py::test_scan_secrets_finds_aws_key",
+        "test_tool.py::test_scan_secrets_finds_private_key_block",
+        "test_tool.py::test_scan_secrets_masks_the_actual_secret_value",
+        "test_tool.py::test_scan_secrets_reports_correct_line_number"
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260916-070313",
+      "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_scan_secrets_finds_aws_key": {
+      "hash": "8ec8b57df9793ccfcab0f39df3bb4f7133f18f3398149ad41de1615374b112fa",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_secrets_finds_private_key_block": {
+      "hash": "1de2e125ffc4a2b7c63da8f5be414616e71c88a30b03094e76c7b81d168b8395",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_secrets_masks_the_actual_secret_value": {
+      "hash": "59297e5f5bb887ee4f97c651abcb3cf8c8b9dc848570f94886241ccb64c1a234",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_secrets_clean_text_has_no_findings": {
+      "hash": "b1e6d962df4018d231c0c249f1d0936ff51d93c4fa1952d7ae3896f8cd4b1e49",
+      "asserts": 1
+    },
+    "test_tool.py::test_scan_secrets_reports_correct_line_number": {
+      "hash": "4ec27782210b1b8fd5654f1a6d2be18c9cfe87ebaaf07cf48f556ded4f98ffe3",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_headers_flags_all_missing": {
+      "hash": "e8ba044c96fd093f5f29ae14ae7a9dd9416928cbb93df55c1df1f6737f8798fd",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_headers_case_insensitive_match": {
+      "hash": "9a19abc7ac500da4422b61157e3bb1e051cca57556b2d3d53361cf85687bc3c1",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_threat_model_pairs_matching_entry_and_asset": {
+      "hash": "a2218f79458da0e81f1ac186fa9ea2f52b35a27721d0cc80525b3bcd5c3f421d",
+      "asserts": 1
+    },
+    "test_tool.py::test_owasp_top10_has_ten_categories": {
+      "hash": "30887e8d5aac0f32844b4ec96df2899b9bc3da8e0bd580fa32fefcce17d0fbe7",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 43.0
+}

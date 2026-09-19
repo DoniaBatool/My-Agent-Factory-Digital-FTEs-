@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -20,6 +20,42 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-063547",
+      "reason": "Bulletproofing pass: added 20 new tests covering run_smoke_check's full branch matrix (HTTP 200 success, non-200 failure, TimeoutExpired, missing curl binary via FileNotFoundError, and a mocked-subprocess assertion on the exact curl invocation kwargs: capture_output/text/timeout/url), the CLI layer (cmd_check_env_vars via monkeypatched real os.environ for both present and missing cases, cmd_smoke_check success/failure with run_smoke_check mocked, cmd_rollback_plan, cmd_test, main() dispatch and no-command help path), required-argument enforcement for --required/--url/--previous-version via SystemExit, and a subprocess smoke test exercising the __main__ guard. Coverage 37%->97%, mutation score measured at 100% (9/9 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_build_rollback_plan_always_includes_redeploy_step",
+        "test_tool.py::test_build_rollback_plan_includes_migration_and_flag_when_given",
+        "test_tool.py::test_check_env_vars_flags_empty_string_as_missing",
+        "test_tool.py::test_check_env_vars_flags_missing",
+        "test_tool.py::test_check_env_vars_never_leaks_values_in_result",
+        "test_tool.py::test_check_env_vars_ok_when_all_present",
+        "test_tool.py::test_run_smoke_check_reports_failure_for_unreachable_host"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_cmd_check_env_vars_ok_when_all_present",
+        "test_tool.py::test_cmd_check_env_vars_reports_missing",
+        "test_tool.py::test_cmd_rollback_plan_prints_json_steps",
+        "test_tool.py::test_cmd_smoke_check_failure",
+        "test_tool.py::test_cmd_smoke_check_success",
+        "test_tool.py::test_cmd_test_self_test_passes",
+        "test_tool.py::test_main_check_env_vars_end_to_end",
+        "test_tool.py::test_main_missing_required_previous_version_arg_for_rollback_plan_exits",
+        "test_tool.py::test_main_missing_required_required_arg_for_check_env_vars_exits",
+        "test_tool.py::test_main_missing_required_url_arg_for_smoke_check_exits",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_rollback_plan_end_to_end",
+        "test_tool.py::test_main_smoke_check_end_to_end",
+        "test_tool.py::test_main_test_command_end_to_end",
+        "test_tool.py::test_run_smoke_check_fails_on_non_200_code",
+        "test_tool.py::test_run_smoke_check_handles_missing_curl_binary",
+        "test_tool.py::test_run_smoke_check_handles_timeout_expired",
+        "test_tool.py::test_run_smoke_check_invokes_curl_with_text_mode_and_capture_output",
+        "test_tool.py::test_run_smoke_check_ok_on_http_200",
+        "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint"
+      ]
     }
   ],
   "test_baseline": {
@@ -50,7 +86,88 @@
     "test_tool.py::test_run_smoke_check_reports_failure_for_unreachable_host": {
       "hash": "bd63b1ba213da459be66224c67a65026487d0da0cb7385d3bda99e2dc1e5e14c",
       "asserts": 1
+    },
+    "test_tool.py::test_run_smoke_check_ok_on_http_200": {
+      "hash": "3b73f461ad92cf3daa9f04e1d4c750f75c60a7503344b8ffd41a8b1e8ddf2cc2",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_smoke_check_fails_on_non_200_code": {
+      "hash": "7d1960baa46fbc3a7974a838be813f00105ab1865d31d0dac8ac35d23be71cc9",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_smoke_check_handles_timeout_expired": {
+      "hash": "873780e9beb7e47cd087dd30bd3fe363f9debedaa91996df227c5928733bc379",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_smoke_check_handles_missing_curl_binary": {
+      "hash": "dbaee2931a91067892f021f3ffa18aa0aea8e1e0fccc837428495a61046d36b7",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_env_vars_ok_when_all_present": {
+      "hash": "e1e1f9b406a31a209253894236bd1ce795239001b339898ff00dd47f194c21ed",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_env_vars_reports_missing": {
+      "hash": "330565d892fbc793b0e12b66c0016b2ced7fcaa0786b01e1dbe4c14d1cc398e5",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_smoke_check_success": {
+      "hash": "54cb99df14d5b33edd0aba186bd0b780b77e0647c3a5ee44f7104a7d2e3ab70d",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_smoke_check_failure": {
+      "hash": "9c1030417621b28653ca7bcb4e65af2ded8c453ecac4ff89fa9ca7698ea47d6a",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_rollback_plan_prints_json_steps": {
+      "hash": "55c75184edb0f64c996abf871543763a8adfb00eba765186f90859adb00337ed",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_test_self_test_passes": {
+      "hash": "5dcce7724a5df43b97459412d0dd8aa978488dc59958a77d600b82f7ce7e14ed",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "706740168087f6b7bf40836c6923f2e7c8e370556bdf6d06e3cc223e68282b73",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_check_env_vars_end_to_end": {
+      "hash": "474cb9732f285e445df8189c4dd1175ade0d239ed124261100cb241f9bcf38b9",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_smoke_check_end_to_end": {
+      "hash": "ec7c93f84d82993b0b63054972bd9df91342bf19cdd29204c8627990a5cbbcaf",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_rollback_plan_end_to_end": {
+      "hash": "b1ce504e4292abc71c506ddf0f39a237cfcb9cb9cb161f80d363971570aefb01",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_test_command_end_to_end": {
+      "hash": "cc36831028b0cbd34c8a2c87bb8ac79495c7412100837661d49ee2c5522cd8c7",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_missing_required_required_arg_for_check_env_vars_exits": {
+      "hash": "88094ed3b3840e9ba040d7a683ac48bc6289a64f5a9a7cb5f30fb7e505ddf42a",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_missing_required_url_arg_for_smoke_check_exits": {
+      "hash": "4558c121758294209444314ffeb00d808af0ecaeb166d6e7156b0648c8a42567",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_missing_required_previous_version_arg_for_rollback_plan_exits": {
+      "hash": "e274e77f22fa7d89e669e41ad43d75738a31c31b453f245110668d2cb4b6ff2f",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint": {
+      "hash": "ceefa3b9bf42a2eb8e4c524e72d2566d96e57f1821a4111bbc91e0ae5102fc4c",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_smoke_check_invokes_curl_with_text_mode_and_capture_output": {
+      "hash": "277f9aea5d2d9e0fe39258940a8884d412fd99fd85ef2a7a4a69ea2e39589f58",
+      "asserts": 5
     }
   },
-  "coverage_pct": 37.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }

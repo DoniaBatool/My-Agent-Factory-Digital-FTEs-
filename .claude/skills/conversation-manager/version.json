@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "history": [
     {
       "version": "1.1.0",
@@ -23,6 +23,40 @@
       "version": "1.1.0",
       "date": "20260916-070313",
       "reason": "Guardrail rollout: established test-body-hash / coverage baseline (no code change) so future promotions are protected by the new gate checks."
+    },
+    {
+      "version": "1.2.0",
+      "date": "20260919-062626",
+      "reason": "Bulletproofing pass: added 15 new tests covering print_success/print_error output, boundary/edge cases in latest_message_preview (exact max_len boundary, whitespace collapsing), build_conversation_list fallback to conv.created_at, paginate_messages non-positive-limit rejection and before-earliest-id empty-page edge case, cascade_delete_plan no-match case, scoped_conversations_for_user missing-key filtering, and the CLI layer (cmd_test with subprocess.run mocked to verify command construction and returncode forwarding for both success and failure, main()'s required-command enforcement, unknown-command rejection, and dispatch-table propagation of return codes via SystemExit). Coverage 79%->97% (only the if __name__==\"__main__\" guard line remains uncovered), mutation score measured at 100% (12/12 mutants killed).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_assert_owns_conversation_passes_for_owner",
+        "test_tool.py::test_assert_owns_conversation_rejects_other_user",
+        "test_tool.py::test_build_conversation_list_sorts_by_last_activity_desc",
+        "test_tool.py::test_cascade_delete_plan_only_targets_matching_conversation",
+        "test_tool.py::test_latest_message_preview_empty_when_no_messages",
+        "test_tool.py::test_latest_message_preview_truncates_long_content",
+        "test_tool.py::test_paginate_messages_before_id_walks_backward",
+        "test_tool.py::test_paginate_messages_returns_last_n_when_no_cursor",
+        "test_tool.py::test_paginate_messages_unknown_cursor_raises",
+        "test_tool.py::test_scoped_conversations_for_user_filters_correctly"
+      ],
+      "new_tests_added": [
+        "test_tool.py::test_build_conversation_list_falls_back_to_conv_created_at_when_no_messages",
+        "test_tool.py::test_cascade_delete_plan_no_matches_returns_empty",
+        "test_tool.py::test_cmd_test_forwards_nonzero_returncode_on_failure",
+        "test_tool.py::test_cmd_test_forwards_pytest_returncode_and_invokes_subprocess",
+        "test_tool.py::test_latest_message_preview_collapses_internal_whitespace",
+        "test_tool.py::test_latest_message_preview_exact_boundary_length_not_truncated",
+        "test_tool.py::test_main_dispatches_test_command_and_propagates_returncode",
+        "test_tool.py::test_main_rejects_unknown_command",
+        "test_tool.py::test_main_requires_command_argument_and_exits",
+        "test_tool.py::test_paginate_messages_before_earliest_id_returns_empty_page_no_more",
+        "test_tool.py::test_paginate_messages_rejects_non_positive_limit",
+        "test_tool.py::test_paginate_messages_returns_full_list_when_limit_exceeds_length",
+        "test_tool.py::test_print_error_writes_cross_and_message",
+        "test_tool.py::test_print_success_writes_checkmark_and_message",
+        "test_tool.py::test_scoped_conversations_for_user_excludes_missing_user_id_key"
+      ]
     }
   ],
   "test_baseline": {
@@ -65,7 +99,68 @@
     "test_tool.py::test_scoped_conversations_for_user_filters_correctly": {
       "hash": "4e43bbcb1e02bf7dec4bc037f031057a9b0f97ee66b391f1ee2b113695e9febe",
       "asserts": 1
+    },
+    "test_tool.py::test_print_success_writes_checkmark_and_message": {
+      "hash": "37d99d242276e3ad3a52b40624111cbca3c588c838577641736e25afa7fa0559",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_writes_cross_and_message": {
+      "hash": "6d8843bc85c56a821b158de7c735ed41bc772e06905edb5ae7ceec1831ea6b7d",
+      "asserts": 2
+    },
+    "test_tool.py::test_latest_message_preview_exact_boundary_length_not_truncated": {
+      "hash": "e1dcde0d53ad82ddc9c0c14e76daf927880c834b8df6d9c694d6feeb2da5f479",
+      "asserts": 2
+    },
+    "test_tool.py::test_latest_message_preview_collapses_internal_whitespace": {
+      "hash": "7f417c43fd819dcbe5c345cb2e61e82eeca95a875e2995f50b48647eaa0eab8b",
+      "asserts": 1
+    },
+    "test_tool.py::test_build_conversation_list_falls_back_to_conv_created_at_when_no_messages": {
+      "hash": "5ee511825d0024c739dda174738ac3f4ec95011c1e63de26eecf0b558135783d",
+      "asserts": 3
+    },
+    "test_tool.py::test_paginate_messages_rejects_non_positive_limit": {
+      "hash": "e1b16a49be716264018ff1ce2297f5f9301e80c73e6592433afa46a884942346",
+      "asserts": 0
+    },
+    "test_tool.py::test_paginate_messages_returns_full_list_when_limit_exceeds_length": {
+      "hash": "eeb6710ea7a2697c72f78d615f120e3bf522dde4d8f96f711c31e9c289e46da6",
+      "asserts": 2
+    },
+    "test_tool.py::test_paginate_messages_before_earliest_id_returns_empty_page_no_more": {
+      "hash": "6f5576d523040266444df3664a45bbc79670fac7187ee9bc2d2ac2f28609094f",
+      "asserts": 2
+    },
+    "test_tool.py::test_cascade_delete_plan_no_matches_returns_empty": {
+      "hash": "d8616c474546bfb6bafeae75f3d4894668faf45ae8f69ac611650df30b9bde0c",
+      "asserts": 2
+    },
+    "test_tool.py::test_scoped_conversations_for_user_excludes_missing_user_id_key": {
+      "hash": "d75d4328e9c63cf344bcdd32f485d14a3a4d45c21cdf96663da29340ce154297",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_test_forwards_pytest_returncode_and_invokes_subprocess": {
+      "hash": "1aff1cb4d6f55dff2428d750f754d2d55c1dc2700b8957d97df5adb1322bb8aa",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_test_forwards_nonzero_returncode_on_failure": {
+      "hash": "5e3d0fe826a066feb1a8bc2c75e81cb1ecb446b0d637bc86609ec75cdd298073",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_requires_command_argument_and_exits": {
+      "hash": "9b7d3ad158351ad00970946b29f558a17d97a537d027b63e47ba40bc4d1434f3",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_dispatches_test_command_and_propagates_returncode": {
+      "hash": "7a95280eab6fa0827585744d06e48f86a8f528fb7832dd9ef179fd4d39304d1e",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_rejects_unknown_command": {
+      "hash": "d47446d44d440aaf5fa260eb2e12c8d28f41e23562f20fce599e396fe3921bfd",
+      "asserts": 0
     }
   },
-  "coverage_pct": 79.0
+  "coverage_pct": 98.0,
+  "mutation_score": 1.0
 }
