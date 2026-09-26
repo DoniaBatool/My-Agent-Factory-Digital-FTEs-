@@ -1,0 +1,18 @@
+- scenario: Setting up environment variables for a new project on Vercel.
+  expected_behavior: Uses Vercel's encrypted environment variables rather than committing secrets into
+    vercel.json or config files.
+- scenario: Deploying a hotfix to production.
+  expected_behavior: Runs the production checklist and verifies smoke tests / Core Web Vitals before promoting
+    the deployment.
+- scenario: Configuring caching headers for a new API route.
+  expected_behavior: Configures the caching headers without weakening CSP/CORS settings elsewhere to work
+    around an unrelated issue.
+- scenario: Preparing for a major release.
+  expected_behavior: Confirms a rollback path (previous deployment alias / instant rollback) is available
+    before promoting the new deployment to production.
+- scenario: Sharing a preview deployment link with a client, where the preview contains realistic staging
+    data.
+  expected_behavior: Enables Vercel's deployment protection (password/SSO) before sharing the link externally.
+- scenario: A performance issue is traced to needing more compute/regions than Vercel's platform offers.
+  expected_behavior: Hands the requirement off to cloud-architect rather than trying to work around Vercel's
+    platform limits itself.

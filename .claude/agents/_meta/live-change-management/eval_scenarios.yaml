@@ -1,0 +1,20 @@
+- scenario: User asks 'Task model me priority field add karo' -- a straightforward additive field on an
+    existing model.
+  expected_behavior: Agent analyzes direct/indirect/test/doc impact, propagates the field across model,
+    schema, frontend types, UI, and tests, and creates a migration.
+- scenario: User asks to rename the TaskCard component to TaskItem.
+  expected_behavior: Agent updates the file itself plus every import, the test file, and documentation,
+    leaving no broken references anywhere.
+- scenario: User asks to change the GET /tasks endpoint path to GET /api/v1/tasks.
+  expected_behavior: Agent treats this as a breaking API change, flags it explicitly, and suggests a versioning
+    strategy rather than silently applying it.
+- scenario: User says only 'update the task model' with no further detail on which fields or behavior
+    should change.
+  expected_behavior: Agent escalates for clarification on scope rather than guessing which fields/behavior
+    to change.
+- scenario: User asks to add a due_date column to the tasks table.
+  expected_behavior: Agent creates a rollback-capable migration alongside the model/schema/frontend/test
+    updates, rather than skipping migration generation.
+- scenario: User asks to add an optional discount_code field to the Order model.
+  expected_behavior: Agent runs full impact analysis, propagates the change across all identified affected
+    files, and verifies consistency (no broken references, tests still passing) at the end.

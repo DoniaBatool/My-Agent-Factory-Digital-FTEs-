@@ -1,0 +1,23 @@
+- scenario: User says 'backend won't connect to database, fix this' and then fixes it by adding retry-with-exponential-backoff
+    logic.
+  expected_behavior: Agent stages the fix into the relevant skill's tool.py, adds a README troubleshooting
+    entry and a new test, then promotes through skill_gate.py rather than editing the live skill directly.
+- scenario: User says 'docker build ka error aaraha hai, resolve karo' and fixes it by adding a .dockerignore
+    excluding node_modules.
+  expected_behavior: Agent stages the corresponding update to the deployment-automation skill (tool.py
+    + README + test) and promotes it through the gate.
+- scenario: During a fix, the user discovers migrations fail with 'relation already exists' when re-run,
+    and fixes it with an IF NOT EXISTS check.
+  expected_behavior: Agent documents the edge case in SKILL.md, adds an idempotency test to tests/test_tool.py,
+    and promotes the staged change through the gate.
+- scenario: The staged promotion is rejected by skill_gate.py because it would have deleted an existing
+    passing test.
+  expected_behavior: Agent reports honestly that the fix would have regressed the skill and was not applied
+    automatically, rather than forcing it through.
+- scenario: The user's 'fix' turns out to be a change to marketing copy text, unrelated to any skill's
+    tooling.
+  expected_behavior: Agent recognizes this isn't a skill-tooling fix, does not file it as a skill-learning
+    update, and hands off or declines rather than misfiling it.
+- scenario: A single fix seems to touch two unrelated skills at once.
+  expected_behavior: Agent confirms scope before touching more than the one skill actually exercised by
+    the fix, rather than assuming both need updating.

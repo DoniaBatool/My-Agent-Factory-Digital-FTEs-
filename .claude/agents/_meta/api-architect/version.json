@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "2026-09-26",
+      "notes": "Initial agent QA onboarding: added Scope, Tools Allowed, Guardrails, Escalation Rules, and Out of Scope sections to api-architect.md; added eval_scenarios.yaml (6 scenarios) and redteam_prompts.yaml (6 prompts)."
+    }
+  ]
+}

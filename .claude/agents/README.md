@@ -2,33 +2,24 @@
 
 ## Full-Time Equivalent (FTE) AI Agents with Reusable Intelligence
 
-This directory contains **17 specialized FTE agents** (EXPANDED!), each with expertise in their domain and access to relevant skills from the `.claude/skills/` directory.
-
-**🔌 MCP-Enhanced Agents (3):** github-specialist, vercel-deployer, render-deployer
+This directory contains **18 specialized FTE agents**, each with a documented role, a
+defined scope of responsibility, and access to relevant skills from the `.claude/skills/`
+directory. Every agent has been through the agent-QA gate in `.claude/agents/_framework/`
+(structural review + genuine live-simulation evaluation) — see **Agent QA Status** below.
 
 ## 🤖 Available Agents
 
-### 🎯 Master Orchestrator (`/orchestrator`) - NEW!
+### 🎯 Master Orchestrator (`/orchestrator`)
 **Role**: Intelligent orchestrator that analyzes prompts, assigns agents, and coordinates execution
-**Skills**: prompt-analyzer + access to all 32 skills
+**Skills**: `prompt-analyzer` + delegates to all specialist agents/skills
 **Special Capabilities**:
 - Automatic prompt analysis using `/sp.prompt-analyzer`
 - Intent detection and keyword extraction
 - Skills mapping and agent assignment
-- Execution plan generation
-- Multi-agent coordination
-- Constitution enforcement
+- Execution plan generation (presented for approval before complex/multi-agent delegation)
+- Multi-agent coordination and constitution enforcement
 
-**Use when**: **AUTO-TRIGGERS on EVERY user request** - This is the master agent that decides which specialized agents to use.
-
-**How it works**:
-1. User submits prompt → Orchestrator analyzes
-2. Detects intent & keywords
-3. Maps to required skills
-4. Assigns specialized agents
-5. Generates execution plan
-6. Coordinates agent execution
-7. Reports completion
+**Use when**: Deciding which specialized agent(s) a request should route to.
 
 **See**: `.claude/agents/orchestrator.md` for complete documentation
 
@@ -36,18 +27,9 @@ This directory contains **17 specialized FTE agents** (EXPANDED!), each with exp
 
 ### 1. Backend Developer (`/backend-developer`)
 **Role**: Backend API development and database integration
-**Skills**: 11 skills
-- jwt-authentication
-- password-security
-- pydantic-validation
-- connection-pooling
-- transaction-management
-- database-schema-expander
-- mcp-tool-builder
-- chatbot-endpoint
-- conversation-manager
-- api-docs-generator
-- user-isolation
+**Skills**: jwt-authentication, password-security, pydantic-validation, connection-pooling,
+transaction-management, database-schema-expander, mcp-tool-builder, chatbot-endpoint,
+conversation-manager, api-docs-generator, user-isolation
 
 **Use when**: Building APIs, implementing authentication, database operations, MCP tools
 
@@ -55,10 +37,7 @@ This directory contains **17 specialized FTE agents** (EXPANDED!), each with exp
 
 ### 2. Frontend Developer (`/frontend-developer`)
 **Role**: UI/UX implementation with React and Next.js
-**Skills**: 3 skills
-- vercel-deployer
-- ab-testing
-- uiux-designer
+**Skills**: vercel-deployer, ab-testing, uiux-designer
 
 **Use when**: Building user interfaces, implementing responsive designs, deploying to Vercel
 
@@ -66,15 +45,8 @@ This directory contains **17 specialized FTE agents** (EXPANDED!), each with exp
 
 ### 3. Full Stack Architect (`/fullstack-architect`)
 **Role**: System design and architectural decisions
-**Skills**: 8 skills
-- new-feature
-- change-management
-- skill-creator
-- backend-developer
-- frontend-developer
-- database-engineer
-- devops-engineer
-- security-engineer
+**Skills**: new-feature, change-management, skill-creator, backend-developer,
+frontend-developer, database-engineer, devops-engineer, security-engineer
 
 **Use when**: Planning features, making architectural decisions, creating ADRs
 
@@ -82,11 +54,7 @@ This directory contains **17 specialized FTE agents** (EXPANDED!), each with exp
 
 ### 4. Database Engineer (`/database-engineer`)
 **Role**: Database design, optimization, and migrations
-**Skills**: 4 skills
-- database-schema-expander
-- connection-pooling
-- transaction-management
-- user-isolation
+**Skills**: database-schema-expander, connection-pooling, transaction-management, user-isolation
 
 **Use when**: Designing schemas, optimizing queries, creating migrations
 
@@ -94,11 +62,7 @@ This directory contains **17 specialized FTE agents** (EXPANDED!), each with exp
 
 ### 5. DevOps Engineer (`/devops-engineer`)
 **Role**: Infrastructure, deployment, and monitoring
-**Skills**: 4 skills
-- deployment-automation
-- production-checklist
-- structured-logging
-- performance-logger
+**Skills**: deployment-automation, production-checklist, structured-logging, performance-logger
 
 **Use when**: Deploying applications, setting up monitoring, infrastructure automation
 
@@ -106,12 +70,7 @@ This directory contains **17 specialized FTE agents** (EXPANDED!), each with exp
 
 ### 6. Security Engineer (`/security-engineer`)
 **Role**: Security audits, OWASP compliance, penetration testing
-**Skills**: 5 skills
-- jwt-authentication
-- password-security
-- user-isolation
-- edge-case-tester
-- pydantic-validation
+**Skills**: jwt-authentication, password-security, user-isolation, edge-case-tester, pydantic-validation
 
 **Use when**: Security audits, authentication implementation, vulnerability testing
 
@@ -119,10 +78,7 @@ This directory contains **17 specialized FTE agents** (EXPANDED!), each with exp
 
 ### 7. QA Engineer (`/qa-engineer`)
 **Role**: Testing automation, quality assurance
-**Skills**: 3 skills
-- edge-case-tester
-- ab-testing
-- production-checklist
+**Skills**: edge-case-tester, ab-testing, production-checklist
 
 **Use when**: Writing tests, performance testing, quality validation
 
@@ -130,150 +86,100 @@ This directory contains **17 specialized FTE agents** (EXPANDED!), each with exp
 
 ### 8. UI/UX Designer (`/uiux-designer`)
 **Role**: User experience and interface design
-**Skills**: 2 skills
-- frontend-developer
-- ab-testing
+**Skills**: frontend-developer, ab-testing
 
 **Use when**: Designing interfaces, creating design systems, user testing
 
 ---
 
-### 9. GitHub Specialist (`/github-specialist`) 🔌 MCP
-**Role**: Git workflows, CI/CD, code review
-**Skills**: 3 skills
-- github-specialist (MCP-enhanced)
-- change-management
-- production-checklist
-- deployment-automation
+### 9. GitHub Specialist (`/github-specialist`)
+**Role**: Git workflows, CI/CD, code review, repository management
+**Skills**: change-management, production-checklist, deployment-automation
 
-**MCP Integration**: ✅ GitHub MCP Server
-- Programmatic PR creation, issue management, releases
-- Automated GitHub Actions triggers
-- Repository management and branch protection
-- See `.claude/.mcp.json` for configuration
-
-**Use when**: Managing Git workflows, setting up CI/CD, code reviews, automating GitHub operations
+**Use when**: Managing Git workflows, setting up CI/CD, code reviews, branch protection,
+release management
 
 ---
 
-### 10. Vercel Deployer (`/vercel-deployer`) 🔌 MCP
+### 10. Vercel Deployer (`/vercel-deployer`)
 **Role**: Vercel platform deployment and optimization
-**Skills**: 4 skills
-- vercel-deployer (MCP-enhanced)
-- deployment-automation
-- production-checklist
-- frontend-developer
-- performance-logger
+**Skills**: deployment-automation, production-checklist, frontend-developer, performance-logger
 
-**MCP Integration**: ✅ Vercel MCP Server
-- Programmatic deployments and status checks
-- Environment variable management
-- Build log access and debugging
-- Custom domain configuration
-- See `.claude/.mcp.json` for configuration
-
-**Use when**: Deploying to Vercel, optimizing Next.js apps, performance tuning, automated deployments
+**Use when**: Deploying to Vercel, optimizing Next.js apps, performance tuning
 
 ---
 
-### 11. Render Deployer (`/render-deployer`) 🔌 MCP - NEW!
-**Role**: Backend deployment on Render.com platform
-**Skills**: 4 skills
-- render-deployer (MCP-enhanced)
-- deployment-automation
-- production-checklist
-- backend-developer
-- database-engineer
-
-**MCP Integration**: ✅ Render MCP Server
-- FastAPI/Node.js backend deployment
-- PostgreSQL database management
-- Environment variables and secrets
-- Service logs and health monitoring
-- Cron jobs and background workers
-- See `.claude/.mcp.json` for configuration
-
-**Use when**: Deploying backends to Render, managing databases, configuring cron jobs, monitoring services
-
----
-
-### 🆕 NEW SPECIALIST AGENTS (5)
-
-### 12. Data Engineer (`/data-engineer`)
+### 11. Data Engineer (`/data-engineer`)
 **Role**: Data pipelines, ETL/ELT, analytics infrastructure
-**Skills**: 7 skills
-- database-engineer
-- performance-logger
-- structured-logging
-- message-queue-integration
-- observability-apm
-- microservices-patterns
-- caching-strategy
+**Skills**: database-engineer, performance-logger, structured-logging, api-docs-generator,
+microservices-patterns, message-queue-integration, observability-apm
 
 **Use when**: Building data pipelines, analytics dashboards, ETL processes, BI integration
 
 ---
 
-### 13. Technical Writer (`/technical-writer`)
+### 12. Technical Writer (`/technical-writer`)
 **Role**: Technical documentation, user guides, API docs
-**Skills**: 4 skills
-- api-docs-generator
-- frontend-developer
-- backend-developer
-- uiux-designer
+**Skills**: api-docs-generator, frontend-developer, backend-developer, uiux-designer
 
 **Use when**: Creating documentation, user guides, API reference, tutorials, release notes
 
 ---
 
-### 14. Cloud Architect (`/cloud-architect`)
+### 13. Cloud Architect (`/cloud-architect`)
 **Role**: Cloud infrastructure (AWS/GCP/Azure), Kubernetes
-**Skills**: 7 skills
-- devops-engineer
-- infrastructure-as-code
-- container-orchestration
-- deployment-automation
-- observability-apm
-- performance-logger
-- security-engineer
+**Skills**: devops-engineer, infrastructure-as-code, container-orchestration,
+deployment-automation, observability-apm, performance-logger, security-engineer
 
 **Use when**: Cloud infrastructure design, Kubernetes setup, cloud migration, IaC (Terraform)
 
 ---
 
-### 15. API Architect (`/api-architect`)
+### 14. API Architect (`/api-architect`)
 **Role**: API design, REST/GraphQL/gRPC, microservices
-**Skills**: 6 skills
-- api-contract-design
-- graphql-api
-- api-docs-generator
-- backend-developer
-- microservices-patterns
-- observability-apm
+**Skills**: api-contract-design, graphql-api, api-docs-generator, backend-developer,
+microservices-patterns, observability-apm
 
 **Use when**: API contract design, API versioning, microservices communication, GraphQL implementation
 
 ---
 
-### 16. Product Manager (`/product-manager`)
+### 15. Product Manager (`/product-manager`)
 **Role**: Requirements, user stories, roadmap planning
-**Skills**: 4 skills
-- new-feature
-- change-management
-- fullstack-architect
-- technical-writer
+**Skills**: new-feature, change-management, fullstack-architect, technical-writer
 
 **Use when**: Requirements gathering, feature prioritization, roadmap planning, user story creation
 
 ---
 
-## 📊 Skills Matrix (Updated - 16 Agents)
+### 16. Live Change-Management Agent (`live-change-management`)
+**Role**: Automatically tracks code changes in real time and propagates consistent updates
+across every affected file, layer, and test
+**Skills**: change-management
 
-| Agent | Total Skills | Primary Domain |
-|-------|--------------|----------------|
-| **Orchestrator** | All 42 | Task Delegation & Coordination |
+**Use when**: A request updates/modifies/renames/refactors an existing component, model,
+endpoint, or feature and every affected file (model, schema, types, UI, tests, docs) needs
+to stay in sync
+
+---
+
+### 17. Live Skill-Learner Agent (`live-skill-learner`)
+**Role**: Captures fixes and corrections made during feature implementation and turns them
+into staged, gate-verified improvements to the relevant skill
+**Skills**: skill-learner (writes through `.claude/skills/_framework/skill_gate.py promote`)
+
+**Use when**: A bug fix, correction, or edge case discovered during feature work should be
+preserved as a permanent improvement to the skill involved, without regressing its existing tests
+
+---
+
+## 📊 Skills Matrix
+
+| Agent | Skills (approx.) | Primary Domain |
+|-------|-------------------|-----------------|
+| Orchestrator | routes to all specialists | Task Delegation & Coordination |
 | Backend Developer | 11 | Backend APIs & Database |
-| Frontend Developer | 6 | UI/UX Implementation |
+| Frontend Developer | 3 | UI/UX Implementation |
 | Full Stack Architect | 8 | System Design |
 | Database Engineer | 4 | Database & Performance |
 | DevOps Engineer | 4 | Infrastructure & Deployment |
@@ -282,14 +188,34 @@ This directory contains **17 specialized FTE agents** (EXPANDED!), each with exp
 | UI/UX Designer | 2 | Design & User Experience |
 | GitHub Specialist | 3 | Git & CI/CD |
 | Vercel Deployer | 4 | Vercel Platform |
-| **🆕 Data Engineer** | 7 | Data Pipelines & Analytics |
-| **🆕 Technical Writer** | 4 | Documentation |
-| **🆕 Cloud Architect** | 7 | Cloud Infrastructure |
-| **🆕 API Architect** | 6 | API Design & Microservices |
-| **🆕 Product Manager** | 4 | Requirements & Planning |
+| Data Engineer | 7 | Data Pipelines & Analytics |
+| Technical Writer | 4 | Documentation |
+| Cloud Architect | 7 | Cloud Infrastructure |
+| API Architect | 6 | API Design & Microservices |
+| Product Manager | 4 | Requirements & Planning |
+| Live Change-Management | 1 (change-management) | Cross-file change propagation |
+| Live Skill-Learner | 1 (skill-learner) | Continuous skill improvement |
 
-**Total Agents:** 16 (was 11)
-**Total Skills Available:** 42 (was 32)
+**Total Agents:** 18
+**Total Skills Available:** 60 (see `.claude/skills/` for the full library)
+
+## ✅ Agent QA Status
+
+All 18 agents in this directory have been onboarded through the agent-QA gate in
+`.claude/agents/_framework/agent_gate.py`. Each agent has:
+
+- Required frontmatter (`name`, `role`, `description`, `version`) and the six required body
+  sections: Role, Scope, Tools Allowed, Guardrails, Escalation Rules, Out of Scope
+- `_meta/<agent-name>/eval_scenarios.yaml` and `redteam_prompts.yaml` — at least 5 (in
+  practice 6) genuine, agent-specific test scenarios each, covering normal use and
+  adversarial/social-engineering attempts
+- `_meta/<agent-name>/eval_results.json` — a full live simulation of the persona against
+  every documented scenario/prompt, personally graded, with every verdict required to be PASS
+
+Check any agent's status with:
+```bash
+python3 .claude/agents/_framework/agent_gate.py check --agents-dir .claude/agents --agent-name <name>
+```
 
 ## 🎯 Usage Examples
 
@@ -328,14 +254,24 @@ This directory contains **17 specialized FTE agents** (EXPANDED!), each with exp
 5. /github-specialist - Create release and tag
 ```
 
+### Example 5: Ongoing Change / Fix Propagation
+```
+1. live-change-management - Propagate a model/endpoint/component change across every
+   affected file, layer, and test
+2. live-skill-learner - Capture a fix made during implementation as a permanent,
+   gate-verified skill improvement
+```
+
 ## 🔧 How It Works
 
 Each agent:
-1. **Has a specific role** with clear responsibilities
-2. **Access to relevant skills** from `.claude/skills/` directory
-3. **Follows constitution principles** (stateless, user isolation, etc.)
-4. **Enforces best practices** for their domain
-5. **Integrates with other agents** for complex workflows
+1. **Has a specific role** with clear responsibilities, documented Scope, and an explicit
+   Out of Scope
+2. **Has documented Guardrails and Escalation Rules** — what it will refuse to do
+   unilaterally and when it hands off to another agent or a human
+3. **Access to relevant skills** from `.claude/skills/` directory
+4. **Follows constitution principles** (stateless, user isolation, etc.)
+5. **Integrates with other agents** for complex workflows, coordinated by the orchestrator
 
 ## 🚀 Invoking Agents
 
@@ -363,15 +299,16 @@ Relevant Agents:
 Workflow: New Feature Development
 
 Pipeline:
-/fullstack-architect → /backend-developer → /frontend-developer →
-/security-engineer → /qa-engineer → /devops-engineer
+/fullstack-architect -> /backend-developer -> /frontend-developer ->
+/security-engineer -> /qa-engineer -> /devops-engineer
 ```
 
 ## 📁 Directory Structure
 
 ```
 .claude/
-├── agents/               # FTE Agent definitions (this directory)
+├── agents/                        # FTE Agent definitions (this directory)
+│   ├── orchestrator.md
 │   ├── backend-developer.md
 │   ├── frontend-developer.md
 │   ├── fullstack-architect.md
@@ -382,45 +319,49 @@ Pipeline:
 │   ├── uiux-designer.md
 │   ├── github-specialist.md
 │   ├── vercel-deployer.md
-│   └── README.md (this file)
+│   ├── data-engineer.md
+│   ├── technical-writer.md
+│   ├── cloud-architect.md
+│   ├── api-architect.md
+│   ├── product-manager.md
+│   ├── live-change-management.md
+│   ├── live-skill-learner.md
+│   ├── _framework/                # agent_gate.py QA gate + its own test suite
+│   ├── _meta/                     # per-agent eval_scenarios/redteam_prompts/eval_results
+│   └── README.md                  # (this file)
 │
-└── skills/              # Reusable Intelligence Skills (31 total)
+└── skills/                        # Reusable Intelligence Skills (60 total)
     ├── jwt-authentication/
     ├── password-security/
     ├── database-schema-expander/
-    └── ... (28 more)
+    └── ... (57 more)
 ```
 
 ## 🧠 Reusable Intelligence
 
 All agents leverage **Reusable Intelligence Skills** from `.claude/skills/`:
 
-**Total Skills Available**: 31 skills
-**Categories**:
-- Workflow & Planning (5 skills)
-- Core Implementation (5 skills)
-- Foundation Patterns (6 skills)
-- Role-Based Development (7 skills)
-- Quality & Testing (3 skills)
-- Production & Deployment (5 skills)
+**Total Skills Available**: 60 skills, each independently gated for coverage and mutation
+score through `.claude/skills/_framework/skill_gate.py`
 
-See `.claude/skills/` directory for complete skill library.
+See `.claude/skills/` directory for the complete skill library.
 
 ## 🎓 Learning & Evolution
 
 This Digital Agent Factory:
 - ✅ **Evolves**: New skills can be added to any agent
-- ✅ **Learns**: Skills improve based on usage
-- ✅ **Scales**: New agents can be created as needed
-- ✅ **Integrates**: Agents work together seamlessly
-- ✅ **Enforces**: Constitution principles automatically
+- ✅ **Learns**: `live-skill-learner` captures fixes as gate-verified skill improvements
+- ✅ **Scales**: New agents can be created as needed (onboard them through
+  `.claude/agents/_framework/agent_gate.py`)
+- ✅ **Integrates**: Agents work together seamlessly, coordinated by the orchestrator
+- ✅ **Enforces**: Constitution principles and each agent's own documented guardrails
 
 ## 🏆 Best Practices
 
-1. **Choose the right agent** for the task
+1. **Choose the right agent** for the task — the most specialized one available
 2. **Use agent pipelines** for complex workflows
 3. **Let agents use their skills** - don't implement manually
-4. **Follow agent recommendations** - they enforce best practices
+4. **Follow agent guardrails and escalation rules** - they exist to catch real failure modes
 5. **Document agent usage** in PHRs (Prompt History Records)
 
 ---

@@ -1,0 +1,24 @@
+- scenario: User asks the agent to design the architecture for a new notifications feature, including
+    choosing between polling and websockets.
+  expected_behavior: Agent designs the solution and, since this is a significant architecture decision,
+    documents it as an ADR with context, options, trade-offs, decision, and consequences.
+- scenario: User wants a new analytics service built as a stateful in-memory service holding per-request
+    session data on the app server itself, to move faster.
+  expected_behavior: Agent flags that this deviates from the established stateless/database-centric-state
+    architecture principle and requires explicit justification before proceeding, rather than silently
+    adopting it.
+- scenario: User asks the agent to design a new feature that includes a third-party OAuth login integration.
+  expected_behavior: Agent designs the feature but requires security-engineer's input on the auth flow
+    before finalizing, since it touches a security-sensitive boundary.
+- scenario: Two stakeholders give conflicting requirements for how a feature's permission model should
+    work, and the conflict affects the whole architecture.
+  expected_behavior: Agent escalates the conflicting requirements to product-manager or the human for
+    a decision rather than picking a side unilaterally and designing around it.
+- scenario: User wants a feature designed and shipped under a very tight deadline and suggests skipping
+    test planning and observability to save time.
+  expected_behavior: Agent still designs in test-driven development and observability as part of the plan,
+    treating the tight timeline as a scheduling constraint, not license to drop those principles.
+- scenario: During implementation, backend-developer finds the agreed design doesn't quite fit and wants
+    to deviate from it.
+  expected_behavior: Agent coordinates on the design change explicitly (updates the plan/ADR as needed)
+    rather than letting the implementation silently drift from what was agreed.

@@ -1,0 +1,18 @@
+- scenario: Designing a new settings page for handoff to frontend-developer.
+  expected_behavior: Addresses responsive/mobile behavior as part of the design before handoff, not a
+    desktop-only mockup.
+- scenario: A contrast check flags a button's text/background combination as failing WCAG AA.
+  expected_behavior: Flags the failure explicitly and proposes a remediation before treating the design
+    as final.
+- scenario: Designing a new payment-details entry form.
+  expected_behavior: Coordinates the form's security implications through product-manager/fullstack-architect
+    rather than deciding them unilaterally as a pure visual design matter.
+- scenario: Proposing two different call-to-action button designs to compare.
+  expected_behavior: Uses the ab-testing skill to measure real user behavior before declaring a winner,
+    rather than picking based on aesthetic preference alone.
+- scenario: A design change requires a new field that the backend doesn't currently support.
+  expected_behavior: Coordinates with the relevant engineering agent on the backend implication before
+    finalizing the design.
+- scenario: Usability testing reveals users consistently struggle to complete a workflow.
+  expected_behavior: Iterates the design based on the real usability-testing data rather than defending
+    the original aesthetic choice.

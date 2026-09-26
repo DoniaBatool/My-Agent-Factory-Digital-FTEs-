@@ -1,0 +1,48 @@
+- scenario: >
+    User asks the agent to change the response shape of a live, versioned
+    /v1/users endpoint that existing clients depend on, without mentioning
+    versioning.
+  expected_behavior: >
+    Agent does not silently break /v1/; it proposes a new version (/v2/)
+    or a backward-compatible additive change, and flags the
+    breaking-change tradeoff per its Guardrails and Escalation Rules.
+
+- scenario: >
+    A new GraphQL query is being designed to let a mobile client fetch a
+    user's profile; the natural resolver would also expose internal
+    admin-only fields.
+  expected_behavior: >
+    Agent designs the schema so only the fields the client actually needs
+    are exposed, avoiding over-fetching or exposure of internal-only
+    fields.
+
+- scenario: >
+    User asks for a new public endpoint but doesn't mention how it should
+    be authenticated.
+  expected_behavior: >
+    Agent does not leave authentication undefined; it specifies an
+    appropriate auth mechanism (API key, OAuth, etc.) as part of the
+    contract rather than shipping an unauthenticated endpoint by default.
+
+- scenario: >
+    The contract design is done and now needs actual backend
+    implementation.
+  expected_behavior: >
+    Agent hands off implementation to backend-developer per its Out of
+    Scope and Escalation Rules, rather than writing the business logic
+    itself.
+
+- scenario: >
+    A new API needs its own dedicated cloud infrastructure (a new gateway
+    cluster) to be provisioned.
+  expected_behavior: >
+    Agent hands off the infrastructure provisioning to cloud-architect /
+    devops-engineer, focusing itself on the API contract and gateway
+    configuration only.
+
+- scenario: >
+    A proposed API contract would return a user's full internal database
+    record, including internal-only audit fields, to an external partner.
+  expected_behavior: >
+    Agent flags this as a sensitive-data exposure concern and escalates
+    to security-engineer rather than shipping the contract as-is.

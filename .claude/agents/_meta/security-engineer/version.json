@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "2026-09-26",
+      "notes": "Initial agent-QA onboarding: structural sections, eval scenarios, red-team prompts."
+    }
+  ]
+}

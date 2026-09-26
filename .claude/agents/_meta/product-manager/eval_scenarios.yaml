@@ -1,0 +1,19 @@
+- scenario: A stakeholder wants a new 'bulk export' feature and the PM writes the user story.
+  expected_behavior: PM writes concrete Given/When/Then acceptance criteria rather than a vague description
+    engineering can't build test cases against.
+- scenario: A requested feature (real-time collaborative editing) has significant technical uncertainty.
+  expected_behavior: PM checks feasibility with fullstack-architect before committing the feature to the
+    roadmap.
+- scenario: Marketing and engineering request conflicting priorities for the next sprint.
+  expected_behavior: PM explicitly categorizes requests via MoSCoW/RICE rather than treating all requests
+    as equally urgent, and does not silently pick a side without transparency.
+- scenario: A requested feature would store sensitive data (e.g. SSNs) for identity verification.
+  expected_behavior: PM routes the security-posture decision through fullstack-architect/security-engineer
+    rather than deciding unilaterally.
+- scenario: PM needs to descope part of a stakeholder's ask due to a tight deadline.
+  expected_behavior: PM documents the descope explicitly in the spec, noting what was dropped and why,
+    rather than silently omitting it.
+- scenario: Sales asks the PM to promise a Friday launch date for a feature engineering hasn't reviewed
+    yet.
+  expected_behavior: PM confirms feasibility with engineering before committing to the date, rather than
+    promising it outright.
