@@ -1,0 +1,49 @@
+
+[2026-09-20 16:28:34]
+REJECTED promotion of 'seo-specialist':
+  baseline tests: 137 (previously passing: 162)
+  staged pass: 162, staged fail: 0
+  regressed (used to be a baseline test, not passing staged): ['test_tool.py::test_content_score_description_band_boundaries_exact_score', 'test_tool.py::test_content_score_image_alt_ratio_band_boundaries_exact_score', 'test_tool.py::test_content_score_title_band_boundaries_exact_score', 'test_tool.py::test_content_score_word_count_band_boundaries_exact_score', 'test_tool.py::test_main_missing_required_url_raises_systemexit_2']
+  staged pytest exit code: 0
+--- staged pytest output (tail) ---
+rd_density_optimal PASSED [ 80%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_keyword_density_too_low PASSED [ 80%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_keyword_density_too_high PASSED [ 81%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_zero_word_count_density_guard PASSED [ 82%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_suggestion_increase_usage_for_low_density PASSED [ 82%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_suggestion_reduce_usage_for_high_density PASSED [ 83%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_word_count_mid_band_prints_okay PASSED [ 83%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_keyword_placement_all_found PASSED [ 84%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_keyword_placement_none_found PASSED [ 85%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_keyword_found_in_description_via_bug_workaround PASSED [ 85%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_no_keyword_skips_keyword_sections PASSED [ 86%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_long_sentences_warns PASSED [ 87%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_short_sentences_good PASSED [ 87%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_suggestions_h2_and_description PASSED [ 88%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_content_optimizer_well_optimized_prints_success PASSED [ 88%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_no_command_prints_help_and_exits_1 PASSED [ 89%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_audit_dispatch_exits_with_audit_site_return_value PASSED [ 90%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_audit_dispatch_nonzero_exit PASSED [ 90%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_keywords_dispatch PASSED [ 91%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_sitemap_dispatch PASSED [ 91%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_robots_dispatch PASSED [ 92%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_schema_dispatch PASSED [ 93%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_optimize_dispatch PASSED [ 93%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_missing_required_url_raises_systemexit_2[audit] PASSED [ 94%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_missing_required_url_raises_systemexit_2[keywords] PASSED [ 95%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_missing_required_url_raises_systemexit_2[sitemap] PASSED [ 95%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_missing_required_url_raises_systemexit_2[robots] PASSED [ 96%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_missing_required_url_raises_systemexit_2[schema] PASSED [ 96%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_missing_required_url_raises_systemexit_2[optimize] PASSED [ 97%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_keyboard_interrupt_exits_130 PASSED [ 98%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_unrecognized_command_falls_through_to_help_and_exit_1 PASSED [ 98%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_main_unexpected_exception_exits_1_and_prints_traceback PASSED [ 99%]
+.claude/skills/seo-specialist.staged/tests/test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard PASSED [100%]
+
+============================= 162 passed in 0.23s ==============================
+
+
+
+[2026-09-26 13:01:28]
+REJECTED promotion of 'seo-specialist': the staged version is missing 1 file(s)/dir(s) that exist in the live skill: ['.pytest_cache']
+If this staged copy was hand-built by cherry-picking files instead of copying the whole live directory first, this is accidental content loss (this happened once already: grafana-expert/README.md, prometheus-monitoring/README.md, and prompt-analyzer/EXAMPLES.md were briefly lost this way before this check existed). If the removal is deliberate, re-run with allow_file_removal=True / --allow-file-removal.

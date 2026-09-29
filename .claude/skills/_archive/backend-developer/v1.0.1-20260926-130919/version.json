@@ -1,0 +1,322 @@
+{
+  "version": "1.0.1",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-064043",
+      "reason": "Initial gate onboarding: added genuine test suite (48 tests), 99pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_audit_flags_hardcoded_password",
+        "test_tool.py::test_audit_flags_missing_error_handling_when_grep_c_nonzero",
+        "test_tool.py::test_audit_flags_missing_type_hints_when_grep_c_nonzero",
+        "test_tool.py::test_audit_flags_secret_key_in_code",
+        "test_tool.py::test_audit_flags_sql_injection_risk",
+        "test_tool.py::test_audit_reports_no_issues_when_all_checks_clean",
+        "test_tool.py::test_cli_subprocess_smoke_test_no_command_returns_nonzero",
+        "test_tool.py::test_cli_subprocess_smoke_test_optimize_db",
+        "test_tool.py::test_cli_subprocess_smoke_test_scaffold_endpoint_writes_real_file",
+        "test_tool.py::test_create_model_custom_fields_produce_exact_class_bodies",
+        "test_tool.py::test_create_model_default_fields_when_empty_string",
+        "test_tool.py::test_create_model_default_fields_when_none",
+        "test_tool.py::test_create_model_skips_malformed_field_without_colon",
+        "test_tool.py::test_create_model_uses_default_output_dir_when_none",
+        "test_tool.py::test_create_service_uses_default_output_dir_when_none",
+        "test_tool.py::test_create_service_writes_expected_static_methods",
+        "test_tool.py::test_generate_migration_failure_prints_error_and_stderr",
+        "test_tool.py::test_generate_migration_success_prints_success",
+        "test_tool.py::test_generate_migration_uses_custom_message",
+        "test_tool.py::test_generate_tests_uses_default_output_dir_when_none",
+        "test_tool.py::test_generate_tests_writes_expected_pytest_functions",
+        "test_tool.py::test_main_audit_end_to_end",
+        "test_tool.py::test_main_create_model_end_to_end",
+        "test_tool.py::test_main_create_model_missing_required_name_exits",
+        "test_tool.py::test_main_create_service_end_to_end",
+        "test_tool.py::test_main_create_service_missing_required_name_exits",
+        "test_tool.py::test_main_generate_migration_end_to_end",
+        "test_tool.py::test_main_generate_tests_end_to_end",
+        "test_tool.py::test_main_generate_tests_missing_required_resource_exits",
+        "test_tool.py::test_main_optimize_db_end_to_end",
+        "test_tool.py::test_main_scaffold_endpoint_end_to_end",
+        "test_tool.py::test_main_scaffold_endpoint_missing_required_name_exits",
+        "test_tool.py::test_main_setup_auth_end_to_end",
+        "test_tool.py::test_main_unknown_command_returns_1_via_argparse_choices",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_optimize_db_prints_recommendations",
+        "test_tool.py::test_print_error_shows_x_and_message",
+        "test_tool.py::test_print_header_shows_arrow_and_message",
+        "test_tool.py::test_print_info_shows_message",
+        "test_tool.py::test_print_success_shows_check_and_message",
+        "test_tool.py::test_run_command_exception_returns_default_error_tuple",
+        "test_tool.py::test_run_command_nonzero_exit_returns_real_code",
+        "test_tool.py::test_run_command_success_returns_real_stdout",
+        "test_tool.py::test_scaffold_endpoint_capitalizes_all_caps_name",
+        "test_tool.py::test_scaffold_endpoint_uses_default_output_dir_when_none",
+        "test_tool.py::test_scaffold_endpoint_writes_expected_crud_routes",
+        "test_tool.py::test_setup_auth_uses_default_output_dir_when_none",
+        "test_tool.py::test_setup_auth_writes_jwt_dependencies"
+      ],
+      "new_tests_added": []
+    },
+    {
+      "version": "1.0.1",
+      "date": "20260920-160011",
+      "reason": "Hardened mkdir(parents=True) mutation coverage for setup-auth and generate-tests; 50 tests, 99pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_audit_flags_hardcoded_password",
+        "test_tool.py::test_audit_flags_missing_error_handling_when_grep_c_nonzero",
+        "test_tool.py::test_audit_flags_missing_type_hints_when_grep_c_nonzero",
+        "test_tool.py::test_audit_flags_secret_key_in_code",
+        "test_tool.py::test_audit_flags_sql_injection_risk",
+        "test_tool.py::test_audit_reports_no_issues_when_all_checks_clean",
+        "test_tool.py::test_cli_subprocess_smoke_test_no_command_returns_nonzero",
+        "test_tool.py::test_cli_subprocess_smoke_test_optimize_db",
+        "test_tool.py::test_cli_subprocess_smoke_test_scaffold_endpoint_writes_real_file",
+        "test_tool.py::test_create_model_custom_fields_produce_exact_class_bodies",
+        "test_tool.py::test_create_model_default_fields_when_empty_string",
+        "test_tool.py::test_create_model_default_fields_when_none",
+        "test_tool.py::test_create_model_skips_malformed_field_without_colon",
+        "test_tool.py::test_create_model_uses_default_output_dir_when_none",
+        "test_tool.py::test_create_service_uses_default_output_dir_when_none",
+        "test_tool.py::test_create_service_writes_expected_static_methods",
+        "test_tool.py::test_generate_migration_failure_prints_error_and_stderr",
+        "test_tool.py::test_generate_migration_success_prints_success",
+        "test_tool.py::test_generate_migration_uses_custom_message",
+        "test_tool.py::test_generate_tests_creates_nested_output_dirs_that_do_not_exist",
+        "test_tool.py::test_generate_tests_uses_default_output_dir_when_none",
+        "test_tool.py::test_generate_tests_writes_expected_pytest_functions",
+        "test_tool.py::test_main_audit_end_to_end",
+        "test_tool.py::test_main_create_model_end_to_end",
+        "test_tool.py::test_main_create_model_missing_required_name_exits",
+        "test_tool.py::test_main_create_service_end_to_end",
+        "test_tool.py::test_main_create_service_missing_required_name_exits",
+        "test_tool.py::test_main_generate_migration_end_to_end",
+        "test_tool.py::test_main_generate_tests_end_to_end",
+        "test_tool.py::test_main_generate_tests_missing_required_resource_exits",
+        "test_tool.py::test_main_optimize_db_end_to_end",
+        "test_tool.py::test_main_scaffold_endpoint_end_to_end",
+        "test_tool.py::test_main_scaffold_endpoint_missing_required_name_exits",
+        "test_tool.py::test_main_setup_auth_end_to_end",
+        "test_tool.py::test_main_unknown_command_returns_1_via_argparse_choices",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_optimize_db_prints_recommendations",
+        "test_tool.py::test_print_error_shows_x_and_message",
+        "test_tool.py::test_print_header_shows_arrow_and_message",
+        "test_tool.py::test_print_info_shows_message",
+        "test_tool.py::test_print_success_shows_check_and_message",
+        "test_tool.py::test_run_command_exception_returns_default_error_tuple",
+        "test_tool.py::test_run_command_nonzero_exit_returns_real_code",
+        "test_tool.py::test_run_command_success_returns_real_stdout",
+        "test_tool.py::test_scaffold_endpoint_capitalizes_all_caps_name",
+        "test_tool.py::test_scaffold_endpoint_uses_default_output_dir_when_none",
+        "test_tool.py::test_scaffold_endpoint_writes_expected_crud_routes",
+        "test_tool.py::test_setup_auth_creates_nested_output_dirs_that_do_not_exist",
+        "test_tool.py::test_setup_auth_uses_default_output_dir_when_none",
+        "test_tool.py::test_setup_auth_writes_jwt_dependencies"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_shows_check_and_message": {
+      "hash": "8cee751d8fef8d462347962fba6299283c2efc82813e38ad3f1481996a56f571",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_error_shows_x_and_message": {
+      "hash": "4f37b062097bbd07c3716fcf97cd4cd6a818186847339d2593c2debb4adbd4e6",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_info_shows_message": {
+      "hash": "c97364b0de32499030efd4790f82e19ce73b77fca1cede87b019d601be6952dd",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_shows_arrow_and_message": {
+      "hash": "d53ca907aa36e5770b48f39fd5011845e180e2009fa5c1aba66c5b3816862495",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_success_returns_real_stdout": {
+      "hash": "5e60a7f9008b448eabc693a6f0c7ceeac53c30e90fa0501156cef68643afc3d0",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_nonzero_exit_returns_real_code": {
+      "hash": "0db2954da55fccc33a9dc36be682b73a0fdf3f7e372bf25a5e6e2641db755fdf",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_exception_returns_default_error_tuple": {
+      "hash": "bc2ce5ae97f9d9d1bffdbc11160406882927d4f728d04f8854ac8f84e85e6b24",
+      "asserts": 1
+    },
+    "test_tool.py::test_scaffold_endpoint_writes_expected_crud_routes": {
+      "hash": "26bceeed4f593b0b500e0b43961239d6d569f3f5e064a3a3bfe7697ae39f844b",
+      "asserts": 10
+    },
+    "test_tool.py::test_scaffold_endpoint_capitalizes_all_caps_name": {
+      "hash": "7d29d02c54b2cc3367deec3affc3f015e00265f9597ec430dace8d00bed245bf",
+      "asserts": 2
+    },
+    "test_tool.py::test_scaffold_endpoint_uses_default_output_dir_when_none": {
+      "hash": "aa40e0e9f4c857856c91fd4e1a7cf94b0c9b4f5479e00128e31733096f1c3157",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_model_default_fields_when_none": {
+      "hash": "e7192fb1096d5c44958c941c261330d8ca57cb3744dc519250f00609949574f1",
+      "asserts": 4
+    },
+    "test_tool.py::test_create_model_default_fields_when_empty_string": {
+      "hash": "aa411032d7e57cc63a72dd5accca65cd6d2bc85a0f31a690d482776fa491f9a3",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_model_custom_fields_produce_exact_class_bodies": {
+      "hash": "1d2f793a02a43ad875e7ec828c156d7128e39722ec4001ee156c6856f95e99ad",
+      "asserts": 8
+    },
+    "test_tool.py::test_create_model_skips_malformed_field_without_colon": {
+      "hash": "f22ea78f59812a54551cf2c8f650bc4d0bf2dbf95722665c9db2098fb79a4671",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_model_uses_default_output_dir_when_none": {
+      "hash": "b93a73408332a6ca82e6a4e04aff21f8dba1e10e590d627c8be582e4eda34a82",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_migration_success_prints_success": {
+      "hash": "82cf465e8e40fb3bd93ddf12965793dd0092715a64c59f2111261d3346088bd6",
+      "asserts": 3
+    },
+    "test_tool.py::test_generate_migration_uses_custom_message": {
+      "hash": "5885fd93c86e324681aa503e2381f2e04b82a5fe618eafb3740b6d8025bc83aa",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_migration_failure_prints_error_and_stderr": {
+      "hash": "fe962e299c145b4d58f4d4addf2ca5d469940a2d3d69d0cfe78f36f00b91068c",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_auth_writes_jwt_dependencies": {
+      "hash": "30f7890e0d1f616fa5c8f97bff14e7779732ce41fb077e58721e763f56fa7d91",
+      "asserts": 6
+    },
+    "test_tool.py::test_setup_auth_uses_default_output_dir_when_none": {
+      "hash": "591be7861a9f03e5876986e937816373509f02f6d14a618590730672336660d8",
+      "asserts": 1
+    },
+    "test_tool.py::test_setup_auth_creates_nested_output_dirs_that_do_not_exist": {
+      "hash": "be328219ecac4632319434618c58f36927f56066eebec8e644c837fa6c25f501",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_tests_writes_expected_pytest_functions": {
+      "hash": "6d2955d3db3ed7afb9b3fa1c3feadc58a9d021928ef37329a9ce4b3535b3ac18",
+      "asserts": 7
+    },
+    "test_tool.py::test_generate_tests_uses_default_output_dir_when_none": {
+      "hash": "ffeb84dbaf63468cb8472bdc2da8cd300a62d0061664e4a561b7c4559bd92b2f",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_tests_creates_nested_output_dirs_that_do_not_exist": {
+      "hash": "253f9205fa5859d6d8996c9918bbb977f818b5d23c36d66ed45d9cb2b5f344d6",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_service_writes_expected_static_methods": {
+      "hash": "f300c5b8b3b0ffef89975d5f9a2e0c01d55e1763d77238a4f237a2d537c3bb76",
+      "asserts": 7
+    },
+    "test_tool.py::test_create_service_uses_default_output_dir_when_none": {
+      "hash": "5875f9384d61539df189950a185b44b0f71e3b99228b42b5d372d9b762ee866c",
+      "asserts": 1
+    },
+    "test_tool.py::test_optimize_db_prints_recommendations": {
+      "hash": "99bf3d139f7299e0215e676de971fbeadf0091acf2323af752fbd1e012e15fa6",
+      "asserts": 4
+    },
+    "test_tool.py::test_audit_reports_no_issues_when_all_checks_clean": {
+      "hash": "8e57f8a9e5572e4bcb60f6e31396bdeea2f7e778d8170aa1baacccf7a1715839",
+      "asserts": 2
+    },
+    "test_tool.py::test_audit_flags_secret_key_in_code": {
+      "hash": "e43a76328e44bb2128c7ebb929c31437fecc6ded4aa132900174c6ee292415fe",
+      "asserts": 3
+    },
+    "test_tool.py::test_audit_flags_hardcoded_password": {
+      "hash": "35db6f65086afa3c9553b2bca1ff7e23c329da224bd496ad6bb3c609fceaa83d",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_flags_sql_injection_risk": {
+      "hash": "ea1bdce4c5248b7e4711569406837a63ad8f52f6fe4705a9df1870857077e454",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_flags_missing_error_handling_when_grep_c_nonzero": {
+      "hash": "f1cc50eefa441bcc2b58aabd82494031c8e5b56badc1f97096915767c2de98b7",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_flags_missing_type_hints_when_grep_c_nonzero": {
+      "hash": "f236e0ce5e08de5998f9880f2df5e9ed4bff0c6dae61400597bd31c33b7e1b95",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "c7e1da23a19820f7a0b7faedb3933324d42236df7ddf5a74ca2d306e87ca0727",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_scaffold_endpoint_end_to_end": {
+      "hash": "f33cef426172755f891720d5c214d693b72ddaef3d75a50a42de80706d2817f3",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_model_end_to_end": {
+      "hash": "c68c243f317d70814221f4deeb5dad410fae7626befc3297eba74d4941d8abde",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_migration_end_to_end": {
+      "hash": "21774d06fc97428fe2c35df05d6908ca97f57392cf3c1659ba3b2215372949a3",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_setup_auth_end_to_end": {
+      "hash": "1ccd54293b0320e584e7047fc968ec944ab12688d28f37a9fa6224bce8211bf6",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_tests_end_to_end": {
+      "hash": "27f9124e5c847ed725527043feb6ea3c2f1eecb7867249eccac51f9d222e9c7b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_service_end_to_end": {
+      "hash": "c439eab6c1df9072b9eb4a1a5262f47aa739f8b066f34eb2463e082b7bd6309a",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_optimize_db_end_to_end": {
+      "hash": "fc02a53dd81796ddff8e588f9d8e2733c15593fdbcd9a406bb9ce4f9b3891cd2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_audit_end_to_end": {
+      "hash": "51b833be28df089c5eace3a9b39291444526225dcdf167f5fee4f04bad641c01",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_scaffold_endpoint_missing_required_name_exits": {
+      "hash": "6b82c348bf7c2a8770bb8f4e8b3e69b2da9e10a2ecdaee3c8926256b5be33f60",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_create_model_missing_required_name_exits": {
+      "hash": "eb972071017b770a5c766bad8994773296367546c9d1b82b30895858477e5e70",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_generate_tests_missing_required_resource_exits": {
+      "hash": "651db7288fdc6d2383a346311f10971df186f1809c05c9f579a823692355660e",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_create_service_missing_required_name_exits": {
+      "hash": "c780eda0e54b1e3f17854ed38251b1e665f92fb4d191f8037bf7abbf0819be16",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_unknown_command_returns_1_via_argparse_choices": {
+      "hash": "9cb81b58a9644166d139161b57486fdbfe4a9f3623e3b798a1a0111c20f20d00",
+      "asserts": 0
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_optimize_db": {
+      "hash": "8051da973163fbb2591e57f5823573557b8a8a1119aad3f7c29b295b9841cc7d",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_no_command_returns_nonzero": {
+      "hash": "f26ffcbc27dfaec55f9e98c94ec236ac8f79770c609c3da28fc0d4cedccd0ae6",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_scaffold_endpoint_writes_real_file": {
+      "hash": "0ec9ad6bfd2bc75cab39665860c294e9e69df4dcb6aef5da59c23a35bf071c8c",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 99.0
+}

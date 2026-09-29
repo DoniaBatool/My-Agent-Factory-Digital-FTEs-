@@ -1,0 +1,136 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-155727",
+      "reason": "Initial gate onboarding: added genuine test suite (24 tests), 98pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_cli_subprocess_smoke_end_to_end",
+        "test_tool.py::test_cli_subprocess_smoke_missing_required_args_exits_nonzero",
+        "test_tool.py::test_init_raises_value_error_when_no_config_found_anywhere",
+        "test_tool.py::test_init_uses_explicit_api_key_without_touching_disk",
+        "test_tool.py::test_load_api_key_falls_back_to_home_candidate_when_first_missing",
+        "test_tool.py::test_load_api_key_propagates_attribute_error_for_non_dict_mcp_servers",
+        "test_tool.py::test_load_api_key_raises_when_api_key_flag_is_last_arg_with_no_value",
+        "test_tool.py::test_load_api_key_raises_when_args_missing_api_key_flag",
+        "test_tool.py::test_load_api_key_raises_when_context7_server_not_configured",
+        "test_tool.py::test_load_api_key_reads_from_first_candidate_path",
+        "test_tool.py::test_load_api_key_skips_invalid_json_and_falls_through_to_next_candidate",
+        "test_tool.py::test_main_honors_custom_max_tokens_flag",
+        "test_tool.py::test_main_missing_required_library_arg_exits",
+        "test_tool.py::test_main_missing_required_query_arg_exits",
+        "test_tool.py::test_main_prints_human_readable_box_by_default",
+        "test_tool.py::test_main_prints_json_when_json_flag_set",
+        "test_tool.py::test_main_reports_unexpected_error_and_exits_1",
+        "test_tool.py::test_main_reports_value_error_and_exits_1_when_api_key_missing",
+        "test_tool.py::test_main_short_flags_behave_like_long_flags",
+        "test_tool.py::test_resolve_library_handles_empty_string_name",
+        "test_tool.py::test_resolve_library_returns_expected_structure",
+        "test_tool.py::test_search_docs_handles_empty_query",
+        "test_tool.py::test_search_docs_honors_custom_max_tokens",
+        "test_tool.py::test_search_docs_returns_expected_structure_with_default_max_tokens"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_init_uses_explicit_api_key_without_touching_disk": {
+      "hash": "697f0a82a2c2ae3d522cb7c567b18195cf9a2086f6ade32d49ebedd636ff9ac8",
+      "asserts": 1
+    },
+    "test_tool.py::test_init_raises_value_error_when_no_config_found_anywhere": {
+      "hash": "32875cfaad4ed7cac5919d82610e94d1e126341ad342d85ad320c4afd50ad8fd",
+      "asserts": 0
+    },
+    "test_tool.py::test_load_api_key_reads_from_first_candidate_path": {
+      "hash": "75a2d2f71b47997c53b56baedecc30c74ecebe191211d2fcf5735a74d611ede3",
+      "asserts": 1
+    },
+    "test_tool.py::test_load_api_key_falls_back_to_home_candidate_when_first_missing": {
+      "hash": "5930984a058a92662f0acdd66a3e736e25ae1cd83547e5161632ecbf48723970",
+      "asserts": 1
+    },
+    "test_tool.py::test_load_api_key_skips_invalid_json_and_falls_through_to_next_candidate": {
+      "hash": "a7d7f83c45ee8583145b4cfe2d8c0d97efc4306f938dbe6fbc152fc957859872",
+      "asserts": 1
+    },
+    "test_tool.py::test_load_api_key_raises_when_args_missing_api_key_flag": {
+      "hash": "1ed21571ace2c8e8132db43fc033afc5fbc5178fa4466b8ec00371de31610ee1",
+      "asserts": 0
+    },
+    "test_tool.py::test_load_api_key_raises_when_api_key_flag_is_last_arg_with_no_value": {
+      "hash": "ff9fa38a890c9f84303341a10754a8d69f511a8f3ad9073986f29de5986dc523",
+      "asserts": 0
+    },
+    "test_tool.py::test_load_api_key_raises_when_context7_server_not_configured": {
+      "hash": "bf393a4f17a8eb7bb5c1b309b0a9b0346841b6908b06b0ef5aa2b17bc74b66a0",
+      "asserts": 0
+    },
+    "test_tool.py::test_load_api_key_propagates_attribute_error_for_non_dict_mcp_servers": {
+      "hash": "1e1abfc26b8cf7dd9457af61a377100cc8e34ab0149fef7d536bce21eeb0cb94",
+      "asserts": 0
+    },
+    "test_tool.py::test_resolve_library_returns_expected_structure": {
+      "hash": "98566b1acec8f06e1d5078ce4ad035140d31e039906fb55282369fc018ffc728",
+      "asserts": 1
+    },
+    "test_tool.py::test_resolve_library_handles_empty_string_name": {
+      "hash": "da5bf29e255abb8800646f4f0466c1cfbb4a139fc8b1af69e40f727a0baa3288",
+      "asserts": 3
+    },
+    "test_tool.py::test_search_docs_returns_expected_structure_with_default_max_tokens": {
+      "hash": "7cbc5470918a7269cd31cd136b423362821a9d776b92c03ff17cfb609829c32a",
+      "asserts": 9
+    },
+    "test_tool.py::test_search_docs_honors_custom_max_tokens": {
+      "hash": "377992f40256716dcf34deda52263c0490973122176190db55bbe3cd461dea9c",
+      "asserts": 2
+    },
+    "test_tool.py::test_search_docs_handles_empty_query": {
+      "hash": "966a2536989b964767554e2faaf183e08a9cc5d8c5b577da903ea890df7749a1",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_missing_required_library_arg_exits": {
+      "hash": "fc6adbd0368a8b3fdf544fa323ebc6523a006768401650a7f4cc44d5e3eaddff",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_missing_required_query_arg_exits": {
+      "hash": "84c587ed047bade7c55a6c2e2f4cede3be6ac461babb99be6f982b9cbd7d529e",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_prints_human_readable_box_by_default": {
+      "hash": "4c2739f4f8f3cec73ec26b5bbefa3a5b8e95162c2e1785a1948a32ec309b47c2",
+      "asserts": 5
+    },
+    "test_tool.py::test_main_prints_json_when_json_flag_set": {
+      "hash": "10aa9962aa053f91498a306e7ad6d14ce34b4d5183d3187a4f0dd7d4499344ca",
+      "asserts": 4
+    },
+    "test_tool.py::test_main_honors_custom_max_tokens_flag": {
+      "hash": "acb6872a4112c16237f5d3fe2c805e7926e7a599ebb8e921addd963aa6d40d17",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_short_flags_behave_like_long_flags": {
+      "hash": "86e0a946b9a1ef83a864ae5de7fd932f60ccd05065151b8df3910f7217dac213",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_reports_value_error_and_exits_1_when_api_key_missing": {
+      "hash": "7120be4211628ed59e71538cd86eb595a3e35ab2b4ed546dd32999a53d4a199f",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_reports_unexpected_error_and_exits_1": {
+      "hash": "34615d1a2d9bd41141d0d614bc863fa70380de66d579667befd05281f2ea9700",
+      "asserts": 3
+    },
+    "test_tool.py::test_cli_subprocess_smoke_end_to_end": {
+      "hash": "9c64771f3e89a9393794b953108a7a606092d99d40b621ea311b03446f45e918",
+      "asserts": 3
+    },
+    "test_tool.py::test_cli_subprocess_smoke_missing_required_args_exits_nonzero": {
+      "hash": "cb92580224f2924d27066ce0eda9348d56506fd20ce43d523e2147d0e63d7bdb",
+      "asserts": 1
+    }
+  },
+  "coverage_pct": 98.0
+}

@@ -1,0 +1,266 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-063929",
+      "reason": "Initial gate onboarding: added genuine test suite (50 tests), 99pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_analyze_skill_fully_clean_has_no_suggestions",
+        "test_tool.py::test_analyze_skill_not_found_returns_1",
+        "test_tool.py::test_analyze_skill_reports_sizes_and_suggests_everything_missing",
+        "test_tool.py::test_analyze_skill_with_tool_reports_command_list_and_todo_suggestion",
+        "test_tool.py::test_create_new_skill_already_exists_returns_1",
+        "test_tool.py::test_create_new_skill_creates_full_structure",
+        "test_tool.py::test_create_new_skill_generated_tool_no_args_exits_1",
+        "test_tool.py::test_create_new_skill_generated_tool_runs_check_prerequisites",
+        "test_tool.py::test_create_new_skill_generated_tool_runs_test_command",
+        "test_tool.py::test_create_new_skill_mkdir_calls_tolerate_dirs_that_already_exist",
+        "test_tool.py::test_create_new_skill_title_cases_multiword_name",
+        "test_tool.py::test_list_skills_counts_expert_and_docs_and_excludes_hidden_and_files",
+        "test_tool.py::test_list_skills_missing_dir_returns_1",
+        "test_tool.py::test_list_skills_no_tip_when_all_expert",
+        "test_tool.py::test_list_skills_verbose_shows_file_tree",
+        "test_tool.py::test_main_dispatches_analyze_skill",
+        "test_tool.py::test_main_dispatches_create_new_skill",
+        "test_tool.py::test_main_dispatches_list_skills_default_verbose_false",
+        "test_tool.py::test_main_dispatches_list_skills_with_verbose_shorthand",
+        "test_tool.py::test_main_dispatches_upgrade_existing_skill_with_commands",
+        "test_tool.py::test_main_dispatches_validate_skill",
+        "test_tool.py::test_main_missing_required_name_exits_for_each_name_requiring_command",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_print_error_prints_message_with_x",
+        "test_tool.py::test_print_header_prints_arrow_prefixed_message",
+        "test_tool.py::test_print_info_prints_message",
+        "test_tool.py::test_print_success_prints_message_with_checkmark",
+        "test_tool.py::test_print_warning_prints_message_with_warn_symbol",
+        "test_tool.py::test_run_command_bad_input_hits_except_and_returns_1",
+        "test_tool.py::test_run_command_nonzero_exit_returns_code",
+        "test_tool.py::test_run_command_success_returns_code_and_stdout",
+        "test_tool.py::test_subprocess_end_to_end_list_skills",
+        "test_tool.py::test_subprocess_no_args_exits_nonzero",
+        "test_tool.py::test_upgrade_skill_already_has_tool_py_skips",
+        "test_tool.py::test_upgrade_skill_custom_commands_list",
+        "test_tool.py::test_upgrade_skill_default_commands_generates_eight_commands",
+        "test_tool.py::test_upgrade_skill_generated_tool_is_runnable",
+        "test_tool.py::test_upgrade_skill_inserts_notice_right_after_frontmatter",
+        "test_tool.py::test_upgrade_skill_missing_skill_md_returns_1",
+        "test_tool.py::test_upgrade_skill_not_found_returns_1",
+        "test_tool.py::test_upgrade_skill_scripts_dir_preexisting_still_succeeds",
+        "test_tool.py::test_upgrade_skill_skips_notice_when_already_present",
+        "test_tool.py::test_validate_skill_bad_frontmatter_flagged_as_issue",
+        "test_tool.py::test_validate_skill_bad_readme_frontmatter_is_issue",
+        "test_tool.py::test_validate_skill_fully_clean_is_production_ready",
+        "test_tool.py::test_validate_skill_low_command_count_warns",
+        "test_tool.py::test_validate_skill_missing_everything_reports_issues_and_warnings",
+        "test_tool.py::test_validate_skill_not_found_returns_1",
+        "test_tool.py::test_validate_skill_only_warnings_still_returns_0",
+        "test_tool.py::test_validate_skill_tool_not_executable_warns"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_prints_message_with_checkmark": {
+      "hash": "8dbadb3be63a82c8df93ee273bb790e02047e684e15dd0978a09b1eae81d4316",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_prints_message_with_x": {
+      "hash": "c98687b7566cf15fb36838d0527e21d25bab9a25cb915ed631c6e15ad941752a",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_warning_prints_message_with_warn_symbol": {
+      "hash": "d36996d34c8728621172d9391277a6d74bbf82a2d67a86d8d6b8801132e98dbe",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_info_prints_message": {
+      "hash": "cc90a58ba0ed7a6c0e14668c293e2cb9f793e342ccfdb8855bb48442c90d540b",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_prints_arrow_prefixed_message": {
+      "hash": "a1d2b23e97ed26dee7342f88aa71ddc14463314f5199c9e1550ccaccf4679fa5",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_success_returns_code_and_stdout": {
+      "hash": "8e6413367f779d6e36f770c2b963c60a0772adb9d08b7c7b4cab843fbab3fef2",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_nonzero_exit_returns_code": {
+      "hash": "e31e7e3ace2f65c59120518e9c584b55f8f052ab95a2cd9064701e8c897f31a9",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_bad_input_hits_except_and_returns_1": {
+      "hash": "2e138912da7547b88aef655b94f494f0196ea98a26884635636a696fa8240bb3",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_new_skill_creates_full_structure": {
+      "hash": "f5f4573bbd8552e84fbdc5d459258559e27b27f639df537f55a0cccb05aed79c",
+      "asserts": 15
+    },
+    "test_tool.py::test_create_new_skill_already_exists_returns_1": {
+      "hash": "2d7250e95faad4c05d981a58010ad185c391a6f8fe8fe0eb7803f60474dc6f83",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_new_skill_title_cases_multiword_name": {
+      "hash": "8317784b780c930b756571b1119b1402af866dc81ec41712dbb91a02ac888770",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_new_skill_generated_tool_runs_check_prerequisites": {
+      "hash": "81aa3d9f1c9f2360cad93b8854ffc009a14e2bd1d45aa244cab419bbd8b833d8",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_new_skill_generated_tool_runs_test_command": {
+      "hash": "b75c42d4e8efa333b9c793087c080c34cdf0311db4c5ea2c0da71050cd89717c",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_new_skill_generated_tool_no_args_exits_1": {
+      "hash": "e635d6f16490580107534104014055c375c1072f45bddafd4f1a481401a5e84a",
+      "asserts": 2
+    },
+    "test_tool.py::test_upgrade_skill_not_found_returns_1": {
+      "hash": "66b432fa681b4c80489ff0067a62e11a5f24f1b8968720485361b66ffe14a927",
+      "asserts": 2
+    },
+    "test_tool.py::test_upgrade_skill_already_has_tool_py_skips": {
+      "hash": "18f04dff797421b10aea73cae4baf0c02e55e829d82644a754de36381ff5210e",
+      "asserts": 3
+    },
+    "test_tool.py::test_upgrade_skill_missing_skill_md_returns_1": {
+      "hash": "0a8dd5688fc2c2b56015702ac2a003ca42e05f49ef44c37a701b2034646b7718",
+      "asserts": 2
+    },
+    "test_tool.py::test_upgrade_skill_default_commands_generates_eight_commands": {
+      "hash": "981ea3a9cfcc7d619a525d3f74ce95c74732c689a4bf8f8d3c4cd14859e00969",
+      "asserts": 6
+    },
+    "test_tool.py::test_upgrade_skill_custom_commands_list": {
+      "hash": "d8663b00c81edfe53d7b478693e6d5f0ddbef87adbd590199340090684d651ac",
+      "asserts": 6
+    },
+    "test_tool.py::test_upgrade_skill_inserts_notice_right_after_frontmatter": {
+      "hash": "fee394498d4509b59462179808fc9ab5e8f8c322e5f3d64093daf266a701ca62",
+      "asserts": 2
+    },
+    "test_tool.py::test_upgrade_skill_skips_notice_when_already_present": {
+      "hash": "511ed3203abe2ecfa96bd9854577fc6fe8746ff5c39ca1dae529e300db7c823f",
+      "asserts": 3
+    },
+    "test_tool.py::test_upgrade_skill_generated_tool_is_runnable": {
+      "hash": "ef5770b0227e558e9dbab02165af943f812ac3fe416c80349f81839cf714d28c",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_skill_not_found_returns_1": {
+      "hash": "e3f4df96b9bfbec406ee8f84af671af71baaf0feab62763e3c29bf92f7140885",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_skill_missing_everything_reports_issues_and_warnings": {
+      "hash": "e61ef4acdc0af8c63432db58d123a8d957187e5b48037db831c5023c7e99d41c",
+      "asserts": 6
+    },
+    "test_tool.py::test_validate_skill_bad_frontmatter_flagged_as_issue": {
+      "hash": "08df9178e6a306280e46dcbc79a1146175b7f57fdaa98b343586130eebf6f165",
+      "asserts": 3
+    },
+    "test_tool.py::test_validate_skill_bad_readme_frontmatter_is_issue": {
+      "hash": "9295e9a4504eacb57afe7a0814006696066e9ddecb7dcdf0cd01d5c15b160f62",
+      "asserts": 2
+    },
+    "test_tool.py::test_validate_skill_tool_not_executable_warns": {
+      "hash": "e78a3c643a29cbfe6a62959790b6637816720b00ab526be99a829901e62d7fb5",
+      "asserts": 3
+    },
+    "test_tool.py::test_validate_skill_low_command_count_warns": {
+      "hash": "9910b7e29ad717fe1b247831ef6e5d7755bbb7f91bb38f04ef22fc912b149406",
+      "asserts": 3
+    },
+    "test_tool.py::test_validate_skill_fully_clean_is_production_ready": {
+      "hash": "e8e3a7b717ae91fc7f5f3fe2b3eb3447232c9334f34de563e0040e939e769c46",
+      "asserts": 5
+    },
+    "test_tool.py::test_validate_skill_only_warnings_still_returns_0": {
+      "hash": "9e0ed223dcc299b9af1ecfbb6e043049564a4e334121d5dae9e846bf1e737dd5",
+      "asserts": 1
+    },
+    "test_tool.py::test_list_skills_missing_dir_returns_1": {
+      "hash": "6e2184040cbe8a2457dc331365c109a4c9eebbff62480cb550eda18f0a812de5",
+      "asserts": 2
+    },
+    "test_tool.py::test_list_skills_counts_expert_and_docs_and_excludes_hidden_and_files": {
+      "hash": "04e0a9b794d9677640d16dc09ecb8512db7099591401d69bee6b17a8758ec8ac",
+      "asserts": 11
+    },
+    "test_tool.py::test_list_skills_verbose_shows_file_tree": {
+      "hash": "7dacecbe00220a303e12e7e668aaa5fed2c1bb11c44f867e0576b54e90a7c1aa",
+      "asserts": 4
+    },
+    "test_tool.py::test_list_skills_no_tip_when_all_expert": {
+      "hash": "9d144063e070106b1aa566225581f7b94f03a86d50f07ffeeb2bcd82a9697bb5",
+      "asserts": 3
+    },
+    "test_tool.py::test_analyze_skill_not_found_returns_1": {
+      "hash": "3b2904d7445498db690137202f4550894c942747f8f8813604c4bda5bd8d0172",
+      "asserts": 2
+    },
+    "test_tool.py::test_analyze_skill_reports_sizes_and_suggests_everything_missing": {
+      "hash": "190694c426c8e258506945f366ebd7d3a0abc84248b76b4e938f62873f415101",
+      "asserts": 7
+    },
+    "test_tool.py::test_analyze_skill_with_tool_reports_command_list_and_todo_suggestion": {
+      "hash": "83edc02dc8274ad8ce436fe5aa8393ee31e2d69d591f26cb3a4b218e436c1357",
+      "asserts": 7
+    },
+    "test_tool.py::test_analyze_skill_fully_clean_has_no_suggestions": {
+      "hash": "8597481f1af081c8a722af01b364f9463627654ac6be7d5298e741c168913336",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "679c69a61ac17b6620c1a0f4ed2b9184d69a81b851c9c2b0ed426513e1c11d25",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_create_new_skill": {
+      "hash": "3c7c8e74032946fb2afd40eb93de098c7705c318f0dd9256c5abe2cff7597bdc",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_upgrade_existing_skill_with_commands": {
+      "hash": "15d7236a08fe4880c48ff2bbac8300a22980257e87a00c581fb94bbeacbde80d",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_dispatches_validate_skill": {
+      "hash": "43d2c3b178b7d0288286a24acdd103066297016bd94aa560d7c41b1ab5e4265c",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_list_skills_with_verbose_shorthand": {
+      "hash": "009ea4844a449ab45e03fe767d0cfd24f3e4dc3a1dc3281c5d53612a9d6c0e68",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_list_skills_default_verbose_false": {
+      "hash": "4a817104c6e91c44db669ffb8459f5bd2b17f06ffea80bc66a24f754470cec84",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_analyze_skill": {
+      "hash": "82cf4082c7a04537e5605ad186f782d4edec99d5353ed5c1a23fa17f92507729",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_missing_required_name_exits_for_each_name_requiring_command": {
+      "hash": "ec5559eb83bdf478e759029bafb508d50e9c774d6c2f8be5ce0f39cb9a9eeea2",
+      "asserts": 0
+    },
+    "test_tool.py::test_subprocess_end_to_end_list_skills": {
+      "hash": "d5343d846b32c9587475b5a1922c99a8c6d7594772d208ccf2c8ddf093782829",
+      "asserts": 2
+    },
+    "test_tool.py::test_subprocess_no_args_exits_nonzero": {
+      "hash": "b7ec227908e567b8c399b08aef33056519e1ffce02e924d52ab0b8f43333d448",
+      "asserts": 1
+    },
+    "test_tool.py::test_upgrade_skill_scripts_dir_preexisting_still_succeeds": {
+      "hash": "58adcb441e179a1297ba8997deb851bba013c260049e0a709fdf209ca20b479b",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_new_skill_mkdir_calls_tolerate_dirs_that_already_exist": {
+      "hash": "e9d5366f1138ac4c1d1a5415cf3b7a73475504f8bb1873e028925ba959a97bad",
+      "asserts": 3
+    }
+  },
+  "coverage_pct": 99.0
+}

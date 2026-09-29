@@ -1,0 +1,356 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-165341",
+      "reason": "Initial gate onboarding: added genuine test suite (68 tests), 99% coverage, 100% mutation score (22 mutants tried)",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_prerequisites_all_good_returns_0",
+        "test_tool.py::test_check_prerequisites_missing_tests_dir_returns_1",
+        "test_tool.py::test_check_prerequisites_optional_tools_missing_only_warns",
+        "test_tool.py::test_check_prerequisites_pytest_missing_returns_1",
+        "test_tool.py::test_check_prerequisites_python_missing_returns_1",
+        "test_tool.py::test_check_tool_failure_prints_not_found",
+        "test_tool.py::test_check_tool_success_prints_first_line_of_version",
+        "test_tool.py::test_check_tool_success_with_empty_stdout_reports_installed",
+        "test_tool.py::test_main_check_prerequisites_dispatch",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_returns_command_functions_return_value",
+        "test_tool.py::test_main_run_all_dispatch_with_flags",
+        "test_tool.py::test_main_run_coverage_dispatch_with_min_coverage",
+        "test_tool.py::test_main_run_e2e_dispatch",
+        "test_tool.py::test_main_run_integration_dispatch",
+        "test_tool.py::test_main_run_parallel_dispatch_with_workers",
+        "test_tool.py::test_main_run_specific_dispatch_with_positional",
+        "test_tool.py::test_main_run_specific_missing_positional_raises_systemexit_2",
+        "test_tool.py::test_main_run_unit_dispatch",
+        "test_tool.py::test_main_test_dispatch",
+        "test_tool.py::test_main_unrecognized_command_raises_systemexit_2",
+        "test_tool.py::test_main_watch_dispatch",
+        "test_tool.py::test_print_error_exact_format",
+        "test_tool.py::test_print_header_exact_format",
+        "test_tool.py::test_print_info_exact_format",
+        "test_tool.py::test_print_success_exact_format",
+        "test_tool.py::test_print_warning_exact_format",
+        "test_tool.py::test_run_all_all_flags_appended",
+        "test_tool.py::test_run_all_default_command_and_success",
+        "test_tool.py::test_run_all_failure_returns_nonzero_code",
+        "test_tool.py::test_run_all_prints_stderr_when_present",
+        "test_tool.py::test_run_command_generic_exception_returns_1_with_str",
+        "test_tool.py::test_run_command_nonzero_exit_propagates",
+        "test_tool.py::test_run_command_passes_custom_timeout",
+        "test_tool.py::test_run_command_success_returns_code_stdout_stderr",
+        "test_tool.py::test_run_command_timeout_expired_returns_1_with_message",
+        "test_tool.py::test_run_coverage_default_command_no_min",
+        "test_tool.py::test_run_coverage_failure_message",
+        "test_tool.py::test_run_coverage_min_coverage_zero_is_falsy_and_omitted",
+        "test_tool.py::test_run_coverage_prints_stderr_when_present",
+        "test_tool.py::test_run_coverage_success_prints_html_report_path",
+        "test_tool.py::test_run_coverage_with_min_coverage_appends_flag",
+        "test_tool.py::test_run_e2e_default_command",
+        "test_tool.py::test_run_e2e_flags_and_failure",
+        "test_tool.py::test_run_e2e_prints_stderr_when_present",
+        "test_tool.py::test_run_integration_default_command_and_timeout",
+        "test_tool.py::test_run_integration_flags_and_failure",
+        "test_tool.py::test_run_integration_prints_stderr_when_present",
+        "test_tool.py::test_run_parallel_default_workers_is_auto",
+        "test_tool.py::test_run_parallel_explicit_workers_used",
+        "test_tool.py::test_run_parallel_prints_stderr_when_present",
+        "test_tool.py::test_run_parallel_success_and_failure_messages",
+        "test_tool.py::test_run_parallel_verbose_flag_appended",
+        "test_tool.py::test_run_parallel_xdist_missing_returns_1_without_second_call",
+        "test_tool.py::test_run_specific_builds_command_with_test_path",
+        "test_tool.py::test_run_specific_failure",
+        "test_tool.py::test_run_specific_flags_and_success",
+        "test_tool.py::test_run_specific_prints_stderr_when_present",
+        "test_tool.py::test_run_tests_runs_all_when_prerequisites_pass",
+        "test_tool.py::test_run_tests_short_circuits_when_prerequisites_fail",
+        "test_tool.py::test_run_unit_default_command",
+        "test_tool.py::test_run_unit_failure_message",
+        "test_tool.py::test_run_unit_flags_appended_and_success_message",
+        "test_tool.py::test_run_unit_prints_stderr_when_present",
+        "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard",
+        "test_tool.py::test_watch_pytest_watch_installed_uses_os_system",
+        "test_tool.py::test_watch_pytest_watch_missing_uses_simple_loop_and_stops_on_interrupt",
+        "test_tool.py::test_watch_simple_loop_prints_stderr_when_present"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_exact_format": {
+      "hash": "ce9faf9c7ec271b1a4e28c6d01ef7de26a65774f3ef1b007e19dce1565b751bf",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_error_exact_format": {
+      "hash": "a196ab0104785cee6c332992b9b1a70e4b452e36a0a9fe2b42139787aa5f7c93",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_warning_exact_format": {
+      "hash": "7583856c7cf8082977a0b55110342a9c0a21b1a06f7960404e7dd3aff98eb168",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_info_exact_format": {
+      "hash": "2d82f0d7d5e513f80071622a05af269d85c0c92a4a4256f3cb7fe67de1438cac",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_exact_format": {
+      "hash": "d37ad0f333296b66b2faebbbaffa5ec8e78180a2f08e3eb7a8363f129dad07ac",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_success_returns_code_stdout_stderr": {
+      "hash": "e21df457dbc24184b7f28a2545b60d41b8bf387a10daaf17827c272376ced360",
+      "asserts": 8
+    },
+    "test_tool.py::test_run_command_passes_custom_timeout": {
+      "hash": "89519e6f0c25ee580f0584f020d4704726f843bb5315098512e9c71d09ceb224",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_nonzero_exit_propagates": {
+      "hash": "a566eb9d2a38e813f35bb74c9e761247271b692c545608825b31b4255bba9d7a",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_timeout_expired_returns_1_with_message": {
+      "hash": "c4672569e37e8af97db8ce1d164953330a6655144abe6df846f1e2401263a8c8",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_generic_exception_returns_1_with_str": {
+      "hash": "8c3d85d6f96efc712129092a5ea051a701ac68bf63764cd617d626bbccf9308b",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_tool_success_prints_first_line_of_version": {
+      "hash": "20b31c101af8ee9e864978ea5c8310728870f17dd9b4d60f2656d806cac35a17",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_tool_success_with_empty_stdout_reports_installed": {
+      "hash": "150390f7f98d72e0b17986b81059d9935ffda128da3df9279b01d41de7943f56",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_tool_failure_prints_not_found": {
+      "hash": "82482ac525c089d42eea8a39e342396ac34776b93bd37baa0b1640490e44d674",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_all_good_returns_0": {
+      "hash": "e245f1b54bcd30c3c15ec838489ec40758f6567c5d46e0e346ac08fe92c5849a",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_python_missing_returns_1": {
+      "hash": "46641568f2141261e0fa33cd7e1944ef5d518e566a6d5e1830c6866adfde968e",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_pytest_missing_returns_1": {
+      "hash": "8326662ac6fed42a9c42ac82dac703c3622dfca1d16ab1208b24bd7369751cf6",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_optional_tools_missing_only_warns": {
+      "hash": "729e4e9df437315be96cad996ea6d680f3aa7b600ff89bb6341d7cbbab37413e",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_missing_tests_dir_returns_1": {
+      "hash": "8e0ea1d8d6912e7995576fa4f60111a84036a4e5cc40cef4565c351083208a5f",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_all_default_command_and_success": {
+      "hash": "6cb61bd8b5566ac3d0e7f3d858c2af92012ba824595578b112df36c35ecb3094",
+      "asserts": 4
+    },
+    "test_tool.py::test_run_all_all_flags_appended": {
+      "hash": "be64f25de3b1a133d3596e8e13b15c9c12382aa6d7bdc6d0480fa2ac4b969761",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_all_prints_stderr_when_present": {
+      "hash": "92bd89623921b098dc2ed8b660a3bbfd9cc3ec002b09b02041f68c4547852a47",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_all_failure_returns_nonzero_code": {
+      "hash": "3648c23cde69157f153adcc8d0e038191a6912c448601fe654c7f5f357a2d5ba",
+      "asserts": 4
+    },
+    "test_tool.py::test_run_unit_default_command": {
+      "hash": "fc0138b472f220ca2d4d5850002cfd021ab0c4dc84ce91e63d547108eef13a62",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_unit_flags_appended_and_success_message": {
+      "hash": "5cc46318e46cbd95b135e42bbf9084ca2a31aea1399a7599a7eb0f25bdc45311",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_unit_prints_stderr_when_present": {
+      "hash": "ef39bf48e58338bf628b02099eb66468c4347b1e4160468ef85b4ca1ee26e6cb",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_unit_failure_message": {
+      "hash": "18f451852575499390d933259ae2ae39d6bff36dce9274fcc8852f0bc71c1e3c",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_integration_default_command_and_timeout": {
+      "hash": "a1ea391647338f19bc2bcdd20e9940dc6828270f6df3464a98594ff7be42c0fc",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_integration_prints_stderr_when_present": {
+      "hash": "3a8f53e9516e9709b7ebc2a1c45cef97360f7504665f2363ca3b27f475d1c9d0",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_integration_flags_and_failure": {
+      "hash": "e8eff0abb1f0c808bf1a5cc58ceb133460061fba6684e31b85e13066b66210d1",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_e2e_default_command": {
+      "hash": "32f4ac62b301fe0245c88f5067bd3fec1339b537f2f33b92ed35503b1e755ca0",
+      "asserts": 4
+    },
+    "test_tool.py::test_run_e2e_prints_stderr_when_present": {
+      "hash": "15483c71c46f35cd8559b99d19fdea35187384a0c7af3f95481d108615ed0354",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_e2e_flags_and_failure": {
+      "hash": "1e6a376fdce0e550e0c1bb7c219d09ca1117046af5480474fb3ade320d011715",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_coverage_default_command_no_min": {
+      "hash": "e776b5a5b3de2bd74596729a5d90df9068ead2cd633a12a43324755a7c62c20f",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_coverage_with_min_coverage_appends_flag": {
+      "hash": "5674e3538acf5e434cb9ad570f41a0184d97fe823df0ebdcd674eeae9e9d71f2",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_coverage_min_coverage_zero_is_falsy_and_omitted": {
+      "hash": "5811bce722ca6f24bf775d3635c589e9618f22f47599ad02bbbaf4923cecd71e",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_coverage_success_prints_html_report_path": {
+      "hash": "6d416c49d23d4558698e0cf190106b9181421675be46de23c2fcf30ed5be8d91",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_coverage_prints_stderr_when_present": {
+      "hash": "40cb44bac69ceff7e00fde1f51c365b998e5c283b0f426a44cb30d1406bb4a31",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_coverage_failure_message": {
+      "hash": "8af5e941d2080ce1068a2e9f53b57a05a65fc4a1e061bbeba02948496595c52f",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_specific_builds_command_with_test_path": {
+      "hash": "0a91ee004b24b238afff6148d8cd395a2bc22070720432175f00750819a03757",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_specific_flags_and_success": {
+      "hash": "2e33b8a45d5f1f107ef51549abed057db2be2bb903cb76bc55b8be190090675b",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_specific_prints_stderr_when_present": {
+      "hash": "f8a101a6a86ea2bee15c57ad361e04534c744f57865ebb4ad7ade6ef5c092048",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_specific_failure": {
+      "hash": "e20374228d3a5a45885ecac2b277c6570053d2f85a1184d290a614a1870cf861",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_parallel_xdist_missing_returns_1_without_second_call": {
+      "hash": "c8aca96a14e8d3b5ee79eada7e010cebcb0beba2dd2e157f9421467a62bfbce3",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_parallel_default_workers_is_auto": {
+      "hash": "37a06622d606f413d6a34ce47aabfd092c294db925641846cf9417f30fdbb570",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_parallel_explicit_workers_used": {
+      "hash": "4850768aaadb9644e977aa8f5e7483e24473e3641edb4320648f4ea656429ece",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_parallel_verbose_flag_appended": {
+      "hash": "a53a910fe8f4250f595310b5d6d787c84f63a1116c6f1a891c64b7e783c43af4",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_parallel_prints_stderr_when_present": {
+      "hash": "a64ee7747e9fb0b8f58aa2c7aad5598b367e9cd534fd13e42e1e538a868c84b2",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_parallel_success_and_failure_messages": {
+      "hash": "e007c8a2acaa5ecb2fb5312188640ce6096250deb4e3025475d3c8328d421ed5",
+      "asserts": 4
+    },
+    "test_tool.py::test_watch_pytest_watch_missing_uses_simple_loop_and_stops_on_interrupt": {
+      "hash": "1f19440771ec607df719eb79ed31d7ad2e705f43abe5236fe1067fd8a268e1a6",
+      "asserts": 5
+    },
+    "test_tool.py::test_watch_simple_loop_prints_stderr_when_present": {
+      "hash": "a33a207f8741f66582e3d9afb4682dda1c05b20907648114eb05e2312bba96fa",
+      "asserts": 2
+    },
+    "test_tool.py::test_watch_pytest_watch_installed_uses_os_system": {
+      "hash": "7495324e94fecd7aae119d80396480df48ad50d3c575ee1af9dddf9e438282ca",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_short_circuits_when_prerequisites_fail": {
+      "hash": "fa57a866a61ccf573e52db4406f6b4954e6dbd0f949db8267422479a5f054c12",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_runs_all_when_prerequisites_pass": {
+      "hash": "108b2596c690c47c770c8b2666c1151ac5601249f15eec566aba700d9542e86a",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "f43615542a7e74cb5d35b5addbf9b96bf1d5896837dd7ab599ceba116753d513",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_check_prerequisites_dispatch": {
+      "hash": "2e064711d91b63bae997cb5c4e7068a24a41b4aadbf98b6dbf2ce690fcac7970",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_run_all_dispatch_with_flags": {
+      "hash": "29629da36ff2290c53f9f8c6b9409eace7499b262b703552e2d7aed5da26a48f",
+      "asserts": 4
+    },
+    "test_tool.py::test_main_run_unit_dispatch": {
+      "hash": "061bb6aba36ed2f75cee5d8fef42e4ac7c25a9cc7984ced34ed8eb9dc833bcd2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_run_integration_dispatch": {
+      "hash": "4659ba3856afd058f64f40ca47884ca4a96ed29153aa84ffc4d94a88c76574d6",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_run_e2e_dispatch": {
+      "hash": "46b859d764abb1cbf5b2d6e34dd5c6a2ffddb25d40ce4da70b65be29eb57b70f",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_run_coverage_dispatch_with_min_coverage": {
+      "hash": "b04031ca6695f8d8c053ac2bee9a3aa2c07454db89fbcbd6bc18b898ac377d0f",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_run_specific_dispatch_with_positional": {
+      "hash": "48355d1e3b8f2adee3cb2385aa8f1cd9841b56e232301ce99fdcea5538f617f8",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_run_specific_missing_positional_raises_systemexit_2": {
+      "hash": "2bb82430dfc46f52e276e0969425ec513a16aa318fd40f4c73ead1a0c66a9860",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_run_parallel_dispatch_with_workers": {
+      "hash": "e9a823437885ae0a99025db297beaaa3737bedee777751fd54a79219ee03918d",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_watch_dispatch": {
+      "hash": "be15de159cd18b83586a57516f91c1eeb12486bbce7b444f378ce7d7140cfd80",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_test_dispatch": {
+      "hash": "a4aa23b8721eb9a2c853f48ddc30089e71860068ab1fe97ed85ff11506925d4e",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_unrecognized_command_raises_systemexit_2": {
+      "hash": "6feeb5b4f6e86b8e433b712684bbd4d0dc47144fa9bd5f01da875cdd79604947",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_returns_command_functions_return_value": {
+      "hash": "14e41b961d63eda4e52e1c76d661f1e684018677c9c49643ba3541d7fa4fac08",
+      "asserts": 1
+    },
+    "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard": {
+      "hash": "244e42195b2776e526307cd8d92be18f6ba4052d0c6ad6dcb6a996cf2bc00e02",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 99.0
+}

@@ -1,0 +1,826 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-163116",
+      "reason": "Initial gate onboarding: added genuine test suite (162 tests), 99% coverage, 100% mutation score (60 mutants tried)",
+      "baseline_tests_verified": [
+        "test_tool.py::test_analyze_keywords_fetch_failure_exits_1",
+        "test_tool.py::test_analyze_keywords_keyword_found_in_description_via_bug_workaround",
+        "test_tool.py::test_analyze_keywords_keyword_found_in_title_and_h1",
+        "test_tool.py::test_analyze_keywords_keyword_not_found_anywhere",
+        "test_tool.py::test_analyze_keywords_ranks_by_frequency_and_excludes_stopwords",
+        "test_tool.py::test_analyze_keywords_top_n_limits_results",
+        "test_tool.py::test_analyze_keywords_writes_output_report",
+        "test_tool.py::test_audit_site_all_images_have_alt_no_missing_alt_recommendation",
+        "test_tool.py::test_audit_site_description_canonical_og_present_via_bug_workaround",
+        "test_tool.py::test_audit_site_description_over_160_chars_recommendation",
+        "test_tool.py::test_audit_site_fetch_failure_exits_1",
+        "test_tool.py::test_audit_site_h1_present_prints_optimal_and_multiple_h1_warns",
+        "test_tool.py::test_audit_site_h2_h3_present_vs_absent_uses_distinct_print_functions",
+        "test_tool.py::test_audit_site_high_score_prints_no_critical_issues",
+        "test_tool.py::test_audit_site_images_without_alt_warns",
+        "test_tool.py::test_audit_site_missing_alt_recommendation",
+        "test_tool.py::test_audit_site_recommendations_for_missing_fields",
+        "test_tool.py::test_audit_site_reports_https_and_viewport_and_canonical_missing",
+        "test_tool.py::test_audit_site_success_returns_zero_and_prints_status",
+        "test_tool.py::test_audit_site_title_length_recommendation_when_out_of_band",
+        "test_tool.py::test_audit_site_title_over_60_chars_recommendation",
+        "test_tool.py::test_audit_site_writes_report_when_output_given",
+        "test_tool.py::test_content_optimizer_fetch_failure_exits_1",
+        "test_tool.py::test_content_optimizer_keyword_density_optimal",
+        "test_tool.py::test_content_optimizer_keyword_density_too_high",
+        "test_tool.py::test_content_optimizer_keyword_density_too_low",
+        "test_tool.py::test_content_optimizer_keyword_found_in_description_via_bug_workaround",
+        "test_tool.py::test_content_optimizer_keyword_placement_all_found",
+        "test_tool.py::test_content_optimizer_keyword_placement_none_found",
+        "test_tool.py::test_content_optimizer_long_sentences_warns",
+        "test_tool.py::test_content_optimizer_no_keyword_skips_keyword_sections",
+        "test_tool.py::test_content_optimizer_short_content_warns",
+        "test_tool.py::test_content_optimizer_short_sentences_good",
+        "test_tool.py::test_content_optimizer_suggestion_increase_usage_for_low_density",
+        "test_tool.py::test_content_optimizer_suggestion_reduce_usage_for_high_density",
+        "test_tool.py::test_content_optimizer_suggestions_h2_and_description",
+        "test_tool.py::test_content_optimizer_well_optimized_prints_success",
+        "test_tool.py::test_content_optimizer_word_count_mid_band_prints_okay",
+        "test_tool.py::test_content_optimizer_zero_word_count_density_guard",
+        "test_tool.py::test_content_score_alt_ratio_69_pct_is_low_band_score_5",
+        "test_tool.py::test_content_score_alt_ratio_70_pct_is_mid_band_score_10",
+        "test_tool.py::test_content_score_alt_ratio_89_pct_is_mid_band_score_10",
+        "test_tool.py::test_content_score_alt_ratio_90_pct_is_high_band_score_15",
+        "test_tool.py::test_content_score_desc_len_100_is_mid_band_score_15",
+        "test_tool.py::test_content_score_desc_len_119_is_mid_band_score_15",
+        "test_tool.py::test_content_score_desc_len_120_is_primary_band_score_25",
+        "test_tool.py::test_content_score_desc_len_160_is_primary_band_score_25",
+        "test_tool.py::test_content_score_desc_len_161_is_mid_band_score_15",
+        "test_tool.py::test_content_score_desc_len_180_is_mid_band_score_15",
+        "test_tool.py::test_content_score_desc_len_181_is_low_band_score_5",
+        "test_tool.py::test_content_score_desc_len_99_is_low_band_score_5",
+        "test_tool.py::test_content_score_description_mid_band_via_direct_meta_tags",
+        "test_tool.py::test_content_score_description_missing_issue",
+        "test_tool.py::test_content_score_description_optimal_band_via_direct_meta_tags",
+        "test_tool.py::test_content_score_description_present_but_short_gives_low_band",
+        "test_tool.py::test_content_score_full_breakdown_sums_correctly",
+        "test_tool.py::test_content_score_h1_exactly_one_no_issue",
+        "test_tool.py::test_content_score_h1_multiple_issue",
+        "test_tool.py::test_content_score_h1_zero_issue",
+        "test_tool.py::test_content_score_images_high_alt_ratio_no_issue",
+        "test_tool.py::test_content_score_images_low_alt_ratio_issue",
+        "test_tool.py::test_content_score_images_mid_alt_ratio_issue",
+        "test_tool.py::test_content_score_missing_title_issue",
+        "test_tool.py::test_content_score_no_images_no_alt_issue_and_no_points",
+        "test_tool.py::test_content_score_title_bad_band_adds_issue_low_score",
+        "test_tool.py::test_content_score_title_len_19_is_low_band_score_5",
+        "test_tool.py::test_content_score_title_len_20_is_mid_band_score_15",
+        "test_tool.py::test_content_score_title_len_29_is_mid_band_score_15",
+        "test_tool.py::test_content_score_title_len_30_is_primary_band_score_25",
+        "test_tool.py::test_content_score_title_len_60_is_primary_band_score_25",
+        "test_tool.py::test_content_score_title_len_61_is_mid_band_score_15",
+        "test_tool.py::test_content_score_title_len_70_is_mid_band_score_15",
+        "test_tool.py::test_content_score_title_len_71_is_low_band_score_5",
+        "test_tool.py::test_content_score_title_mid_band_adds_issue",
+        "test_tool.py::test_content_score_title_optimal_band",
+        "test_tool.py::test_content_score_viewport_missing_issue",
+        "test_tool.py::test_content_score_viewport_present_no_issue",
+        "test_tool.py::test_content_score_word_count_149_is_zero_band_score_0",
+        "test_tool.py::test_content_score_word_count_150_is_mid_band_score_5",
+        "test_tool.py::test_content_score_word_count_299_is_mid_band_score_5",
+        "test_tool.py::test_content_score_word_count_300_is_high_band_score_10",
+        "test_tool.py::test_content_score_word_count_high_band_no_issue",
+        "test_tool.py::test_content_score_word_count_low_band_issue",
+        "test_tool.py::test_content_score_word_count_mid_band_issue",
+        "test_tool.py::test_extract_headings_case_insensitive",
+        "test_tool.py::test_extract_headings_empty_html_all_empty_lists",
+        "test_tool.py::test_extract_headings_extracts_each_level",
+        "test_tool.py::test_extract_headings_multiple_of_same_level_and_strip_whitespace",
+        "test_tool.py::test_extract_images_alt_with_only_allowed_chars_is_captured",
+        "test_tool.py::test_extract_images_explicit_empty_alt_is_empty_string",
+        "test_tool.py::test_extract_images_multiple_images_and_no_images",
+        "test_tool.py::test_extract_images_real_src_and_alt_text_yields_no_src_and_empty_alt",
+        "test_tool.py::test_extract_images_src_with_only_allowed_chars_is_captured_unstripped",
+        "test_tool.py::test_extract_links_broken_key_always_empty",
+        "test_tool.py::test_extract_links_dedupe_is_not_performed_by_the_function_itself",
+        "test_tool.py::test_extract_links_no_anchors_returns_empty_lists",
+        "test_tool.py::test_extract_links_real_hrefs_are_not_captured_at_all",
+        "test_tool.py::test_extract_links_whitespace_only_href_classified_internal",
+        "test_tool.py::test_extract_meta_tags_canonical_with_allowed_chars_captured",
+        "test_tool.py::test_extract_meta_tags_canonical_with_real_url_not_captured",
+        "test_tool.py::test_extract_meta_tags_description_with_only_allowed_chars_is_captured_empty_after_strip",
+        "test_tool.py::test_extract_meta_tags_description_with_real_text_is_not_captured",
+        "test_tool.py::test_extract_meta_tags_keywords_with_allowed_chars_is_captured",
+        "test_tool.py::test_extract_meta_tags_keywords_with_real_text_is_not_captured",
+        "test_tool.py::test_extract_meta_tags_missing_title_has_no_key",
+        "test_tool.py::test_extract_meta_tags_og_tags_with_allowed_chars_captured",
+        "test_tool.py::test_extract_meta_tags_og_tags_with_real_text_not_captured",
+        "test_tool.py::test_extract_meta_tags_returns_empty_dict_for_empty_html",
+        "test_tool.py::test_extract_meta_tags_title_is_captured_correctly",
+        "test_tool.py::test_extract_meta_tags_title_is_case_insensitive_and_stripped",
+        "test_tool.py::test_extract_meta_tags_twitter_tags_with_allowed_chars_captured",
+        "test_tool.py::test_extract_meta_tags_twitter_tags_with_real_text_not_captured",
+        "test_tool.py::test_fetch_url_decodes_invalid_utf8_without_raising",
+        "test_tool.py::test_fetch_url_default_timeout_is_ten",
+        "test_tool.py::test_fetch_url_generic_exception_returns_zero_status",
+        "test_tool.py::test_fetch_url_http_error_returns_code_and_empty_content",
+        "test_tool.py::test_fetch_url_success_returns_content_status_headers",
+        "test_tool.py::test_generate_robots_txt_default_output_filename",
+        "test_tool.py::test_generate_robots_txt_strips_trailing_slash_from_url",
+        "test_tool.py::test_generate_robots_txt_writes_file_with_sitemap_line",
+        "test_tool.py::test_generate_schema_article_type_uses_name_as_headline",
+        "test_tool.py::test_generate_schema_breadcrumb_type_has_three_items",
+        "test_tool.py::test_generate_schema_invalid_type_exits_1",
+        "test_tool.py::test_generate_schema_organization_with_custom_name_and_description",
+        "test_tool.py::test_generate_schema_website_default_type",
+        "test_tool.py::test_generate_schema_writes_output_file",
+        "test_tool.py::test_generate_sitemap_default_output_filename",
+        "test_tool.py::test_generate_sitemap_max_urls_limits_crawl",
+        "test_tool.py::test_generate_sitemap_max_urls_zero_produces_empty_sitemap",
+        "test_tool.py::test_generate_sitemap_multi_page_crawl_via_mocked_extract_links",
+        "test_tool.py::test_generate_sitemap_non_200_status_excluded",
+        "test_tool.py::test_generate_sitemap_single_page_real_links_not_followed",
+        "test_tool.py::test_generate_sitemap_writes_real_xml_declaration",
+        "test_tool.py::test_main_audit_dispatch_exits_with_audit_site_return_value",
+        "test_tool.py::test_main_audit_dispatch_nonzero_exit",
+        "test_tool.py::test_main_audit_missing_required_url_raises_systemexit_2",
+        "test_tool.py::test_main_keyboard_interrupt_exits_130",
+        "test_tool.py::test_main_keywords_dispatch",
+        "test_tool.py::test_main_keywords_missing_required_url_raises_systemexit_2",
+        "test_tool.py::test_main_no_command_prints_help_and_exits_1",
+        "test_tool.py::test_main_optimize_dispatch",
+        "test_tool.py::test_main_optimize_missing_required_url_raises_systemexit_2",
+        "test_tool.py::test_main_robots_dispatch",
+        "test_tool.py::test_main_robots_missing_required_url_raises_systemexit_2",
+        "test_tool.py::test_main_schema_dispatch",
+        "test_tool.py::test_main_schema_missing_required_url_raises_systemexit_2",
+        "test_tool.py::test_main_sitemap_dispatch",
+        "test_tool.py::test_main_sitemap_missing_required_url_raises_systemexit_2",
+        "test_tool.py::test_main_unexpected_exception_exits_1_and_prints_traceback",
+        "test_tool.py::test_main_unrecognized_command_falls_through_to_help_and_exit_1",
+        "test_tool.py::test_print_error_exact_format",
+        "test_tool.py::test_print_header_exact_format",
+        "test_tool.py::test_print_info_exact_format",
+        "test_tool.py::test_print_score_green_at_90",
+        "test_tool.py::test_print_score_red_at_zero",
+        "test_tool.py::test_print_score_red_just_below_70",
+        "test_tool.py::test_print_score_yellow_at_70",
+        "test_tool.py::test_print_score_yellow_just_below_90",
+        "test_tool.py::test_print_success_exact_format",
+        "test_tool.py::test_print_warning_exact_format",
+        "test_tool.py::test_save_audit_report_writes_expected_structure",
+        "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_header_exact_format": {
+      "hash": "cd75611b5f2de96737fa849a850e4da5d3d8d9ef0bc19f07c31d9c0e69be4ce7",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_success_exact_format": {
+      "hash": "4ee7e4e9d8dde22a6fe0516a8468e9007158ef2752a564c6d69496a31e6154ec",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_warning_exact_format": {
+      "hash": "94d9d66e46c347ef3afa149338e42f051fc6111435543e521ae5ca9768fb687c",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_error_exact_format": {
+      "hash": "1cb20dc68d2bb45dd1a5fe3750c76dd7125fb11b67fa987715c863de3770e646",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_info_exact_format": {
+      "hash": "0d8ac02a4d7cd19cb01662702ec1e7c5dcdb5985b327dddcd775d76e2c1dda94",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_score_green_at_90": {
+      "hash": "acd21bdfff3e6aae6be08da0f7e552afb9e296451cf8ac86ccc3b49317fe018e",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_score_yellow_just_below_90": {
+      "hash": "169dcf43fa0855b17f92b3628cb2cc634ca3e178625eb8012e9a29a0aa9d26d3",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_score_yellow_at_70": {
+      "hash": "095bc51df41fbd357255eec7cc44258d488e6cefd51e80c24179fd87712af502",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_score_red_just_below_70": {
+      "hash": "a5d5041dd4b1b02d10ee2728758d4c51c519d6dd3c379c8a29d487f3421f7b70",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_score_red_at_zero": {
+      "hash": "bba96b2ce4e308fb10bb4d90c84d918c316073a3884b58c55c1c40a5300e4477",
+      "asserts": 1
+    },
+    "test_tool.py::test_fetch_url_success_returns_content_status_headers": {
+      "hash": "16ce45c1b711e0e957c84959a1100fc9229064c9715d7866fd722e1fd0f46b74",
+      "asserts": 6
+    },
+    "test_tool.py::test_fetch_url_decodes_invalid_utf8_without_raising": {
+      "hash": "9797f1c8831df5141c0ffb730aa0f3f3c112d9f3539a63fcfc6f18e888b75e12",
+      "asserts": 2
+    },
+    "test_tool.py::test_fetch_url_http_error_returns_code_and_empty_content": {
+      "hash": "b8fd3043b53d753c33e60d5088dddee7c21e399d423853b183e2f15e9af0f045",
+      "asserts": 3
+    },
+    "test_tool.py::test_fetch_url_generic_exception_returns_zero_status": {
+      "hash": "0b8ebdf0f7b6dac12a3521ce18ec3e6a67a826684e59339ae2c9c88baa766405",
+      "asserts": 5
+    },
+    "test_tool.py::test_fetch_url_default_timeout_is_ten": {
+      "hash": "457f53d6fe4cdb97e9417991e58fefc76db5c5edd14c25e6f1ed508842b640ae",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_title_is_captured_correctly": {
+      "hash": "f2153c0728890c6855082520ff5e3e65185630d0decbe6ec424f8ac9fbe0fe1c",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_title_is_case_insensitive_and_stripped": {
+      "hash": "12d099a15d2743ba2d151da0afbab3cc0b10cbda9980c214beaf72d40af7dc67",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_missing_title_has_no_key": {
+      "hash": "bc64fec45a37c33f7610c9e6ea3111e3bfbfb5fc409f01571f650b6eed016db2",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_description_with_real_text_is_not_captured": {
+      "hash": "283c6c710daf2ef5e2ec7af07284c2aa13ae6fd6b6e43e3fd4b33d400581a0ee",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_description_with_only_allowed_chars_is_captured_empty_after_strip": {
+      "hash": "0365bbf7828d331bd27babc30909ce612abb080fd7ecaabed361f23f402ac1b3",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_keywords_with_real_text_is_not_captured": {
+      "hash": "60dd72c7e16b53a5bc43a80069153f574bbad6ffa78dade8fba2f0eb6f222907",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_keywords_with_allowed_chars_is_captured": {
+      "hash": "639f725d558e022535f1751c690944974c4b5aa95c20f1f4421e80efe15a7b29",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_og_tags_with_real_text_not_captured": {
+      "hash": "e3ee37931dc4ba7fe38cebcf39e04970181e355896bca843a8dfaa3c24218db9",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_og_tags_with_allowed_chars_captured": {
+      "hash": "49c0fed065eea6af115df94c5a4a99e232383a0ba731588915967eb5db6668be",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_twitter_tags_with_real_text_not_captured": {
+      "hash": "98c6c78fb0fb3ec3d2b6d5ae9769615abf09168b44423a9e7fa8ca8309b13c9d",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_twitter_tags_with_allowed_chars_captured": {
+      "hash": "0ac1b459fada87dab99b4779dc3c81b67ed3de5e3da6e56b6eb749be64d4769b",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_canonical_with_real_url_not_captured": {
+      "hash": "98157f5d261ddc021645c60b43467b71a97cefa4e7ba139136821ed9a86f6a5b",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_canonical_with_allowed_chars_captured": {
+      "hash": "ecc1a8dbd2b5849d198ce619e2c2e7a87139dc46595495f78c55b7763d055e95",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_meta_tags_returns_empty_dict_for_empty_html": {
+      "hash": "d95fb5699c8565740b8fa8c662d4958bc1ae679df017b08cff55e823dc5d79bd",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_headings_extracts_each_level": {
+      "hash": "6c900647c95b2c646ebdf8d33bd3068420182c74ee349f2bd3beb1fdf1be6f87",
+      "asserts": 6
+    },
+    "test_tool.py::test_extract_headings_multiple_of_same_level_and_strip_whitespace": {
+      "hash": "0d853cecb83d27da5a3e9c1c8c526278084a60811e6fd983f11ed09736dc4c97",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_headings_case_insensitive": {
+      "hash": "c605a07e620ad569e9fad811c485d07d9415265173ea208720b7432d4200e7e2",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_headings_empty_html_all_empty_lists": {
+      "hash": "0ae7f9e44fbd1c016622f65ea092ae20743c911c50558a95c18029909b2d9c57",
+      "asserts": 2
+    },
+    "test_tool.py::test_extract_links_real_hrefs_are_not_captured_at_all": {
+      "hash": "1269d3090c06c18cac10c30fbe212e5c7048e4e92c08424edbfa8f04ade4a42e",
+      "asserts": 2
+    },
+    "test_tool.py::test_extract_links_whitespace_only_href_classified_internal": {
+      "hash": "0c436d0278527c0d414c838b1e4956399fe14de55455ddbcc2c89ec8d11e4cb6",
+      "asserts": 2
+    },
+    "test_tool.py::test_extract_links_broken_key_always_empty": {
+      "hash": "b2420c1ab956528c3c720f7e62b33edcf369a4164ab5f9b6d9827cf112447137",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_links_no_anchors_returns_empty_lists": {
+      "hash": "75ec9a0d528c39285532e9578408050cc0933041386ba3d2677523ebd9e6c524",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_links_dedupe_is_not_performed_by_the_function_itself": {
+      "hash": "1c4da2ef2e3c522d3a1719b90edb42da9060cf39029225d8e0f99c6d0b8f3dbf",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_images_real_src_and_alt_text_yields_no_src_and_empty_alt": {
+      "hash": "8f8a38e395b3222922be91543f0dcaa3380483fe400acb26bda5c7fb7209e424",
+      "asserts": 3
+    },
+    "test_tool.py::test_extract_images_alt_with_only_allowed_chars_is_captured": {
+      "hash": "bca7bd8099d2f295f40f7c71bafb26ff2e0386d9c10ee3681245768735265695",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_images_explicit_empty_alt_is_empty_string": {
+      "hash": "b9aa88a271dcd8cca83152114c276ceeb65938fa9ca01493437d2782b6158503",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_images_src_with_only_allowed_chars_is_captured_unstripped": {
+      "hash": "00e8347b0f4d1819bac5a8daa2d01324cd070ab31a3adbcfc8ed208d8815c8ba",
+      "asserts": 1
+    },
+    "test_tool.py::test_extract_images_multiple_images_and_no_images": {
+      "hash": "a116916f41439cae58367c95cf387f9c2fbfd8e3298e91c3af79eed6cb443214",
+      "asserts": 2
+    },
+    "test_tool.py::test_content_score_title_optimal_band": {
+      "hash": "14f2d0ec4de3f59b67d82af3b7176ef69cfb60d46488a3cf2dc40cbb9ea76acf",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_title_mid_band_adds_issue": {
+      "hash": "fa9022bbc7e7e18f41a16b30f3edc4f979c30ee5edcfc2d65b5b102be2ada7b4",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_title_bad_band_adds_issue_low_score": {
+      "hash": "84afa77ff448deff8c49659d65922580a81c61288176a96a3ca7869e17d4f7f7",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_missing_title_issue": {
+      "hash": "e1b173d4309d19124681295ef386895864331f32c511b49432fe62a1ae4fd619",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_description_missing_issue": {
+      "hash": "c52ed0ab9da4383993f4b7b749292e7eaa07dfd0226c4baf5e7a69efab29f94e",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_description_present_but_short_gives_low_band": {
+      "hash": "679269042ed1c4eb3be6e9e17d47476b6014e3c3d3c2b0a1977dd31e34b3253f",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_description_optimal_band_via_direct_meta_tags": {
+      "hash": "febdfd1f3d69ddbd08a5ec3e0ed0b2efae443c9b77510a273670eff81425c3c7",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_description_mid_band_via_direct_meta_tags": {
+      "hash": "fc90892a30980ab1585748ab56ecf93871f555066af9150b8aa697d803be74dc",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_h1_exactly_one_no_issue": {
+      "hash": "dc59e07942f34b6379cf5b45444b76ed7f5cc6cb4e16f8fb52a68ffeca47fddf",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_h1_zero_issue": {
+      "hash": "4986e5424343dc034e243044f52b00486ba6bcc63bba8436950f3c8db2cef1ae",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_h1_multiple_issue": {
+      "hash": "f5b5d60007b50f2f9d2861e09d7213465c27204f0d9116c9a61ce9358ee98de7",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_images_high_alt_ratio_no_issue": {
+      "hash": "a5ad99794b36712d2937a9ea17b4652dbbde0247733313906457de60caf3a758",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_images_mid_alt_ratio_issue": {
+      "hash": "f8859c5023490dd3e222c995ddea106f5b1b6ee9b87344998ebaf7670d891720",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_images_low_alt_ratio_issue": {
+      "hash": "fd4dd72e1c41b5fbb95fc39a1e77fa7d4c80432fc948cd0089288455c825f067",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_no_images_no_alt_issue_and_no_points": {
+      "hash": "c6334ca6e8194098d9198a3f4cba42de74fd332bfe2606fd9d8b9ce9afb991b2",
+      "asserts": 2
+    },
+    "test_tool.py::test_content_score_word_count_high_band_no_issue": {
+      "hash": "deb4d04fd9acd26f782acee6d4861e1b9d1a8fd57033059350147d0b908d97c8",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_word_count_mid_band_issue": {
+      "hash": "e523c66d4fbd541fd53fd9afd67772147bddf4bcbedde61e160f55e64fe20df9",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_word_count_low_band_issue": {
+      "hash": "2069302d8cbfa77e8b72fa8d85a5c4f715553723bab7c492106f6f70db22db48",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_viewport_present_no_issue": {
+      "hash": "78a53165b855240bdd2bab7d9962ba87f9ac3a974911be6ccd4fb0fc1f8fd4ac",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_viewport_missing_issue": {
+      "hash": "3b2772091e97af3812dfbaaaa6005c54b9350c7ce7458395685d4ed47affec21",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_title_len_19_is_low_band_score_5": {
+      "hash": "f9fdb2e689a6eba2c2dc19705f9e63cc78c5d5e6368044c1120c2a25176a4d3c",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_title_len_20_is_mid_band_score_15": {
+      "hash": "162977d2395224d6ac4ae9f76dd465970a796f6b23b21acc28735b83668cb82a",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_title_len_29_is_mid_band_score_15": {
+      "hash": "6dd242bba53af85526e1b8cef0e9019cd9235a70ea40bb9560b67bf97464d2b0",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_title_len_30_is_primary_band_score_25": {
+      "hash": "028ed3474964e90fbcbd9ac85ac2f1a384e8ec557197d2269f28ae30fa7e7cf0",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_title_len_60_is_primary_band_score_25": {
+      "hash": "3c4348caaa77aa8ff6e9330929cfbd0324ee6a699cb7d948b0860819e2181b5e",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_title_len_61_is_mid_band_score_15": {
+      "hash": "4b033ad053891760f3a047c279d4ef76d59bc7dd27056ae61e7f6cb5c10bfc83",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_title_len_70_is_mid_band_score_15": {
+      "hash": "2ccdb810be43e4c9a0b744f0275682593930f6836df35d4bc310012fd33f7478",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_title_len_71_is_low_band_score_5": {
+      "hash": "2795ef7dd75cc5d15af06e3f261f130a0bc7cb115b2e72ea06fbb34bfb1ee50c",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_desc_len_99_is_low_band_score_5": {
+      "hash": "ae37f28d061c35ef53cd016ba45105ce82759f4303a3d437ff789d133db88641",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_desc_len_100_is_mid_band_score_15": {
+      "hash": "a7ebefa8a4fb55dd22bb4185539bd6746f665af2416395cd113a03654c75d3eb",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_desc_len_119_is_mid_band_score_15": {
+      "hash": "7bc89376d9aaf7de308c0ab1490581f7852d0fe15a10e0386f96603c7f1a2a93",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_desc_len_120_is_primary_band_score_25": {
+      "hash": "b097654e4737679af4b5275e5ba943c66e5ddd9c7ab4852be6529210925128a9",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_desc_len_160_is_primary_band_score_25": {
+      "hash": "3cc35862aec936991dc06b71a55cf3607e50a9c00b20527402a9c4bbca293df9",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_desc_len_161_is_mid_band_score_15": {
+      "hash": "de7a210379ee8fb9c44d0d70e21c4d68fcb027830857b23b2aceb70333297cb1",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_desc_len_180_is_mid_band_score_15": {
+      "hash": "0ef0e2bf763140d1f9936d277784e2e1f024141640aed69928a23ab3c18b689b",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_desc_len_181_is_low_band_score_5": {
+      "hash": "7fc2dd55ca7d3330020569c1dc2f8ef1bdd9a13a8f1a7f77f0fabdc14494777b",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_alt_ratio_69_pct_is_low_band_score_5": {
+      "hash": "b09338ad19a621ace2ea1822c5358d63600acd288a479498fb610b76a5ab8440",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_alt_ratio_70_pct_is_mid_band_score_10": {
+      "hash": "109efc62dc35650ec05e51d64daf703c8b3ddeac8e49f1c53ec5f612552fc02e",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_alt_ratio_89_pct_is_mid_band_score_10": {
+      "hash": "425010d62f66a7bcd23faf785e92abb78f53f32b06293e85ee06b951e674fb6a",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_alt_ratio_90_pct_is_high_band_score_15": {
+      "hash": "073be58816373d3c1e41d51ef69d844e97f71711cabdfb829e07ee30b67cf0e3",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_word_count_149_is_zero_band_score_0": {
+      "hash": "55028b38dd22ed0baac8689f22c0c56b0f66cae88755c7af08d0fa7d84be9d8d",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_word_count_150_is_mid_band_score_5": {
+      "hash": "87b160fd62dbcdcc75a67722d8ef5ef1fbb96813c7a94243bc2f5c0c4778452a",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_word_count_299_is_mid_band_score_5": {
+      "hash": "795f82aa827b6787ab8a79eaa11af8db194a4014133f431d99ad9c841f243f68",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_word_count_300_is_high_band_score_10": {
+      "hash": "4a0b9050280fa35dd1d97c1c1f036a85076883566809dddd47501218c2ef4df4",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_score_full_breakdown_sums_correctly": {
+      "hash": "b2dc5e644ff1e7d5247bc2a11f233cbac3fb00c15b7df70b697c5bd3b6b479ed",
+      "asserts": 1
+    },
+    "test_tool.py::test_save_audit_report_writes_expected_structure": {
+      "hash": "7ae5dc6c1c726ad4233572856566f329a42afcd9581249c82558a4382fe4ecf6",
+      "asserts": 8
+    },
+    "test_tool.py::test_audit_site_fetch_failure_exits_1": {
+      "hash": "baefadaa056b17977be23a50b5c5200589508497fb9b9f99e7a201fb3bbd1a73",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_site_success_returns_zero_and_prints_status": {
+      "hash": "43403eacbdcbac9bf9467f1fb50bb1b8e7170f7f2e0efbcf506e732c915e4878",
+      "asserts": 2
+    },
+    "test_tool.py::test_audit_site_reports_https_and_viewport_and_canonical_missing": {
+      "hash": "6abbdd2cab235d19a00c64f8a2447d26c9571cfcc90adddfa501021c69484c38",
+      "asserts": 4
+    },
+    "test_tool.py::test_audit_site_writes_report_when_output_given": {
+      "hash": "4f7fc71e850bbdb80fcaddcb29e1ccd513335ba23e853c2cdc3c7d3db7ca9d55",
+      "asserts": 2
+    },
+    "test_tool.py::test_audit_site_recommendations_for_missing_fields": {
+      "hash": "d9e68a2f55bd19b9c197a4f46d4da1a3b4bbab8c889c63a53c69e90d9bcd437d",
+      "asserts": 5
+    },
+    "test_tool.py::test_audit_site_title_length_recommendation_when_out_of_band": {
+      "hash": "850b2c98d2359352ed7d570529640ddc84463e7a4669d4a5b351ff05332b4003",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_site_missing_alt_recommendation": {
+      "hash": "d0e1b3c9ba16dbc69e211f1609d73ddb2a276aefc5f8b6efb2d3313c0dde0d6d",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_site_high_score_prints_no_critical_issues": {
+      "hash": "107da07ca9cb428b56229637f1443034e607e6edeb46574c21227c4543850045",
+      "asserts": 2
+    },
+    "test_tool.py::test_audit_site_h1_present_prints_optimal_and_multiple_h1_warns": {
+      "hash": "dcdb6bedb1519406860cc48135842e55d31d8a8e3460bbc428007c312b3abf7f",
+      "asserts": 2
+    },
+    "test_tool.py::test_audit_site_description_canonical_og_present_via_bug_workaround": {
+      "hash": "d6ee045b35e5d15a1813f4af0ef36766bb30eb457059430698faeef9b8e6635e",
+      "asserts": 5
+    },
+    "test_tool.py::test_audit_site_h2_h3_present_vs_absent_uses_distinct_print_functions": {
+      "hash": "02cd4dbc6d9e15f706acd53a0ebba68d97bae0bf48661f66c31a446e7485dc4d",
+      "asserts": 2
+    },
+    "test_tool.py::test_audit_site_title_over_60_chars_recommendation": {
+      "hash": "afb778e77e5bf49a2301b9bf9502823f1aaaf4be7b26a1b50ba5399f062be9d6",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_site_description_over_160_chars_recommendation": {
+      "hash": "9cf1267af4e72d4799d3cdf8d60b6c6b458babfa71b0f52e1d3f4101ebe15630",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_site_all_images_have_alt_no_missing_alt_recommendation": {
+      "hash": "74c2c6a4dc1d288b6c77e01f6d26dd39a96c421d56e1273d277ba3bb18b4d110",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_site_images_without_alt_warns": {
+      "hash": "6d39d22ee678808a0074d60cb1b4cfcbcd0efd0818e99821650a4eaaa14425e0",
+      "asserts": 2
+    },
+    "test_tool.py::test_analyze_keywords_fetch_failure_exits_1": {
+      "hash": "0f05dc6e594f616ee87402f76d198fc318ea28880cef173a68d68ad8b48cac2e",
+      "asserts": 1
+    },
+    "test_tool.py::test_analyze_keywords_ranks_by_frequency_and_excludes_stopwords": {
+      "hash": "ea3157f20ce515089394fa49f7e8ef43eba3b86d16e9ee64393a0f82c7e0d941",
+      "asserts": 3
+    },
+    "test_tool.py::test_analyze_keywords_top_n_limits_results": {
+      "hash": "8cc323e6d16fb667db06aac7b0701c38bfa8add584281f8381cef3ea8694a653",
+      "asserts": 4
+    },
+    "test_tool.py::test_analyze_keywords_keyword_found_in_title_and_h1": {
+      "hash": "6a19acbe9cadff995f6a7204e70589eabbd2de0d71cca6b49aec90805487dcdc",
+      "asserts": 3
+    },
+    "test_tool.py::test_analyze_keywords_keyword_not_found_anywhere": {
+      "hash": "393b153230d10ed35015807c1ff9b9a94fbbed4c2994c417b4440e97968e07f3",
+      "asserts": 2
+    },
+    "test_tool.py::test_analyze_keywords_keyword_found_in_description_via_bug_workaround": {
+      "hash": "039ae6d4d45104ef76cdb0911f853f2177a0beb175eb43201de0fc39b442379d",
+      "asserts": 1
+    },
+    "test_tool.py::test_analyze_keywords_writes_output_report": {
+      "hash": "59313cc76e87df3d71224f4a835569ab06bc866c97c32dcf0404f5f916c33cf0",
+      "asserts": 5
+    },
+    "test_tool.py::test_generate_sitemap_single_page_real_links_not_followed": {
+      "hash": "52ebc28fb38a64ddce87953e043e138580a6cf89d4e5122e715e89dccac781b7",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_sitemap_max_urls_zero_produces_empty_sitemap": {
+      "hash": "bad5df699a95ec5084dca2f6dd14aa096c6116aba121d8df760c7e5dd1285bf7",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_sitemap_non_200_status_excluded": {
+      "hash": "f4c4b2f67c1f15e636cb7b8229eaf6aadd06fa4a246270cc3cbcbcb7477a75d3",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_sitemap_multi_page_crawl_via_mocked_extract_links": {
+      "hash": "1a23e48760a37753deeba100e947d7d5ed278f1942b26cd0274189a43ddf2ce3",
+      "asserts": 4
+    },
+    "test_tool.py::test_generate_sitemap_writes_real_xml_declaration": {
+      "hash": "afcdba01e47ede64751ae29afc366905d950c5de209697131046aae95fb15495",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_sitemap_max_urls_limits_crawl": {
+      "hash": "7a06898eca492e94974aca360f2a1e8ec30e99e5e32d2f4b8a9c8c1f244f9936",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_sitemap_default_output_filename": {
+      "hash": "01c94a5fdc7f1911f6fe1faf4344ab5c0a05c8b120394ee9c840a20f1d146d8a",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_robots_txt_writes_file_with_sitemap_line": {
+      "hash": "24015c7fa7b64723f5f5f4394f1631853f7d39c115fa492cb9ce4aca7ba2c90e",
+      "asserts": 3
+    },
+    "test_tool.py::test_generate_robots_txt_strips_trailing_slash_from_url": {
+      "hash": "c83aff5b3a32760246ad9522ea4ba4a733957df18f9d3b6b24d59e25ce735593",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_robots_txt_default_output_filename": {
+      "hash": "71c5296c9b9700d793d8ab590768e533930451df079329921d36c75e4fc4a667",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_schema_website_default_type": {
+      "hash": "b4bdea67c7d3fd4e8d59c180e36fcc62597e9922125378bc7680e12b5f7397d1",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_schema_organization_with_custom_name_and_description": {
+      "hash": "cba14cefb704cbc52673b75bb7c3ba3b007ede37ad95b262336fde4e1dc94e9d",
+      "asserts": 4
+    },
+    "test_tool.py::test_generate_schema_article_type_uses_name_as_headline": {
+      "hash": "b99605974ea3b894436e819436edfdeaa3864733f932e89ae22ebab2b132d466",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_schema_breadcrumb_type_has_three_items": {
+      "hash": "5148c868603cc9b6c4dcb0d6ac764a07347f348b486c85add72412aab7fb95bc",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_schema_invalid_type_exits_1": {
+      "hash": "5aab593486b12b3610e172dda88e849fe5a0aae4bf271c03d5e85d386fd7c38e",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_schema_writes_output_file": {
+      "hash": "d44668119c930af5f0fb50efb5e87a7c84a848759367842e3b37d242ebd3c512",
+      "asserts": 2
+    },
+    "test_tool.py::test_content_optimizer_fetch_failure_exits_1": {
+      "hash": "afe527bc191508a4f508e26fba1f04c71a80e5bd9ca849af4a79061eb3ed429b",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_optimizer_short_content_warns": {
+      "hash": "8fe5133f0c83c2a2b963beed271b40a8d5a22c492ee5c8a4115c6bd4b985cdb6",
+      "asserts": 2
+    },
+    "test_tool.py::test_content_optimizer_keyword_density_optimal": {
+      "hash": "966081b496de2713f9b53c831831ada72ce57ff4c8488dfa1cb79c8bdaeb2a91",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_optimizer_keyword_density_too_low": {
+      "hash": "7200cf154457a42b1c90fd3e7655cf1d63474ab510c94b7e48f0d6d4dc44c5cb",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_optimizer_keyword_density_too_high": {
+      "hash": "e7134a8f48851241510e7f1ee5844d0fcab076f7f2bd052e07faade2f6c8da78",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_optimizer_zero_word_count_density_guard": {
+      "hash": "6f74f70c974f9ad10b195637ccefcfe698d8c2182f8138fd835bd8c71603beac",
+      "asserts": 2
+    },
+    "test_tool.py::test_content_optimizer_suggestion_increase_usage_for_low_density": {
+      "hash": "d4c086fb5e414aff2f4e5b61394ba62763d7f48f8106b87109ec0cc78a5e8a17",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_optimizer_suggestion_reduce_usage_for_high_density": {
+      "hash": "d78ac49c513d54b96a3951d8d800fe12d349b407b40fff0eb5cecae4fb27b9b9",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_optimizer_word_count_mid_band_prints_okay": {
+      "hash": "298726424f56e7d1bfccfe21b74b967acfad470aaf6a06a7f977d22beb382ed0",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_optimizer_keyword_placement_all_found": {
+      "hash": "31f8f32d95d63d40fc3925d6dbec292f486c1d86bc30f7b510956e8c8a4c4071",
+      "asserts": 4
+    },
+    "test_tool.py::test_content_optimizer_keyword_placement_none_found": {
+      "hash": "ade8b8f915797d0a7938ee41b48f4d927505eb5b65f884af83d9213cd24101e6",
+      "asserts": 3
+    },
+    "test_tool.py::test_content_optimizer_keyword_found_in_description_via_bug_workaround": {
+      "hash": "554ee9d509041c1f75b0c9ac9c9090d330009673558d78e0eca07b1385e773af",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_optimizer_no_keyword_skips_keyword_sections": {
+      "hash": "3648097131ec4e53736ebb810339f31dbf0d02fb0bc1016d3182be145b0b6481",
+      "asserts": 2
+    },
+    "test_tool.py::test_content_optimizer_long_sentences_warns": {
+      "hash": "88dc96861c62e951a733fe1f0981a9f816198c5429b5c2cc3825aeffd18250f5",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_optimizer_short_sentences_good": {
+      "hash": "401b19658deb53f0437f165526f306685b475bdbc445a6de3868c350fa16065c",
+      "asserts": 1
+    },
+    "test_tool.py::test_content_optimizer_suggestions_h2_and_description": {
+      "hash": "ba3da03851988e0a7f376e62af67e9de7e0b11be0706504f4f27861c78e62006",
+      "asserts": 2
+    },
+    "test_tool.py::test_content_optimizer_well_optimized_prints_success": {
+      "hash": "4acd2ea6b879cad7a186ffb0671a67d0d77b6783429c64abf8f8dc10dee27561",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_exits_1": {
+      "hash": "854b3f31f91195bdb9b70232a92384df8e3cb63be036d10b5b2051c8d1c771fe",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_audit_dispatch_exits_with_audit_site_return_value": {
+      "hash": "4ab30ace00a5dc1c53118be1ac98406a8145f346fccb3b4d043b16b7cd414ad2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_audit_dispatch_nonzero_exit": {
+      "hash": "9fcf1c50ff5e7ff6eac8849dbfaaea56647fff02578d7adb5c53b13f0ed03de2",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_keywords_dispatch": {
+      "hash": "8670a491dc99c07e91c1ad75a69fbc8408d59efe3c340a7ff80cfd41634cc6d2",
+      "asserts": 4
+    },
+    "test_tool.py::test_main_sitemap_dispatch": {
+      "hash": "e3992e7ebb2d444635eeb83410569b640e55b8654abe7031793c23e0f354339d",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_robots_dispatch": {
+      "hash": "123946db4e0883f08eb254e59e6d13d5177b2f3f2c59e1616e291667f77ae67d",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_schema_dispatch": {
+      "hash": "dc855f4e3fbee75a01c5a1ea00901c87281292d6452cacfcafca533e02ba04ae",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_optimize_dispatch": {
+      "hash": "b27a0209666a4b03df2ce287258286ad6d68cffb3f7eb86c4652d13247f33365",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_audit_missing_required_url_raises_systemexit_2": {
+      "hash": "a8b0f3c0b96aadca42378772f16584923d35ad620f4ed15992ed208772600b5c",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_keywords_missing_required_url_raises_systemexit_2": {
+      "hash": "a43d914713670e6145dcd37d5fa5f49bad94ad75cbb0e78c708301d1ce71f128",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_sitemap_missing_required_url_raises_systemexit_2": {
+      "hash": "d9499e59af5bca34eb368d9e2e331d0da373968a6f96fe051845d6547bfe645c",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_robots_missing_required_url_raises_systemexit_2": {
+      "hash": "4d9c58532dfbe144dda6f66d05ff732f41ae2198a7d95064540bff7e90265ff5",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_schema_missing_required_url_raises_systemexit_2": {
+      "hash": "6b04c818a61b84079eafc0eb3cf380e880999c0712e1e5557dd36bc441372d1d",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_optimize_missing_required_url_raises_systemexit_2": {
+      "hash": "9cba1bec8cc8a6049381279bae1c615a1fce074a68a28cc21886830fd0bf82a9",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_keyboard_interrupt_exits_130": {
+      "hash": "0c41640aa9af7358c8d1df67e33528866dc08181c1964172091dd5410a652c2d",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_unrecognized_command_falls_through_to_help_and_exit_1": {
+      "hash": "44ce9fa18c07e8ac714e637f45242fa288639cff3552f6e68f635b3809789fd3",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_unexpected_exception_exits_1_and_prints_traceback": {
+      "hash": "b462c0beb7a1d57a626b2fe58e3278d9f93ddc05d620bf92032bc60e653bc111",
+      "asserts": 3
+    },
+    "test_tool.py::test_subprocess_runs_as_script_and_exercises_main_guard": {
+      "hash": "f72bdb06c44980ba7cdbe4fe7d132c3e683c0331967816f35c079b335043857b",
+      "asserts": 3
+    }
+  },
+  "coverage_pct": 99.0
+}

@@ -1,0 +1,421 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-172308",
+      "reason": "Initial gate onboarding: added genuine test suite (81 tests), 99pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_prerequisites_all_pass",
+        "test_tool.py::test_check_prerequisites_doctl_missing",
+        "test_tool.py::test_check_prerequisites_no_ssh_keys_only_warns",
+        "test_tool.py::test_check_prerequisites_not_authenticated",
+        "test_tool.py::test_cleanup_force_failure_keeps_info_file",
+        "test_tool.py::test_cleanup_force_success_removes_info_file",
+        "test_tool.py::test_cleanup_no_info_file_returns_0",
+        "test_tool.py::test_cleanup_prompt_accepted_case_insensitive_proceeds",
+        "test_tool.py::test_cleanup_prompt_accepts_short_y",
+        "test_tool.py::test_cleanup_prompt_declined_cancels_without_deleting",
+        "test_tool.py::test_configure_monitoring_agent_install_failure_returns_1",
+        "test_tool.py::test_configure_monitoring_already_enabled",
+        "test_tool.py::test_configure_monitoring_features_check_failure_still_installs_agent",
+        "test_tool.py::test_configure_monitoring_no_info_file_returns_1",
+        "test_tool.py::test_configure_monitoring_not_enabled_warns_but_still_installs_agent",
+        "test_tool.py::test_create_droplet_creation_failure_returns_1",
+        "test_tool.py::test_create_droplet_custom_region_size_image_tags_userdata_flags",
+        "test_tool.py::test_create_droplet_explicit_ssh_keys_skips_lookup",
+        "test_tool.py::test_create_droplet_missing_name_returns_1",
+        "test_tool.py::test_create_droplet_no_ssh_keys_available_warns_and_uses_password",
+        "test_tool.py::test_create_droplet_success_autoselects_ssh_keys_and_writes_info",
+        "test_tool.py::test_create_droplet_success_but_data_row_too_short_skips_info_file",
+        "test_tool.py::test_create_droplet_success_but_no_data_row_skips_info_file",
+        "test_tool.py::test_deploy_app_defaults_to_docker_method_when_none",
+        "test_tool.py::test_deploy_app_docker_install_failure_returns_1",
+        "test_tool.py::test_deploy_app_docker_missing_image_returns_1",
+        "test_tool.py::test_deploy_app_docker_run_failure_after_successful_install",
+        "test_tool.py::test_deploy_app_docker_success",
+        "test_tool.py::test_deploy_app_git_failure_returns_1",
+        "test_tool.py::test_deploy_app_git_missing_repo_returns_1",
+        "test_tool.py::test_deploy_app_git_success",
+        "test_tool.py::test_deploy_app_missing_droplet_ip_in_info_file_returns_1",
+        "test_tool.py::test_deploy_app_no_info_file_returns_1",
+        "test_tool.py::test_deploy_app_ssh_never_ready_returns_1",
+        "test_tool.py::test_deploy_app_unknown_method_returns_1",
+        "test_tool.py::test_health_check_docker_running_but_no_myapp_warns",
+        "test_tool.py::test_health_check_droplet_not_active_returns_1_immediately",
+        "test_tool.py::test_health_check_endpoint_failure_reports_not_responding",
+        "test_tool.py::test_health_check_full_pass_with_high_disk_usage_and_running_app",
+        "test_tool.py::test_health_check_low_disk_usage_no_warning",
+        "test_tool.py::test_health_check_memory_output_not_printed_when_check_fails",
+        "test_tool.py::test_health_check_memory_output_printed_when_check_succeeds",
+        "test_tool.py::test_health_check_no_info_file_returns_1",
+        "test_tool.py::test_health_check_ssh_not_accessible_returns_1",
+        "test_tool.py::test_main_create_droplet_missing_name_exits",
+        "test_tool.py::test_main_deploy_app_invalid_method_choice_exits",
+        "test_tool.py::test_main_dispatches_check_prerequisites",
+        "test_tool.py::test_main_dispatches_cleanup_default_force_false",
+        "test_tool.py::test_main_dispatches_cleanup_force_flag",
+        "test_tool.py::test_main_dispatches_configure_monitoring",
+        "test_tool.py::test_main_dispatches_create_droplet_with_defaults",
+        "test_tool.py::test_main_dispatches_deploy_app_default_method_docker",
+        "test_tool.py::test_main_dispatches_health_check",
+        "test_tool.py::test_main_dispatches_test_subcommand",
+        "test_tool.py::test_main_dispatches_troubleshoot",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_print_error_prints_message",
+        "test_tool.py::test_print_header_prints_arrow",
+        "test_tool.py::test_print_info_prints_message",
+        "test_tool.py::test_print_success_prints_message",
+        "test_tool.py::test_print_warning_prints_message",
+        "test_tool.py::test_run_command_generic_exception_returns_1_with_str",
+        "test_tool.py::test_run_command_nonzero_exit",
+        "test_tool.py::test_run_command_success",
+        "test_tool.py::test_run_command_timeout_returns_1_with_message",
+        "test_tool.py::test_run_tests_all_pass",
+        "test_tool.py::test_run_tests_api_connectivity_only_fails",
+        "test_tool.py::test_run_tests_auth_only_fails",
+        "test_tool.py::test_run_tests_doctl_missing_fails_but_continues_other_checks",
+        "test_tool.py::test_run_tests_droplet_sizes_query_only_fails",
+        "test_tool.py::test_run_tests_no_ssh_keys_counts_as_failure",
+        "test_tool.py::test_run_tests_test6_no_info_file_counts_as_pass",
+        "test_tool.py::test_run_tests_test6_with_info_file_droplet_exists",
+        "test_tool.py::test_run_tests_test6_with_info_file_droplet_not_found",
+        "test_tool.py::test_subprocess_check_prerequisites_smoke",
+        "test_tool.py::test_subprocess_no_args_exits_nonzero",
+        "test_tool.py::test_troubleshoot_auth_failure_reports_issue_and_fixes",
+        "test_tool.py::test_troubleshoot_fully_healthy_with_active_droplet_and_ssh_up",
+        "test_tool.py::test_troubleshoot_no_issues_returns_0",
+        "test_tool.py::test_troubleshoot_ratelimit_check_failure_warns_but_no_issue",
+        "test_tool.py::test_troubleshoot_with_info_file_inactive_droplet_and_ssh_down"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_prints_message": {
+      "hash": "0530edc4a412007c23e1e36b3ca1a36c7c89a9fed0344a49f282c8e69a907ce6",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_error_prints_message": {
+      "hash": "0bdca97347e2e4969a2983e4b50cb235ce37b6ace6bc124a1c64199fd1fe9fe1",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_warning_prints_message": {
+      "hash": "5903c4aaed27a09f099c82cdc88ac7148536a830f3dfd948010a2cfa7b652b69",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_info_prints_message": {
+      "hash": "cc90a58ba0ed7a6c0e14668c293e2cb9f793e342ccfdb8855bb48442c90d540b",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_prints_arrow": {
+      "hash": "20460a6b8d6bb511b91ccbb2bc71a0a1cece87008cc639b89fea48f0a23a2c70",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_success": {
+      "hash": "7de05ffb38dda333d194f97437d90799ff5df8673fb6c93d7dd7e6c53539db5c",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_nonzero_exit": {
+      "hash": "a759e0a80e675fb93dae2bdfb4106b1ed850ab6e4c116c7ab3ab7ab67dd7851a",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_timeout_returns_1_with_message": {
+      "hash": "aa674b0af7ab355cc8ddf158ca004f21e46e46e4fb00267f3e714a7859bdc0da",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_generic_exception_returns_1_with_str": {
+      "hash": "926cc8a4ae89de0ea7e132678ef3f09c6e2fa94b4cb82dd054491712c4f619a6",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_all_pass": {
+      "hash": "28a5b87ce0d9ad4c7e2d3f203064ca3783cceb90b1e7b22509b078b2d39d738a",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_doctl_missing": {
+      "hash": "db74ee8f202f8d4e9d4314732de60621ce8b7635929ea02131e7b83b3f918394",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_not_authenticated": {
+      "hash": "ef2610b6d461669ea2b1327fc00d826850ee5d41a6d636e8c04864f8d3150e90",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_no_ssh_keys_only_warns": {
+      "hash": "ecd3d593c4a9c95c48f18a37bf4e5b37c9e3ef0c6189e61de571893e1064e6a7",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_droplet_missing_name_returns_1": {
+      "hash": "ccc61cb261df6ec99c597ca45e7acbbdf5c94bad6a691decf5c1f6f2f9f3cffb",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_droplet_success_autoselects_ssh_keys_and_writes_info": {
+      "hash": "04e047b03c66ced09c89862310608e5e80c5af5ac329821a1fe8cebece57ae95",
+      "asserts": 11
+    },
+    "test_tool.py::test_create_droplet_explicit_ssh_keys_skips_lookup": {
+      "hash": "d51966c994a8bc3b606e545a04f591d85a6c775d7bafa987dd1ca7946dec3229",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_droplet_custom_region_size_image_tags_userdata_flags": {
+      "hash": "951a3f734bf76562e007beb86dc8dd29065802dbf0af4da289d7c05d4afc83e5",
+      "asserts": 9
+    },
+    "test_tool.py::test_create_droplet_no_ssh_keys_available_warns_and_uses_password": {
+      "hash": "e3b9a751901cbec37b690ff2493f91dd59d4113b76eee48c2a5e02a735391827",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_droplet_creation_failure_returns_1": {
+      "hash": "80f33622b776b0a65a56e5fd12590f2d126c29ef9235d14373271ace4b3692c8",
+      "asserts": 4
+    },
+    "test_tool.py::test_create_droplet_success_but_no_data_row_skips_info_file": {
+      "hash": "82bfcc43eac907e4909ebf7d7c59d47fe9b6b3a9680f6bce927f2f66dafd04ee",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_droplet_success_but_data_row_too_short_skips_info_file": {
+      "hash": "ffb14e33b53d7cee49a891b0de1545c74f04ca7ded5de524028d30b4aa230e66",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_no_info_file_returns_1": {
+      "hash": "66f5c1a099fc7cd9cc2b617aef6f44abc72010aedb1178e2e95503bce1ea2058",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_docker_success": {
+      "hash": "5313b92f0a24a5bd85b955381e17f4d9c5a50e2f3fc4568f1d972045c591d20c",
+      "asserts": 3
+    },
+    "test_tool.py::test_deploy_app_docker_missing_image_returns_1": {
+      "hash": "b922d1726e88bad4e2e00aab2aab8a9811bc7cdee4cc3c609b4e8a593d270bec",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_docker_install_failure_returns_1": {
+      "hash": "9dbb3838ff05a8f4d8e8048ea5ae7fabbb77ef937136b3dd28de43e7a796b87f",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_git_missing_repo_returns_1": {
+      "hash": "1c344d6791b53645e6756b88c3c049d96926c48cd9ee9eb3ef9bf40f62b30fa8",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_git_success": {
+      "hash": "de78ff654fffe1f4f8eaa7e0bd4d993ce8e7fe74c8a0e8e56c713866751d4adb",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_git_failure_returns_1": {
+      "hash": "0d33e894eeca0f620d4d9bec9f6359b0fae17bdf9c53dd7cc83753f2a6e63525",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_unknown_method_returns_1": {
+      "hash": "092a1dcdfd6bb1cbe59c032a1bfcf19707bbefc95fb0aacd6e769886362e0646",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_defaults_to_docker_method_when_none": {
+      "hash": "a7c112450f8ecdf2f18cd1af09ae5e52a5765f0a50ef4b2cf1486075fd1f6799",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_missing_droplet_ip_in_info_file_returns_1": {
+      "hash": "e78555cef877f7cd3b54b614861b0469017727746879dec68e1155fdc47c5124",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_ssh_never_ready_returns_1": {
+      "hash": "d189e8e9f54a8213fa5eaa715572c69d9b27b82c6840f60d53ae523f0c609bf4",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_monitoring_no_info_file_returns_1": {
+      "hash": "13f72e018d1582da0d9fb07e6e1afa855b168b88ccc964abc60908bff938a918",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_monitoring_already_enabled": {
+      "hash": "9916aa93f7d3e239cb813139f488655a51c70640a296534c3636f714f7f47383",
+      "asserts": 3
+    },
+    "test_tool.py::test_configure_monitoring_not_enabled_warns_but_still_installs_agent": {
+      "hash": "467e4911390bb132ea45de89e9d99ae7adc9179da2c69dc9564f31fae21210b8",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_monitoring_features_check_failure_still_installs_agent": {
+      "hash": "8670c2b65879cd4afc272efb7e9edb8236b3e65ef2cb7052c94761d66d30adf8",
+      "asserts": 1
+    },
+    "test_tool.py::test_configure_monitoring_agent_install_failure_returns_1": {
+      "hash": "242e93db8cbc4515d736b0f2121bae470c857b3108f950881dc8e25a25da4d1a",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_no_info_file_returns_1": {
+      "hash": "6099ac8d3966438993c73338b1595c6ee3980c580f5ed5a4c6f124118266e3f0",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_droplet_not_active_returns_1_immediately": {
+      "hash": "82ded223aac922d59751508fc49fd8fe2e3d5395dfa17cee720805ab9736ebbe",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_ssh_not_accessible_returns_1": {
+      "hash": "162d820de5c2e86cf1fd55864329575b2afcde37f5f01311815389bd2ddbf07b",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_full_pass_with_high_disk_usage_and_running_app": {
+      "hash": "33d30c4cb7fb655457247a371a835c22371a77c0289060e3eed991cded7c5d98",
+      "asserts": 5
+    },
+    "test_tool.py::test_health_check_low_disk_usage_no_warning": {
+      "hash": "aaa309c7897ce2ded9e795ea888ebccbc0aab0d4aae46f15aebc3f3d50d6ee37",
+      "asserts": 3
+    },
+    "test_tool.py::test_health_check_docker_running_but_no_myapp_warns": {
+      "hash": "644e571ebbe7906a863614683050fc8b84a34257d641de6e78281b9faa803372",
+      "asserts": 3
+    },
+    "test_tool.py::test_health_check_endpoint_failure_reports_not_responding": {
+      "hash": "3c64e5e0984375b110438b2570c9d9f6aa3c6855e7c78eb0d3cb8c482fa34065",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_all_pass": {
+      "hash": "b1116d31068d70052c5209000f9aa10a6d24a5ce224260ab0b73fc07edb09e0b",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_doctl_missing_fails_but_continues_other_checks": {
+      "hash": "36821389694791a8a4d9ab22d84fc72a28597ba530c9eae862fcf8e65a25a85c",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_test6_no_info_file_counts_as_pass": {
+      "hash": "43a0fd34690fa5d3c71894219d9f32ae2de1999c49995fab735c31584a222d8d",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_test6_with_info_file_droplet_exists": {
+      "hash": "f70d6ea0bbe32ff4a60c35b90a3151097ea5ea3aeeafbeb465e0d5ebfc321366",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_test6_with_info_file_droplet_not_found": {
+      "hash": "6609bfe54457755d014f9317813265ba564b29e34a5fc2bee257e17391defb01",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_no_ssh_keys_counts_as_failure": {
+      "hash": "c0666b690d84a824e53919fb609cdf4c142ea701a92382df8de8383b617f06aa",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_no_issues_returns_0": {
+      "hash": "f8d302a4c4a358ad188a442bb0089c5431ccd70051a669db7ff6f57709485184",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_auth_failure_reports_issue_and_fixes": {
+      "hash": "f34a6c21abaaf9cc0a53122a988fbf3300a04b13eb95189b7f05972e1361b134",
+      "asserts": 3
+    },
+    "test_tool.py::test_troubleshoot_with_info_file_inactive_droplet_and_ssh_down": {
+      "hash": "534575b48efce143cdd6a3f0ec20f90988e16415aef331e2d6ea34c0b01bffa4",
+      "asserts": 3
+    },
+    "test_tool.py::test_troubleshoot_ratelimit_check_failure_warns_but_no_issue": {
+      "hash": "ad6bc9c2025ada0feba602ca496ebaf5336882e956a6b8d5d02516f2a195f6fd",
+      "asserts": 2
+    },
+    "test_tool.py::test_cleanup_no_info_file_returns_0": {
+      "hash": "3cd1466294587638e591b1bf95ac0222c6a36ed0969f43c8e9d38475212a37b1",
+      "asserts": 2
+    },
+    "test_tool.py::test_cleanup_force_success_removes_info_file": {
+      "hash": "e1f1d8a099eeac5b3b30bbabecedea861c20e54ac76ca32e76cdfba7a9b8c21b",
+      "asserts": 3
+    },
+    "test_tool.py::test_cleanup_force_failure_keeps_info_file": {
+      "hash": "8eca8551a2330f0a6478a87a040aa2bb8f4a420b408248ccc82145e19c63aea5",
+      "asserts": 3
+    },
+    "test_tool.py::test_cleanup_prompt_declined_cancels_without_deleting": {
+      "hash": "6cb4d2445e2fd91df133bc16e4753794c8a595f0f0425c9b6b745512e3483804",
+      "asserts": 3
+    },
+    "test_tool.py::test_cleanup_prompt_accepted_case_insensitive_proceeds": {
+      "hash": "49b2c862b0cb028c0fee892b54e4c6a32a003f2203b8cf37d39e9266bd0869c2",
+      "asserts": 2
+    },
+    "test_tool.py::test_cleanup_prompt_accepts_short_y": {
+      "hash": "88999b871c1431983f668904e0f658c33ac5f1904724316b3b0800e8c0392ebc",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "679c69a61ac17b6620c1a0f4ed2b9184d69a81b851c9c2b0ed426513e1c11d25",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_check_prerequisites": {
+      "hash": "bfc82afe7a43867dde78f40c25eff640c85325dd42ebdb966ab971f9e7b31c42",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_create_droplet_with_defaults": {
+      "hash": "52b89c0d251031dcf73154ae40b60ece9f02a6195d6981c002b62b27dce6f403",
+      "asserts": 7
+    },
+    "test_tool.py::test_main_create_droplet_missing_name_exits": {
+      "hash": "c3efc1a3ee40982151e80fd78dc9ec511f79b8c8df86b1f8755c1d49139fdeeb",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_dispatches_deploy_app_default_method_docker": {
+      "hash": "2f076fd64824d359eb0a76487db3ce04469b63fde7a4ea49c8072064faed3d98",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_deploy_app_invalid_method_choice_exits": {
+      "hash": "b1b0b861537a081f3f596fd44ac5996ba9fce0136ffdc279152f70fe7e2ac110",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_dispatches_configure_monitoring": {
+      "hash": "0b6c3e594d31f03b703c5355af3c17ea91cbaca9af861a766b1131bcd168928d",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_health_check": {
+      "hash": "95095491a15beb4a6d5abad9f8e4a156dda6452f3a06f207af7235cb10553290",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_subcommand": {
+      "hash": "98e85cacb9478397112652addcc4161db26a38e72d6ba5c5da716672047d1345",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_troubleshoot": {
+      "hash": "715dad4928bfc63a5584ac65335c43c37967321182c571a4040434ce0e70fb43",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_cleanup_default_force_false": {
+      "hash": "6f3f4170310c21fe060d3621384724ac04b504799ab2cffd8c1aecae9f1333d2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_cleanup_force_flag": {
+      "hash": "96a29aebe8a96e5b0c004d6110a5b3745df97024d1cbe05ec07fbc1f3d52782f",
+      "asserts": 2
+    },
+    "test_tool.py::test_subprocess_check_prerequisites_smoke": {
+      "hash": "f2d22f898382f47c970baecb012e1a6f23ec9205eceef84f2e96d28ca6724eec",
+      "asserts": 2
+    },
+    "test_tool.py::test_subprocess_no_args_exits_nonzero": {
+      "hash": "797e5042e0108b2d6fdf20be810b5d2957327ec0baf595d5f6246bccfc6dcf27",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_docker_run_failure_after_successful_install": {
+      "hash": "a9730527fcf3b0589ad34759a473fee9dc39ad992a1a3887a9206b4d145b3725",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_auth_only_fails": {
+      "hash": "e9d58b556b5fc57e3f4aab8101d8de820b633f24283ac7c5964a57c1c7f40a39",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_api_connectivity_only_fails": {
+      "hash": "9aafed04b1454bbf05d2eab5b421bc71115e1aae9f16cea788b4e9dde3459517",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_droplet_sizes_query_only_fails": {
+      "hash": "6fc69a82a696d7bb2e0c190a12efb2f085fdc48143712ed030af8bf2b3230b18",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_fully_healthy_with_active_droplet_and_ssh_up": {
+      "hash": "73cdbffb80191c5e5225cab737c5a0c84d065f7d0320ebd7786529880403a759",
+      "asserts": 4
+    },
+    "test_tool.py::test_health_check_memory_output_printed_when_check_succeeds": {
+      "hash": "6e7656c6f66c40ce8439d5d18aa97b45bfa6fbc6dda2e0a294b9a18d20de7ca5",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_memory_output_not_printed_when_check_fails": {
+      "hash": "971127b718176ee1d3351356b32759b7a1b39ebb2eefbe0b5c41a78360b4fb1f",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 99.0
+}

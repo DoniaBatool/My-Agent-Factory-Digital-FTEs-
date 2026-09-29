@@ -1,0 +1,341 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-064018",
+      "reason": "Initial gate onboarding: added genuine test suite (65 tests), 99pct coverage, ~93pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_prerequisites_all_pass_returns_0",
+        "test_tool.py::test_check_prerequisites_cluster_not_connected_fails",
+        "test_tool.py::test_check_prerequisites_dapr_cli_missing_fails",
+        "test_tool.py::test_check_prerequisites_dapr_not_yet_in_cluster_is_not_fatal",
+        "test_tool.py::test_check_prerequisites_helm_missing_is_not_fatal",
+        "test_tool.py::test_check_prerequisites_kubectl_missing_fails",
+        "test_tool.py::test_check_prerequisites_version_string_fallback_when_too_short",
+        "test_tool.py::test_cli_subprocess_smoke_inject_sidecar_end_to_end",
+        "test_tool.py::test_cli_subprocess_smoke_no_command_prints_usage_and_exits_1",
+        "test_tool.py::test_init_dapr_default_namespace_and_flags",
+        "test_tool.py::test_init_dapr_enable_ha_and_dev_mode_flags_added",
+        "test_tool.py::test_init_dapr_failure_returns_1",
+        "test_tool.py::test_inject_sidecar_adds_annotations_and_overwrites_input_by_default",
+        "test_tool.py::test_inject_sidecar_builds_missing_nested_keys_from_empty_deployment",
+        "test_tool.py::test_inject_sidecar_missing_file_returns_1",
+        "test_tool.py::test_inject_sidecar_writes_to_separate_output_leaving_input_untouched",
+        "test_tool.py::test_inject_sidecar_yaml_is_block_style_with_insertion_order_preserved",
+        "test_tool.py::test_main_dispatches_check_prerequisites",
+        "test_tool.py::test_main_dispatches_init_dapr_with_parsed_flags",
+        "test_tool.py::test_main_dispatches_setup_cron_with_parsed_flags",
+        "test_tool.py::test_main_dispatches_setup_pubsub_with_parsed_flags",
+        "test_tool.py::test_main_dispatches_setup_secrets_with_parsed_flags",
+        "test_tool.py::test_main_dispatches_setup_state_with_parsed_flags",
+        "test_tool.py::test_main_dispatches_test_subcommand",
+        "test_tool.py::test_main_dispatches_troubleshoot_subcommand",
+        "test_tool.py::test_main_inject_sidecar_end_to_end_real_function",
+        "test_tool.py::test_main_inject_sidecar_missing_required_app_id_exits",
+        "test_tool.py::test_main_inject_sidecar_missing_required_deployment_file_exits",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_print_error_contains_message_and_x",
+        "test_tool.py::test_print_header_contains_arrow_and_message",
+        "test_tool.py::test_print_info_contains_message",
+        "test_tool.py::test_print_success_contains_message_and_checkmark",
+        "test_tool.py::test_print_warning_contains_message_and_symbol",
+        "test_tool.py::test_run_command_handles_generic_exception",
+        "test_tool.py::test_run_command_handles_timeout",
+        "test_tool.py::test_run_command_returns_nonzero_on_failing_shell_command",
+        "test_tool.py::test_run_command_returns_real_subprocess_output",
+        "test_tool.py::test_run_tests_cmd_all_healthy_returns_0",
+        "test_tool.py::test_run_tests_cmd_components_command_failure_warns_but_still_passes",
+        "test_tool.py::test_run_tests_cmd_dapr_not_installed_causes_overall_failure",
+        "test_tool.py::test_run_tests_cmd_prerequisites_failure_causes_overall_failure",
+        "test_tool.py::test_run_tests_cmd_pubsub_and_statestore_not_configured_still_passes",
+        "test_tool.py::test_setup_cron_honors_custom_schedule",
+        "test_tool.py::test_setup_cron_is_idempotent_when_run_twice",
+        "test_tool.py::test_setup_cron_returns_0_even_when_apply_fails",
+        "test_tool.py::test_setup_cron_writes_expected_yaml_with_default_schedule",
+        "test_tool.py::test_setup_cron_yaml_is_block_style_with_insertion_order_preserved",
+        "test_tool.py::test_setup_pubsub_honors_custom_args",
+        "test_tool.py::test_setup_pubsub_is_idempotent_when_run_twice",
+        "test_tool.py::test_setup_pubsub_returns_0_even_when_apply_fails",
+        "test_tool.py::test_setup_pubsub_writes_expected_yaml_with_defaults",
+        "test_tool.py::test_setup_pubsub_yaml_is_block_style_with_insertion_order_preserved",
+        "test_tool.py::test_setup_secrets_honors_custom_namespace",
+        "test_tool.py::test_setup_secrets_is_idempotent_when_run_twice",
+        "test_tool.py::test_setup_secrets_returns_0_even_when_apply_fails",
+        "test_tool.py::test_setup_secrets_writes_expected_yaml",
+        "test_tool.py::test_setup_secrets_yaml_is_block_style_with_insertion_order_preserved",
+        "test_tool.py::test_setup_state_honors_custom_redis_host_and_namespace",
+        "test_tool.py::test_setup_state_is_idempotent_when_run_twice",
+        "test_tool.py::test_setup_state_returns_0_even_when_apply_fails",
+        "test_tool.py::test_setup_state_writes_expected_yaml_with_defaults",
+        "test_tool.py::test_setup_state_yaml_is_block_style_with_insertion_order_preserved",
+        "test_tool.py::test_troubleshoot_prints_stdout_and_common_issues",
+        "test_tool.py::test_troubleshoot_warns_when_no_sidecars_found"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_contains_message_and_checkmark": {
+      "hash": "bfb5886f56a9b04689882a4d72e4f1d427244a63dd7478022e4d142fb16adc08",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_contains_message_and_x": {
+      "hash": "bd802cd1220b73c700a6a53f249bec55fce1192a493218c1a514760080b76aac",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_warning_contains_message_and_symbol": {
+      "hash": "84614138cfd088690b46e6dc5d3add8c9e70085fe90b1be9f0210bc4f3974320",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_info_contains_message": {
+      "hash": "f457ac0c80f162f895ec44fa8249a4a319307072516ed92676ba9c52ac7891a9",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_contains_arrow_and_message": {
+      "hash": "4c2bf9339425e774d65e95e84ec52432232cf1317c3207f5ba4053480adbb319",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_returns_real_subprocess_output": {
+      "hash": "f7a20cde2e0c80d0ff50636c24f862a40fa523c585e1a14e41b1ae9ea323226c",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_returns_nonzero_on_failing_shell_command": {
+      "hash": "a4b0b570d3875be8b5145cc65a0841c3e1486d83e18101d9d499e0bdeeaf75d9",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_handles_timeout": {
+      "hash": "ff13b8ba40e3b7d8d4e1b8d02f91105b5bb5693e5463b0b41df117d3dd7cbd2f",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_handles_generic_exception": {
+      "hash": "cfda2958bce4c32d173b0f1645305c071d015ccd60ed0f96c0c6e223cdb58aa9",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_all_pass_returns_0": {
+      "hash": "1afe0372468d587da4f3bc09e1a56b5e0f9913557a96454025903dbe7c5d2747",
+      "asserts": 4
+    },
+    "test_tool.py::test_check_prerequisites_version_string_fallback_when_too_short": {
+      "hash": "16234eb3adcb9bb53236d7547346c4840c0679827198deba63d1acc275bb02ff",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_dapr_cli_missing_fails": {
+      "hash": "786b7e686e1e85216fb2ad5f5c33e8da8cc461bab0405abdd7b3602bd7d6ad39",
+      "asserts": 4
+    },
+    "test_tool.py::test_check_prerequisites_kubectl_missing_fails": {
+      "hash": "7e5b0983ff9159b791c28015adb9728128bf77c394618ef7a69955607b812cfb",
+      "asserts": 4
+    },
+    "test_tool.py::test_check_prerequisites_cluster_not_connected_fails": {
+      "hash": "854307814428a9f621d5ed6ca484372a366224af5fd3fde1a05dfa318c563ecd",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_helm_missing_is_not_fatal": {
+      "hash": "a99c00ae5d4bd0ff02f397673ebddc3c54abad74064cb4a1219ef8753a098e6f",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_dapr_not_yet_in_cluster_is_not_fatal": {
+      "hash": "0175fa29c27a631c49b2922b7bd798c876cec15320a851c5eca148e82f471cb3",
+      "asserts": 3
+    },
+    "test_tool.py::test_init_dapr_default_namespace_and_flags": {
+      "hash": "1cfa374dfeef031630a5130a614755bd15fdb00e6aa6dfbb0646f141b8f67df8",
+      "asserts": 5
+    },
+    "test_tool.py::test_init_dapr_enable_ha_and_dev_mode_flags_added": {
+      "hash": "502400450b63528497b2146d585ffeaf5283f6a9aafb4de579649b8870fbb4e5",
+      "asserts": 5
+    },
+    "test_tool.py::test_init_dapr_failure_returns_1": {
+      "hash": "52c81fbfac2950ff8a44def11447f7458349aee5c09de03eb1a2b69541cd15cf",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_pubsub_writes_expected_yaml_with_defaults": {
+      "hash": "3f37b6bb706a2072c9b03477f7b5c9c3a9cc08927568bfab505b2d3ed585bb59",
+      "asserts": 11
+    },
+    "test_tool.py::test_setup_pubsub_yaml_is_block_style_with_insertion_order_preserved": {
+      "hash": "49f4cc8b8c4af1cbfd56394ff544417470e043b520d7f10f8708c0079ed4dd36",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_pubsub_is_idempotent_when_run_twice": {
+      "hash": "917e88a848b7e15fcad29563202c87303791533925e10a921b02e0c9c3cba749",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_pubsub_honors_custom_args": {
+      "hash": "3fb278472991268ae767a1c1fb63fc1585cf16e15e0d8fc06019128533915217",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_pubsub_returns_0_even_when_apply_fails": {
+      "hash": "b538161eadcdcc10e014fd5f191038c951944687c5267b21c2cb5a1cdfe94e99",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_state_writes_expected_yaml_with_defaults": {
+      "hash": "b7a35a1ca32d182d0d9ee860d6e7ae3936e6fee1a5f660f022baf4451b994f2e",
+      "asserts": 7
+    },
+    "test_tool.py::test_setup_state_yaml_is_block_style_with_insertion_order_preserved": {
+      "hash": "85afb52e72b8a16b068a7443f6360e49632ddb44a6a49e32d38e8a460eda34c8",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_state_is_idempotent_when_run_twice": {
+      "hash": "7723d41b69ace32e0f4ce112fd22cb28070b21c480fe14e2005cb25bfc00968f",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_state_honors_custom_redis_host_and_namespace": {
+      "hash": "505ee635715899cb56470a4c0a663401448c29f445401be88b922f3dfb4edf90",
+      "asserts": 2
+    },
+    "test_tool.py::test_setup_state_returns_0_even_when_apply_fails": {
+      "hash": "ae3b7e9c3862e2be96dd98b2e50d72dc60830fdb1e0010a0338ec87b20031f1a",
+      "asserts": 2
+    },
+    "test_tool.py::test_setup_secrets_writes_expected_yaml": {
+      "hash": "d56065233da0342e737e6d0d89c48cbb36862902bf333204722eea3b6a8617c9",
+      "asserts": 5
+    },
+    "test_tool.py::test_setup_secrets_returns_0_even_when_apply_fails": {
+      "hash": "016cf76cf32cb40c24f16492e7ce0c712fee7b2c8acf9739f11a7ef278bea301",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_secrets_yaml_is_block_style_with_insertion_order_preserved": {
+      "hash": "a1d8d875d16e35136ab6e7aca63d28a343cc8d85707b4bfab9a47f06b0678674",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_secrets_is_idempotent_when_run_twice": {
+      "hash": "0cec82e74eb78c7e9ac801af5856d1a84dea51bc286eb9975cce2caec5e8cce4",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_secrets_honors_custom_namespace": {
+      "hash": "cc74694b28e13908c35199bfac127076603caeea642445af1e76e3a7cb08b981",
+      "asserts": 1
+    },
+    "test_tool.py::test_setup_cron_writes_expected_yaml_with_default_schedule": {
+      "hash": "f59c311e5a11fd31f95accb233ea497e4d24381697cd52e2e601e3a4619d52da",
+      "asserts": 5
+    },
+    "test_tool.py::test_setup_cron_yaml_is_block_style_with_insertion_order_preserved": {
+      "hash": "eb1bfac2ec07fb6b0a272778ee81ae06459b0677d2995c547d99b42773dc5c20",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_cron_is_idempotent_when_run_twice": {
+      "hash": "62db64a31fec0222173fbf21ad3ef108bd2a737c8d8ec302972e10c326399f24",
+      "asserts": 3
+    },
+    "test_tool.py::test_setup_cron_honors_custom_schedule": {
+      "hash": "9e7c39dc27fd45212270b7d3a205ae286a1664a83dbb65dc46b944e84698327b",
+      "asserts": 2
+    },
+    "test_tool.py::test_setup_cron_returns_0_even_when_apply_fails": {
+      "hash": "cbd3205b39dc87d59e6fce7eee05322e6a115a3af3f0e4eb46bd8d126899fcd9",
+      "asserts": 1
+    },
+    "test_tool.py::test_inject_sidecar_missing_file_returns_1": {
+      "hash": "faa80e375f839cb73e65d5d089410330cdc561baa9d81e7e9836e42ebcda976e",
+      "asserts": 2
+    },
+    "test_tool.py::test_inject_sidecar_adds_annotations_and_overwrites_input_by_default": {
+      "hash": "f7adafa5388e3aa4399bc91c38fb0753a1646bcc6d1969040a03bfc4c59ee1a9",
+      "asserts": 7
+    },
+    "test_tool.py::test_inject_sidecar_yaml_is_block_style_with_insertion_order_preserved": {
+      "hash": "321da6c9dfeff0e4558298b5c119a9bb05fe5b56779921dbe019ccdb4b053f8a",
+      "asserts": 3
+    },
+    "test_tool.py::test_inject_sidecar_writes_to_separate_output_leaving_input_untouched": {
+      "hash": "45a37ebc804cc117083d2173044383c08a80bc0f0225b6d6c0cf5076e9815310",
+      "asserts": 2
+    },
+    "test_tool.py::test_inject_sidecar_builds_missing_nested_keys_from_empty_deployment": {
+      "hash": "fa1a94e6c9c0d56cdc261441e35430f500f5c6576eea5571b2d1f03f29103543",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_cmd_all_healthy_returns_0": {
+      "hash": "c8eaa2fb422ee41cc5d0359c8635d9668ad1cf873080352653592f0d7c10ad6c",
+      "asserts": 6
+    },
+    "test_tool.py::test_run_tests_cmd_prerequisites_failure_causes_overall_failure": {
+      "hash": "2a5aa8d3b9f87b9179eae6bc033f45144872c14674c1a2ea31d06707a1bcd311",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_cmd_components_command_failure_warns_but_still_passes": {
+      "hash": "4bc305926f2a21e192689b16ecdbb4ab20ee0d1d233d2092e1b8536b9db4bd04",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_cmd_dapr_not_installed_causes_overall_failure": {
+      "hash": "23f22f806f03d225294de12cf82de3ea3b5500ded677d000c1f98b1f2cc92eb7",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_cmd_pubsub_and_statestore_not_configured_still_passes": {
+      "hash": "2a9ae352bd19c588eb956e8f97af432dc9102277f678fedd027bc34cb51dd624",
+      "asserts": 4
+    },
+    "test_tool.py::test_troubleshoot_prints_stdout_and_common_issues": {
+      "hash": "5c31776ca70afc3d637334f378f050bce3040e00c613080cfe3d95e3335605b0",
+      "asserts": 4
+    },
+    "test_tool.py::test_troubleshoot_warns_when_no_sidecars_found": {
+      "hash": "655447060491ddd3920f94c770c8fc78d0d28c16c7ba5936e134f42cc448f974",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "bea929e9eaa2e1b7281fa9cdbffc6da1c09a0b9ef36aa9aa1bc0b6f5271bc664",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_check_prerequisites": {
+      "hash": "ce8a48be65fb39505b4352151de607e081ccc03e612b03c5ef185e19766cf620",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_init_dapr_with_parsed_flags": {
+      "hash": "dde36ab977992b2064b4804e6992ef1cc4607667ffe540c48684fd6a942b145c",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_setup_pubsub_with_parsed_flags": {
+      "hash": "de8d91219ff991083551ab5f35eba3d4e3b1eb5bec128d9d573f074726dca6d2",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_dispatches_setup_state_with_parsed_flags": {
+      "hash": "044381a326d086df0902e9564c82183d294cbf9c98829f786ed47bb1b56d3abc",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_setup_secrets_with_parsed_flags": {
+      "hash": "79ba445bc33bb2fe3f3121ed02d0e512bccbe7058e2730ade0974f328824bd20",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_setup_cron_with_parsed_flags": {
+      "hash": "2b5d71a2cb3727690e72735e43530999e75ab4d59c59cd3f3475cf1e16d100aa",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_subcommand": {
+      "hash": "5b5aa2f26f6c196b81fe842aa592aa6cfb95045a838688cbc8c6906847eee828",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_troubleshoot_subcommand": {
+      "hash": "ca70362d2b3e3140096826e016dce30d263353cf362fc0b709adf4b7b9459c42",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_inject_sidecar_end_to_end_real_function": {
+      "hash": "a1fb90275c78a107f51c4c9350aa0b54ccc77b0bfcaf18d2f4b3eab036ad18ae",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_inject_sidecar_missing_required_deployment_file_exits": {
+      "hash": "5e6479226e91c2927f618ffc82b3499d758ea56baacbbb11028cfbe3bacfe400",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_inject_sidecar_missing_required_app_id_exits": {
+      "hash": "2d057cb794d589347620254aa85cba0f21d639cdf7824ddf7223e900aa9324a9",
+      "asserts": 0
+    },
+    "test_tool.py::test_cli_subprocess_smoke_no_command_prints_usage_and_exits_1": {
+      "hash": "d2fdf35f9ebc6686a2cbc6ed652a55e1de9f719429199c58414e0c42650363ac",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_inject_sidecar_end_to_end": {
+      "hash": "03e6645fbca1a6214dc52b4f55c2d3492793e6a23f4cdc59a592510a4b19e6ef",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 99.0
+}

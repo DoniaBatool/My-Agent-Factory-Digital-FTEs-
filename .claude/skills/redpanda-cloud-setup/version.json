@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-154312",
+      "reason": "Initial gate onboarding: added genuine test suite (21 tests), 97pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_prerequisites_prints_header_and_success_and_returns_0",
+        "test_tool.py::test_cli_subprocess_smoke_create_topics_end_to_end",
+        "test_tool.py::test_cli_subprocess_smoke_no_command_prints_usage_and_exits_1",
+        "test_tool.py::test_create_topics_handles_single_topic_with_no_comma",
+        "test_tool.py::test_create_topics_preserves_empty_entries_from_trailing_comma",
+        "test_tool.py::test_create_topics_splits_custom_comma_separated_list",
+        "test_tool.py::test_create_topics_uses_default_list_when_topics_is_empty_string",
+        "test_tool.py::test_create_topics_uses_default_list_when_topics_is_none",
+        "test_tool.py::test_main_dispatches_check_prerequisites_end_to_end",
+        "test_tool.py::test_main_dispatches_create_topics_with_custom_topics_flag",
+        "test_tool.py::test_main_dispatches_create_topics_with_default_flag_value",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_rejects_unknown_subcommand_with_system_exit",
+        "test_tool.py::test_print_error_contains_message_and_x",
+        "test_tool.py::test_print_header_contains_arrow_and_message",
+        "test_tool.py::test_print_info_contains_message",
+        "test_tool.py::test_print_success_contains_message_and_checkmark",
+        "test_tool.py::test_run_command_catches_any_exception_and_returns_error_tuple",
+        "test_tool.py::test_run_command_respects_custom_timeout_value",
+        "test_tool.py::test_run_command_returns_nonzero_on_failing_shell_command",
+        "test_tool.py::test_run_command_returns_real_subprocess_output"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_contains_message_and_checkmark": {
+      "hash": "bfb5886f56a9b04689882a4d72e4f1d427244a63dd7478022e4d142fb16adc08",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_contains_message_and_x": {
+      "hash": "bd802cd1220b73c700a6a53f249bec55fce1192a493218c1a514760080b76aac",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_info_contains_message": {
+      "hash": "f457ac0c80f162f895ec44fa8249a4a319307072516ed92676ba9c52ac7891a9",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_contains_arrow_and_message": {
+      "hash": "4c2bf9339425e774d65e95e84ec52432232cf1317c3207f5ba4053480adbb319",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_returns_real_subprocess_output": {
+      "hash": "487c4d20e019fb7929ef123867353e4c52f8c6ef73ac2cfb4f586974c602b2e3",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_returns_nonzero_on_failing_shell_command": {
+      "hash": "514e305cd03b7be3743d425f6768232cecc405035112b0f05724097ffee7b608",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_catches_any_exception_and_returns_error_tuple": {
+      "hash": "6d65c2c61c4e2ddd1b2f7e2d9eb29a60871d0dd27fc33adf1383afa45f807103",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_respects_custom_timeout_value": {
+      "hash": "03ac17dc3b6f439c4c4691d342e87cf6ef1dc86f19e1e853be037985cfa29aac",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_prints_header_and_success_and_returns_0": {
+      "hash": "a3eedba5d6379bf99caac226d1f9b12446b48bfee1098d2716929218fd2c8500",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_topics_uses_default_list_when_topics_is_none": {
+      "hash": "5265b7a023633a82b3dd14ff00afd515b45ec6b65c1ee05b009a2663a6b70f1f",
+      "asserts": 4
+    },
+    "test_tool.py::test_create_topics_uses_default_list_when_topics_is_empty_string": {
+      "hash": "8d33c46cdaa10cfa6dec6f9ee2a327f6bf3660dd9f50e6c065ac863fc68ff9bf",
+      "asserts": 4
+    },
+    "test_tool.py::test_create_topics_splits_custom_comma_separated_list": {
+      "hash": "77274227fb449e82a2b12766298f3eb8e448dba1a196027cc74947012f7d8fde",
+      "asserts": 5
+    },
+    "test_tool.py::test_create_topics_handles_single_topic_with_no_comma": {
+      "hash": "3a1ee147a4f03d645fe0ec303be99d2c56c86b2645de66396e7a2434349141de",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_topics_preserves_empty_entries_from_trailing_comma": {
+      "hash": "7e9f31ede68654284d71e5ba7b9fa54d6ee2235e484199d24a6e7c24db1c1b92",
+      "asserts": 4
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "bea929e9eaa2e1b7281fa9cdbffc6da1c09a0b9ef36aa9aa1bc0b6f5271bc664",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_check_prerequisites_end_to_end": {
+      "hash": "e0eaab934ee9c042f6846849d8c221b3660ba0963bfe78ffbb933169cdcb5068",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_create_topics_with_default_flag_value": {
+      "hash": "d817634ca05478a08b25b1523c9ef80318bf312bc201d073a546402fa0d1bbc2",
+      "asserts": 4
+    },
+    "test_tool.py::test_main_dispatches_create_topics_with_custom_topics_flag": {
+      "hash": "d667272b870ac3813ea34058783c09ca77922c86e73f486d40d96633fa907e01",
+      "asserts": 4
+    },
+    "test_tool.py::test_main_rejects_unknown_subcommand_with_system_exit": {
+      "hash": "53d3792b54f7cc1de4e6015edd36753c76f9d1a6e7dc3138d8bd6e5105afd2a0",
+      "asserts": 0
+    },
+    "test_tool.py::test_cli_subprocess_smoke_no_command_prints_usage_and_exits_1": {
+      "hash": "d2fdf35f9ebc6686a2cbc6ed652a55e1de9f719429199c58414e0c42650363ac",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_create_topics_end_to_end": {
+      "hash": "40f6edd041cffed95f6b6b2c30212ff1c6406ec31dcd486a3ca022634ae3fdeb",
+      "asserts": 3
+    }
+  },
+  "coverage_pct": 97.0
+}

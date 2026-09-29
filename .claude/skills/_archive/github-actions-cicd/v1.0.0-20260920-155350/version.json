@@ -1,0 +1,381 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-155131",
+      "reason": "Initial gate onboarding: added genuine test suite (73 tests), 99pct coverage, ~95pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_prerequisites_all_pass_returns_0",
+        "test_tool.py::test_check_prerequisites_gh_cli_missing_fails",
+        "test_tool.py::test_check_prerequisites_gh_version_parsing_raises_on_too_few_tokens",
+        "test_tool.py::test_check_prerequisites_git_missing_fails",
+        "test_tool.py::test_check_prerequisites_no_github_remote_fails_when_remote_is_non_github",
+        "test_tool.py::test_check_prerequisites_no_github_remote_fails_when_remote_missing",
+        "test_tool.py::test_check_prerequisites_not_authenticated_fails",
+        "test_tool.py::test_check_prerequisites_not_inside_git_repo_fails",
+        "test_tool.py::test_cleanup_counts_only_successful_deletions",
+        "test_tool.py::test_cleanup_returns_1_when_list_fails",
+        "test_tool.py::test_cleanup_uses_custom_days_message",
+        "test_tool.py::test_cleanup_uses_default_days_message",
+        "test_tool.py::test_cleanup_with_no_runs_deletes_nothing",
+        "test_tool.py::test_cli_subprocess_smoke_generate_workflow_end_to_end",
+        "test_tool.py::test_cli_subprocess_smoke_no_command_prints_usage_and_exits_1",
+        "test_tool.py::test_enable_actions_defaults_to_not_enabled_when_key_missing",
+        "test_tool.py::test_enable_actions_reports_already_enabled",
+        "test_tool.py::test_enable_actions_reports_not_enabled",
+        "test_tool.py::test_enable_actions_returns_1_when_api_call_fails",
+        "test_tool.py::test_generate_workflow_cd_yaml_is_block_style_with_insertion_order_preserved",
+        "test_tool.py::test_generate_workflow_ci_yaml_is_block_style_with_insertion_order_preserved",
+        "test_tool.py::test_generate_workflow_creates_ci_and_default_environment_files",
+        "test_tool.py::test_generate_workflow_honors_custom_app_name_and_single_environment",
+        "test_tool.py::test_generate_workflow_uses_default_environments_when_empty_string",
+        "test_tool.py::test_main_dispatches_check_prerequisites",
+        "test_tool.py::test_main_dispatches_cleanup_with_parsed_days",
+        "test_tool.py::test_main_dispatches_enable_actions",
+        "test_tool.py::test_main_dispatches_generate_workflow_with_defaults",
+        "test_tool.py::test_main_dispatches_generate_workflow_with_parsed_flags",
+        "test_tool.py::test_main_dispatches_monitor_with_default_limit",
+        "test_tool.py::test_main_dispatches_monitor_with_parsed_limit",
+        "test_tool.py::test_main_dispatches_setup_secrets",
+        "test_tool.py::test_main_dispatches_test_subcommand",
+        "test_tool.py::test_main_dispatches_test_workflow",
+        "test_tool.py::test_main_dispatches_troubleshoot",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_main_rejects_unknown_subcommand_with_system_exit",
+        "test_tool.py::test_monitor_honors_custom_limit_in_command",
+        "test_tool.py::test_monitor_prints_icons_and_fields_for_each_status_kind",
+        "test_tool.py::test_monitor_returns_1_when_fetch_fails",
+        "test_tool.py::test_monitor_uses_default_limit_of_10_in_command",
+        "test_tool.py::test_monitor_warns_when_no_runs_found",
+        "test_tool.py::test_print_error_contains_message_and_x",
+        "test_tool.py::test_print_header_contains_arrow_and_message",
+        "test_tool.py::test_print_info_contains_message",
+        "test_tool.py::test_print_success_contains_message_and_checkmark",
+        "test_tool.py::test_print_warning_contains_message_and_symbol",
+        "test_tool.py::test_run_command_handles_generic_exception",
+        "test_tool.py::test_run_command_handles_timeout",
+        "test_tool.py::test_run_command_returns_nonzero_on_failing_shell_command",
+        "test_tool.py::test_run_command_returns_real_subprocess_output",
+        "test_tool.py::test_run_tests_cmd_actions_not_enabled_causes_overall_failure",
+        "test_tool.py::test_run_tests_cmd_all_healthy_returns_0",
+        "test_tool.py::test_run_tests_cmd_missing_workflow_files_causes_overall_failure",
+        "test_tool.py::test_run_tests_cmd_no_secrets_configured_causes_overall_failure",
+        "test_tool.py::test_run_tests_cmd_no_workflow_runs_yet_is_not_fatal",
+        "test_tool.py::test_run_tests_cmd_prerequisites_failure_causes_overall_failure",
+        "test_tool.py::test_run_tests_cmd_workflow_syntax_failure_causes_overall_failure",
+        "test_tool.py::test_setup_secrets_lists_required_secrets_and_returns_0",
+        "test_tool.py::test_setup_secrets_warns_when_secret_list_command_fails",
+        "test_tool.py::test_test_workflow_aggregates_pass_and_fail_counts_across_files",
+        "test_tool.py::test_test_workflow_fails_when_jobs_field_missing",
+        "test_tool.py::test_test_workflow_fails_when_name_field_missing",
+        "test_tool.py::test_test_workflow_fails_when_on_field_missing",
+        "test_tool.py::test_test_workflow_passes_for_valid_workflow_file",
+        "test_tool.py::test_test_workflow_reports_generic_error_for_empty_file",
+        "test_tool.py::test_test_workflow_reports_yaml_syntax_error",
+        "test_tool.py::test_test_workflow_returns_1_when_dir_exists_but_empty",
+        "test_tool.py::test_test_workflow_returns_1_when_no_workflows_dir",
+        "test_tool.py::test_troubleshoot_prints_failed_runs_and_fetches_logs",
+        "test_tool.py::test_troubleshoot_reports_no_failures",
+        "test_tool.py::test_troubleshoot_returns_1_when_fetch_fails",
+        "test_tool.py::test_troubleshoot_truncates_logs_to_500_chars"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_contains_message_and_checkmark": {
+      "hash": "bfb5886f56a9b04689882a4d72e4f1d427244a63dd7478022e4d142fb16adc08",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_contains_message_and_x": {
+      "hash": "bd802cd1220b73c700a6a53f249bec55fce1192a493218c1a514760080b76aac",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_warning_contains_message_and_symbol": {
+      "hash": "84614138cfd088690b46e6dc5d3add8c9e70085fe90b1be9f0210bc4f3974320",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_info_contains_message": {
+      "hash": "f457ac0c80f162f895ec44fa8249a4a319307072516ed92676ba9c52ac7891a9",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_contains_arrow_and_message": {
+      "hash": "4c2bf9339425e774d65e95e84ec52432232cf1317c3207f5ba4053480adbb319",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_returns_real_subprocess_output": {
+      "hash": "487c4d20e019fb7929ef123867353e4c52f8c6ef73ac2cfb4f586974c602b2e3",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_returns_nonzero_on_failing_shell_command": {
+      "hash": "a367c8e9fa33d409bd74a6a30ed83cb382394341d97afe2d3d40f519c0230b07",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_handles_timeout": {
+      "hash": "9837b7278cebe37c9f3d6a81bd5de65cba3b00a8e74594d1cbae17609bd7b003",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_handles_generic_exception": {
+      "hash": "cfda2958bce4c32d173b0f1645305c071d015ccd60ed0f96c0c6e223cdb58aa9",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_all_pass_returns_0": {
+      "hash": "d9c9fe9df5c7da67aabd2aabefc92972a99b23d2575d33da5f6cb9dd7205a833",
+      "asserts": 5
+    },
+    "test_tool.py::test_check_prerequisites_git_missing_fails": {
+      "hash": "ac74c93d3277d2c528deb9e6b03c4459c5a7c138f5958de4c557d3478446a01c",
+      "asserts": 4
+    },
+    "test_tool.py::test_check_prerequisites_gh_cli_missing_fails": {
+      "hash": "d72f62eb61b04f13dbe1aa0272f46aca864c04e64c47cc8b16c7643f5252d1c0",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_not_authenticated_fails": {
+      "hash": "540c088da470b3288e2cab64d7e42d9c6a16dad63b4c844aa26fd0f6449eb22a",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_not_inside_git_repo_fails": {
+      "hash": "d9359ae1ee77a1fcb0d1883d1c2ddd0e37cdecd46883e452f8e98696ac32abb6",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_no_github_remote_fails_when_remote_missing": {
+      "hash": "7dd1f776251f6cca9545e55285db0fd1b0f5d02d5e4b946d1edeeaf0a73c79a6",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_no_github_remote_fails_when_remote_is_non_github": {
+      "hash": "dc50bc072f6c18295ff2dbc7b29727dd3decdbc74a8d9501b5eefc30cfc3c231",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_gh_version_parsing_raises_on_too_few_tokens": {
+      "hash": "cf082a66c2457119d331b003b262465ef6dbde59abc321009e9ce623fa7a47a4",
+      "asserts": 0
+    },
+    "test_tool.py::test_generate_workflow_creates_ci_and_default_environment_files": {
+      "hash": "0567f315d1ae190a73d1fd9b2d5ceb57145f926fd920f25607f30fb0fb78360b",
+      "asserts": 15
+    },
+    "test_tool.py::test_generate_workflow_ci_yaml_is_block_style_with_insertion_order_preserved": {
+      "hash": "08e2d37dc826b52e49dbf960d11f39688bf5b8c332aca7b860a26ea685845fb2",
+      "asserts": 3
+    },
+    "test_tool.py::test_generate_workflow_cd_yaml_is_block_style_with_insertion_order_preserved": {
+      "hash": "bf1f20f4bac82e81073649182098df30f032531ef5a31beec343aee5d2b05b75",
+      "asserts": 3
+    },
+    "test_tool.py::test_generate_workflow_honors_custom_app_name_and_single_environment": {
+      "hash": "e89befddf896372e027bdc90d098a963c453f2e04213c88e8a8e6c0e9109c356",
+      "asserts": 8
+    },
+    "test_tool.py::test_generate_workflow_uses_default_environments_when_empty_string": {
+      "hash": "c38d61a196278875a8b4baffe4be87516b5670e1c46b3346861cdecd6ae0a528",
+      "asserts": 4
+    },
+    "test_tool.py::test_setup_secrets_lists_required_secrets_and_returns_0": {
+      "hash": "be38fb87c640e50bf76c7fbaf4a553d024d9a5cbc5559f3c002955dd71f34310",
+      "asserts": 6
+    },
+    "test_tool.py::test_setup_secrets_warns_when_secret_list_command_fails": {
+      "hash": "95bad399d879979f433c43a60971adb207464c09207b92481d5f5919f2d520a8",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_workflow_returns_1_when_no_workflows_dir": {
+      "hash": "0c2bf096e67aba2b73d33a0d609a2cf8eef6259e6fa89c7e19c101982f656a39",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_workflow_returns_1_when_dir_exists_but_empty": {
+      "hash": "a9336d4206bc2c3993d574040aa78b333a0ee5c2fb320f8095e38276d035b7c3",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_workflow_passes_for_valid_workflow_file": {
+      "hash": "5666a7be0b5c62f1d46e71335203fb290913a03cce4c8cfcce9d59a698c2a217",
+      "asserts": 3
+    },
+    "test_tool.py::test_test_workflow_fails_when_name_field_missing": {
+      "hash": "8a5e72358fbc2d8ee1f764122981ca67e5420554cea4a2f28edb5e15873edc16",
+      "asserts": 3
+    },
+    "test_tool.py::test_test_workflow_fails_when_on_field_missing": {
+      "hash": "dbd65e88287275cbed0a9f600db51df37a076c2802aab6bd4ef613a847a3bbdb",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_workflow_fails_when_jobs_field_missing": {
+      "hash": "2130258b49cb85b7b3d92ac1f888487146889d7ec4f3acba90e51a5721162ef1",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_workflow_reports_yaml_syntax_error": {
+      "hash": "44d3f86bd8664ee4fe6c5676d38a5751552615759e47d9cc86040d333738ca8f",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_workflow_reports_generic_error_for_empty_file": {
+      "hash": "9270f7f3f52012aa399d46e513c1e18c62d5295703a78e94c625302a1f03178b",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_workflow_aggregates_pass_and_fail_counts_across_files": {
+      "hash": "a137e5ba2f7132c5f12d66dea424bd414d26f8685d02c228bc3c9474109ccbe8",
+      "asserts": 3
+    },
+    "test_tool.py::test_enable_actions_returns_1_when_api_call_fails": {
+      "hash": "8e3e7ec2822a9924af8e03c5b130bb859f79f631ce662f6a274b4201b0b32339",
+      "asserts": 2
+    },
+    "test_tool.py::test_enable_actions_reports_already_enabled": {
+      "hash": "052c9e01289997f998e970f1a01c921d1001963905ce9e2c2c46e24768083ed9",
+      "asserts": 2
+    },
+    "test_tool.py::test_enable_actions_reports_not_enabled": {
+      "hash": "0767588064985920310f5a398f82949fac8d883b78d996c45eee6dbc277ccf84",
+      "asserts": 2
+    },
+    "test_tool.py::test_enable_actions_defaults_to_not_enabled_when_key_missing": {
+      "hash": "cc95a174604558d0b651409d198602870607ceb27ec02dcf7de30302536d06ff",
+      "asserts": 2
+    },
+    "test_tool.py::test_monitor_returns_1_when_fetch_fails": {
+      "hash": "45719c610c9f1347b61ed410e5ee75050bb08d68680ff65789c2fc5e70f3afe0",
+      "asserts": 3
+    },
+    "test_tool.py::test_monitor_warns_when_no_runs_found": {
+      "hash": "ea9333ba4be143053230d3674db16a32f062bebeed6dfb8e71d44f14e6ef4077",
+      "asserts": 2
+    },
+    "test_tool.py::test_monitor_uses_default_limit_of_10_in_command": {
+      "hash": "a0840e3d6ef1532062209a513ca3c762425fc684e6197e046d9aed000d1f0991",
+      "asserts": 1
+    },
+    "test_tool.py::test_monitor_honors_custom_limit_in_command": {
+      "hash": "84e7b793af2fa9273ff329ff6906aeb2e1095241849780d3344c17e7df29c096",
+      "asserts": 1
+    },
+    "test_tool.py::test_monitor_prints_icons_and_fields_for_each_status_kind": {
+      "hash": "96582189afd216725f05a9f551ab6f552a95b2716cd07ec0bd4dfa1fe66919ad",
+      "asserts": 9
+    },
+    "test_tool.py::test_troubleshoot_returns_1_when_fetch_fails": {
+      "hash": "191055b2b4695c51fc2a53b4729f0d3a926c9225985d7cb403796ef004940eb5",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_reports_no_failures": {
+      "hash": "8fa4505f7647fe5a7d1d9f87c2aaf229c6bec22eb5a3617a95e64fa797d6a797",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_prints_failed_runs_and_fetches_logs": {
+      "hash": "183c58ce04983b759685abde8a41a43640a4276644edb1155250eb63d383582c",
+      "asserts": 5
+    },
+    "test_tool.py::test_troubleshoot_truncates_logs_to_500_chars": {
+      "hash": "eb8443ff23e72141676d4e200ff0d960d45c90481abc6254fcc200fdfff29f4a",
+      "asserts": 2
+    },
+    "test_tool.py::test_cleanup_returns_1_when_list_fails": {
+      "hash": "7ae7ea5beef6bae049167993a8fbff5c542236c6e06cb9c73cc396cd39dc93ee",
+      "asserts": 2
+    },
+    "test_tool.py::test_cleanup_uses_default_days_message": {
+      "hash": "da56499913272958ce1c3074bfeaca175a4156f494469f4bf4ab214d61e094aa",
+      "asserts": 1
+    },
+    "test_tool.py::test_cleanup_uses_custom_days_message": {
+      "hash": "5bcbea63b2d777066f1198d64e4b3f06bc9fa3ddf746aded02c2306c3e58ddb7",
+      "asserts": 1
+    },
+    "test_tool.py::test_cleanup_counts_only_successful_deletions": {
+      "hash": "efccf2da2eca06eb0e5c4e351a490c04d57d8a71d0236e1e761b073977eb6e83",
+      "asserts": 2
+    },
+    "test_tool.py::test_cleanup_with_no_runs_deletes_nothing": {
+      "hash": "6874f2c58f6d509be25cce23d5bfe4902eed302a31b3398927c4727676fb6a81",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_cmd_all_healthy_returns_0": {
+      "hash": "6d680eec65ed116e27394239ae0f4c6de534b72429c92d6dd4c2239d398137ee",
+      "asserts": 4
+    },
+    "test_tool.py::test_run_tests_cmd_prerequisites_failure_causes_overall_failure": {
+      "hash": "1193df54d2a12a09c987014c71dd914f8c1e1327fd9efcb7142ecd99e02d7f29",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_cmd_missing_workflow_files_causes_overall_failure": {
+      "hash": "0596dee29fb9be2cd4a080fcb12a726251749d702707662d2f269624e8c44af8",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_cmd_workflow_syntax_failure_causes_overall_failure": {
+      "hash": "81418fddd70274c1c87ebf7948d196495e65ecedb5b140ae6fe08ce43f1a16ea",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_cmd_actions_not_enabled_causes_overall_failure": {
+      "hash": "7c485ba149def5340d58b90efe2ecb2e8a54332d2a874055b0d132a505e2a67f",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_cmd_no_secrets_configured_causes_overall_failure": {
+      "hash": "42d1c69153dcf9b6079a8e9d479778abe60e041637d532c9b625a2fe1bccb0ec",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_cmd_no_workflow_runs_yet_is_not_fatal": {
+      "hash": "d77e44230a8d834e2c0bac506ae69e1dbeff5569a971e154eee1e9c4f9f0c75b",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "bea929e9eaa2e1b7281fa9cdbffc6da1c09a0b9ef36aa9aa1bc0b6f5271bc664",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_rejects_unknown_subcommand_with_system_exit": {
+      "hash": "53d3792b54f7cc1de4e6015edd36753c76f9d1a6e7dc3138d8bd6e5105afd2a0",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_dispatches_check_prerequisites": {
+      "hash": "cbd14f7fc90abb131be00983595ed10d63f65911c8190d2f991a3348a49c4696",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_generate_workflow_with_parsed_flags": {
+      "hash": "bd9cb476ceb76f5ccd049da5d54c6db472ab5e86d60bc26718e708fca2bf3158",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_dispatches_generate_workflow_with_defaults": {
+      "hash": "e717588c72242dd327f9b9d71b15b59bf5395fc8d17c283d3106669689637f91",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_dispatches_setup_secrets": {
+      "hash": "ae14f9c867a9431c25c1f2447f3446653d78b7b90dbc19661b52918021921673",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_test_workflow": {
+      "hash": "1d00561292d1a65da86425e1a733068a00d09227e79fb2ae6d74df83ff46d016",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_enable_actions": {
+      "hash": "398c6ddfbb8e71128fd42b70d76c14c9be0f53fa3394f5ecca258d4de5a540f2",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_monitor_with_parsed_limit": {
+      "hash": "5ab5f6f5b149cdd9bf59323f0087822eec213b809005971df764d935dd130106",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_monitor_with_default_limit": {
+      "hash": "9a7c86e5eed4fdc39bb0eb180a41631031ef2c66c8283e4c8b086c8a44be956a",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_troubleshoot": {
+      "hash": "5084255012d5065ae521838d6c6df1fd4273018da477f6bf8e26a244171ed329",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_cleanup_with_parsed_days": {
+      "hash": "007af1c62cf2d09963de59d9cff69c0b495d6bc3ad2dc6d0121724bc0c861439",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_subcommand": {
+      "hash": "5b5aa2f26f6c196b81fe842aa592aa6cfb95045a838688cbc8c6906847eee828",
+      "asserts": 1
+    },
+    "test_tool.py::test_cli_subprocess_smoke_no_command_prints_usage_and_exits_1": {
+      "hash": "d2fdf35f9ebc6686a2cbc6ed652a55e1de9f719429199c58414e0c42650363ac",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_generate_workflow_end_to_end": {
+      "hash": "5ebf0271e5e6ba01971fe1142748bde2138953845ca33d2704bd422f817d96c5",
+      "asserts": 3
+    }
+  },
+  "coverage_pct": 99.0
+}

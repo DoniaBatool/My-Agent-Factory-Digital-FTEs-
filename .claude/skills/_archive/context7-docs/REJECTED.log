@@ -1,0 +1,44 @@
+
+[2026-09-26 13:15:15]
+REJECTED promotion of 'context7-docs':
+  baseline tests: 26 (previously passing: 30)
+  staged pass: 30, staged fail: 0
+  regressed (used to be a baseline test, not passing staged): ['test_tool.py::test_load_api_key_falls_through_when_mcp_servers_is_not_a_dict', 'test_tool.py::test_load_api_key_raises_clean_value_error_when_only_malformed_mcp_servers_found']
+  staged pytest exit code: 0
+--- staged pytest output (tail) ---
+ed 30 items
+
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_init_uses_explicit_api_key_without_touching_disk PASSED [  3%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_init_raises_value_error_when_no_config_found_anywhere PASSED [  6%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_reads_from_first_candidate_path PASSED [ 10%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_falls_back_to_home_candidate_when_first_missing PASSED [ 13%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_skips_invalid_json_and_falls_through_to_next_candidate PASSED [ 16%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_raises_when_args_missing_api_key_flag PASSED [ 20%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_raises_when_api_key_flag_is_last_arg_with_no_value PASSED [ 23%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_raises_when_context7_server_not_configured PASSED [ 26%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_falls_through_when_mcp_servers_is_not_a_dict[bad_mcp_servers0] PASSED [ 30%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_falls_through_when_mcp_servers_is_not_a_dict[not-a-dict] PASSED [ 33%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_falls_through_when_mcp_servers_is_not_a_dict[None] PASSED [ 36%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_raises_clean_value_error_when_only_malformed_mcp_servers_found[bad_mcp_servers0] PASSED [ 40%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_raises_clean_value_error_when_only_malformed_mcp_servers_found[not-a-dict] PASSED [ 43%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_raises_clean_value_error_when_only_malformed_mcp_servers_found[None] PASSED [ 46%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_load_api_key_still_extracts_key_from_well_formed_mcp_servers_dict PASSED [ 50%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_resolve_library_returns_expected_structure PASSED [ 53%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_resolve_library_handles_empty_string_name PASSED [ 56%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_search_docs_returns_expected_structure_with_default_max_tokens PASSED [ 60%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_search_docs_honors_custom_max_tokens PASSED [ 63%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_search_docs_handles_empty_query PASSED [ 66%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_main_missing_required_library_arg_exits PASSED [ 70%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_main_missing_required_query_arg_exits PASSED [ 73%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_main_prints_human_readable_box_by_default PASSED [ 76%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_main_prints_json_when_json_flag_set PASSED [ 80%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_main_honors_custom_max_tokens_flag PASSED [ 83%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_main_short_flags_behave_like_long_flags PASSED [ 86%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_main_reports_value_error_and_exits_1_when_api_key_missing PASSED [ 90%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_main_reports_unexpected_error_and_exits_1 PASSED [ 93%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_cli_subprocess_smoke_end_to_end PASSED [ 96%]
+.claude/skills/context7-docs.staged2/tests/test_tool.py::test_cli_subprocess_smoke_missing_required_args_exits_nonzero PASSED [100%]
+
+============================== 30 passed in 0.13s ==============================
+
+

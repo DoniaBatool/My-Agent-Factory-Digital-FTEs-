@@ -1,0 +1,301 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-160837",
+      "reason": "Initial gate onboarding: added genuine test suite (57 tests), 99pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_audit_flags_any_types_when_count_positive",
+        "test_tool.py::test_audit_flags_console_log_when_count_positive",
+        "test_tool.py::test_audit_flags_missing_alt_tags_when_count_positive",
+        "test_tool.py::test_audit_no_issues_when_all_counts_zero",
+        "test_tool.py::test_audit_prints_recommendations_footer",
+        "test_tool.py::test_audit_skips_checks_when_run_command_reports_nonzero_exit",
+        "test_tool.py::test_cli_subprocess_smoke_test_create_component_writes_real_file",
+        "test_tool.py::test_cli_subprocess_smoke_test_no_command_returns_nonzero",
+        "test_tool.py::test_cli_subprocess_smoke_test_optimize_bundle",
+        "test_tool.py::test_create_component_client_default_has_use_client_directive",
+        "test_tool.py::test_create_component_creates_nested_output_dirs_that_do_not_exist",
+        "test_tool.py::test_create_component_server_type_has_no_use_client_directive",
+        "test_tool.py::test_create_component_uses_default_output_dir_when_none",
+        "test_tool.py::test_create_form_custom_fields_and_label_capitalization",
+        "test_tool.py::test_create_form_default_fields",
+        "test_tool.py::test_create_form_default_fields_when_empty_string",
+        "test_tool.py::test_create_form_skips_malformed_field_without_colon",
+        "test_tool.py::test_create_form_uses_default_output_dir_when_none",
+        "test_tool.py::test_create_hook_keeps_name_already_prefixed_with_use",
+        "test_tool.py::test_create_hook_prefix_check_is_case_sensitive",
+        "test_tool.py::test_create_hook_prefixes_and_capitalizes_name_without_use",
+        "test_tool.py::test_create_hook_uses_default_output_dir_when_none",
+        "test_tool.py::test_create_page_can_be_regenerated_into_the_same_existing_route",
+        "test_tool.py::test_create_page_prints_route_info",
+        "test_tool.py::test_create_page_strips_leading_and_trailing_slashes",
+        "test_tool.py::test_create_page_uses_default_output_dir_when_none",
+        "test_tool.py::test_create_page_uses_last_segment_of_nested_route",
+        "test_tool.py::test_generate_api_client_custom_base_url",
+        "test_tool.py::test_generate_api_client_default_base_url",
+        "test_tool.py::test_generate_api_client_uses_default_output_dir_when_none",
+        "test_tool.py::test_main_audit_end_to_end",
+        "test_tool.py::test_main_create_component_end_to_end",
+        "test_tool.py::test_main_create_component_missing_required_name_exits",
+        "test_tool.py::test_main_create_component_rejects_invalid_type_choice",
+        "test_tool.py::test_main_create_form_end_to_end",
+        "test_tool.py::test_main_create_form_missing_required_name_exits",
+        "test_tool.py::test_main_create_hook_end_to_end",
+        "test_tool.py::test_main_create_hook_missing_required_name_exits",
+        "test_tool.py::test_main_create_page_end_to_end",
+        "test_tool.py::test_main_create_page_missing_required_route_exits",
+        "test_tool.py::test_main_generate_api_client_end_to_end",
+        "test_tool.py::test_main_optimize_bundle_end_to_end",
+        "test_tool.py::test_main_setup_shadcn_end_to_end",
+        "test_tool.py::test_main_unknown_command_exits",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_optimize_bundle_prints_recommendations",
+        "test_tool.py::test_print_error_shows_message",
+        "test_tool.py::test_print_header_shows_arrow_and_message",
+        "test_tool.py::test_print_info_shows_message",
+        "test_tool.py::test_print_success_shows_message",
+        "test_tool.py::test_print_warning_shows_message",
+        "test_tool.py::test_run_command_exception_returns_default_error_tuple",
+        "test_tool.py::test_run_command_nonzero_exit_returns_real_code",
+        "test_tool.py::test_run_command_success_returns_real_stdout",
+        "test_tool.py::test_setup_shadcn_custom_components_strips_whitespace",
+        "test_tool.py::test_setup_shadcn_default_components_all_succeed",
+        "test_tool.py::test_setup_shadcn_reports_failure_for_a_component"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_shows_message": {
+      "hash": "1b7bc7b9bfc8918c9f3d2ade3d994eeb5a5368b21d0da769acd0ffbc09a713b3",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_error_shows_message": {
+      "hash": "c101742f88fd640609c4edb9716d095d2f5dd2fdb448d59be5bb160d006e395b",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_warning_shows_message": {
+      "hash": "da2210113a5d8017a6a2682d73594b725c270424e8e1d641420598d28d6e9396",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_info_shows_message": {
+      "hash": "c97364b0de32499030efd4790f82e19ce73b77fca1cede87b019d601be6952dd",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_shows_arrow_and_message": {
+      "hash": "d53ca907aa36e5770b48f39fd5011845e180e2009fa5c1aba66c5b3816862495",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_success_returns_real_stdout": {
+      "hash": "e6533acf2ddce5c1749849d6f451e7e72d5d522b415246bb03d916e7d5b7b3f4",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_nonzero_exit_returns_real_code": {
+      "hash": "78ed788b4b907b93466131eca617e6a0c0cef76128e383e789ce38f03be71a39",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_exception_returns_default_error_tuple": {
+      "hash": "ee5682e3e9bd11e26950d876c7f11c8b30c0ee9cd3e417009434f1fe72211ffe",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_component_client_default_has_use_client_directive": {
+      "hash": "ba833747e55578660fa202c11c2ac23dfa5c2e7d286f34ad9684a4bb6694e0ce",
+      "asserts": 4
+    },
+    "test_tool.py::test_create_component_server_type_has_no_use_client_directive": {
+      "hash": "4794118424c2f7004e2a506e56c8b140899ba34744a12d32e06883163224cf31",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_component_uses_default_output_dir_when_none": {
+      "hash": "b11d1643527718d8246a7227364e350ef8ee94bbe9c276e29c7a02f2b9f2f7bb",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_component_creates_nested_output_dirs_that_do_not_exist": {
+      "hash": "d58dac587243861d0d3ff597b430409ccb5e1e3af1de4dea15b02cfaa40848b4",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_page_strips_leading_and_trailing_slashes": {
+      "hash": "5fbe4a068458c636a7529084f7fff6b9ed92b206df7c62aca302958ba2577658",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_page_uses_last_segment_of_nested_route": {
+      "hash": "b885f849c89b7332d979838562b4cdf10e1ad9ee76bf2272599671f94946de20",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_page_prints_route_info": {
+      "hash": "d785c7c8afe3561c4a34569d755db46a1c6575aff518b569fc498561915e7d02",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_page_uses_default_output_dir_when_none": {
+      "hash": "90f17ecbb91656840e9cda42cafaaabb37e9f7e472afeb1f21281efa4408bfd9",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_page_can_be_regenerated_into_the_same_existing_route": {
+      "hash": "2cab7230ca00564cbeac9b638ab75b03f1dfc7ba2dbedd77211ed5979f1c7e15",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_hook_keeps_name_already_prefixed_with_use": {
+      "hash": "785e96e8bd7f6e414e96149d1a6c387bd512caee7243c3d9629a98d6c30bcea5",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_hook_prefixes_and_capitalizes_name_without_use": {
+      "hash": "800a870fce4d2c38e5653ab2d7ba8788757df0cc5795d880a57e314b3271247b",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_hook_prefix_check_is_case_sensitive": {
+      "hash": "443ba60fdfd23a2950de17d82b58ecfa8aea4e49f3f153443f2d3368f31d8a43",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_hook_uses_default_output_dir_when_none": {
+      "hash": "14d450a01a7eb67c67b3decb08ab139992d092f61cb0ff99dede7212c5c35cfe",
+      "asserts": 1
+    },
+    "test_tool.py::test_setup_shadcn_default_components_all_succeed": {
+      "hash": "850653bcce49dec5f1d797ecc2079c96142d25b149beb4fbf370e3ce3a20d92e",
+      "asserts": 4
+    },
+    "test_tool.py::test_setup_shadcn_custom_components_strips_whitespace": {
+      "hash": "92adb46fe69a57fa3b10260c5a77e1524f3493d92d6d2d0d1ff2de574fd7fc04",
+      "asserts": 2
+    },
+    "test_tool.py::test_setup_shadcn_reports_failure_for_a_component": {
+      "hash": "37fff17fd4af865faff3a0b34efd321e1d1f004d94937c4df4158da30a080957",
+      "asserts": 3
+    },
+    "test_tool.py::test_generate_api_client_default_base_url": {
+      "hash": "4b95745a2f90f0e7caa99823604767f8111027afff1dd7fab92e53232a9d073f",
+      "asserts": 7
+    },
+    "test_tool.py::test_generate_api_client_custom_base_url": {
+      "hash": "9244e09ef0b6fb57f30ed4a1df6b6c2028d87824bd12e7743d20049262534c21",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_api_client_uses_default_output_dir_when_none": {
+      "hash": "467f18cf8899b42b027e0fb59e0e052e5f8f4096f495810f9a42ccced6030c7b",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_form_default_fields": {
+      "hash": "a14e597677c328cf209c39a0afbb4ce6e08a1e4d2db7759601324ed1eec796f7",
+      "asserts": 8
+    },
+    "test_tool.py::test_create_form_default_fields_when_empty_string": {
+      "hash": "ea3af65dda21e1177f8f8503238f775d07565a3cd0030dd65d5552e0f5f6c70a",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_form_custom_fields_and_label_capitalization": {
+      "hash": "5e493abf0c5d03148c4f7b902b54c86e294962ae2c55d0e3291320aba221ca8b",
+      "asserts": 5
+    },
+    "test_tool.py::test_create_form_skips_malformed_field_without_colon": {
+      "hash": "993d470cd3fd856583a2c5bd2d86a7947478bd830558e70c5814a520d04614b1",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_form_uses_default_output_dir_when_none": {
+      "hash": "7f0c518560d5c3714007a42a9fea1bd5b1d317f5196701a43f187ca21cd01148",
+      "asserts": 1
+    },
+    "test_tool.py::test_optimize_bundle_prints_recommendations": {
+      "hash": "cda3f193b94a0f9b669131e1ca862b4a1324d3f80fc826e437eda7914e8d3a2a",
+      "asserts": 4
+    },
+    "test_tool.py::test_audit_no_issues_when_all_counts_zero": {
+      "hash": "a0efd73edb9c045830d2d32d84e486dd1f3d90d6d3aaa14118ad5a92fc317c90",
+      "asserts": 2
+    },
+    "test_tool.py::test_audit_flags_any_types_when_count_positive": {
+      "hash": "ebdd74f18eea096d561e3223df002bd5ca014f30ab6db15991c146a2fc5fc935",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_flags_missing_alt_tags_when_count_positive": {
+      "hash": "ce27396edc6c2b6fbd3fbd474b801dc29151d82746ab9f7e62effc414d9df1bd",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_flags_console_log_when_count_positive": {
+      "hash": "fe95e41855048c37843fcd5a5349ff8c7c0f6aaed5b260fb9bf9d4b215b799db",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_skips_checks_when_run_command_reports_nonzero_exit": {
+      "hash": "44825402ddf76a8b2989bd93de270bcf8ab42e9eddbbf20b2f35221143b76380",
+      "asserts": 1
+    },
+    "test_tool.py::test_audit_prints_recommendations_footer": {
+      "hash": "ca54dae984da31594a1bd4c5c7e7edc3586174f9d4db11f22be82b90e13f0ff0",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "c7e1da23a19820f7a0b7faedb3933324d42236df7ddf5a74ca2d306e87ca0727",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_component_end_to_end": {
+      "hash": "9801be48507ddd71f8e73c730cf8aaa82ca957b9e6f3de63e3c730a03538e2ba",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_page_end_to_end": {
+      "hash": "f1a523118c686454517a29a34871f6b3be1be98c58598ed08f2c0215307c75d4",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_hook_end_to_end": {
+      "hash": "57af5e40fe55f08dce5cf24292f09a41fb03c3c091be007f7de8910992d42330",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_setup_shadcn_end_to_end": {
+      "hash": "39a961a36682c8d9f894ea1d6c3e3cf03f35dbb56c7db409b3eb825cdb2b16a7",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_api_client_end_to_end": {
+      "hash": "cb9acd27c3e688209fa3469461889993726a4a99e3756538dddfc848b7326c74",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_form_end_to_end": {
+      "hash": "39f672ec5cf2973b1e44ff8121b3349c603e588c8c0568a2384599667a13c820",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_optimize_bundle_end_to_end": {
+      "hash": "fa8c673d873b8841684a6b56d273b248418446da85133766bd301f62c5d8308a",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_audit_end_to_end": {
+      "hash": "8bfb97b6683244d71221eda76a5b8aef6b6fa3a541dbb8d814a63d0ec63a0a4d",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_component_missing_required_name_exits": {
+      "hash": "a5c1aeb2446bb41b72e6c51ced5dfc8f88a396423bcf4d02859962fb4d2f7c6c",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_create_page_missing_required_route_exits": {
+      "hash": "07870251695c45fcca7c15419397a74571ed4d3f79027f7f9f0882768c088f22",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_create_hook_missing_required_name_exits": {
+      "hash": "4c3f7e1cc89f5c8bbcf8accdc9ca509848407f97226d70020039ad25ad7eccc8",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_create_form_missing_required_name_exits": {
+      "hash": "d3d72f76344ab33359b73cbcb281b9f58fdad6672cae1d4db61865ce33673b63",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_create_component_rejects_invalid_type_choice": {
+      "hash": "f5f07f8369415d6f18da72446ccb99f486d3aee07bb39c02353834efc39177ee",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_unknown_command_exits": {
+      "hash": "a54bfddd4cd06dfe5205917f4dac1aaf54d4dc59248027aa35d01a98230bd91d",
+      "asserts": 0
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_optimize_bundle": {
+      "hash": "c1d406175922b357c4a37f4a40b3001fc981dad2a341a64d908c45d23172987d",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_no_command_returns_nonzero": {
+      "hash": "f26ffcbc27dfaec55f9e98c94ec236ac8f79770c609c3da28fc0d4cedccd0ae6",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_create_component_writes_real_file": {
+      "hash": "96cf75eee75edb728542a286a1f67fc74af897bde82931c4b09ee569d274b3e1",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 99.0
+}

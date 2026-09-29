@@ -1,0 +1,281 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-153724",
+      "reason": "Initial gate onboarding: added genuine test suite (53 tests), 99pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_kubectl_installed_and_connected_returns_true",
+        "test_tool.py::test_check_kubectl_installed_but_not_connected_returns_false",
+        "test_tool.py::test_check_kubectl_invokes_run_command_with_check_false",
+        "test_tool.py::test_check_kubectl_not_installed_exits",
+        "test_tool.py::test_cmd_deploy_applies_in_dependency_order",
+        "test_tool.py::test_cmd_deploy_missing_manifests_dir_exits",
+        "test_tool.py::test_cmd_deploy_not_connected_returns_early",
+        "test_tool.py::test_cmd_deploy_reports_apply_failure",
+        "test_tool.py::test_cmd_generate_backend_and_frontend",
+        "test_tool.py::test_cmd_generate_backend_only_skips_frontend_files",
+        "test_tool.py::test_cmd_generate_creates_output_dir_when_missing",
+        "test_tool.py::test_cmd_generate_free_tier_ignored_on_non_oke_provider",
+        "test_tool.py::test_cmd_generate_free_tier_oke_forces_backend_clusterip",
+        "test_tool.py::test_cmd_get_ips_get_svc_fails",
+        "test_tool.py::test_cmd_get_ips_not_connected_returns_early",
+        "test_tool.py::test_cmd_get_ips_prints_ip_hostname_and_pending",
+        "test_tool.py::test_cmd_health_check_all_pods_ready_and_all_lbs_ready",
+        "test_tool.py::test_cmd_health_check_invokes_run_command_with_check_false",
+        "test_tool.py::test_cmd_health_check_namespace_not_found",
+        "test_tool.py::test_cmd_health_check_no_pods_and_no_loadbalancers",
+        "test_tool.py::test_cmd_health_check_not_connected_returns_early",
+        "test_tool.py::test_cmd_health_check_some_pods_not_ready_and_lb_pending",
+        "test_tool.py::test_cmd_logs_appends_follow_flag",
+        "test_tool.py::test_cmd_logs_builds_expected_command_without_follow",
+        "test_tool.py::test_cmd_logs_not_connected_returns_early",
+        "test_tool.py::test_cmd_scale_failure",
+        "test_tool.py::test_cmd_scale_not_connected_returns_early",
+        "test_tool.py::test_cmd_scale_success",
+        "test_tool.py::test_generate_configmap_empty_config_has_no_data_lines",
+        "test_tool.py::test_generate_configmap_shape",
+        "test_tool.py::test_generate_deployment_custom_replicas_and_resources_and_health_path",
+        "test_tool.py::test_generate_deployment_defaults",
+        "test_tool.py::test_generate_namespace_custom_environment",
+        "test_tool.py::test_generate_namespace_default_environment",
+        "test_tool.py::test_generate_secret_template_shape",
+        "test_tool.py::test_generate_service_default_generic_no_annotations",
+        "test_tool.py::test_generate_service_loadbalancer_but_generic_provider_omits_annotations",
+        "test_tool.py::test_generate_service_nodeport",
+        "test_tool.py::test_generate_service_oke_but_clusterip_omits_annotations",
+        "test_tool.py::test_generate_service_oke_loadbalancer_adds_annotations",
+        "test_tool.py::test_main_deploy_missing_required_args_exits",
+        "test_tool.py::test_main_generate_end_to_end",
+        "test_tool.py::test_main_generate_missing_required_app_name_exits",
+        "test_tool.py::test_main_get_ips_missing_namespace_exits",
+        "test_tool.py::test_main_health_check_end_to_end",
+        "test_tool.py::test_main_no_command_exits_1",
+        "test_tool.py::test_main_scale_missing_replicas_exits",
+        "test_tool.py::test_run_command_called_process_error_with_captured_output",
+        "test_tool.py::test_run_command_capture_false_returns_empty_strings",
+        "test_tool.py::test_run_command_capture_true_success",
+        "test_tool.py::test_run_command_check_false_on_uncaptured_failure_returns_empty_strings",
+        "test_tool.py::test_run_command_default_check_true_on_uncaptured_failure_returns_none_not_empty",
+        "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_generate_namespace_default_environment": {
+      "hash": "9bf67da91797b3ed52b7480b2a685d149e72f1ddbc368bfc4be0b76179113edc",
+      "asserts": 3
+    },
+    "test_tool.py::test_generate_namespace_custom_environment": {
+      "hash": "4f1c2e2c2cede31f89d7212c78c799e9b8ce8b7f7dec54bc432ce66a0e9ed713",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_configmap_shape": {
+      "hash": "af8baa41c44b440cbb2a44b91acccf7ae6d6d9760eb0ccd1a8c7b0127076b9af",
+      "asserts": 3
+    },
+    "test_tool.py::test_generate_configmap_empty_config_has_no_data_lines": {
+      "hash": "92588d1e35351608aa0a23f51bcf9e4a7dddf282f820f77680000b12e0648234",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_secret_template_shape": {
+      "hash": "b11773b93c7d0ad3fd5b6c4d52664dd7de0ebe6e5eca6e3144cbf5682c6961e7",
+      "asserts": 4
+    },
+    "test_tool.py::test_generate_deployment_defaults": {
+      "hash": "def5098c428f4a7f42832aeef4bf3e2eeca14cfa10dd3fc47c8b614e5b5fb6a5",
+      "asserts": 6
+    },
+    "test_tool.py::test_generate_deployment_custom_replicas_and_resources_and_health_path": {
+      "hash": "994833bb84b1cdf4fc3c2d498e05ab239ed5568ab5caa672fe1a96e15d012283",
+      "asserts": 5
+    },
+    "test_tool.py::test_generate_service_default_generic_no_annotations": {
+      "hash": "a481641669a307b1ad50ee1e97055a6cd7797b5acd8a5f25c25adf36d0f2bb70",
+      "asserts": 4
+    },
+    "test_tool.py::test_generate_service_oke_loadbalancer_adds_annotations": {
+      "hash": "d5679e61b815ea7f1417b994c2e630f0d19c087e10e3d743b49c5c77ac6bce8b",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_service_oke_but_clusterip_omits_annotations": {
+      "hash": "3d63ba166706ff14142c00da5e896d3aea4dca15dfb7c9bad414acbfff484ebf",
+      "asserts": 2
+    },
+    "test_tool.py::test_generate_service_loadbalancer_but_generic_provider_omits_annotations": {
+      "hash": "4a75717ff550337ef735d2c58ddb6fd4c0730a70d0a9df180c647aca9038f658",
+      "asserts": 1
+    },
+    "test_tool.py::test_generate_service_nodeport": {
+      "hash": "31a5eb00753aa61b1b9fa7f66cfa702fd970b003b084ed14a60819a6bde5e6a7",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_capture_true_success": {
+      "hash": "b1d33a7a94730752092b6edfccd37c22f7017386a8fbc2dbc45eedc95fd94d84",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_capture_false_returns_empty_strings": {
+      "hash": "575ebaea051a48cf6d38e34f17c6a234885891d44894cbc8ad7d0ee24871a4d5",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_called_process_error_with_captured_output": {
+      "hash": "c5cd23e1c3d4c917ecec51ea7a39503706fa87cfd31a9168457755d0d8919181",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_default_check_true_on_uncaptured_failure_returns_none_not_empty": {
+      "hash": "0a06a70dc25604817066ac9b8f6bf70f344eee6831b5d48e85dd51a5fc3d98dd",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_check_false_on_uncaptured_failure_returns_empty_strings": {
+      "hash": "e9dcdf4de931e66ba1fd82f582d1c7221c9f641a22486dab4d461eed39194f6d",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_kubectl_not_installed_exits": {
+      "hash": "653cc272484985d75ecf8ccd8c398b24adcf53b4db24a922fc94a5765829bffd",
+      "asserts": 0
+    },
+    "test_tool.py::test_check_kubectl_installed_but_not_connected_returns_false": {
+      "hash": "6220dc9bcdac820b4fc153ef4f79cb416c379dc6df31115bd3fe8bc411c9ca73",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_kubectl_installed_and_connected_returns_true": {
+      "hash": "87a88778a63fba4ed3443862d73b1bff5fde8bbdb8b34186829d73e1debbf8f2",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_generate_backend_and_frontend": {
+      "hash": "02b94787d00494f2528ed327719dfec3b037ae35c78d4b50bf52d79b85947d3b",
+      "asserts": 6
+    },
+    "test_tool.py::test_cmd_generate_backend_only_skips_frontend_files": {
+      "hash": "a30e4ba968f7d8347677893679f713f33ffad54a268220678413d3ce686b6580",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_generate_free_tier_oke_forces_backend_clusterip": {
+      "hash": "5746c788b5154bab854c9d5956b9011cacfa5dec61ecba22628ca1b9e60c4b28",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_generate_free_tier_ignored_on_non_oke_provider": {
+      "hash": "aa55a5799db7ce53eebaf703381b1cc25c9ece7b12ecf66c79245ddb7181040f",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_generate_creates_output_dir_when_missing": {
+      "hash": "6878eb7f1d30e0fe1f1615d04cabeaa0d74827b9591529fc06d0bc2118f35dc8",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_deploy_not_connected_returns_early": {
+      "hash": "d89205cfd85bd93432f1074985f95711439a4937c5f9ace05d8f5f7bfe464981",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_deploy_missing_manifests_dir_exits": {
+      "hash": "556e5c03e7a03391c8de86c614645afa9f9586a0f7a79b3098c847b3740fe32f",
+      "asserts": 0
+    },
+    "test_tool.py::test_cmd_deploy_applies_in_dependency_order": {
+      "hash": "62c31ee387ff11f045acb6811ec0644f927de673d298332f81821610d6bdd1e5",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_deploy_reports_apply_failure": {
+      "hash": "2b223e80f99a2ef0dfa2bc2ea83099eb3aa28c283f54f47c66082b57e2070310",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_get_ips_not_connected_returns_early": {
+      "hash": "aca1fae809f63185710387631ea75a76cf386b78c14b29c76c0724b8c380cce5",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_get_ips_get_svc_fails": {
+      "hash": "1d58293316ef70b8ad2b32aa81ac36d5fb53aeb864f3da9156979b4724515b8d",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_get_ips_prints_ip_hostname_and_pending": {
+      "hash": "8dbefe1b09937688b2b753ec5812d95ca3422cb406c3e49bb631a9707f72c747",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_health_check_not_connected_returns_early": {
+      "hash": "abffbee27a0e14f6c8be1869170f15e8eeb4fe9937e8c264d3a283c6a62bd3fa",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_health_check_namespace_not_found": {
+      "hash": "827366522d6b2295bf3c37558307ca8b5e9afe9687a9fe7e7614d5413bc5fb34",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_health_check_all_pods_ready_and_all_lbs_ready": {
+      "hash": "f861280f9bf7861d4be55753622426ea60bddae1530483f3b15960fe5cf6bf74",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_health_check_some_pods_not_ready_and_lb_pending": {
+      "hash": "e9dec8bcd679e5164ae530773a0f95387142074b2207a8ee92d6609ec97d71c9",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_health_check_no_pods_and_no_loadbalancers": {
+      "hash": "78726b4ebabeacf9012222cd659548f5bde2533b2601c9f81c096d8e30d1564f",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_logs_not_connected_returns_early": {
+      "hash": "7c0a1dc3cb11ccfecbcf8dd0e616ca1c8323047991df02e344be5bee4207b6b7",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_logs_builds_expected_command_without_follow": {
+      "hash": "47564770a651659e6bfd4d16903729a7ffc5f3f6fc55aa30154d2c2c1a6df42a",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_logs_appends_follow_flag": {
+      "hash": "2f9685b0f05621fa8a71f8aab463059283c8844606dcaf6391a2f76fcbb636ec",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_scale_not_connected_returns_early": {
+      "hash": "fd97110a3aced59df57700eefd1a322ec3460f38d6124f4350935b2c25e7d081",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_scale_success": {
+      "hash": "a689474714928f8e5f63b37929b3cdf2b34fbd726a52cddbe00e066227549303",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_scale_failure": {
+      "hash": "dea2b76a9cb8ac989b25d532c5cda727d7c56a9b18546d5230003f13a3d6ddc9",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_exits_1": {
+      "hash": "e21e9c5d2da0a07aaa8f0247df88817aa5ef9f4a8b1a82187818938ed6f54052",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_generate_missing_required_app_name_exits": {
+      "hash": "04f55af95b5e93c996e52034efe6f1621a9bb865ba9fac192cbed0bb49d86310",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_deploy_missing_required_args_exits": {
+      "hash": "3a7e0049bd31b18255debe5b1ee5aae77aa72256b3598e976036da59bbf557ce",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_get_ips_missing_namespace_exits": {
+      "hash": "6ec7d2b4cbd03f93cc146adb1421b4ddf2a437653c60e3d20b2d62d46a727cc0",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_scale_missing_replicas_exits": {
+      "hash": "83116fe88fe5846fdaebb060426e9439876ab2a50c3d15d0290cd3080b07dadd",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_generate_end_to_end": {
+      "hash": "86e5fa72c63696645967e96624b88fc1091e3c62d2fece72d0f60082df8680b5",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_health_check_end_to_end": {
+      "hash": "7603b5391156d0d18abc72e6691dd8bff7394b2842910566f5f3273c4a219211",
+      "asserts": 1
+    },
+    "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint": {
+      "hash": "53d43db7f26d3ae6f1cf9c9d09811ae4bc4983f651a33988d8f2323fa9d936af",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_kubectl_invokes_run_command_with_check_false": {
+      "hash": "16242210b85b943a079590160c8ca6448efc7911121ff6f671d2b2aa7c8bf14c",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_health_check_invokes_run_command_with_check_false": {
+      "hash": "bfe7ece4b0981946bf41db620d036e23a63c01db06fa868472fbeabe7a2ee9e1",
+      "asserts": 3
+    }
+  },
+  "coverage_pct": 99.0
+}

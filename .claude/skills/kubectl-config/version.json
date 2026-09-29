@@ -1,0 +1,301 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-154202",
+      "reason": "Initial gate onboarding: added genuine test suite (57 tests), 99pct coverage, 93.3pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_cmd_check_cluster_not_connected_warns_but_still_returns_true",
+        "test_tool.py::test_cmd_check_connected_but_current_context_lookup_fails",
+        "test_tool.py::test_cmd_check_kubectl_not_installed_returns_false",
+        "test_tool.py::test_cmd_check_malformed_json_falls_back_to_generic_message",
+        "test_tool.py::test_cmd_check_valid_json_prints_version",
+        "test_tool.py::test_cmd_contexts_failure",
+        "test_tool.py::test_cmd_contexts_success",
+        "test_tool.py::test_cmd_install_linux_prints_instructions",
+        "test_tool.py::test_cmd_install_macos_brew_install_fails",
+        "test_tool.py::test_cmd_install_macos_no_homebrew",
+        "test_tool.py::test_cmd_install_macos_success",
+        "test_tool.py::test_cmd_install_unknown_os_prints_error",
+        "test_tool.py::test_cmd_install_windows_prints_instructions",
+        "test_tool.py::test_cmd_kubeconfig_info_existing_file",
+        "test_tool.py::test_cmd_kubeconfig_info_missing_file",
+        "test_tool.py::test_cmd_setup_aks_with_cli",
+        "test_tool.py::test_cmd_setup_aks_without_cli",
+        "test_tool.py::test_cmd_setup_eks_with_cli",
+        "test_tool.py::test_cmd_setup_eks_without_cli",
+        "test_tool.py::test_cmd_setup_gke_with_cli",
+        "test_tool.py::test_cmd_setup_gke_without_cli",
+        "test_tool.py::test_cmd_setup_oke_kubectl_verification_fails",
+        "test_tool.py::test_cmd_setup_oke_success_after_input",
+        "test_tool.py::test_cmd_setup_oke_without_oci_cli",
+        "test_tool.py::test_cmd_switch_failure",
+        "test_tool.py::test_cmd_switch_success_and_connected",
+        "test_tool.py::test_cmd_switch_success_but_cluster_unreachable",
+        "test_tool.py::test_cmd_troubleshoot_connection_failure_without_refused_keyword_skips_causes",
+        "test_tool.py::test_cmd_troubleshoot_no_issues",
+        "test_tool.py::test_cmd_troubleshoot_reports_all_issues",
+        "test_tool.py::test_cmd_verify_cluster_unreachable_returns_early",
+        "test_tool.py::test_cmd_verify_full_success",
+        "test_tool.py::test_cmd_verify_no_current_context_returns_early",
+        "test_tool.py::test_cmd_verify_nodes_and_namespaces_unavailable_still_completes",
+        "test_tool.py::test_get_os_darwin_maps_to_macos",
+        "test_tool.py::test_get_os_linux",
+        "test_tool.py::test_get_os_unknown_platform_returns_unknown",
+        "test_tool.py::test_get_os_windows",
+        "test_tool.py::test_main_check_dispatch",
+        "test_tool.py::test_main_contexts_dispatch",
+        "test_tool.py::test_main_info_dispatch",
+        "test_tool.py::test_main_install_dispatch",
+        "test_tool.py::test_main_no_command_exits_1",
+        "test_tool.py::test_main_setup_aks_dispatch",
+        "test_tool.py::test_main_setup_eks_dispatch",
+        "test_tool.py::test_main_setup_gke_dispatch",
+        "test_tool.py::test_main_setup_oke_dispatch",
+        "test_tool.py::test_main_switch_dispatch",
+        "test_tool.py::test_main_switch_missing_positional_context_exits",
+        "test_tool.py::test_main_troubleshoot_dispatch",
+        "test_tool.py::test_main_verify_dispatch",
+        "test_tool.py::test_run_cmd_called_process_error_returns_captured_output",
+        "test_tool.py::test_run_cmd_capture_false_returns_empty_strings",
+        "test_tool.py::test_run_cmd_capture_true_success",
+        "test_tool.py::test_run_cmd_check_false_suppresses_exception_on_uncaptured_failure",
+        "test_tool.py::test_run_cmd_file_not_found_returns_127",
+        "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_run_cmd_capture_true_success": {
+      "hash": "57af021993b40b940b7a49304da0c9befde0939bc85ef2a184d4ea0f3e6170b2",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_cmd_capture_false_returns_empty_strings": {
+      "hash": "72d5199ff0f8cc9f2ab6796eb727f6f48993158f2f077517c6117e22f1b81ba7",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_cmd_called_process_error_returns_captured_output": {
+      "hash": "20cc6f45308b99d980d236c7f5abf076e3e94b5d36866890b48af6e13ab100d3",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_cmd_check_false_suppresses_exception_on_uncaptured_failure": {
+      "hash": "343b6f3b2e246f73191498108e45e7688bdb1f027b8c74016e0cdb412d1a7cfb",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_cmd_file_not_found_returns_127": {
+      "hash": "9ded5f714876fded54fdf0a08dae844ce13cb7a90d0a6a223d5c133d967f1929",
+      "asserts": 3
+    },
+    "test_tool.py::test_get_os_darwin_maps_to_macos": {
+      "hash": "af8c31bade3dc067c955d022894bcb52b22c18531c1b9942ee6d6c589b8f4c08",
+      "asserts": 1
+    },
+    "test_tool.py::test_get_os_linux": {
+      "hash": "a5539b83824322256c08ed69c74f316a5796cb257a51bf9a89cc38e56ddd34fb",
+      "asserts": 1
+    },
+    "test_tool.py::test_get_os_windows": {
+      "hash": "10c4e39a215510785d1fe07317e7d3b86720129755f6611105a396ad0ba11f53",
+      "asserts": 1
+    },
+    "test_tool.py::test_get_os_unknown_platform_returns_unknown": {
+      "hash": "91c02dddaafb89461963261912377742c8b8ec9f19db242e1a3b5e54bd41dc3b",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_check_kubectl_not_installed_returns_false": {
+      "hash": "452e1e7c67d7e775467eda16c59ea64369bc3561e193f47c07b7f81088ce3dd8",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_valid_json_prints_version": {
+      "hash": "643b570f989d0ccc6c919a37d962391a7fde73544a5c699dc96d40652ada8eee",
+      "asserts": 4
+    },
+    "test_tool.py::test_cmd_check_malformed_json_falls_back_to_generic_message": {
+      "hash": "91a8becae69afae2b33af3867b0bf9ac2ada17738d312794f584cec3c55038f2",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_check_cluster_not_connected_warns_but_still_returns_true": {
+      "hash": "7c8567c2f3d4867a84a2f021f39ee494fd15d55ad01b36429dd2ac94f7a985ca",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_check_connected_but_current_context_lookup_fails": {
+      "hash": "12066ef5f0766daa10fe914292376dc4484f3e462405e36fbfeb4311c9e5fb1d",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_install_macos_no_homebrew": {
+      "hash": "3d894be2ac9cae4c855cd34f3b692d7c15a0512774d17a214f7f2b0977411b36",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_install_macos_success": {
+      "hash": "267f9e89d8d79ada0ea4832ddd2d28a90fd8191a3ad809b11b0ef4e6818b7053",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_install_macos_brew_install_fails": {
+      "hash": "44398f9ec3490cef57b47ccb5f73c8629100fd7190d74694dd7193b7a67261de",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_install_linux_prints_instructions": {
+      "hash": "9abba005ebd57d5e21435b24a27dc980c72641be75b53356893703abfc20cafe",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_install_windows_prints_instructions": {
+      "hash": "9e1c99197e7927b1ce5caf1a96df5766d2b8c5e726e93ba29e8cc3dab4432164",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_install_unknown_os_prints_error": {
+      "hash": "b042736b62052d56087dc3aa32fad4430bdc29c38a5df071c99b57b8839600de",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_setup_oke_without_oci_cli": {
+      "hash": "3263a422779a63c354055b567a90df1bf7c76f2dde0fec3688c68a794a7da30a",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_setup_oke_success_after_input": {
+      "hash": "2811e85c59d294ee8f7a1e60ad1125565c54411db5e3c1586a4dd504c00f4a9e",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_setup_oke_kubectl_verification_fails": {
+      "hash": "ae87365052d40e6f752c3645e03636a3ee395ebda94f374aefed5fd3ecbe64fb",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_setup_gke_without_cli": {
+      "hash": "e4fbd3e8ed982017ff3a115b8756981e1485f82f04cd61d17c85a26bf1cf1f2e",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_setup_gke_with_cli": {
+      "hash": "415bba6a80181a46dff09ebb03079fda38a1d7616320fea1816ea2a85a97198e",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_setup_aks_without_cli": {
+      "hash": "e78ded7f7a23549ac00b66d5051ea57d9ac24ca9d9750cebaeeaeae69b3d14bb",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_setup_aks_with_cli": {
+      "hash": "ac74bac08ee5fac0deeeb77cc3262f9aafa9be91cf6032ab7e4e34a103428f8c",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_setup_eks_without_cli": {
+      "hash": "8e9c9ab3c670b6c4cec8cbe1ea331b00f35c35b4641a453bc7612f3f6297763e",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_setup_eks_with_cli": {
+      "hash": "63c2216f059296084c2c95f72188785fd6191f9ac603e447402f6d01dbe0cd30",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_contexts_success": {
+      "hash": "25923e534dc43c298c48ca88911c6ce79f3de9361e4d65ffcd5b7a580ef97aa0",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_contexts_failure": {
+      "hash": "a33162345ad7432d8a5d5e4867ce217761ebe716c5ba19c19588a3f6b07129a7",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_switch_success_and_connected": {
+      "hash": "eecaecae5587e986be18d5552c8554d43c00629cdd5bbe229ec48e68033423e9",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_switch_success_but_cluster_unreachable": {
+      "hash": "ed1aa136d37e97a8a3600f7290fbdca31bfbb5ff98c9cba7b6bf745b3a5aaf1c",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_switch_failure": {
+      "hash": "c32a67846827a212f44f845d88d50953255f23fd03d4caa6d9adeb0b38798255",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_verify_no_current_context_returns_early": {
+      "hash": "9f84f166e5af60e84a0341bb9ad87f10ae5b604719f251b887d2fe1e5a4a2fd7",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_verify_cluster_unreachable_returns_early": {
+      "hash": "ffdf2e90cc47af58a0a8620c79a8244d53c09eaa2cd8b4c4e79f2b4716c05b01",
+      "asserts": 2
+    },
+    "test_tool.py::test_cmd_verify_full_success": {
+      "hash": "d9f9f25c8f5fb629ba248c30535677f9b4b987946bc910b1c32c5ae87fa98437",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_verify_nodes_and_namespaces_unavailable_still_completes": {
+      "hash": "0c35f50b301068f0f255bb01eb3ecd665a671a59dbcf80d1d94828d1f164a98b",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_kubeconfig_info_missing_file": {
+      "hash": "eca7ba6cbd90108d9c2290053dad0a7baa97269b420c8b006fa47633756eb859",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_kubeconfig_info_existing_file": {
+      "hash": "0567e8ea345135add1ce2a53f43efca3bbea137d40950b0334f72cb7476b5f66",
+      "asserts": 3
+    },
+    "test_tool.py::test_cmd_troubleshoot_no_issues": {
+      "hash": "0c7e696fa5f410bb75fe13afa99ead6560402dd93abe758f4caef74ef0934875",
+      "asserts": 1
+    },
+    "test_tool.py::test_cmd_troubleshoot_reports_all_issues": {
+      "hash": "ed7c8e13429dfd71e0abe9a0680d7c68d423cf604b9b062e85bbb81edac7e654",
+      "asserts": 7
+    },
+    "test_tool.py::test_cmd_troubleshoot_connection_failure_without_refused_keyword_skips_causes": {
+      "hash": "48a0406d657b97f2916b55a199f53b4f22df7ce7b56887abe6ab9384f8244432",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_no_command_exits_1": {
+      "hash": "e21e9c5d2da0a07aaa8f0247df88817aa5ef9f4a8b1a82187818938ed6f54052",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_switch_missing_positional_context_exits": {
+      "hash": "a7a0ad69e9cdeb2d243ec568e36699b5b0e4dc85aaadf836889487ce7e73448e",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_check_dispatch": {
+      "hash": "b6d0a543672963d8aaf7ea9ac921bb7ee4518b96af20ec8bfbd46ce9f85b2c45",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_contexts_dispatch": {
+      "hash": "39562d3106ae5c844c275934c47eb54ed6c2bad266ef917ae2a9b09685fe5b11",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_switch_dispatch": {
+      "hash": "5879d4841259cf2610fe978198fdeed8ade356dd8ba83b2b2a738dc31dfa9788",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_verify_dispatch": {
+      "hash": "f7529ab81bbdebd5828ddd42daef70868327847e775e5ae2f8c91c84fa57aafc",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_info_dispatch": {
+      "hash": "ba44ceb70668eef947638b4d50eb469ec4c63eb6cf6db07dd84b66503ab99c3d",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_troubleshoot_dispatch": {
+      "hash": "97cfcccbcf9583170cca9d4e2ce2639af45ad11a3d36eebd624f7abf34640592",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_setup_oke_dispatch": {
+      "hash": "ab45fcdabaf9adc9fd2fa69a248adcd199869c1dc2511909a288b8b3afedf12f",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_setup_gke_dispatch": {
+      "hash": "c496b1ee9f5e17344c329c7a6811545ca45aa88dcd14cecea48df7f66fedce88",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_setup_aks_dispatch": {
+      "hash": "cc0a77a23a92f479637d21b2cf0727116307f2af00054b99cee0392244489ae5",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_setup_eks_dispatch": {
+      "hash": "54078ece2f7d6be2883492af2f67455fb7bb3a4e95b9182fa1685f1a450ac2d4",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_install_dispatch": {
+      "hash": "bb94095a3a554664fa63850992106fe8295a46695e50946754067e90b502c961",
+      "asserts": 1
+    },
+    "test_tool.py::test_subprocess_cli_smoke_runs_as_main_entrypoint": {
+      "hash": "32bbff969102d18b8163694aebc53df149a3991cabb5c2d9b8d5ccf4b865b16e",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 99.0
+}

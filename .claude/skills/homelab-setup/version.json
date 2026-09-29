@@ -1,0 +1,491 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260926-111938",
+      "reason": "Initial gate onboarding: added genuine test suite (95 tests), 100pct coverage, 96.7pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_prerequisites_all_present_linux",
+        "test_tool.py::test_check_prerequisites_compose_missing_entirely",
+        "test_tool.py::test_check_prerequisites_compose_missing_falls_back_to_plugin",
+        "test_tool.py::test_check_prerequisites_curl_and_wget_both_missing",
+        "test_tool.py::test_check_prerequisites_curl_missing_wget_present",
+        "test_tool.py::test_check_prerequisites_darwin_skips_systemd_check",
+        "test_tool.py::test_check_prerequisites_disk_space_line_printed",
+        "test_tool.py::test_check_prerequisites_docker_missing_is_warning",
+        "test_tool.py::test_check_prerequisites_network_unreachable",
+        "test_tool.py::test_check_prerequisites_systemd_missing_on_linux",
+        "test_tool.py::test_check_prerequisites_unsupported_os",
+        "test_tool.py::test_cli_entrypoint_deploy_node_missing_required_exits_2",
+        "test_tool.py::test_cli_entrypoint_no_args_exits_1",
+        "test_tool.py::test_cli_entrypoint_unknown_command_exits_2",
+        "test_tool.py::test_cli_entrypoint_verify_runs_and_exits_0_or_1",
+        "test_tool.py::test_create_systemd_service_exception_is_caught",
+        "test_tool.py::test_create_systemd_service_success_runs_reload_and_enable",
+        "test_tool.py::test_create_systemd_service_tee_failure_skips_reload",
+        "test_tool.py::test_deploy_remote_node_download_failure_exits_1",
+        "test_tool.py::test_deploy_remote_node_installer_failure_exits_1",
+        "test_tool.py::test_deploy_remote_node_no_auth_token_omits_env_var",
+        "test_tool.py::test_deploy_remote_node_success_sets_env_and_reports_success",
+        "test_tool.py::test_dunder_main_guard_calls_main_and_exits_with_its_code",
+        "test_tool.py::test_health_check_config_missing_warns",
+        "test_tool.py::test_health_check_connection_failed_prints_error",
+        "test_tool.py::test_health_check_connectivity_bad_status_is_unhealthy",
+        "test_tool.py::test_health_check_container_down_is_unhealthy",
+        "test_tool.py::test_health_check_container_running_and_healthy",
+        "test_tool.py::test_health_check_disk_between_80_and_90_warns_but_stays_healthy",
+        "test_tool.py::test_health_check_high_disk_usage_is_unhealthy",
+        "test_tool.py::test_health_check_memory_high_prints_success",
+        "test_tool.py::test_health_check_memory_low_prints_warning",
+        "test_tool.py::test_health_check_no_containers_found_prints_info",
+        "test_tool.py::test_health_check_no_install_dir_healthy_returns_0",
+        "test_tool.py::test_install_binary_curl_present_success_linux_creates_systemd",
+        "test_tool.py::test_install_binary_darwin_does_not_create_systemd_service",
+        "test_tool.py::test_install_binary_download_failure_exits_1",
+        "test_tool.py::test_install_binary_wget_used_when_curl_absent",
+        "test_tool.py::test_install_docker_compose_both_start_attempts_fail_exits_1",
+        "test_tool.py::test_install_docker_compose_falls_back_to_docker_compose_plugin",
+        "test_tool.py::test_install_docker_compose_pull_failure_exits_1",
+        "test_tool.py::test_install_docker_compose_success_writes_files",
+        "test_tool.py::test_install_pangolin_server_auto_with_docker_calls_docker_installer",
+        "test_tool.py::test_install_pangolin_server_auto_without_docker_calls_binary_installer",
+        "test_tool.py::test_install_pangolin_server_docker_method_without_docker_exits_1",
+        "test_tool.py::test_install_pangolin_server_explicit_binary_method",
+        "test_tool.py::test_install_pangolin_server_no_curl_or_wget_exits_1",
+        "test_tool.py::test_install_pangolin_server_unknown_method_exits_1",
+        "test_tool.py::test_install_pangolin_server_unsupported_os_exits_1",
+        "test_tool.py::test_main_deploy_node_dispatches_required_args",
+        "test_tool.py::test_main_deploy_node_missing_required_exits_2",
+        "test_tool.py::test_main_dispatch_else_branch_via_forged_namespace",
+        "test_tool.py::test_main_health_check_dispatches_and_exits_with_return_code",
+        "test_tool.py::test_main_keyboard_interrupt_exits_130",
+        "test_tool.py::test_main_no_command_exits_1_and_prints_help",
+        "test_tool.py::test_main_setup_dispatches_with_defaults",
+        "test_tool.py::test_main_setup_dispatches_with_overrides",
+        "test_tool.py::test_main_test_dispatches_and_exits_with_return_code",
+        "test_tool.py::test_main_troubleshoot_dispatches_and_exits_with_return_code",
+        "test_tool.py::test_main_unexpected_exception_exits_1",
+        "test_tool.py::test_main_unknown_command_argparse_exits_2",
+        "test_tool.py::test_main_verify_dispatches_and_exits_with_return_code",
+        "test_tool.py::test_print_error_uses_cross_symbol",
+        "test_tool.py::test_print_header_includes_arrow_and_message",
+        "test_tool.py::test_print_info_uses_arrow_symbol",
+        "test_tool.py::test_print_success_uses_check_symbol",
+        "test_tool.py::test_print_warning_uses_warning_symbol",
+        "test_tool.py::test_run_command_capture_check_false_nonzero_returns_code",
+        "test_tool.py::test_run_command_capture_check_true_raises_is_caught",
+        "test_tool.py::test_run_command_capture_success_returns_stdout",
+        "test_tool.py::test_run_command_default_capture_false_does_not_capture_output",
+        "test_tool.py::test_run_command_file_not_found_returns_1_and_message",
+        "test_tool.py::test_run_command_no_capture_check_false_returns_empty_strings",
+        "test_tool.py::test_run_command_no_capture_checked_raises_is_caught_returns_code",
+        "test_tool.py::test_test_homelab_all_pass_returns_0",
+        "test_tool.py::test_test_homelab_configuration_missing_returns_1",
+        "test_tool.py::test_test_homelab_data_dir_missing_returns_1",
+        "test_tool.py::test_test_homelab_data_dir_not_writable_returns_1",
+        "test_tool.py::test_test_homelab_health_check_fail_returns_1",
+        "test_tool.py::test_test_homelab_installation_check_fail_returns_1",
+        "test_tool.py::test_test_homelab_prerequisites_fail_returns_1",
+        "test_tool.py::test_test_homelab_service_response_fail_returns_1",
+        "test_tool.py::test_troubleshoot_cannot_query_docker_reports_issue",
+        "test_tool.py::test_troubleshoot_closed_port_reports_issue",
+        "test_tool.py::test_troubleshoot_containers_running_no_issues",
+        "test_tool.py::test_troubleshoot_missing_install_dir_reports_issue",
+        "test_tool.py::test_troubleshoot_no_compose_file_skips_docker_section",
+        "test_tool.py::test_troubleshoot_no_containers_running_reports_issue",
+        "test_tool.py::test_verify_installation_cannot_check_container_status",
+        "test_tool.py::test_verify_installation_compose_ps_fallback_to_plugin",
+        "test_tool.py::test_verify_installation_containers_not_running_returns_1",
+        "test_tool.py::test_verify_installation_containers_up_and_service_ok_returns_0",
+        "test_tool.py::test_verify_installation_no_install_dir_service_ok_returns_0",
+        "test_tool.py::test_verify_installation_not_docker_install_returns_0",
+        "test_tool.py::test_verify_installation_service_not_responding_returns_1"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_header_includes_arrow_and_message": {
+      "hash": "206b11984e2a8aeea32b12f1035d5ae15c7becb86df30516cbd4bb9402b3efef",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_success_uses_check_symbol": {
+      "hash": "f670db6c2541c2a21fd34e767e6f70c9098479b7914de9ad12438d257f551112",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_warning_uses_warning_symbol": {
+      "hash": "0a74ee4c608c2a77e59548ce86efb8b356adb483aa59772060df6d7a58a09da0",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_error_uses_cross_symbol": {
+      "hash": "7276d429a8b13c0fb17d031739072f1275e58d996ce6b467fb76576b395857d1",
+      "asserts": 2
+    },
+    "test_tool.py::test_print_info_uses_arrow_symbol": {
+      "hash": "b3c9eb21c690b1bcf5f918f0be7163daa04e49bd0978b9ce3573b92a8b9b7b81",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_capture_success_returns_stdout": {
+      "hash": "6ed25380177cf423780f03e119e60ccef7df4f261555e419cda96c3853e01176",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_capture_check_false_nonzero_returns_code": {
+      "hash": "6b780ad6bc7fc099eea40c2c9a30a6841b79c03565e436742c9284d7a4e291dc",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_capture_check_true_raises_is_caught": {
+      "hash": "2d4346d0e6f2a37808a433111ef89cc4be17eab8df0e78acdb67c54b193a8fdd",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_no_capture_check_false_returns_empty_strings": {
+      "hash": "e53f9a9bf913c5e031a5122c6d284cded4f34e86bfcdacb9aca4eee3e471c5dc",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_no_capture_checked_raises_is_caught_returns_code": {
+      "hash": "3bdc4b70a5e4093c520d46ecfc5bf79d5d5720e97841d17c4635a03727d0189a",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_file_not_found_returns_1_and_message": {
+      "hash": "b57566a9527b3f476616b770daefa41a246c4c9240cb902c24626481e139fca5",
+      "asserts": 4
+    },
+    "test_tool.py::test_check_prerequisites_all_present_linux": {
+      "hash": "3672236cc24e328cfc41bbc58a70fa24d46391a586cd00704e21584d67227690",
+      "asserts": 6
+    },
+    "test_tool.py::test_check_prerequisites_unsupported_os": {
+      "hash": "cae9dd9b7dd2b2981ac7ef48ee0cbe641711dabe71150b6ee51459377e646636",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_darwin_skips_systemd_check": {
+      "hash": "6b2ad2ab579f3e8fae010158d0230194f1a31c440b8b03e70bd8f2e698b94375",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_docker_missing_is_warning": {
+      "hash": "457f8abfb3a6824bf6237b7079f7f7b10d6b30ea762f987f0b0edfab03218d03",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_compose_missing_falls_back_to_plugin": {
+      "hash": "93e67cf9814284dd0124c237f2f304e45720ca03bd50e5faf5b3d7f6eeec7c95",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_compose_missing_entirely": {
+      "hash": "7826ce554fdc84da0e459afd40bbeacdcf7aeb3c7c38d5c02ca3d889823ae23a",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_curl_missing_wget_present": {
+      "hash": "072aa91f9818b01448f915b198c044a4791c0cc42704c01245076408cb30efea",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_curl_and_wget_both_missing": {
+      "hash": "f01dd3dbf4fae5b8c7c31e0382246487a0a657c031026447e1611d0001774095",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_systemd_missing_on_linux": {
+      "hash": "d6b66ceca8c7817ed47b83dd40b00e1830903538a18a6800e80ed0de46022f3a",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_network_unreachable": {
+      "hash": "cfd52ecc463795be151db887c3b69e0908fea30b18cf94577d0a00d7e6d60aec",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_disk_space_line_printed": {
+      "hash": "45185b9a85c5615141df685eb37dad13755e192f382e7eeb5bb3530ff0395f44",
+      "asserts": 1
+    },
+    "test_tool.py::test_install_pangolin_server_unsupported_os_exits_1": {
+      "hash": "fd6aca821e9c2199fd6d00bf2e12da40fe190696f865ebb5dcd2b10797883401",
+      "asserts": 1
+    },
+    "test_tool.py::test_install_pangolin_server_no_curl_or_wget_exits_1": {
+      "hash": "46e03eea36df27671035dde9ce105d899aae74aa4f3621dad0e21bc33ca29a01",
+      "asserts": 1
+    },
+    "test_tool.py::test_install_pangolin_server_docker_method_without_docker_exits_1": {
+      "hash": "7575e71787b9e586be0eb7aa63d90aa5c509954b081981f490e0f73f53f05443",
+      "asserts": 1
+    },
+    "test_tool.py::test_install_pangolin_server_auto_with_docker_calls_docker_installer": {
+      "hash": "058e1d9a9ce475405b3f77ced04dc5d3f5e98380a17c897d7eac236232493a93",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_pangolin_server_auto_without_docker_calls_binary_installer": {
+      "hash": "9e8daf08ee601e41d7769166317e4fc84bcabe5db1fff8fd2f3fe75e835f7fd3",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_pangolin_server_explicit_binary_method": {
+      "hash": "bc8c40af475e4b32f42c03d71ab56f882ca936a5487e8a8e125f4cb0d0dd58a2",
+      "asserts": 1
+    },
+    "test_tool.py::test_install_pangolin_server_unknown_method_exits_1": {
+      "hash": "0a2fdcbd5820acdaaaf3393640398ead518231040bc8f425b1d0cf9f95e410d4",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_docker_compose_success_writes_files": {
+      "hash": "14e6c26d4ca87ff51bb05dc01cf44ad855505e5ced6e8deb42cb29fb467bbc4b",
+      "asserts": 10
+    },
+    "test_tool.py::test_install_docker_compose_pull_failure_exits_1": {
+      "hash": "7172a3297d8521b351c4e83df3be5c46b19b8cb689374ae3afeb6a0fd0011d94",
+      "asserts": 1
+    },
+    "test_tool.py::test_install_docker_compose_falls_back_to_docker_compose_plugin": {
+      "hash": "6c7d89a187c155a0a666c07016d8dd508293fa420967f6e3617d42295e956063",
+      "asserts": 1
+    },
+    "test_tool.py::test_install_docker_compose_both_start_attempts_fail_exits_1": {
+      "hash": "fe5b434598379fc7b0670e4090a689abfa721d450c415a0729583611429f23aa",
+      "asserts": 1
+    },
+    "test_tool.py::test_install_binary_curl_present_success_linux_creates_systemd": {
+      "hash": "245d0e41a77002cc1957134a2f5dd8655f29ed82b9e8f34bce94d7b687dbe84c",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_binary_wget_used_when_curl_absent": {
+      "hash": "57bc15345c59ad386307a5b8f897594281ea21bde91b08baab56539b85874824",
+      "asserts": 2
+    },
+    "test_tool.py::test_install_binary_darwin_does_not_create_systemd_service": {
+      "hash": "c6482467771ae3c57deb4a5494fec929a8b2770b2687575e9081cd6ccc3afc6e",
+      "asserts": 1
+    },
+    "test_tool.py::test_install_binary_download_failure_exits_1": {
+      "hash": "4b46f84375da4deb85a427c6f235fe386db73dd8df5111afb179d9781acb393c",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_systemd_service_success_runs_reload_and_enable": {
+      "hash": "cf44fc9013086d911077e3d7a211ffe7636c7efdb638d509faaf73bd445ce503",
+      "asserts": 4
+    },
+    "test_tool.py::test_create_systemd_service_tee_failure_skips_reload": {
+      "hash": "532a8c3b26e64cc5800a9e6ed89e4625fdf93f527fb8ac0699a87bdef551c28d",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_systemd_service_exception_is_caught": {
+      "hash": "78925545012730a679c328cfafba3e1e40e14cf8aea0fd299495675dfa84452e",
+      "asserts": 1
+    },
+    "test_tool.py::test_deploy_remote_node_download_failure_exits_1": {
+      "hash": "6e999ba2cab54f419ecd42c3430d8fde4f6d1705a534fd1de84f4a915e915291",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_remote_node_success_sets_env_and_reports_success": {
+      "hash": "f3f07f4ba4ba9991c30ceb2f621af86dfc861c2651ff7b86975fc811da850ab6",
+      "asserts": 4
+    },
+    "test_tool.py::test_deploy_remote_node_no_auth_token_omits_env_var": {
+      "hash": "eaf7fb3898d3db18d83d2db6107c1bb811b062223663defc314d39e782818aa1",
+      "asserts": 1
+    },
+    "test_tool.py::test_deploy_remote_node_installer_failure_exits_1": {
+      "hash": "d6494aacb45aeb85ae71b3c4776a0b32aae0141e146cb0f4cad3ba0d139aee3c",
+      "asserts": 2
+    },
+    "test_tool.py::test_verify_installation_no_install_dir_service_ok_returns_0": {
+      "hash": "de647cea6a43fb270c07e86e9d693ccbddcfcb2d0545d8617bffd447ced8c08c",
+      "asserts": 1
+    },
+    "test_tool.py::test_verify_installation_not_docker_install_returns_0": {
+      "hash": "9f45dc7a1df40c0d2685f880fe45ed3c72e45e2d6879dd7a213a2ebafc6968c6",
+      "asserts": 2
+    },
+    "test_tool.py::test_verify_installation_containers_up_and_service_ok_returns_0": {
+      "hash": "f1b38cfab086488099efc2a4686ab4f72927ecb865d00176652f0665d3af9ee5",
+      "asserts": 1
+    },
+    "test_tool.py::test_verify_installation_compose_ps_fallback_to_plugin": {
+      "hash": "6959c48374662050cc672796b3e5d3c3b63ad738feef54a30807db4210c87f6b",
+      "asserts": 1
+    },
+    "test_tool.py::test_verify_installation_containers_not_running_returns_1": {
+      "hash": "19412e21e11c6b485c53b1dc7c0921f27b5b2aa8192b7112be55048a463e5d80",
+      "asserts": 2
+    },
+    "test_tool.py::test_verify_installation_cannot_check_container_status": {
+      "hash": "0e5e2d4bd9c4fb3af11dc9a29755b29b31d4a0fcad5be37bb6d14bdc044e467c",
+      "asserts": 2
+    },
+    "test_tool.py::test_verify_installation_service_not_responding_returns_1": {
+      "hash": "52993fcb62c15f083ea9b72b3f883fd584de0bb9bb514d3874d4654e98bda9f5",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_no_install_dir_healthy_returns_0": {
+      "hash": "05359e884fbe75af9ed9ba23d70cb8c97efedc9dbd83354b9bd634ab71989443",
+      "asserts": 1
+    },
+    "test_tool.py::test_health_check_container_running_and_healthy": {
+      "hash": "afcd973a720328af0da96f4792de0cd6b99eb32ed1c13db78255d042fe19e695",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_container_down_is_unhealthy": {
+      "hash": "62338ac8029d60488308b7024aadfa4821d4e05f0ac770aa0cbcdbfaacf2788b",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_no_containers_found_prints_info": {
+      "hash": "17cbccf6d1b14608f7d7c92428892ca77263d411b6f1382682925ea765be2dd2",
+      "asserts": 1
+    },
+    "test_tool.py::test_health_check_connectivity_bad_status_is_unhealthy": {
+      "hash": "bdddaa47a2125700531e3828a3e68d0f8dc891fd5f79279c3f7530548b1b5761",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_connection_failed_prints_error": {
+      "hash": "a4f70057a32e5286ede64dfc6a82f5fdce0a038cd1ed581d673838f9d66cd562",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_high_disk_usage_is_unhealthy": {
+      "hash": "de796f45ba178dc84b926bae1470912a64938d6133109698233c7004d77c49b4",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_disk_between_80_and_90_warns_but_stays_healthy": {
+      "hash": "d47e23e3b265b79567dfbdfe3eb91e82b644c6569061d9b7aed90044eb203730",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_memory_high_prints_success": {
+      "hash": "9f950dc821ed4a5cd4ee8f1518bced3dec1da5161fb8d15242e6af11720cbfe2",
+      "asserts": 1
+    },
+    "test_tool.py::test_health_check_memory_low_prints_warning": {
+      "hash": "9eb5cf98df57941ab1ddba59939af69c868f688f0407755108e8dcc53a7b79e4",
+      "asserts": 1
+    },
+    "test_tool.py::test_health_check_config_missing_warns": {
+      "hash": "801633e827ce9248454c1a481f9cc22d51596e71dd17b1a6caeae800f5631c7c",
+      "asserts": 1
+    },
+    "test_tool.py::test_test_homelab_all_pass_returns_0": {
+      "hash": "940e096a7cb60cd7c1f0517f803ec2d446cf7ad083d7922351838269c78f5c2c",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_homelab_prerequisites_fail_returns_1": {
+      "hash": "809b4728ddfa866e4c7eb21d6f678f64d996e9cfbc475d307d2482ceb7ed4602",
+      "asserts": 1
+    },
+    "test_tool.py::test_test_homelab_installation_check_fail_returns_1": {
+      "hash": "fab66bc1d80ebd909ebb1777395ca7344558aea1f558a516a102d1183b1f3ce7",
+      "asserts": 1
+    },
+    "test_tool.py::test_test_homelab_health_check_fail_returns_1": {
+      "hash": "846c0e5f916676bffd5fbab06d52cbcd14e577f405b314dbe22d2a5348f94934",
+      "asserts": 1
+    },
+    "test_tool.py::test_test_homelab_service_response_fail_returns_1": {
+      "hash": "989d19ca15d17f15ff8e8c64ef187edcc1b63d67e1984f03233c86562ed74c1d",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_homelab_configuration_missing_returns_1": {
+      "hash": "42715e0891c299f581c7e01a13147888945a200000238a3343f43be01146c66e",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_homelab_data_dir_missing_returns_1": {
+      "hash": "2f8f8e88de3ef137e0c0b8e17afce7a6f64063bf340262c329811ff896719e6a",
+      "asserts": 2
+    },
+    "test_tool.py::test_test_homelab_data_dir_not_writable_returns_1": {
+      "hash": "54bd07f9276efcc411ed57e41fddbd52bf71107df7c4dc554458803b1d1631bf",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_missing_install_dir_reports_issue": {
+      "hash": "79d3bb3eb3ba8d82b606c938e302de367e3338a1f4290a35a4b32ce59a56e85b",
+      "asserts": 1
+    },
+    "test_tool.py::test_troubleshoot_no_compose_file_skips_docker_section": {
+      "hash": "7d351598ad0a706ee2ad57014070358af664209312c80019297202e57bbc5de7",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_containers_running_no_issues": {
+      "hash": "6852e6893abb79c1dac04f7922a175fbf7dd54d68f9af7e33e98524952a8496e",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_no_containers_running_reports_issue": {
+      "hash": "0ed14711eb1c38753006cb31930d9031f864c95d1f025d857044198a8801b07b",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_cannot_query_docker_reports_issue": {
+      "hash": "5b1aa5d05cedbfff81b39fee3089b2537b70725477732f47d0646f1e6777e60c",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_closed_port_reports_issue": {
+      "hash": "353b1176c93957f02e48299448185019a92a46a20dde51e39bceb296bdb8fa8f",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_no_command_exits_1_and_prints_help": {
+      "hash": "6feeb575043c648cecb10db619771fc3a72f2c457c957221b1e6504f21873ac7",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_setup_dispatches_with_defaults": {
+      "hash": "bae6e7d33fccdd598832eab56a8857b8d0834aef1da879521602eb927dd9e520",
+      "asserts": 7
+    },
+    "test_tool.py::test_main_setup_dispatches_with_overrides": {
+      "hash": "705ce5e30586b831a2adada11117fe29ad42eed62a15da3b5105edb61e13dfaa",
+      "asserts": 7
+    },
+    "test_tool.py::test_main_deploy_node_dispatches_required_args": {
+      "hash": "d73ada7eff8b3e6798e27a37fa760b1bcb156c52e51d49cf31f491fece7caec3",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_deploy_node_missing_required_exits_2": {
+      "hash": "ff6a35ff84d4089fe09ffde906142731ed8d12a7f3d2b4dd7725316033bcd00a",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_verify_dispatches_and_exits_with_return_code": {
+      "hash": "a4c1e5c138668796c67203a00ab5a97b6bddfc050733f955bbaf3918d33bd757",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_test_dispatches_and_exits_with_return_code": {
+      "hash": "30e0739ff46ecbc6ca9bc3a0576550bdce690d0dd7fdaf40efee56148d71c439",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_health_check_dispatches_and_exits_with_return_code": {
+      "hash": "5f3ce7e9fb903b802c42c032f2ab5bf6b8a9636caeaaf33b65009d86e86f6225",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_troubleshoot_dispatches_and_exits_with_return_code": {
+      "hash": "c1db88bf926d0e9e9033a02121399c2fed8d12b109c029458edf33c49277ef68",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_unknown_command_argparse_exits_2": {
+      "hash": "815d57d981cea1b02af9235a3ee7792fd7d62d3833a8873531ba524eef54c618",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_keyboard_interrupt_exits_130": {
+      "hash": "ac079e4ca36937f76198693fda9717551baa28fc9a9c460927788815dcc85d02",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_unexpected_exception_exits_1": {
+      "hash": "e99857726690c498142dcbbf8b4deeecb9c037a465cfc2a909ffb1e1f9483515",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_entrypoint_no_args_exits_1": {
+      "hash": "ce234a96aa6c20fe9a08d8a1ce76ff91a9a5967fefe08fb321ad9fb8e60fa64d",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_entrypoint_unknown_command_exits_2": {
+      "hash": "a902955801c1ee0e2303f1046b419d539bb80bdb6f94c2e3bd7c61cb7fe0253f",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_entrypoint_deploy_node_missing_required_exits_2": {
+      "hash": "c129a9d5f1a6d5eff12a0a07740b167751d89d60556e775a6dae678d9b920add",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_entrypoint_verify_runs_and_exits_0_or_1": {
+      "hash": "c53cc4aa918ac3c9a7a97f0ce96bc3968aee84d0b00335fe8cfcdcf150c4f9b2",
+      "asserts": 2
+    },
+    "test_tool.py::test_dunder_main_guard_calls_main_and_exits_with_its_code": {
+      "hash": "b30182811a0c593be39dd2a7f648d20c52a062c31b84513736c18306b02148ed",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatch_else_branch_via_forged_namespace": {
+      "hash": "bc28aaf43e6e0cad88c6f367e593a151bed6b8b81a9066dcbfa9eb1fa3e7caa0",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_default_capture_false_does_not_capture_output": {
+      "hash": "5e789bc13b8eb19212e1e2c898b824f798a3c3298fe98f601a5af28c547b1c3b",
+      "asserts": 3
+    }
+  },
+  "coverage_pct": 100.0
+}

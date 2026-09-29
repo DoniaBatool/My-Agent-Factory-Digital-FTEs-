@@ -1,0 +1,411 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-153408",
+      "reason": "Initial gate onboarding: added genuine test suite (79 tests), 99pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_prerequisites_all_good_returns_0",
+        "test_tool.py::test_check_prerequisites_az_cli_missing_returns_1",
+        "test_tool.py::test_check_prerequisites_docker_missing_is_optional_returns_0",
+        "test_tool.py::test_check_prerequisites_kubectl_missing_returns_1",
+        "test_tool.py::test_check_prerequisites_not_logged_in_returns_1",
+        "test_tool.py::test_check_prerequisites_prints_logged_in_account_details",
+        "test_tool.py::test_cleanup_confirmation_accepted_proceeds",
+        "test_tool.py::test_cleanup_confirmation_declined_returns_0",
+        "test_tool.py::test_cleanup_uses_explicit_resource_group",
+        "test_tool.py::test_cleanup_yes_flag_failure",
+        "test_tool.py::test_cleanup_yes_flag_success",
+        "test_tool.py::test_configure_kubectl_exhausts_retries_returns_1",
+        "test_tool.py::test_configure_kubectl_get_credentials_failure_returns_1",
+        "test_tool.py::test_configure_kubectl_retries_then_succeeds",
+        "test_tool.py::test_configure_kubectl_success_first_try",
+        "test_tool.py::test_create_cluster_aks_create_failure_returns_1",
+        "test_tool.py::test_create_cluster_full_success",
+        "test_tool.py::test_create_cluster_resource_group_failure_returns_1",
+        "test_tool.py::test_create_cluster_uses_explicit_overrides",
+        "test_tool.py::test_deploy_app_failure_returns_1",
+        "test_tool.py::test_deploy_app_no_manifest_returns_1",
+        "test_tool.py::test_deploy_app_success",
+        "test_tool.py::test_health_check_all_healthy_returns_0",
+        "test_tool.py::test_health_check_get_nodes_failure_returns_1",
+        "test_tool.py::test_health_check_pods_fetch_failure_is_silent_and_returns_0",
+        "test_tool.py::test_health_check_reports_problem_pods_but_still_returns_0",
+        "test_tool.py::test_health_check_services_fetch_failure_is_silent_and_returns_0",
+        "test_tool.py::test_main_cleanup_missing_required_arg_exits",
+        "test_tool.py::test_main_configure_kubectl_missing_required_arg_exits",
+        "test_tool.py::test_main_create_cluster_missing_required_arg_exits",
+        "test_tool.py::test_main_deploy_app_missing_required_arg_exits",
+        "test_tool.py::test_main_dispatches_check_prerequisites",
+        "test_tool.py::test_main_dispatches_cleanup",
+        "test_tool.py::test_main_dispatches_configure_kubectl",
+        "test_tool.py::test_main_dispatches_create_cluster",
+        "test_tool.py::test_main_dispatches_deploy_app",
+        "test_tool.py::test_main_dispatches_health_check",
+        "test_tool.py::test_main_dispatches_setup_ingress",
+        "test_tool.py::test_main_dispatches_test",
+        "test_tool.py::test_main_dispatches_troubleshoot",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_print_error_includes_message",
+        "test_tool.py::test_print_header_includes_message",
+        "test_tool.py::test_print_info_includes_message",
+        "test_tool.py::test_print_success_includes_message",
+        "test_tool.py::test_print_warning_includes_message",
+        "test_tool.py::test_run_command_forwards_shell_and_timeout",
+        "test_tool.py::test_run_command_generic_exception_returns_error_tuple",
+        "test_tool.py::test_run_command_success_returns_tuple",
+        "test_tool.py::test_run_command_timeout_returns_error_tuple",
+        "test_tool.py::test_run_tests_all_pass_does_not_print_failed_count",
+        "test_tool.py::test_run_tests_all_pass_returns_0",
+        "test_tool.py::test_run_tests_az_cli_missing_counts_as_failure",
+        "test_tool.py::test_run_tests_cannot_check_cluster_health_is_not_a_failure",
+        "test_tool.py::test_run_tests_cannot_check_system_pods_is_not_a_failure",
+        "test_tool.py::test_run_tests_cluster_found_reports_details",
+        "test_tool.py::test_run_tests_cluster_not_found_is_not_a_failure",
+        "test_tool.py::test_run_tests_kubectl_connected_reports_connected_message",
+        "test_tool.py::test_run_tests_kubectl_missing_counts_as_failure",
+        "test_tool.py::test_run_tests_kubectl_not_connected_is_not_a_failure",
+        "test_tool.py::test_run_tests_metrics_server_unavailable_is_not_critical",
+        "test_tool.py::test_run_tests_no_cluster_name_skips_cluster_check",
+        "test_tool.py::test_run_tests_no_nodes_found_counts_as_failure",
+        "test_tool.py::test_run_tests_no_system_pods_counts_as_failure",
+        "test_tool.py::test_run_tests_nodes_not_ready_counts_as_failure",
+        "test_tool.py::test_run_tests_not_logged_in_counts_as_failure",
+        "test_tool.py::test_run_tests_some_failures_prints_failed_count",
+        "test_tool.py::test_run_tests_some_system_pods_not_running_is_not_critical",
+        "test_tool.py::test_script_runs_as_main_entrypoint_via_subprocess",
+        "test_tool.py::test_setup_ingress_helm_install_failure_returns_1",
+        "test_tool.py::test_setup_ingress_success_but_ip_not_yet_assigned",
+        "test_tool.py::test_setup_ingress_success_gets_external_ip_immediately",
+        "test_tool.py::test_troubleshoot_get_nodes_failure_is_not_an_issue_by_itself",
+        "test_tool.py::test_troubleshoot_kubectl_not_configured_reported",
+        "test_tool.py::test_troubleshoot_loadbalancer_pending_reported",
+        "test_tool.py::test_troubleshoot_no_issues_returns_0",
+        "test_tool.py::test_troubleshoot_nodes_not_ready_reported",
+        "test_tool.py::test_troubleshoot_not_logged_in_reported",
+        "test_tool.py::test_troubleshoot_pods_in_error_state_reported"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_includes_message": {
+      "hash": "167977430b91e8e3c736a261e3009dacb943226a84991115b990873049e6dd3d",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_error_includes_message": {
+      "hash": "ee963e6f944a23d068ba875216addf511a8f21a8ff8505c5914de39d0767ea85",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_warning_includes_message": {
+      "hash": "e11cc7ab372a368453243af88593e2ecdb763e861a0c79adab1ad8762e546ecf",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_info_includes_message": {
+      "hash": "a5d7ad8980883104862cad457efc66a9a6428c8c08f1c9cd2bf4145717d967f6",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_includes_message": {
+      "hash": "1f08bea2fe833d743fae9a04dc9b4ae0f38c67f0e89064479a02af0f1ef763b9",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_success_returns_tuple": {
+      "hash": "9a355fd47b016072c2fcd86eb588f6979b055d9a840c6537600caee937d1f4db",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_forwards_shell_and_timeout": {
+      "hash": "7dce55d0eec0c3cddc68a627638831da98b7b51ef01364e3107891da0ce4a6a6",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_timeout_returns_error_tuple": {
+      "hash": "87924194b90768c83b999a89d89c249d67527f06219e37faecfae9af5cfde3b6",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_generic_exception_returns_error_tuple": {
+      "hash": "8df1cd4e94db68a87deeab1ea6976c9a0a706287f31229f13485fbef9c652534",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_all_good_returns_0": {
+      "hash": "5a652d07f658730320e33f8fb531c8670e20c232b8dd551a32ccedd6e047ba55",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_az_cli_missing_returns_1": {
+      "hash": "792f974d4f56d1ec87d72b5f5fe3f00d64e7e7d3c0012060d99dec3da5ed19d4",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_not_logged_in_returns_1": {
+      "hash": "a1766b6ecc39abbf1a123b37155b07c32498377790996ec07990529a0de76f56",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_kubectl_missing_returns_1": {
+      "hash": "6e89a1b8244b495871d2f19a4da53b7a414cfe94056179f8f15bea12135c8530",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_docker_missing_is_optional_returns_0": {
+      "hash": "7befd9575cd7b83878d93086562f6841fd39266a3526e6ecfac3b7b18eb8c055",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_prints_logged_in_account_details": {
+      "hash": "1e4884385176a83c43e4497a4f21a7b64dcbf458e17d29e56cf1fc981bc3c424",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_cluster_resource_group_failure_returns_1": {
+      "hash": "8cdb013da1ba4b20931e64b823126800bbc2f65811348d756f54c2592b5acfc4",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_cluster_full_success": {
+      "hash": "72c96554a208a8c5ce87eb822cafb3a0c93ce694276b5419db1599961fae6e8e",
+      "asserts": 4
+    },
+    "test_tool.py::test_create_cluster_aks_create_failure_returns_1": {
+      "hash": "a3017e342e7d054daf19dd7161d7410070f8f5ffe80a0cc9daa84a9610248291",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_cluster_uses_explicit_overrides": {
+      "hash": "8dc1d559dad6af5bc6e63406de1d22c8edf51a792690d81b579a6ad37ad4236d",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_kubectl_success_first_try": {
+      "hash": "fdc2d2a79ccd89ed83a134570318abbb327d4982ed05ff9afa35c0926eacab3d",
+      "asserts": 1
+    },
+    "test_tool.py::test_configure_kubectl_get_credentials_failure_returns_1": {
+      "hash": "220a1b9696b0fd82c3734a2cd0129a49bdbfa59b165c8f3febe7be3d8d9b6e90",
+      "asserts": 1
+    },
+    "test_tool.py::test_configure_kubectl_retries_then_succeeds": {
+      "hash": "34a25ba799857af48f96d24b327bb9a441294f421396a6085586fbf2537e49a1",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_kubectl_exhausts_retries_returns_1": {
+      "hash": "b99eb965beba53dc917e7e5ebb4d61087557b9ca6a0d7c952c76ee88041a03e1",
+      "asserts": 1
+    },
+    "test_tool.py::test_deploy_app_no_manifest_returns_1": {
+      "hash": "a6c6579f6d139466acdcdfe41d24ba8eb7dba8bd41adfc8000e508c47dcfc7be",
+      "asserts": 1
+    },
+    "test_tool.py::test_deploy_app_success": {
+      "hash": "b289ff561d1b43cefa50036f6951b9d22f1d7c6ceac2d8d95c4300e27e759df8",
+      "asserts": 4
+    },
+    "test_tool.py::test_deploy_app_failure_returns_1": {
+      "hash": "cf5d90fd137fd11b6ff38e5385ac38df44067a2293e0df97530bdd80d963c34b",
+      "asserts": 1
+    },
+    "test_tool.py::test_setup_ingress_helm_install_failure_returns_1": {
+      "hash": "b5eed804ed68f2d36563ac24619267298d587e08f57f52112fd917753689cf07",
+      "asserts": 1
+    },
+    "test_tool.py::test_setup_ingress_success_gets_external_ip_immediately": {
+      "hash": "995372f0be6b133c0e83565e15883b4a038ac193b1b7a1eb939d00cc75d2a416",
+      "asserts": 1
+    },
+    "test_tool.py::test_setup_ingress_success_but_ip_not_yet_assigned": {
+      "hash": "d01784e95ba0ae436123ac6622c550d581ee48502c2f0e757e9ad06009189271",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_all_pass_returns_0": {
+      "hash": "42c4d2d504346548f7e3e27ac2a15ebae8684b6e4a69a7e453d4d37507214de3",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_all_pass_does_not_print_failed_count": {
+      "hash": "1d953244076772c752beeea729fb9846618a6b5737a14fa7de8f395ae3ca4c84",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_some_failures_prints_failed_count": {
+      "hash": "bc926e7242bd280d337b071462a617f267a96c68fab86c840a7d2e06f15d70b8",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_az_cli_missing_counts_as_failure": {
+      "hash": "65ca7951b3fc4e767e45e1621837ea67e5524b762683e94800abe5e232060a80",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_kubectl_missing_counts_as_failure": {
+      "hash": "c082556142a7b43e7e7640f9e51226658098191d16df15e556d43376dc7653ad",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_not_logged_in_counts_as_failure": {
+      "hash": "8d8554f8618aa84454f75bd3d56b89056bc074782c5f3b1eae9e8ce52c741134",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_no_cluster_name_skips_cluster_check": {
+      "hash": "e2141b5aed4f42ab76e6317c13a301170fa82f9e6832a4b56f70621c14d019f9",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_cluster_not_found_is_not_a_failure": {
+      "hash": "8b057d23821d3fa3aaf09a6a7229ba60445b168755f756115957e20863d673ba",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_cluster_found_reports_details": {
+      "hash": "8ea35e310c48bf0b559ee837054bffc41f82ef1f8c0dadde04453420721f44d2",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_kubectl_not_connected_is_not_a_failure": {
+      "hash": "da911c040da7de1f6929c6d520b8ffbea9fff48f326fa32142b9dd27a496b981",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_kubectl_connected_reports_connected_message": {
+      "hash": "902ddc777b7a38b934ec8632642998dd55da0489a5d6eb09f2ce6e3913f31098",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_nodes_not_ready_counts_as_failure": {
+      "hash": "5adfa3d2f12d03b5c8e842245d143d1442a132ce63ae3a01ad7236a0ea862a34",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_no_nodes_found_counts_as_failure": {
+      "hash": "b03abe06f9da716445ff5e1cfc7f59acdc4aec742f34cd788e8b01e2a2085230",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_cannot_check_cluster_health_is_not_a_failure": {
+      "hash": "0905056bc60c445b937023da7ca25679ed9589a738fad96c6ead6e3fe030e01f",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_no_system_pods_counts_as_failure": {
+      "hash": "c088459415c5ce01680d285e4d1bffbf8a65278dbd5aa8c38aeba8f24d52a3bf",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_some_system_pods_not_running_is_not_critical": {
+      "hash": "f87cb8b172d6e8877b8fcfea24381cd33f8597d92612e6c0dd531d554509863c",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_cannot_check_system_pods_is_not_a_failure": {
+      "hash": "99d93a6c34157e988c651cd84e75acf5bbd9c7eae4e907ce0181966a76bb815f",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_tests_metrics_server_unavailable_is_not_critical": {
+      "hash": "0eef79c4ca8eaf863a417a8b44155297a0bf1481d7f5fa52960aa6167c58562b",
+      "asserts": 1
+    },
+    "test_tool.py::test_health_check_get_nodes_failure_returns_1": {
+      "hash": "aee0746ed3c7a4928cc1361fcce5491b265cfc06465819ac2a44858f008646ff",
+      "asserts": 1
+    },
+    "test_tool.py::test_health_check_all_healthy_returns_0": {
+      "hash": "eef8702cd7475426f0cb55d4365488ff919431192fc68945375480c8c1a609b9",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_reports_problem_pods_but_still_returns_0": {
+      "hash": "037e321212eb4e1610620b20c291d1fa595dd5b0bcad3c76d4370184f0cbfdef",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_pods_fetch_failure_is_silent_and_returns_0": {
+      "hash": "b0570c2e772cd0254e99a6ae146712f8a1b4eafd5e6176a75d6b7b240671e34c",
+      "asserts": 1
+    },
+    "test_tool.py::test_health_check_services_fetch_failure_is_silent_and_returns_0": {
+      "hash": "cec45c4937d0e5c6c82561d81c155a7a53e66a0fb6ece156951c9edc3403e773",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_no_issues_returns_0": {
+      "hash": "55e81c12c1a997d13b70a500a0165f335b1775149bab8817f8b0e741c1695604",
+      "asserts": 1
+    },
+    "test_tool.py::test_troubleshoot_not_logged_in_reported": {
+      "hash": "04b68457e1a65cf2c2d375ef8d14266a0956bcb8adb437b55f65dfa8ece295bb",
+      "asserts": 2
+    },
+    "test_tool.py::test_troubleshoot_kubectl_not_configured_reported": {
+      "hash": "df682402163013466b350e359544c1e7d074caad833cbaf82c00078064ccf050",
+      "asserts": 1
+    },
+    "test_tool.py::test_troubleshoot_nodes_not_ready_reported": {
+      "hash": "f9782ce6693206ec4316d273a38c7d94ceba5c941231f3002c292b6709e6c11c",
+      "asserts": 1
+    },
+    "test_tool.py::test_troubleshoot_pods_in_error_state_reported": {
+      "hash": "d1073bb66934818940fb6feb5f5575f02da1835a95c2b07cfaab9c0cec842f12",
+      "asserts": 1
+    },
+    "test_tool.py::test_troubleshoot_loadbalancer_pending_reported": {
+      "hash": "f7e9469c2c464903e891d48a24b73e2a6b1a1ab52e67f15b063de065ae19f574",
+      "asserts": 1
+    },
+    "test_tool.py::test_troubleshoot_get_nodes_failure_is_not_an_issue_by_itself": {
+      "hash": "7f29ca7173d088b234dcf0611a0eb599a7c9d088ecf46f9c9c43380d76986282",
+      "asserts": 1
+    },
+    "test_tool.py::test_cleanup_yes_flag_success": {
+      "hash": "d2730504f7033b0b089e81167f6579ae7eebc1feb1c6205f1381912dbdf4be4c",
+      "asserts": 1
+    },
+    "test_tool.py::test_cleanup_yes_flag_failure": {
+      "hash": "3d2d409948b95266efd1188bb8dfa77ba3d1a4685646b7c2adff47ebac0e9e05",
+      "asserts": 1
+    },
+    "test_tool.py::test_cleanup_confirmation_declined_returns_0": {
+      "hash": "5709ada75556dfac833c361adaa80bfce5df209b0100ab8940102bc765e98602",
+      "asserts": 1
+    },
+    "test_tool.py::test_cleanup_confirmation_accepted_proceeds": {
+      "hash": "16919de372a58e3cfda5dacd2beb0ad19678faeea4aaf49afd1602789cfa94c1",
+      "asserts": 1
+    },
+    "test_tool.py::test_cleanup_uses_explicit_resource_group": {
+      "hash": "0540b684ffb1421b4f502a0f30521bbc7cecbbdec6e5283021c4b2f02fd50b75",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "e74020e5caabf8cdd3af4e32d1c73832d6dbc751668228b150b9cedd0fd8acef",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_check_prerequisites": {
+      "hash": "6d246f906bee3a81ec231daa1f3d62316aee80dbdab2d366eeb53b1ee47934b0",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_create_cluster_missing_required_arg_exits": {
+      "hash": "61700acebae39f8d763866bd1142656886ab02e010a687ffaf2b51f4eadd3f46",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_create_cluster": {
+      "hash": "70309a482147e8ff5749eb405dfa23202b793543c94bb3fb7a37f5a49836406f",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_configure_kubectl_missing_required_arg_exits": {
+      "hash": "1ec5ff13776da8f149e03a17015075cd2c4749bc22e6d77403dccbe065f860e9",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_configure_kubectl": {
+      "hash": "4d51835f4e23e52737694607ee77844741707938873335bd853b55ad97813f84",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_deploy_app_missing_required_arg_exits": {
+      "hash": "1890438b56e5facdc024b4fc57a80c882b2c7fc5d2b65ced39dba7a88334e706",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_deploy_app": {
+      "hash": "88bb6bd79db344b442038d631f55a485fd2bced77f296686ed16532a8d39fc1b",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_setup_ingress": {
+      "hash": "d8a302ec67bb5a81076f42c2ff949a72393d1a17392f10976f99a3748f0ee8d2",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_test": {
+      "hash": "9b21caf99ec479763687c7ac1acf1b57402f81f4adcd9e46f49ad443ce573280",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_health_check": {
+      "hash": "b438640a4c1974b0b8e4b0096069b784ec5a4a1af37da8fbcec24fee97af3aed",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_dispatches_troubleshoot": {
+      "hash": "db0331fb6f421d2798ec2bce5d67ffe73f6422085e6b67fc1516fc0eb8dc5810",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_cleanup_missing_required_arg_exits": {
+      "hash": "d16d3c0d0b884f0d5d5bb0b62d964eb49d80b0274385bd5bb4ba31fc292f1038",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_cleanup": {
+      "hash": "809ba29f22b5590e8d2756fa98d0716dce6db80696ee7ac4b6996f70ed3ac8ef",
+      "asserts": 1
+    },
+    "test_tool.py::test_script_runs_as_main_entrypoint_via_subprocess": {
+      "hash": "f73e411f969e95cd417c5ede8911c6c226181f676a6aac3d0cdc1f08bef44976",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 99.0
+}

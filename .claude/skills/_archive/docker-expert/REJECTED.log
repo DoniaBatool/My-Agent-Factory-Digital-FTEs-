@@ -1,0 +1,54 @@
+
+[2026-09-26 08:40:30]
+REJECTED promotion of 'docker-expert':
+  baseline tests: 71 (previously passing: 75)
+  staged pass: 75, staged fail: 0
+  regressed (used to be a baseline test, not passing staged): ['test_tool.py::test_main_dispatches_to_correct_function']
+  staged pytest exit code: 0
+--- staged pytest output (tail) ---
+lls/docker-expert.staged/tests/test_tool.py::test_troubleshoot_daemon_not_running PASSED [ 58%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_troubleshoot_reclaimable_space_warns_without_adding_issue PASSED [ 60%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_troubleshoot_counts_dangling_images_and_recommends_fix PASSED [ 61%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_troubleshoot_counts_stopped_containers PASSED [ 62%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_troubleshoot_counts_unused_networks PASSED [ 64%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_troubleshoot_counts_unused_volumes PASSED [ 65%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_troubleshoot_auto_fix_runs_system_prune PASSED [ 66%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_troubleshoot_no_auto_fix_does_not_run_system_prune PASSED [ 68%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_cleanup_force_skips_prompt_and_uses_f_flag PASSED [ 69%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_cleanup_all_flag_builds_prune_dash_a PASSED [ 70%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_cleanup_all_no_force_warns_about_all_images_then_cancels PASSED [ 72%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_cleanup_prompt_declined_cancels PASSED [ 73%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_cleanup_prompt_accepted_short_form_proceeds PASSED [ 74%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_cleanup_failure_returns_1 PASSED [ 76%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_no_command_prints_help_and_returns_1 PASSED [ 77%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_dispatches_to_correct_function[check-prerequisites-check_prerequisites-extra_argv0] PASSED [ 78%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_dispatches_to_correct_function[compose-up-compose_up-extra_argv1] PASSED [ 80%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_dispatches_to_correct_function[test-run_tests-extra_argv2] PASSED [ 81%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_dispatches_to_correct_function[troubleshoot-troubleshoot-extra_argv3] PASSED [ 82%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_dispatches_to_correct_function[cleanup-cleanup-extra_argv4] PASSED [ 84%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_dispatches_build_image_with_required_arg PASSED [ 85%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_run_container_command_dest_collision_bug PASSED [ 86%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_dispatches_optimize_with_dockerfile_option PASSED [ 88%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_build_image_missing_required_arg_exits PASSED [ 89%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_run_container_missing_required_arg_exits PASSED [ 90%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_unknown_command_exits_with_argparse_error PASSED [ 92%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_troubleshoot_auto_fix_flag_parsed PASSED [ 93%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_main_cleanup_all_and_force_flags_parsed PASSED [ 94%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_cli_entrypoint_no_args_exits_1 PASSED [ 96%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_cli_entrypoint_unknown_command_exits_2 PASSED [ 97%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_cli_entrypoint_build_image_missing_required_exits_2 PASSED [ 98%]
+.claude/skills/docker-expert.staged/tests/test_tool.py::test_dunder_main_guard_calls_main_and_exits_with_its_return_code PASSED [100%]
+
+============================== 75 passed in 0.26s ==============================
+
+
+
+[2026-09-26 13:05:15]
+REJECTED promotion of 'docker-expert': the staged version is missing 2 file(s)/dir(s) that exist in the live skill: ['.coverage', '.pytest_cache']
+If this staged copy was hand-built by cherry-picking files instead of copying the whole live directory first, this is accidental content loss (this happened once already: grafana-expert/README.md, prometheus-monitoring/README.md, and prompt-analyzer/EXAMPLES.md were briefly lost this way before this check existed). If the removal is deliberate, re-run with allow_file_removal=True / --allow-file-removal.
+
+[2026-09-26 13:05:20]
+REJECTED promotion of 'docker-expert': 2 existing test(s) kept their name but their body changed -- this is exactly the 'weaker test, same name' pattern this gate exists to catch:
+  - test_tool.py::test_run_container_image_not_found_returns_1: 3 assert(s) -> 4 assert(s)
+  - test_tool.py::test_run_container_builds_full_command_and_succeeds: 11 assert(s) -> 11 assert(s)
+If this change is deliberate and justified, re-run with --acknowledge-test-change test_tool.py::test_run_container_image_not_found_returns_1,test_tool.py::test_run_container_builds_full_command_and_succeeds (or --acknowledge-test-change all) and --change-reason "...".

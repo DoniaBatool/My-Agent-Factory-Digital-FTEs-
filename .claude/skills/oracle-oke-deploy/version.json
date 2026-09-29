@@ -1,0 +1,116 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-153614",
+      "reason": "Initial gate onboarding: added genuine test suite (20 tests), 97pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_prerequisites_always_returns_0_and_prints_ok",
+        "test_tool.py::test_create_cluster_defaults_to_todo_app_when_name_is_empty_string",
+        "test_tool.py::test_create_cluster_defaults_to_todo_app_when_name_is_none",
+        "test_tool.py::test_create_cluster_uses_given_cluster_name",
+        "test_tool.py::test_main_dispatches_check_prerequisites",
+        "test_tool.py::test_main_dispatches_create_cluster_with_defaults",
+        "test_tool.py::test_main_dispatches_create_cluster_with_explicit_args",
+        "test_tool.py::test_main_rejects_unknown_command",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_print_error_includes_message",
+        "test_tool.py::test_print_header_includes_message",
+        "test_tool.py::test_print_info_includes_message",
+        "test_tool.py::test_print_success_includes_message",
+        "test_tool.py::test_run_command_default_timeout_is_300",
+        "test_tool.py::test_run_command_forwards_shell_capture_output_text_and_timeout",
+        "test_tool.py::test_run_command_success_returns_tuple",
+        "test_tool.py::test_run_command_swallows_any_exception_and_returns_error_tuple",
+        "test_tool.py::test_run_command_swallows_timeout_expired_too",
+        "test_tool.py::test_script_runs_as_main_entrypoint_via_subprocess",
+        "test_tool.py::test_script_with_no_args_via_subprocess_prints_help_and_exits_1"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_includes_message": {
+      "hash": "167977430b91e8e3c736a261e3009dacb943226a84991115b990873049e6dd3d",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_error_includes_message": {
+      "hash": "ee963e6f944a23d068ba875216addf511a8f21a8ff8505c5914de39d0767ea85",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_info_includes_message": {
+      "hash": "a5d7ad8980883104862cad457efc66a9a6428c8c08f1c9cd2bf4145717d967f6",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_includes_message": {
+      "hash": "1f08bea2fe833d743fae9a04dc9b4ae0f38c67f0e89064479a02af0f1ef763b9",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_success_returns_tuple": {
+      "hash": "f64aa245bdf1f18ada14b06c53fa7b62fa4f2d903e928f3ded7db2d823997547",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_forwards_shell_capture_output_text_and_timeout": {
+      "hash": "d68e1cce19175ad709f073ad655dc5e427d68740f575f5705388ebc7a7125bf8",
+      "asserts": 5
+    },
+    "test_tool.py::test_run_command_swallows_any_exception_and_returns_error_tuple": {
+      "hash": "d88a5a1180620e5d5771745c9022e7cb5e536afaee1f6e43d709e196ec8a97dc",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_swallows_timeout_expired_too": {
+      "hash": "10fb5e4567276b539fde66c3102fbc00791a757af9f1ee7d2eb9d3055c844124",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_default_timeout_is_300": {
+      "hash": "ecffd2b19d6cc3f15b61660424a0a217ab94d1ad0589ff8d90383ebc0280648e",
+      "asserts": 1
+    },
+    "test_tool.py::test_check_prerequisites_always_returns_0_and_prints_ok": {
+      "hash": "1bae3c1d9915d7fa08ee5d501ba6d812c21aef8fe846533bbb4075d445f5dd6d",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_cluster_uses_given_cluster_name": {
+      "hash": "4b31e7bf6027b27f81d88ae54a33ae7dc9162f1d37a2e7cbeaf7ff831df1eaa2",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_cluster_defaults_to_todo_app_when_name_is_none": {
+      "hash": "828a6890d56f6aa3313235bf8c5a0c19bc9d545b47edfff330d8924997218570",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_cluster_defaults_to_todo_app_when_name_is_empty_string": {
+      "hash": "3b2502dac38a7786c81b57ec68cda4fd16014ee539f907f08d222e7580cecacf",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "e74020e5caabf8cdd3af4e32d1c73832d6dbc751668228b150b9cedd0fd8acef",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_check_prerequisites": {
+      "hash": "d28b3e45a46df5a8d4bccc43cd8c26dbebc9baefe071fe6bbb9b27e96a0a3006",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_create_cluster_with_defaults": {
+      "hash": "b067dc8cedc45d0ba3a24decc7dee44ecc580dfea8abaa10fdbbd4191a405cb4",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_create_cluster_with_explicit_args": {
+      "hash": "bbe6fc19793b80de6c536b912cf2a81e13024b21e6b2a47db869e493bb812d1a",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_rejects_unknown_command": {
+      "hash": "e9859852ed32334f95c85f4d4c98abe523c0224b2e9dae39518138f7ea7d93e1",
+      "asserts": 2
+    },
+    "test_tool.py::test_script_runs_as_main_entrypoint_via_subprocess": {
+      "hash": "55e19850a718b349dff793367e8f0df795e60059021348b9d10c92add5748373",
+      "asserts": 2
+    },
+    "test_tool.py::test_script_with_no_args_via_subprocess_prints_help_and_exits_1": {
+      "hash": "4190645466405907b5ec9fbb7a95e0627675b4a9c554b8d152d85d576b8c2e02",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 97.0
+}

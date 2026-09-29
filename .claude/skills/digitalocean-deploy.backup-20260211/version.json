@@ -1,0 +1,653 @@
+{
+  "version": "1.1.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260926-133200",
+      "reason": "Initial gate onboarding: added genuine test suite (97 tests), 99pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_prerequisites_all_pass",
+        "test_tool.py::test_check_prerequisites_doctl_missing",
+        "test_tool.py::test_check_prerequisites_no_ssh_keys_after_header_is_an_issue",
+        "test_tool.py::test_check_prerequisites_not_authenticated",
+        "test_tool.py::test_check_prerequisites_regions_and_sizes_failure_is_silent",
+        "test_tool.py::test_check_prerequisites_shows_up_to_three_keys",
+        "test_tool.py::test_check_prerequisites_ssh_key_command_failure_is_only_a_warning",
+        "test_tool.py::test_cleanup_force_failure_keeps_info_file",
+        "test_tool.py::test_cleanup_force_success_removes_info_file",
+        "test_tool.py::test_cleanup_no_info_file_returns_0",
+        "test_tool.py::test_cleanup_prompt_accepted_case_insensitive_yes_proceeds",
+        "test_tool.py::test_cleanup_prompt_declined_cancels_without_deleting",
+        "test_tool.py::test_cleanup_prompt_short_y_is_rejected_unlike_sibling_skill",
+        "test_tool.py::test_configure_monitoring_alert_email_defaults_when_not_given",
+        "test_tool.py::test_configure_monitoring_all_alerts_fail_but_function_still_returns_0",
+        "test_tool.py::test_configure_monitoring_already_enabled_no_alerts",
+        "test_tool.py::test_configure_monitoring_cpu_alert_created",
+        "test_tool.py::test_configure_monitoring_disk_alert_created",
+        "test_tool.py::test_configure_monitoring_features_check_failure_still_says_not_enabled",
+        "test_tool.py::test_configure_monitoring_memory_alert_created",
+        "test_tool.py::test_configure_monitoring_no_info_file_returns_1",
+        "test_tool.py::test_configure_monitoring_not_enabled_warns_but_returns_0",
+        "test_tool.py::test_create_droplet_all_optional_flags_included_in_command",
+        "test_tool.py::test_create_droplet_blank_data_row_crashes_with_indexerror",
+        "test_tool.py::test_create_droplet_creation_failure_returns_1",
+        "test_tool.py::test_create_droplet_header_only_output_skips_info_file",
+        "test_tool.py::test_create_droplet_no_ssh_keys_returns_1",
+        "test_tool.py::test_create_droplet_ssh_key_command_succeeds_but_empty_output_returns_1",
+        "test_tool.py::test_create_droplet_success_writes_info_file_without_ip",
+        "test_tool.py::test_deploy_app_docker_missing_image_uses_echo_placeholder_but_reports_success",
+        "test_tool.py::test_deploy_app_docker_run_failure_returns_1",
+        "test_tool.py::test_deploy_app_docker_success",
+        "test_tool.py::test_deploy_app_git_command_failure_returns_1",
+        "test_tool.py::test_deploy_app_git_missing_repo_is_not_validated_bug",
+        "test_tool.py::test_deploy_app_git_no_deploy_script_uses_echo_placeholder",
+        "test_tool.py::test_deploy_app_git_success_with_deploy_script",
+        "test_tool.py::test_deploy_app_ip_lookup_failure_returns_1",
+        "test_tool.py::test_deploy_app_no_info_file_returns_1",
+        "test_tool.py::test_deploy_app_scp_copy_failure_returns_1",
+        "test_tool.py::test_deploy_app_scp_deploy_script_failure_returns_1",
+        "test_tool.py::test_deploy_app_scp_missing_source_returns_1",
+        "test_tool.py::test_deploy_app_scp_success_with_deploy_script",
+        "test_tool.py::test_deploy_app_scp_without_deploy_script_still_succeeds",
+        "test_tool.py::test_deploy_app_unknown_method_falls_through_and_reports_success_bug",
+        "test_tool.py::test_health_check_droplet_not_active_returns_1",
+        "test_tool.py::test_health_check_full_pass_ssh_and_http_ok",
+        "test_tool.py::test_health_check_http_endpoint_command_failure_reports_not_responding",
+        "test_tool.py::test_health_check_http_endpoint_non_success_code_warns",
+        "test_tool.py::test_health_check_no_info_file_returns_1",
+        "test_tool.py::test_health_check_no_port_skips_http_check",
+        "test_tool.py::test_health_check_ssh_failure_is_only_a_warning_rc_still_0",
+        "test_tool.py::test_health_check_status_command_failure_returns_1",
+        "test_tool.py::test_health_check_status_line_without_ip_skips_ssh_check",
+        "test_tool.py::test_main_create_droplet_missing_name_exits",
+        "test_tool.py::test_main_deploy_app_invalid_method_choice_exits",
+        "test_tool.py::test_main_deploy_app_missing_method_exits",
+        "test_tool.py::test_main_dispatches_check_prerequisites",
+        "test_tool.py::test_main_dispatches_cleanup_default_force_false",
+        "test_tool.py::test_main_dispatches_cleanup_force_flag",
+        "test_tool.py::test_main_dispatches_configure_monitoring",
+        "test_tool.py::test_main_dispatches_create_droplet_with_all_flags",
+        "test_tool.py::test_main_dispatches_create_droplet_with_defaults",
+        "test_tool.py::test_main_dispatches_deploy_app_default_port_80",
+        "test_tool.py::test_main_dispatches_deploy_app_with_options",
+        "test_tool.py::test_main_dispatches_health_check_no_port_defaults_none",
+        "test_tool.py::test_main_dispatches_health_check_with_port",
+        "test_tool.py::test_main_dispatches_test_subcommand",
+        "test_tool.py::test_main_dispatches_troubleshoot",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_print_error_prints_message",
+        "test_tool.py::test_print_header_prints_arrow",
+        "test_tool.py::test_print_info_prints_message",
+        "test_tool.py::test_print_success_prints_message",
+        "test_tool.py::test_print_warning_prints_message",
+        "test_tool.py::test_run_command_generic_exception_returns_1_with_str",
+        "test_tool.py::test_run_command_nonzero_exit",
+        "test_tool.py::test_run_command_success",
+        "test_tool.py::test_run_command_timeout_returns_1_with_message",
+        "test_tool.py::test_run_tests_all_pass",
+        "test_tool.py::test_run_tests_auth_failure_fails_test2_only",
+        "test_tool.py::test_run_tests_doctl_missing_fails_test1_only",
+        "test_tool.py::test_run_tests_image_query_fails_test4_only_no_issue_listed",
+        "test_tool.py::test_run_tests_monitoring_api_failure_never_fails_overall",
+        "test_tool.py::test_run_tests_no_ssh_keys_fails_test3_only",
+        "test_tool.py::test_run_tests_regions_or_sizes_fail_test5_only",
+        "test_tool.py::test_subprocess_check_prerequisites_smoke",
+        "test_tool.py::test_subprocess_no_args_exits_nonzero",
+        "test_tool.py::test_troubleshoot_active_status_with_no_ip_token_crashes_with_indexerror",
+        "test_tool.py::test_troubleshoot_auth_failure_reports_issue_and_fix",
+        "test_tool.py::test_troubleshoot_droplet_get_failure_is_silently_skipped",
+        "test_tool.py::test_troubleshoot_droplet_not_active_reports_issue",
+        "test_tool.py::test_troubleshoot_monitoring_check_failure_still_reports_ok_bug",
+        "test_tool.py::test_troubleshoot_monitoring_not_enabled_reports_issue",
+        "test_tool.py::test_troubleshoot_no_info_file_only_checks_auth_and_ssh",
+        "test_tool.py::test_troubleshoot_no_ssh_keys_reports_issue_and_fix",
+        "test_tool.py::test_troubleshoot_ssh_connection_fails_reports_issue",
+        "test_tool.py::test_troubleshoot_with_info_file_fully_healthy"
+      ],
+      "new_tests_added": []
+    },
+    {
+      "version": "1.1.0",
+      "date": "20260926-145943",
+      "reason": "Fixed 6 real bugs in tool.py (unrecognized deploy method silently succeeding, missing --repo validation, IndexError on blank droplet-list/status output in create_droplet and troubleshoot, monitoring-check code!=0 misreported as definitive OK/not-enabled in both troubleshoot and configure_monitoring, missing else branch for failed droplet-status query in troubleshoot, configure_monitoring never returning 1 for alert-creation failures).",
+      "baseline_tests_verified": [
+        "test_tool.py::test_check_prerequisites_all_pass",
+        "test_tool.py::test_check_prerequisites_doctl_missing",
+        "test_tool.py::test_check_prerequisites_no_ssh_keys_after_header_is_an_issue",
+        "test_tool.py::test_check_prerequisites_not_authenticated",
+        "test_tool.py::test_check_prerequisites_regions_and_sizes_failure_is_silent",
+        "test_tool.py::test_check_prerequisites_shows_up_to_three_keys",
+        "test_tool.py::test_check_prerequisites_ssh_key_command_failure_is_only_a_warning",
+        "test_tool.py::test_cleanup_force_failure_keeps_info_file",
+        "test_tool.py::test_cleanup_force_success_removes_info_file",
+        "test_tool.py::test_cleanup_no_info_file_returns_0",
+        "test_tool.py::test_cleanup_prompt_accepted_case_insensitive_yes_proceeds",
+        "test_tool.py::test_cleanup_prompt_declined_cancels_without_deleting",
+        "test_tool.py::test_cleanup_prompt_short_y_is_rejected_unlike_sibling_skill",
+        "test_tool.py::test_configure_monitoring_alert_email_defaults_when_not_given",
+        "test_tool.py::test_configure_monitoring_all_alerts_fail_but_function_still_returns_0",
+        "test_tool.py::test_configure_monitoring_already_enabled_no_alerts",
+        "test_tool.py::test_configure_monitoring_cpu_alert_created",
+        "test_tool.py::test_configure_monitoring_disk_alert_created",
+        "test_tool.py::test_configure_monitoring_features_check_failure_still_says_not_enabled",
+        "test_tool.py::test_configure_monitoring_memory_alert_created",
+        "test_tool.py::test_configure_monitoring_no_info_file_returns_1",
+        "test_tool.py::test_configure_monitoring_not_enabled_warns_but_returns_0",
+        "test_tool.py::test_configure_monitoring_one_alert_fails_others_succeed_returns_1",
+        "test_tool.py::test_create_droplet_all_optional_flags_included_in_command",
+        "test_tool.py::test_create_droplet_blank_data_row_crashes_with_indexerror",
+        "test_tool.py::test_create_droplet_creation_failure_returns_1",
+        "test_tool.py::test_create_droplet_header_only_output_skips_info_file",
+        "test_tool.py::test_create_droplet_no_ssh_keys_returns_1",
+        "test_tool.py::test_create_droplet_ssh_key_command_succeeds_but_empty_output_returns_1",
+        "test_tool.py::test_create_droplet_success_writes_info_file_without_ip",
+        "test_tool.py::test_deploy_app_docker_missing_image_uses_echo_placeholder_but_reports_success",
+        "test_tool.py::test_deploy_app_docker_run_failure_returns_1",
+        "test_tool.py::test_deploy_app_docker_success",
+        "test_tool.py::test_deploy_app_git_command_failure_returns_1",
+        "test_tool.py::test_deploy_app_git_missing_repo_is_not_validated_bug",
+        "test_tool.py::test_deploy_app_git_no_deploy_script_uses_echo_placeholder",
+        "test_tool.py::test_deploy_app_git_success_with_deploy_script",
+        "test_tool.py::test_deploy_app_ip_lookup_failure_returns_1",
+        "test_tool.py::test_deploy_app_no_info_file_returns_1",
+        "test_tool.py::test_deploy_app_scp_copy_failure_returns_1",
+        "test_tool.py::test_deploy_app_scp_deploy_script_failure_returns_1",
+        "test_tool.py::test_deploy_app_scp_missing_source_returns_1",
+        "test_tool.py::test_deploy_app_scp_success_with_deploy_script",
+        "test_tool.py::test_deploy_app_scp_without_deploy_script_still_succeeds",
+        "test_tool.py::test_deploy_app_unknown_method_falls_through_and_reports_success_bug",
+        "test_tool.py::test_health_check_droplet_not_active_returns_1",
+        "test_tool.py::test_health_check_full_pass_ssh_and_http_ok",
+        "test_tool.py::test_health_check_http_endpoint_command_failure_reports_not_responding",
+        "test_tool.py::test_health_check_http_endpoint_non_success_code_warns",
+        "test_tool.py::test_health_check_no_info_file_returns_1",
+        "test_tool.py::test_health_check_no_port_skips_http_check",
+        "test_tool.py::test_health_check_ssh_failure_is_only_a_warning_rc_still_0",
+        "test_tool.py::test_health_check_status_command_failure_returns_1",
+        "test_tool.py::test_health_check_status_line_without_ip_skips_ssh_check",
+        "test_tool.py::test_main_create_droplet_missing_name_exits",
+        "test_tool.py::test_main_deploy_app_invalid_method_choice_exits",
+        "test_tool.py::test_main_deploy_app_missing_method_exits",
+        "test_tool.py::test_main_dispatches_check_prerequisites",
+        "test_tool.py::test_main_dispatches_cleanup_default_force_false",
+        "test_tool.py::test_main_dispatches_cleanup_force_flag",
+        "test_tool.py::test_main_dispatches_configure_monitoring",
+        "test_tool.py::test_main_dispatches_create_droplet_with_all_flags",
+        "test_tool.py::test_main_dispatches_create_droplet_with_defaults",
+        "test_tool.py::test_main_dispatches_deploy_app_default_port_80",
+        "test_tool.py::test_main_dispatches_deploy_app_with_options",
+        "test_tool.py::test_main_dispatches_health_check_no_port_defaults_none",
+        "test_tool.py::test_main_dispatches_health_check_with_port",
+        "test_tool.py::test_main_dispatches_test_subcommand",
+        "test_tool.py::test_main_dispatches_troubleshoot",
+        "test_tool.py::test_main_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_print_error_prints_message",
+        "test_tool.py::test_print_header_prints_arrow",
+        "test_tool.py::test_print_info_prints_message",
+        "test_tool.py::test_print_success_prints_message",
+        "test_tool.py::test_print_warning_prints_message",
+        "test_tool.py::test_run_command_generic_exception_returns_1_with_str",
+        "test_tool.py::test_run_command_nonzero_exit",
+        "test_tool.py::test_run_command_success",
+        "test_tool.py::test_run_command_timeout_returns_1_with_message",
+        "test_tool.py::test_run_tests_all_pass",
+        "test_tool.py::test_run_tests_auth_failure_fails_test2_only",
+        "test_tool.py::test_run_tests_doctl_missing_fails_test1_only",
+        "test_tool.py::test_run_tests_image_query_fails_test4_only_no_issue_listed",
+        "test_tool.py::test_run_tests_monitoring_api_failure_never_fails_overall",
+        "test_tool.py::test_run_tests_no_ssh_keys_fails_test3_only",
+        "test_tool.py::test_run_tests_regions_or_sizes_fail_test5_only",
+        "test_tool.py::test_subprocess_check_prerequisites_smoke",
+        "test_tool.py::test_subprocess_no_args_exits_nonzero",
+        "test_tool.py::test_troubleshoot_active_status_with_no_ip_token_crashes_with_indexerror",
+        "test_tool.py::test_troubleshoot_auth_failure_reports_issue_and_fix",
+        "test_tool.py::test_troubleshoot_droplet_get_failure_is_silently_skipped",
+        "test_tool.py::test_troubleshoot_droplet_not_active_reports_issue",
+        "test_tool.py::test_troubleshoot_monitoring_check_failure_still_reports_ok_bug",
+        "test_tool.py::test_troubleshoot_monitoring_not_enabled_reports_issue",
+        "test_tool.py::test_troubleshoot_no_info_file_only_checks_auth_and_ssh",
+        "test_tool.py::test_troubleshoot_no_ssh_keys_reports_issue_and_fix",
+        "test_tool.py::test_troubleshoot_ssh_connection_fails_reports_issue",
+        "test_tool.py::test_troubleshoot_with_info_file_fully_healthy"
+      ],
+      "new_tests_added": [],
+      "acknowledged_test_changes": {
+        "test_tool.py::test_create_droplet_blank_data_row_crashes_with_indexerror": {
+          "reason": "Fixed 6 real bugs in tool.py (unrecognized deploy method silently succeeding, missing --repo validation, IndexError on blank droplet-list/status output in create_droplet and troubleshoot, monitoring-check code!=0 misreported as definitive OK/not-enabled in both troubleshoot and configure_monitoring, missing else branch for failed droplet-status query in troubleshoot, configure_monitoring never returning 1 for alert-creation failures); updated tests to assert corrected behavior instead of documenting the old bugs.",
+          "asserts_before": 0,
+          "asserts_after": 4
+        },
+        "test_tool.py::test_deploy_app_git_missing_repo_is_not_validated_bug": {
+          "reason": "Fixed 6 real bugs in tool.py (unrecognized deploy method silently succeeding, missing --repo validation, IndexError on blank droplet-list/status output in create_droplet and troubleshoot, monitoring-check code!=0 misreported as definitive OK/not-enabled in both troubleshoot and configure_monitoring, missing else branch for failed droplet-status query in troubleshoot, configure_monitoring never returning 1 for alert-creation failures); updated tests to assert corrected behavior instead of documenting the old bugs.",
+          "asserts_before": 2,
+          "asserts_after": 3
+        },
+        "test_tool.py::test_deploy_app_unknown_method_falls_through_and_reports_success_bug": {
+          "reason": "Fixed 6 real bugs in tool.py (unrecognized deploy method silently succeeding, missing --repo validation, IndexError on blank droplet-list/status output in create_droplet and troubleshoot, monitoring-check code!=0 misreported as definitive OK/not-enabled in both troubleshoot and configure_monitoring, missing else branch for failed droplet-status query in troubleshoot, configure_monitoring never returning 1 for alert-creation failures); updated tests to assert corrected behavior instead of documenting the old bugs.",
+          "asserts_before": 2,
+          "asserts_after": 4
+        },
+        "test_tool.py::test_configure_monitoring_features_check_failure_still_says_not_enabled": {
+          "reason": "Fixed 6 real bugs in tool.py (unrecognized deploy method silently succeeding, missing --repo validation, IndexError on blank droplet-list/status output in create_droplet and troubleshoot, monitoring-check code!=0 misreported as definitive OK/not-enabled in both troubleshoot and configure_monitoring, missing else branch for failed droplet-status query in troubleshoot, configure_monitoring never returning 1 for alert-creation failures); updated tests to assert corrected behavior instead of documenting the old bugs.",
+          "asserts_before": 2,
+          "asserts_after": 4
+        },
+        "test_tool.py::test_configure_monitoring_all_alerts_fail_but_function_still_returns_0": {
+          "reason": "Fixed 6 real bugs in tool.py (unrecognized deploy method silently succeeding, missing --repo validation, IndexError on blank droplet-list/status output in create_droplet and troubleshoot, monitoring-check code!=0 misreported as definitive OK/not-enabled in both troubleshoot and configure_monitoring, missing else branch for failed droplet-status query in troubleshoot, configure_monitoring never returning 1 for alert-creation failures); updated tests to assert corrected behavior instead of documenting the old bugs.",
+          "asserts_before": 5,
+          "asserts_after": 6
+        },
+        "test_tool.py::test_troubleshoot_droplet_get_failure_is_silently_skipped": {
+          "reason": "Fixed 6 real bugs in tool.py (unrecognized deploy method silently succeeding, missing --repo validation, IndexError on blank droplet-list/status output in create_droplet and troubleshoot, monitoring-check code!=0 misreported as definitive OK/not-enabled in both troubleshoot and configure_monitoring, missing else branch for failed droplet-status query in troubleshoot, configure_monitoring never returning 1 for alert-creation failures); updated tests to assert corrected behavior instead of documenting the old bugs.",
+          "asserts_before": 3,
+          "asserts_after": 6
+        },
+        "test_tool.py::test_troubleshoot_monitoring_check_failure_still_reports_ok_bug": {
+          "reason": "Fixed 6 real bugs in tool.py (unrecognized deploy method silently succeeding, missing --repo validation, IndexError on blank droplet-list/status output in create_droplet and troubleshoot, monitoring-check code!=0 misreported as definitive OK/not-enabled in both troubleshoot and configure_monitoring, missing else branch for failed droplet-status query in troubleshoot, configure_monitoring never returning 1 for alert-creation failures); updated tests to assert corrected behavior instead of documenting the old bugs.",
+          "asserts_before": 2,
+          "asserts_after": 3
+        },
+        "test_tool.py::test_troubleshoot_active_status_with_no_ip_token_crashes_with_indexerror": {
+          "reason": "Fixed 6 real bugs in tool.py (unrecognized deploy method silently succeeding, missing --repo validation, IndexError on blank droplet-list/status output in create_droplet and troubleshoot, monitoring-check code!=0 misreported as definitive OK/not-enabled in both troubleshoot and configure_monitoring, missing else branch for failed droplet-status query in troubleshoot, configure_monitoring never returning 1 for alert-creation failures); updated tests to assert corrected behavior instead of documenting the old bugs.",
+          "asserts_before": 0,
+          "asserts_after": 4
+        }
+      }
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_prints_message": {
+      "hash": "0530edc4a412007c23e1e36b3ca1a36c7c89a9fed0344a49f282c8e69a907ce6",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_error_prints_message": {
+      "hash": "0bdca97347e2e4969a2983e4b50cb235ce37b6ace6bc124a1c64199fd1fe9fe1",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_warning_prints_message": {
+      "hash": "5903c4aaed27a09f099c82cdc88ac7148536a830f3dfd948010a2cfa7b652b69",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_info_prints_message": {
+      "hash": "cc90a58ba0ed7a6c0e14668c293e2cb9f793e342ccfdb8855bb48442c90d540b",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_prints_arrow": {
+      "hash": "20460a6b8d6bb511b91ccbb2bc71a0a1cece87008cc639b89fea48f0a23a2c70",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_success": {
+      "hash": "7de05ffb38dda333d194f97437d90799ff5df8673fb6c93d7dd7e6c53539db5c",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_nonzero_exit": {
+      "hash": "a759e0a80e675fb93dae2bdfb4106b1ed850ab6e4c116c7ab3ab7ab67dd7851a",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_timeout_returns_1_with_message": {
+      "hash": "aa674b0af7ab355cc8ddf158ca004f21e46e46e4fb00267f3e714a7859bdc0da",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_command_generic_exception_returns_1_with_str": {
+      "hash": "926cc8a4ae89de0ea7e132678ef3f09c6e2fa94b4cb82dd054491712c4f619a6",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_all_pass": {
+      "hash": "4e7945295dc9163fdb11cb2875cb47d3b92c15afc3e555590885b847dac74d74",
+      "asserts": 10
+    },
+    "test_tool.py::test_check_prerequisites_doctl_missing": {
+      "hash": "272ca7eb5340d78744f51b91a8a4b3edb198dbe6b16bb7c54fc54e2a84870f22",
+      "asserts": 4
+    },
+    "test_tool.py::test_check_prerequisites_not_authenticated": {
+      "hash": "e32870f0b2a737aef951928e52210a3ad507f084c2c0f0697460b97ce1c9b4f2",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_no_ssh_keys_after_header_is_an_issue": {
+      "hash": "ec9e1c1fcf52833eb6208dc7a88854bff212f9858711dcf7d8e550a4c7529827",
+      "asserts": 3
+    },
+    "test_tool.py::test_check_prerequisites_ssh_key_command_failure_is_only_a_warning": {
+      "hash": "50d6cff1a16ca3d5cf925eb67fdd95450b970d823398475c0746beb40756003a",
+      "asserts": 2
+    },
+    "test_tool.py::test_check_prerequisites_shows_up_to_three_keys": {
+      "hash": "4e3af4193b5afdc415b3f0db0ecec3b676f38926f46109cca6cf09a73af29a2b",
+      "asserts": 4
+    },
+    "test_tool.py::test_check_prerequisites_regions_and_sizes_failure_is_silent": {
+      "hash": "82884d3fb18580954b6066265c2636902d178995e8d79ea7b7b4d71c8e645f7f",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_droplet_no_ssh_keys_returns_1": {
+      "hash": "3695792b5844bfedddf936f0e690c6707e0cd8ed35e467d030fcbbbe7e06e011",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_droplet_ssh_key_command_succeeds_but_empty_output_returns_1": {
+      "hash": "b809c49678bd60efd2c3c053057631bb6c19646ce8887d78710a91b769044019",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_droplet_success_writes_info_file_without_ip": {
+      "hash": "ee5aaaa62c51ae73ee2a14a8c294cfc0fbb0e19169327850962546c00d9fd3a3",
+      "asserts": 15
+    },
+    "test_tool.py::test_create_droplet_all_optional_flags_included_in_command": {
+      "hash": "198246060501f23cbff45aff2e6f86d60236a9c02b06f57d97f1f036019f0c8e",
+      "asserts": 11
+    },
+    "test_tool.py::test_create_droplet_creation_failure_returns_1": {
+      "hash": "80f33622b776b0a65a56e5fd12590f2d126c29ef9235d14373271ace4b3692c8",
+      "asserts": 4
+    },
+    "test_tool.py::test_create_droplet_header_only_output_skips_info_file": {
+      "hash": "19bc89b34eab72bb332fe6c70c4a1a5551dc25d9ae32d97617cf6b1b2e801bed",
+      "asserts": 3
+    },
+    "test_tool.py::test_create_droplet_blank_data_row_crashes_with_indexerror": {
+      "hash": "adad532cf6b084e54e5ac557eebb9ab5441470c0efa378ef021119e01952535b",
+      "asserts": 4
+    },
+    "test_tool.py::test_deploy_app_no_info_file_returns_1": {
+      "hash": "d3aa9f9a4cb625af3d57cb27a4bbc50346c6cb8bfcefa5f583702708285fd1ad",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_ip_lookup_failure_returns_1": {
+      "hash": "0a952c82e38751c158506c2b0a8b768f2ff085b0d2a7efab53eb7d22c13b37b0",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_git_success_with_deploy_script": {
+      "hash": "76b193f250a1e7b918c5e7076455d2dcfd1626b7aa5b6c00b689c920a5d834b6",
+      "asserts": 5
+    },
+    "test_tool.py::test_deploy_app_git_no_deploy_script_uses_echo_placeholder": {
+      "hash": "6d2081231c622a4e4d71a819a495e87d7b6abad704181639c0cab1e3442af193",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_git_missing_repo_is_not_validated_bug": {
+      "hash": "82cc8d5f49611029cbe691f41ab18797576e048a9cb4918b5780332f1a8bb030",
+      "asserts": 3
+    },
+    "test_tool.py::test_deploy_app_git_command_failure_returns_1": {
+      "hash": "efa3ed9fd1c24e1bec517f318fb3ccac92ef6416aaa19d884bf0e5aab3c3dc55",
+      "asserts": 3
+    },
+    "test_tool.py::test_deploy_app_docker_success": {
+      "hash": "e09938664c61b5793b5c809f122bad44b7caeb2b2b350a69af11f6962c22af1e",
+      "asserts": 3
+    },
+    "test_tool.py::test_deploy_app_docker_missing_image_uses_echo_placeholder_but_reports_success": {
+      "hash": "f81b41e49f422cc96cc639f09d15de5d12be2dc91b4269564daf84e032bcffc2",
+      "asserts": 3
+    },
+    "test_tool.py::test_deploy_app_docker_run_failure_returns_1": {
+      "hash": "d1d822f61e3d7e20ec89bd5a032e225ca6c18e210677915c5dc5c11a9caddfe2",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_scp_missing_source_returns_1": {
+      "hash": "70abb5aff18e3cc10162c052363c0798c9024bc55bff520168c8fc8388f3bc8b",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_scp_success_with_deploy_script": {
+      "hash": "b21f4c2d7fc8ae1d363dd23bb826cb40af755dff357e8a56c82442a99a3a488f",
+      "asserts": 3
+    },
+    "test_tool.py::test_deploy_app_scp_without_deploy_script_still_succeeds": {
+      "hash": "0ee4de6d27705e1c1eacdf5f3f4dff93d444327016b482c7d3afa8339a50d90c",
+      "asserts": 3
+    },
+    "test_tool.py::test_deploy_app_scp_copy_failure_returns_1": {
+      "hash": "bf67eebcfc59e6c68fe8394555f3c01b054428954700e82efa3e9f2d848743cc",
+      "asserts": 3
+    },
+    "test_tool.py::test_deploy_app_scp_deploy_script_failure_returns_1": {
+      "hash": "a88e961ca94e349721d07956393e762adb2bfd39928b5e6568dee0476a1e6cb8",
+      "asserts": 2
+    },
+    "test_tool.py::test_deploy_app_unknown_method_falls_through_and_reports_success_bug": {
+      "hash": "0ea93f47d154f6c85049646dcebe0b0805c9889892440874d72003f9a6d1bef9",
+      "asserts": 4
+    },
+    "test_tool.py::test_configure_monitoring_no_info_file_returns_1": {
+      "hash": "5b6a1b009430f8028a6f6780b5946211ef1103a3e9133d3ff478df0741853ff1",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_monitoring_already_enabled_no_alerts": {
+      "hash": "cee89f4765d6b827b90a8df734071425505bc3864dc249a693a6bb725a40bfa9",
+      "asserts": 3
+    },
+    "test_tool.py::test_configure_monitoring_not_enabled_warns_but_returns_0": {
+      "hash": "3b8568ec59afca28a8f0ead99d1b063a007458ed4606ea517f91ff0ef726069a",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_monitoring_features_check_failure_still_says_not_enabled": {
+      "hash": "f2015b7f8df4a92e79911fd7bf330ca15e7ccc54781294742478f8881cd56e7e",
+      "asserts": 4
+    },
+    "test_tool.py::test_configure_monitoring_cpu_alert_created": {
+      "hash": "21e8e32b68ba659eb1f039860e949055b9945462bfe4ae868271a61234fcdc94",
+      "asserts": 3
+    },
+    "test_tool.py::test_configure_monitoring_memory_alert_created": {
+      "hash": "d758e40555cdfbce002d7d8eda0d2ef83daa9dd197624e48575ad6dac63c53c2",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_monitoring_disk_alert_created": {
+      "hash": "5af0cba0e8aa5f808eabe556ad93230fcf47fbe62e28339f57e44a97ff12de01",
+      "asserts": 2
+    },
+    "test_tool.py::test_configure_monitoring_all_alerts_fail_but_function_still_returns_0": {
+      "hash": "3fa8b5189e4c78eee8ffd8139e007acb87b6eee7c5a11c5da677d4f24d422c0e",
+      "asserts": 6
+    },
+    "test_tool.py::test_configure_monitoring_one_alert_fails_others_succeed_returns_1": {
+      "hash": "9a78de77acaad05301536164e43c2168c49ba849bdd3d3a8f3df1ba23c35d066",
+      "asserts": 4
+    },
+    "test_tool.py::test_configure_monitoring_alert_email_defaults_when_not_given": {
+      "hash": "ea5956d9fb7d42927b849d8c2b9d6f2e943e9cdfa42d4ebf90e6dfa47f3db82a",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_no_info_file_returns_1": {
+      "hash": "02a2a7c092b90bf9cdca5a65031b3f0113bb6de921c48ccef6bf336a95d7e617",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_status_command_failure_returns_1": {
+      "hash": "b5feb5017de246cc7b51713231b3f514d7ca1037dc6ca30f55d4fe360bbc97f4",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_droplet_not_active_returns_1": {
+      "hash": "986226173b0bf3a9b7fa3d953c648c8dd598d02a60e8bc3992f10259c66585c3",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_full_pass_ssh_and_http_ok": {
+      "hash": "1fd55f341ee7b047d2c7e6e6c5ec6c03c4ee5f7b3311cea7a6588f0fbd505714",
+      "asserts": 5
+    },
+    "test_tool.py::test_health_check_ssh_failure_is_only_a_warning_rc_still_0": {
+      "hash": "751939ba00193a55ed2d830178cfc0f461ad13363965ef06c99905913b2c00d0",
+      "asserts": 4
+    },
+    "test_tool.py::test_health_check_status_line_without_ip_skips_ssh_check": {
+      "hash": "0f10467eb8180635ebb1cfc390b641af7661db7a0fd5ad80563fcbb211df1c86",
+      "asserts": 3
+    },
+    "test_tool.py::test_health_check_http_endpoint_non_success_code_warns": {
+      "hash": "1e6213942bae12cb48d968c62b0f9fd3734729e1054d4714b056439da9c458a1",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_http_endpoint_command_failure_reports_not_responding": {
+      "hash": "5fd5701a677b7c173960fcd3c95c0138a83954860e62af35790ecd8ca804f2ab",
+      "asserts": 2
+    },
+    "test_tool.py::test_health_check_no_port_skips_http_check": {
+      "hash": "c41aea7534cf16b3158da24f2e032d8d3cdfb2da06585a6f3f529f588adb5fca",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_all_pass": {
+      "hash": "c4cfa2dc186ae8038d652ac9718b4f27d611ddab938980319b92713819a0de94",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_doctl_missing_fails_test1_only": {
+      "hash": "b414dd43e601a073ec4be0ce41fb39831f606a683d59435c6e1d2d4c56759bfd",
+      "asserts": 4
+    },
+    "test_tool.py::test_run_tests_auth_failure_fails_test2_only": {
+      "hash": "706b3dd9ef5a25e8f3b0581ba62138cddd6b720ac6e07a58816993d82990dd27",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_no_ssh_keys_fails_test3_only": {
+      "hash": "cd84b0412c7f93f2ef66aefed7d963c383c99065314e4503bc0e16f83a38f3bb",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_image_query_fails_test4_only_no_issue_listed": {
+      "hash": "2a467b30dafd5d3bc69820361177a78b71f858fca6d12675d80debcfcd3dc277",
+      "asserts": 3
+    },
+    "test_tool.py::test_run_tests_regions_or_sizes_fail_test5_only": {
+      "hash": "963c337a48049a32b89a4bbb13e93ee127a13e1bd388f833418b179e327848bf",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_tests_monitoring_api_failure_never_fails_overall": {
+      "hash": "25f831a294d95b7f8bb3cfc6d37aab1291a7c32bbf7834a3b9a10e319a388e37",
+      "asserts": 3
+    },
+    "test_tool.py::test_troubleshoot_no_info_file_only_checks_auth_and_ssh": {
+      "hash": "d41208c219bb2697296dfea65bfadc974965dc409fb834170d0137cc308bc2eb",
+      "asserts": 5
+    },
+    "test_tool.py::test_troubleshoot_auth_failure_reports_issue_and_fix": {
+      "hash": "45d781ffda5843563daa847280055a8ee8cdb0bee46ce362a30c826cc6fbef7c",
+      "asserts": 4
+    },
+    "test_tool.py::test_troubleshoot_no_ssh_keys_reports_issue_and_fix": {
+      "hash": "5add0fe3fae4044dad53833cc5ada7d222652bd99dca755ee8e7561f0cd5cbb8",
+      "asserts": 3
+    },
+    "test_tool.py::test_troubleshoot_with_info_file_fully_healthy": {
+      "hash": "1f40d1144881f2c28f76580ba6a2b88af2468e63c51739584c8e516b4e786040",
+      "asserts": 5
+    },
+    "test_tool.py::test_troubleshoot_droplet_not_active_reports_issue": {
+      "hash": "eb2c136bfa4e10244647dceb1c0e05c407001032ddd10870494da990c66f99ab",
+      "asserts": 3
+    },
+    "test_tool.py::test_troubleshoot_ssh_connection_fails_reports_issue": {
+      "hash": "70047476252abde8bb0549f744096e575ea31ce427f99e8c155cc9a53e01605b",
+      "asserts": 3
+    },
+    "test_tool.py::test_troubleshoot_droplet_get_failure_is_silently_skipped": {
+      "hash": "b8cc7536edafa97a7608223482a8fc1dc18103af0a152658981d69841d9369c7",
+      "asserts": 6
+    },
+    "test_tool.py::test_troubleshoot_monitoring_check_failure_still_reports_ok_bug": {
+      "hash": "a6003cb3959a3bfc923a10348b5d38b087d303f8161521ba0f6c2f2080f5707b",
+      "asserts": 3
+    },
+    "test_tool.py::test_troubleshoot_active_status_with_no_ip_token_crashes_with_indexerror": {
+      "hash": "e51705e63c6451681228f1fe35b1e0a324e4be3fddfd542e10408d076dc76aa7",
+      "asserts": 4
+    },
+    "test_tool.py::test_troubleshoot_monitoring_not_enabled_reports_issue": {
+      "hash": "ab3ef44c0c5af1829d3edeca732e81266b5c99d128e1c2369e71923c643e0c1a",
+      "asserts": 3
+    },
+    "test_tool.py::test_cleanup_no_info_file_returns_0": {
+      "hash": "d9cf242dfd208d42141bf155813ef9c0c32c5ad1082223ae341ab2441317d712",
+      "asserts": 2
+    },
+    "test_tool.py::test_cleanup_force_success_removes_info_file": {
+      "hash": "58b444c4a2508c2873c7943c1f7b9148efaaea97fa1339b6855f406df2585bad",
+      "asserts": 4
+    },
+    "test_tool.py::test_cleanup_force_failure_keeps_info_file": {
+      "hash": "146a7c24af3bf9386a12ed46ac832e83ddfd08276beab97eb6bc17979bf65ff3",
+      "asserts": 4
+    },
+    "test_tool.py::test_cleanup_prompt_declined_cancels_without_deleting": {
+      "hash": "6cb4d2445e2fd91df133bc16e4753794c8a595f0f0425c9b6b745512e3483804",
+      "asserts": 3
+    },
+    "test_tool.py::test_cleanup_prompt_accepted_case_insensitive_yes_proceeds": {
+      "hash": "4404eea7a8c75eb627045aba81161d15ec1b2dd747b0285d83fd84d000cf38e2",
+      "asserts": 2
+    },
+    "test_tool.py::test_cleanup_prompt_short_y_is_rejected_unlike_sibling_skill": {
+      "hash": "b52429915bc93c1af7810cb92b15a53d7debd4dd5f6b50f05193a772278978c0",
+      "asserts": 3
+    },
+    "test_tool.py::test_main_no_command_prints_help_and_returns_1": {
+      "hash": "679c69a61ac17b6620c1a0f4ed2b9184d69a81b851c9c2b0ed426513e1c11d25",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_check_prerequisites": {
+      "hash": "bfc82afe7a43867dde78f40c25eff640c85325dd42ebdb966ab971f9e7b31c42",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_droplet_missing_name_exits": {
+      "hash": "87b736591b98f5c5cacbe619a31e367618965a467a604d8aebfc181140d10077",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_dispatches_create_droplet_with_defaults": {
+      "hash": "a96ff69d3aed1d28b40c2588da802f270d8ce662f05397d0d8d178220d3a650b",
+      "asserts": 10
+    },
+    "test_tool.py::test_main_dispatches_create_droplet_with_all_flags": {
+      "hash": "bc39a062a2a7d6aaf7f5ca759064b8d94f1ff69bac881025b83451809167cecc",
+      "asserts": 9
+    },
+    "test_tool.py::test_main_deploy_app_missing_method_exits": {
+      "hash": "f75e36e8f1f0389e069f790b3d4e7abd8330708bd3cf853a5a60c9b6ddfa5aa4",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_deploy_app_invalid_method_choice_exits": {
+      "hash": "f7f4638697241813df10edd5c0f7e7a755f0ab1c0c112f1a19e9e0b178db7569",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_dispatches_deploy_app_with_options": {
+      "hash": "a33b35d013b0510a3fcdd6b1e7d76865334a85d6a97e62774d12fb5deca8c126",
+      "asserts": 5
+    },
+    "test_tool.py::test_main_dispatches_deploy_app_default_port_80": {
+      "hash": "2c8f3c4cc698de0aee0667f4312d04316446f9ca95c2a2acd9f3f562f1820df2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_configure_monitoring": {
+      "hash": "e22d95225c97d3464e2536b739587b55816070eca66eac8921c3603b16a6ced1",
+      "asserts": 5
+    },
+    "test_tool.py::test_main_dispatches_health_check_with_port": {
+      "hash": "845049da283b7de255bfbae2a5ad9afc2d4107ac075e8ea44541f508d62f60cb",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_health_check_no_port_defaults_none": {
+      "hash": "cd452de648b7352254be14ee2f6a20186bf9f16e22df0c27569b3ae93e0637ae",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_test_subcommand": {
+      "hash": "98e85cacb9478397112652addcc4161db26a38e72d6ba5c5da716672047d1345",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_troubleshoot": {
+      "hash": "715dad4928bfc63a5584ac65335c43c37967321182c571a4040434ce0e70fb43",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_cleanup_default_force_false": {
+      "hash": "6f3f4170310c21fe060d3621384724ac04b504799ab2cffd8c1aecae9f1333d2",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_dispatches_cleanup_force_flag": {
+      "hash": "96a29aebe8a96e5b0c004d6110a5b3745df97024d1cbe05ec07fbc1f3d52782f",
+      "asserts": 2
+    },
+    "test_tool.py::test_subprocess_check_prerequisites_smoke": {
+      "hash": "7dc7a404b0d6639e70ad0e5b2338d09a75992ff073d236e785cb835871ffbbc6",
+      "asserts": 2
+    },
+    "test_tool.py::test_subprocess_no_args_exits_nonzero": {
+      "hash": "797e5042e0108b2d6fdf20be810b5d2957327ec0baf595d5f6246bccfc6dcf27",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 99.0
+}

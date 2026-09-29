@@ -1,0 +1,9 @@
+
+[2026-09-26 13:09:08]
+REJECTED promotion of 'backend-developer': the staged version is missing 2 file(s)/dir(s) that exist in the live skill: ['.coverage', '.pytest_cache']
+If this staged copy was hand-built by cherry-picking files instead of copying the whole live directory first, this is accidental content loss (this happened once already: grafana-expert/README.md, prometheus-monitoring/README.md, and prompt-analyzer/EXAMPLES.md were briefly lost this way before this check existed). If the removal is deliberate, re-run with allow_file_removal=True / --allow-file-removal.
+
+[2026-09-26 13:09:13]
+REJECTED promotion of 'backend-developer': 1 existing test(s) kept their name but their body changed -- this is exactly the 'weaker test, same name' pattern this gate exists to catch:
+  - test_tool.py::test_create_model_custom_fields_produce_exact_class_bodies: 8 assert(s) -> 9 assert(s)
+If this change is deliberate and justified, re-run with --acknowledge-test-change test_tool.py::test_create_model_custom_fields_produce_exact_class_bodies (or --acknowledge-test-change all) and --change-reason "...".

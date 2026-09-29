@@ -1,0 +1,281 @@
+{
+  "version": "1.0.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "20260920-161733",
+      "reason": "Initial gate onboarding: added genuine test suite (53 tests), 99pct coverage, 100pct mutation score",
+      "baseline_tests_verified": [
+        "test_tool.py::test_cli_subprocess_smoke_test_design_system_writes_real_file",
+        "test_tool.py::test_cli_subprocess_smoke_test_no_command_returns_nonzero",
+        "test_tool.py::test_cli_subprocess_smoke_test_security_review",
+        "test_tool.py::test_cost_estimate_default_medium_traffic",
+        "test_tool.py::test_cost_estimate_high_traffic_totals_correctly",
+        "test_tool.py::test_cost_estimate_low_traffic_totals_correctly",
+        "test_tool.py::test_cost_estimate_unknown_traffic_falls_back_to_medium",
+        "test_tool.py::test_create_adr_custom_number_and_status_zero_padded",
+        "test_tool.py::test_create_adr_default_number_and_status",
+        "test_tool.py::test_create_adr_uses_default_output_dir_when_none",
+        "test_tool.py::test_design_system_default_requirements_when_none",
+        "test_tool.py::test_design_system_lowercases_and_hyphenates_filename",
+        "test_tool.py::test_design_system_uses_default_output_dir_when_none",
+        "test_tool.py::test_design_system_writes_requirements_and_sections",
+        "test_tool.py::test_diagram_architecture_c4_default",
+        "test_tool.py::test_diagram_architecture_deployment",
+        "test_tool.py::test_diagram_architecture_prints_footer",
+        "test_tool.py::test_diagram_architecture_sequence",
+        "test_tool.py::test_evaluate_tradeoffs_is_case_insensitive",
+        "test_tool.py::test_evaluate_tradeoffs_known_choice_prints_all_options",
+        "test_tool.py::test_evaluate_tradeoffs_prints_provided_options",
+        "test_tool.py::test_evaluate_tradeoffs_unknown_choice_warns",
+        "test_tool.py::test_main_cost_estimate_end_to_end",
+        "test_tool.py::test_main_cost_estimate_rejects_invalid_traffic_choice",
+        "test_tool.py::test_main_create_adr_end_to_end",
+        "test_tool.py::test_main_create_adr_missing_required_title_exits",
+        "test_tool.py::test_main_design_system_end_to_end",
+        "test_tool.py::test_main_design_system_missing_required_name_exits",
+        "test_tool.py::test_main_diagram_architecture_end_to_end",
+        "test_tool.py::test_main_diagram_architecture_rejects_invalid_type_choice",
+        "test_tool.py::test_main_evaluate_tradeoffs_end_to_end",
+        "test_tool.py::test_main_evaluate_tradeoffs_missing_required_choice_exits",
+        "test_tool.py::test_main_plan_scaling_end_to_end",
+        "test_tool.py::test_main_security_review_end_to_end",
+        "test_tool.py::test_main_tech_stack_recommendation_end_to_end",
+        "test_tool.py::test_main_tech_stack_recommendation_missing_required_project_type_exits",
+        "test_tool.py::test_main_unknown_command_exits",
+        "test_tool.py::test_main_with_no_command_prints_help_and_returns_1",
+        "test_tool.py::test_plan_scaling_below_floor_uses_minimum_server_count",
+        "test_tool.py::test_plan_scaling_default_users",
+        "test_tool.py::test_plan_scaling_large_target_scales_beyond_minimum",
+        "test_tool.py::test_print_error_shows_message",
+        "test_tool.py::test_print_header_shows_arrow_and_message",
+        "test_tool.py::test_print_info_shows_message",
+        "test_tool.py::test_print_success_shows_message",
+        "test_tool.py::test_print_warning_shows_message",
+        "test_tool.py::test_run_command_exception_returns_default_error_tuple",
+        "test_tool.py::test_run_command_nonzero_exit_returns_real_code",
+        "test_tool.py::test_run_command_success_returns_real_stdout",
+        "test_tool.py::test_security_review_prints_all_sections",
+        "test_tool.py::test_tech_stack_recommendation_microservices",
+        "test_tool.py::test_tech_stack_recommendation_unknown_type_warns",
+        "test_tool.py::test_tech_stack_recommendation_web_app"
+      ],
+      "new_tests_added": []
+    }
+  ],
+  "test_baseline": {
+    "test_tool.py::test_print_success_shows_message": {
+      "hash": "1b7bc7b9bfc8918c9f3d2ade3d994eeb5a5368b21d0da769acd0ffbc09a713b3",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_error_shows_message": {
+      "hash": "c101742f88fd640609c4edb9716d095d2f5dd2fdb448d59be5bb160d006e395b",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_warning_shows_message": {
+      "hash": "da2210113a5d8017a6a2682d73594b725c270424e8e1d641420598d28d6e9396",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_info_shows_message": {
+      "hash": "c97364b0de32499030efd4790f82e19ce73b77fca1cede87b019d601be6952dd",
+      "asserts": 1
+    },
+    "test_tool.py::test_print_header_shows_arrow_and_message": {
+      "hash": "d53ca907aa36e5770b48f39fd5011845e180e2009fa5c1aba66c5b3816862495",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_success_returns_real_stdout": {
+      "hash": "35aeecf3d093d14c78a9e6d0992b303661bbc5db7597a95f1aa99d9a8f61318e",
+      "asserts": 2
+    },
+    "test_tool.py::test_run_command_nonzero_exit_returns_real_code": {
+      "hash": "fc8c400828e391bb192b3c0e156a83dae87a474d44bba03508da294d65c02d23",
+      "asserts": 1
+    },
+    "test_tool.py::test_run_command_exception_returns_default_error_tuple": {
+      "hash": "ee5682e3e9bd11e26950d876c7f11c8b30c0ee9cd3e417009434f1fe72211ffe",
+      "asserts": 1
+    },
+    "test_tool.py::test_design_system_writes_requirements_and_sections": {
+      "hash": "332c4b73947c718faab9c49f1fe49ac7ef768b5d38d205fd34e07b042a38dc3a",
+      "asserts": 7
+    },
+    "test_tool.py::test_design_system_default_requirements_when_none": {
+      "hash": "69aa950d249a498f767a65032fc8163460b37eb929878e31d6cbebcd85a12cb8",
+      "asserts": 1
+    },
+    "test_tool.py::test_design_system_lowercases_and_hyphenates_filename": {
+      "hash": "814df306ddd7e15ea83975237969f10ba60687cc16b0a5535988b57e2c05365b",
+      "asserts": 1
+    },
+    "test_tool.py::test_design_system_uses_default_output_dir_when_none": {
+      "hash": "54a6f99574800195c760a49d6293bb6430f09a826042ec09e56a60e345788557",
+      "asserts": 1
+    },
+    "test_tool.py::test_create_adr_default_number_and_status": {
+      "hash": "1134b8a1e9623a9a479229b0699867e2a58d4e3442c32f7af00aa3545cf358e9",
+      "asserts": 4
+    },
+    "test_tool.py::test_create_adr_custom_number_and_status_zero_padded": {
+      "hash": "1cf0d34f00246a44a55f131018f814506525653c383689266c900c70fe250235",
+      "asserts": 2
+    },
+    "test_tool.py::test_create_adr_uses_default_output_dir_when_none": {
+      "hash": "298f4618b43dd0a1b79f5cc20d40b50b586abdf8b7e99df77623e66217e3e80f",
+      "asserts": 1
+    },
+    "test_tool.py::test_diagram_architecture_c4_default": {
+      "hash": "ce8ca664ab670c29ddbad1f6087e45922e4275e7fe2fa615e8009a8e55d97bf7",
+      "asserts": 3
+    },
+    "test_tool.py::test_diagram_architecture_sequence": {
+      "hash": "45aaa4ec16b526e3315885665fd14fd74eceb0910eeda29a273519d7f8f7111a",
+      "asserts": 2
+    },
+    "test_tool.py::test_diagram_architecture_deployment": {
+      "hash": "8c02e1cb70b252017b883b204d004e39a95193c74bf9e15105b4b9b2e619ca19",
+      "asserts": 2
+    },
+    "test_tool.py::test_diagram_architecture_prints_footer": {
+      "hash": "d41dcf4a1798b1d75cc91ff5cc7e846d35f06c219d45bf36c8bf98fab31753c4",
+      "asserts": 2
+    },
+    "test_tool.py::test_evaluate_tradeoffs_known_choice_prints_all_options": {
+      "hash": "2e72663b7b9d8bfa86c7addb2d28ddf9b556dd12d09bb2355fcc1c19046a0617",
+      "asserts": 4
+    },
+    "test_tool.py::test_evaluate_tradeoffs_is_case_insensitive": {
+      "hash": "1a38320d0eeed6475822ee7d81bc278c952f58aefad18b3df7270360064a6df2",
+      "asserts": 1
+    },
+    "test_tool.py::test_evaluate_tradeoffs_unknown_choice_warns": {
+      "hash": "c1e8f507e3949249b04f55e31f56e358ee3cc320fcaf6d9970ec711c245f07c7",
+      "asserts": 1
+    },
+    "test_tool.py::test_evaluate_tradeoffs_prints_provided_options": {
+      "hash": "a4ec0d09d8ebb8bfef2a57b20b0cac8e9dd924dd6f1229e584a6862f86054e3f",
+      "asserts": 1
+    },
+    "test_tool.py::test_plan_scaling_default_users": {
+      "hash": "04f7e824a9be83416bcc8c981278cce1a34ab88004c2cd1871d92b5e5679331f",
+      "asserts": 6
+    },
+    "test_tool.py::test_plan_scaling_below_floor_uses_minimum_server_count": {
+      "hash": "e65672f4694ef1bfe013b90bfac9ed0f421f9683af8802381fa525d3583f5ed7",
+      "asserts": 2
+    },
+    "test_tool.py::test_plan_scaling_large_target_scales_beyond_minimum": {
+      "hash": "a2d69877edcff4e667a2b2ea4914d00cb425b24e0e49b81be713e9d173d42686",
+      "asserts": 2
+    },
+    "test_tool.py::test_security_review_prints_all_sections": {
+      "hash": "2257d2719508c1d2d95a5c0f46daee4a3ad1fbd807cfbfd04c031e0cdc9fa9a7",
+      "asserts": 4
+    },
+    "test_tool.py::test_cost_estimate_default_medium_traffic": {
+      "hash": "4e43f0ac453e10fad7883e4aaa79eecbf152bffdcb9e891c4d9d8a55d9afb680",
+      "asserts": 4
+    },
+    "test_tool.py::test_cost_estimate_low_traffic_totals_correctly": {
+      "hash": "5ca5a589fdaa68b9aa1a6fd92b7ee1a1b9963816e909440411c97304b6e51a14",
+      "asserts": 1
+    },
+    "test_tool.py::test_cost_estimate_high_traffic_totals_correctly": {
+      "hash": "94164ff6ad14187e4fe4101a1f9f58da8fcd16a766e526cc07f492f840df3440",
+      "asserts": 1
+    },
+    "test_tool.py::test_cost_estimate_unknown_traffic_falls_back_to_medium": {
+      "hash": "d5df4d6dca4a0b839ad554e9dc38b7fc407563d8b3cb07257e76ad956cd395f0",
+      "asserts": 1
+    },
+    "test_tool.py::test_tech_stack_recommendation_web_app": {
+      "hash": "89c08ea5a46411b821174f4582871f3999b7fd1df85427a6dfd0a82290aa87de",
+      "asserts": 4
+    },
+    "test_tool.py::test_tech_stack_recommendation_microservices": {
+      "hash": "d903e2ca7ef2bcef50780774513941cfa8698287218c9eb61f12070e63dc7ba5",
+      "asserts": 3
+    },
+    "test_tool.py::test_tech_stack_recommendation_unknown_type_warns": {
+      "hash": "a5ee7e2883a75d65550c87bcb16c8e8f7f6255bd154df3f9acd7a108ec094375",
+      "asserts": 1
+    },
+    "test_tool.py::test_main_with_no_command_prints_help_and_returns_1": {
+      "hash": "c7e1da23a19820f7a0b7faedb3933324d42236df7ddf5a74ca2d306e87ca0727",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_design_system_end_to_end": {
+      "hash": "c617bc6c664ea8d1db5588487ad5598537ccc7d90a3db8b4c44dd843bec090cb",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_adr_end_to_end": {
+      "hash": "8e75f048efdd04c74191f7a116474cf7df99a65d52c4b30fdf2a7fbc4aebddbf",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_diagram_architecture_end_to_end": {
+      "hash": "24a2164bf77f0640c631be0bd3bf9eb062b73a0933d263cbff12289b09d0e560",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_evaluate_tradeoffs_end_to_end": {
+      "hash": "b36677bac2b8ca2d9c1df29f2d21e4f2871ebace4033e467abb486a0358ca1ec",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_plan_scaling_end_to_end": {
+      "hash": "4cb0f86a8945400a1f44b1780ff03ad049928b36f95d931df9ac4ed8e8895557",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_security_review_end_to_end": {
+      "hash": "84e45ef0a394fe83f6c05b73ac0d2c3eee3f5cbf8959763ab04ed90cbfd53ddc",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_cost_estimate_end_to_end": {
+      "hash": "f16b330fe74e7d55a6ea325dc8c45d1fa91cb0b1027597f9e392f41bce3ae36c",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_tech_stack_recommendation_end_to_end": {
+      "hash": "1c768d28199dcd74fca552fd77b258f93b23c0e46e7d71263b583d36d1315b3e",
+      "asserts": 2
+    },
+    "test_tool.py::test_main_create_adr_missing_required_title_exits": {
+      "hash": "4274c7cfaaf64b83b0e64eeb61ddcffe8b6d2b01544cc52310787584afccd7fa",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_evaluate_tradeoffs_missing_required_choice_exits": {
+      "hash": "c3581938a86ad8d9ccdfe0090652bc7e2fd643bfe4a0ab055255e934c595ec5d",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_tech_stack_recommendation_missing_required_project_type_exits": {
+      "hash": "7e854009cf1b29237b7e47da7a365cba7707d9f5c46f69347875c32ee4d24e18",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_design_system_missing_required_name_exits": {
+      "hash": "fedb46a486f1d5d9f700e547fd6b379a337aaaa8f5d47870574164928f8edfb1",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_diagram_architecture_rejects_invalid_type_choice": {
+      "hash": "18da2bf6ad9ce18682b1bab3f8a5c88a32595dfe2821ec0887858149b83fc417",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_cost_estimate_rejects_invalid_traffic_choice": {
+      "hash": "891431e7dfc24e3876874be1f9ad8741ba12e3e6855581224e48c06e30cb7668",
+      "asserts": 0
+    },
+    "test_tool.py::test_main_unknown_command_exits": {
+      "hash": "a54bfddd4cd06dfe5205917f4dac1aaf54d4dc59248027aa35d01a98230bd91d",
+      "asserts": 0
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_security_review": {
+      "hash": "69e635176d0dd13ecb79551e134115d1faa5e96d7e1b7c363dc86bcc8da12d24",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_no_command_returns_nonzero": {
+      "hash": "f26ffcbc27dfaec55f9e98c94ec236ac8f79770c609c3da28fc0d4cedccd0ae6",
+      "asserts": 2
+    },
+    "test_tool.py::test_cli_subprocess_smoke_test_design_system_writes_real_file": {
+      "hash": "98eba53a59c9939a9f048a321d3365bfba57bdb8ea659ed46c788b556b9bcf6c",
+      "asserts": 2
+    }
+  },
+  "coverage_pct": 99.0
+}
