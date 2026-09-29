@@ -74,12 +74,13 @@ Constitution > Specify > Plan > Tasks
 - `product-manager.md` - Requirements, roadmap, user stories
 
 **Special Agents:**
-- `live-skill-learner/` - Captures fixes and improvements, updates skills automatically
+- `live-skill-learner.md` - Captures fixes and improvements, updates skills automatically
+- `live-change-management.md` - Tracks code changes in real time, analyzes cross-file impact, and propagates consistent updates via the change-management skill
 
 ### How to Invoke Agents
 
 When a user requests work:
-1. Read the appropriate agent file from `/agents/`
+1. Read the appropriate agent file from `.claude/agents/`
 2. Follow the agent's instructions and skill mappings
 3. Use the agent's primary skills for implementation
 4. Coordinate with other agents as needed
@@ -236,17 +237,24 @@ digital_factory/
 ├── .claude/
 │   ├── CLAUDE.md           # This file - instructions for Claude
 │   ├── ignore              # Files to ignore
-│   └── project.json        # Project metadata
-├── agents/                 # FTE Agent definitions (16+ agents)
-│   ├── orchestrator.md
-│   ├── backend-developer.md
-│   ├── frontend-developer.md
-│   └── ... (15+ more)
-├── skills/                 # Reusable Intelligence (40+ skills)
-│   ├── new-feature/
-│   ├── api-contract-design/
-│   ├── jwt-authentication/
-│   └── ... (40+ more)
+│   ├── project.json        # Project metadata
+│   ├── agents/             # 18 FTE Agent definitions (.md persona files)
+│   │   ├── orchestrator.md
+│   │   ├── backend-developer.md
+│   │   ├── frontend-developer.md
+│   │   ├── live-skill-learner.md
+│   │   ├── live-change-management.md
+│   │   ├── ...              # 13 more specialist agents
+│   │   ├── _framework/      # agent_gate.py — structural + live-eval QA gate
+│   │   └── _meta/<agent>/   # eval_scenarios.yaml, redteam_prompts.yaml,
+│   │                        # version.json, eval_results.json per agent
+│   └── skills/              # 59 reusable skills
+│       ├── new-feature/
+│       ├── api-contract-design/
+│       ├── jwt-authentication/
+│       ├── ...               # more skills
+│       ├── _framework/       # skill_gate.py — versioning & regression gate
+│       └── _archive/         # every prior version of every promoted skill
 └── README.md              # Project overview
 ```
 
@@ -676,11 +684,18 @@ Wired in two places:
 
 ### What these guardrails protect, and what they don't (agents vs. skills)
 
-- These checks apply to **skills** (`.claude/skills/<name>/scripts/tool.py`
-  and `tests/`) — not to **agents** (`.claude/agents/*.md`). Agents are
-  role/persona instructions (e.g. `backend-developer`, `security-engineer`);
-  they aren't versioned or gated by this system because they don't have a
-  "passing test suite" the way a skill's implementation code does.
+- These specific checks (test-count/coverage/mutation guardrails) apply to
+  **skills** (`.claude/skills/<name>/scripts/tool.py` and `tests/`) — not to
+  **agents** (`.claude/agents/*.md`), which are role/persona instructions
+  (e.g. `backend-developer`, `security-engineer`) with no "passing test
+  suite" the way a skill's implementation code has.
+  **Update (2026-09-27): agents are no longer ungated.** A separate,
+  structural + live-eval gate now exists for agents —
+  `.claude/agents/_framework/agent_gate.py` — see the dedicated
+  "Agent QA Gate" section near the end of this file for what it checks and
+  how it differs from the skill gate above. The sentence above is about
+  these particular skill-versioning guardrails only, not a claim that
+  agents go unchecked.
 - **Skills are fully reusable** in any future project — copy the skill
   directory (including its `scripts/`, `tests/`, `version.json`, the whole
   gate mechanism) as-is; the tests/implementation are domain-independent
@@ -828,3 +843,91 @@ enough to trigger the check.
 - ⛔ Never hand-assemble a staged skill directory by cherry-picking files
   from an example — copy a real, complete skill structure first, then edit,
   so nothing required is accidentally missing.
+
+
+## 🤖 Agent QA Gate — bringing agents up to the same bar as skills (added 2026-09-27)
+
+### Why this section exists
+
+The skill-versioning gate above solved a real problem for **skills**: no
+change to a skill's code or tests could land without passing structural and
+regression checks. Agents (`.claude/agents/*.md`) had no equivalent — a
+persona file could be created or edited with zero verification that it was
+complete, let alone that it actually behaved as documented under pressure
+(a red-team prompt, an ambiguous request, a scope boundary). All 18 agents
+in this repo have now been brought through a purpose-built gate that closes
+that gap.
+
+### What it checks (`.claude/agents/_framework/agent_gate.py`)
+
+Unlike the skill gate, this is not a code/test regression check — there is
+no implementation to run coverage or mutation testing against. It is a
+structural + documented-evidence bar:
+
+1. Required frontmatter fields are present: `name`, `role`, `description`,
+   `version`.
+2. Six required body sections exist: `Role`, `Scope`, `Tools Allowed`,
+   `Guardrails`, `Escalation Rules`, `Out of Scope`.
+3. `.claude/agents/_meta/<agent>/eval_scenarios.yaml` exists with at least 5
+   well-formed entries (a scenario + its `expected_behavior`).
+4. `.claude/agents/_meta/<agent>/redteam_prompts.yaml` exists with at least
+   5 well-formed entries (a boundary-testing prompt + its
+   `expected_behavior`).
+5. `.claude/agents/_meta/<agent>/version.json` exists with a non-empty
+   `version` field.
+6. `.claude/agents/_meta/<agent>/eval_results.json` records an actual
+   live-eval run: a verdict for every single scenario/prompt id, and every
+   recorded verdict must be `PASS`. A live eval that produced a FAIL or
+   CONCERN blocks the gate until the agent definition itself is fixed and
+   re-evaluated — it must never be papered over by deleting or skipping the
+   failing entry.
+
+Run it with:
+```
+python3 .claude/agents/_framework/agent_gate.py check --agents-dir .claude/agents --agent-name <name>
+```
+
+### Current state (as of 2026-09-27)
+
+All 18 agents pass all 12 checks each (6 eval scenarios + 6 red-team
+prompts) — 216 live-eval checks, all `PASS`. See
+[`.claude/agents/README.md`](agents/README.md) for the full per-agent status
+table.
+
+### How this differs from the skill gate
+
+- The skill gate is a **regression** gate: it re-runs a real test suite and
+  compares numbers (test count, coverage, mutation score) against a stored
+  baseline every time a skill's code changes.
+- The agent gate is a **completeness + documented-behavior** gate: there is
+  no code to regress, so it instead requires the persona to be structurally
+  complete and to have been actually exercised (in character, against its
+  own documented scenarios and red-team prompts) with every result recorded
+  and PASSing.
+- Both gates share the same underlying discipline: nothing is trusted until
+  it has been checked, and a failing check blocks rather than being
+  silently bypassed.
+
+### CI enforcement (fixed 2026-09-27)
+
+The agent gate is now wired into CI, mirroring the skill gate:
+`.github/workflows/agent-gate-ci.yml` triggers on any `.claude/agents/**`
+change in a pull request and runs `agent_gate.py check` for every
+onboarded agent (skipping only `README.md`). Any agent that fails its
+check fails the whole job — a change under `.claude/agents/**` can no
+longer land without every agent still passing the gate, the same guarantee
+the skill gate has always given `.claude/skills/**`.
+
+### Dos and Don'ts (agent onboarding)
+
+- ✅ Write genuine, agent-specific eval scenarios and red-team prompts —
+  each one should test something this particular agent's role actually
+  makes it likely to face, not a generic template reused across agents.
+- ✅ Grade live-eval results honestly against the stated
+  `expected_behavior` — a FAIL or CONCERN is a real finding to fix, not
+  something to reword until it looks like a PASS.
+- ⛔ Never mark an `eval_results.json` entry PASS without the agent actually
+  having been run against that scenario/prompt — the whole point of this
+  gate is that the evidence is real.
+- ⛔ Never delete or skip a failing scenario/prompt id to make the gate
+  pass — fix the agent definition and re-run instead.

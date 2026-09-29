@@ -1,0 +1,38 @@
+name: Agent QA Gate
+
+on:
+  pull_request:
+    paths:
+      - ".claude/agents/**"
+
+jobs:
+  enforce-agent-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run agent_gate.py check for every onboarded agent
+        run: |
+          set -e
+          status=0
+          for f in .claude/agents/*.md; do
+            name="$(basename "$f" .md)"
+            if [ "$name" = "README" ]; then
+              continue
+            fi
+            echo "::group::agent_gate check: $name"
+            if ! python3 .claude/agents/_framework/agent_gate.py check --agents-dir .claude/agents --agent-name "$name"; then
+              status=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $status

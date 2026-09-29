@@ -7,12 +7,14 @@
 ## 📋 Table of Contents
 
 - [Overview](#overview)
+- [How to Use This Repository](#-how-to-use-this-repository--get-the-most-out-of-it)
 - [Development Methodologies](#development-methodologies)
 - [How We Achieve Them](#how-we-achieve-them)
 - [Agents](#agents)
 - [Reusable Intelligence (Skills)](#reusable-intelligence-skills)
 - [Methodology Integration](#methodology-integration)
 - [Skill Versioning & Regression Gate](#%EF%B8%8F-skill-versioning--regression-gate--architecture-deep-dive)
+- [Agent QA Gate](#-agent-qa-gate--architecture-deep-dive)
 - [Visual Guides](#%EF%B8%8F-visual-guides)
 - [Quick Start](#quick-start)
 - [Directory Structure](#directory-structure)
@@ -25,6 +27,39 @@ Digital Agent Factory is an **AI-powered development system** that combines spec
 
 **Core Philosophy:**  
 *Specify first. Plan then. Implement with skills. Test always.*
+
+---
+
+## 🚀 How to Use This Repository & Get the Most Out of It
+
+### Who this is for
+
+- **Solo developers / indie builders** who want spec-first, tested code without hiring a full team.
+- **Small teams** who want consistent engineering practices (specs, contracts, tests, security review) enforced automatically instead of manually policed in every PR.
+- **Anyone building their own "AI agent factory"** who wants a working reference implementation of FTE-style agents + reusable skills + versioning/QA gates, to copy or adapt.
+
+### Prerequisites
+
+- Claude Code (or another Claude runtime that supports custom agents/skills via `.claude/`).
+- Python 3.10+ and `pytest` (used by the skill and agent QA gates, and by every skill's own test suite).
+- Git, to clone the repo and to benefit from the versioning/archive workflow.
+
+### Getting started, step by step
+
+1. **Clone the repo** — or, if you already have a project, copy the `.claude/` folder into your project root. Everything the system needs (agents, skills, gates, docs) lives under `.claude/`.
+2. **Open the project in Claude Code.** Claude automatically reads `.claude/CLAUDE.md` and discovers the agents in `.claude/agents/` and skills in `.claude/skills/`.
+3. **Describe your task in plain language** and let the Orchestrator do the routing (see [Quick Start](#quick-start) below) — for example, *"Add JWT authentication to the API"*. Don't skip straight to hand-picking an agent for small tasks; letting the Orchestrator map skills and agents is what keeps specs, contracts, and tests consistent.
+4. **Review the proposed plan before approving execution.** The Orchestrator shows which agents and skills it intends to use — this is your checkpoint to catch a wrong assumption before any code is written.
+5. **Trust the output is already tested.** Every skill this system uses enforces TDD through `qa-engineer` / `edge-case-tester`, so a task isn't "done" until its tests pass — you're not signing up to write a separate test pass afterward.
+
+### How to get the maximum benefit out of it
+
+- **Start with the Orchestrator, not an agent.** The SDD loop (Specify → Plan → Tasks → Implement) feels slower on a two-line fix but pays for itself on anything with more than one moving part — half-skipping it is how specs and code drift apart.
+- **Read [`.claude/CLAUDE.md`](.claude/CLAUDE.md) before extending anything.** It's this repo's constitution — what's gated, what isn't yet, the dos/don'ts/red-flags list, and the full incident writeup behind why the gates exist.
+- **Treat the Skill Versioning Gate and Agent QA Gate as your safety net, not paperwork.** Before promoting a skill or onboarding a new agent, run `skill_gate.py` / `agent_gate.py` locally (see the [Skill Versioning & Regression Gate](#%EF%B8%8F-skill-versioning--regression-gate--architecture-deep-dive) and [Agent QA Gate](#-agent-qa-gate--architecture-deep-dive) sections above) — catching a regression on your machine is free; catching it in CI costs a round trip.
+- **Reuse a skill before writing custom logic.** Browse `.claude/skills/` first — common needs (JWT auth, OpenAPI contracts, Kubernetes/cloud deploys, SEO, CI/CD, and more) already have a tested, versioned skill behind them.
+- **Extend the system the same way it extends itself.** A new agent or skill should clear the same bar as everything already in the repo (required sections, eval scenarios, red-team prompts, a passing test suite) — copy an existing agent/skill as your template rather than starting from a blank file.
+- **Let the two "live" agents work passively for you.** `live-skill-learner` captures fixes and improvements as you go and updates skills automatically; `live-change-management` tracks cross-file impact and propagates consistent updates — leave them running instead of manually keeping skills and docs in sync by hand.
 
 ---
 
@@ -92,7 +127,7 @@ User Prompt → Orchestrator analyzes → Skills mapped → Agents assigned → 
 | Methodology | Achieved Via |
 |-------------|--------------|
 | **Spec-Driven Development** | `new-feature` skill (spec.md, plan.md, tasks.md), `api-contract-design` (OpenAPI first), `change-management` (spec updates before changes), Constitution enforcement in Orchestrator |
-| **AI-Driven Development** | Orchestrator + 16 FTE agents + `prompt-analyzer` skill + 40+ reusable skills + automatic routing and delegation |
+| **AI-Driven Development** | Orchestrator + 17 specialist/special FTE agents + `prompt-analyzer` skill + 59 reusable skills + automatic routing and delegation |
 | **Test-Driven Development** | `qa-engineer` agent, `edge-case-tester` skill, `ab-testing` skill, `production-checklist` skill |
 
 ---
@@ -131,6 +166,7 @@ Specialized FTE agents, each with clear roles and access to relevant skills.
 | Agent | Role |
 |-------|------|
 | **live-skill-learner** | Captures fixes and improvements during development and updates skills automatically |
+| **live-change-management** | Tracks code changes in real time, analyzes cross-file impact, and propagates consistent updates via the change-management skill |
 
 ---
 
@@ -238,8 +274,8 @@ flowchart TD
 **Why this matters for readers:** every skill in `.claude/skills/` now carries
 its own `version.json`, `CHANGELOG.md`, `tests/test_tool.py`, and an
 `_archive/` snapshot of every prior version — a skill's test suite can only
-grow, never silently shrink, and every promotion is reversible. 39 skills have
-been through this gate; 346 tests pass repo-wide.
+grow, never silently shrink, and every promotion is reversible. 59 skills have
+been through this gate; 2604 tests pass repo-wide.
 
 For the full incident writeup, the near-miss that led to an extra safeguard,
 and a dos/don'ts/red-flags list for anyone (human or AI) working on this repo
@@ -248,13 +284,65 @@ next, see **[`.claude/CLAUDE.md`](.claude/CLAUDE.md)** and
 
 ---
 
+## 🤖 Agent QA Gate — Architecture Deep-Dive
+
+The same "don't trust an unverified change" principle behind the skill
+versioning gate above also applies to the 18 Digital FTE agent personas in
+`.claude/agents/`. Unlike skills, an agent definition is a markdown
+persona/instruction file consumed by an LLM at runtime — there is no code to
+unit-test or mutate. So `.claude/agents/_framework/agent_gate.py` enforces a
+structural + documented-evidence bar instead, and every agent must clear all
+of it before it counts as onboarded:
+
+```mermaid
+flowchart TD
+    A["New/updated agent .md\nin .claude/agents/"] --> B["agent_gate.py check"]
+    B --> C{"1. Required frontmatter present?\n(name, role, description, version)"}
+    C -- "missing" --> R["❌ BLOCKED\nreason logged"]
+    C -- "present" --> D{"2. Required sections present?\n(Role, Scope, Tools Allowed,\nGuardrails, Escalation, Out of Scope)"}
+    D -- "missing" --> R
+    D -- "present" --> E{"3. ≥5 eval_scenarios +\n≥5 redteam_prompts,\nwell-formed?"}
+    E -- "no" --> R
+    E -- "yes" --> F{"4. version.json present?"}
+    F -- "no" --> R
+    F -- "yes" --> G{"5. eval_results.json has a\nPASS verdict for EVERY\nscenario / prompt id?"}
+    G -- "missing / FAIL / CONCERN" --> R
+    G -- "all PASS" --> H["✅ Agent onboarded"]
+```
+
+**Why this matters for readers:** step 5 is the live-eval tier — every agent
+is actually run in character against its own documented scenarios and
+red-team prompts, graded against a stated `expected_behavior`, and recorded
+per-id in `_meta/<agent>/eval_results.json`. A FAIL or CONCERN blocks the
+gate until the agent definition itself is fixed and re-evaluated; nothing is
+papered over by deleting or skipping a failing entry. All 18 agents in this
+repo currently pass all 12 checks each (6 eval scenarios + 6 red-team
+prompts) — 216 live-eval checks, all PASS. Run
+`python3 .claude/agents/_framework/agent_gate.py check --agents-dir
+.claude/agents --agent-name <name>` to re-verify any single agent, or see
+**[`.claude/agents/README.md`](.claude/agents/README.md)** for the full
+per-agent status table.
+
+---
+
 ## 🖼️ Visual Guides
 
-| Format | Link |
-|--------|------|
-| Architecture infographic (Canva) | [View on Canva](https://www.canva.com/d/jtX0z4YkbxmQXeR) |
-| Explainer video — problem, audit, fix, rollout, result (HyperFrames by HeyGen) | [Watch / download MP4](https://github.com/DoniaBatool/My-Agent-Factory-Digital-FTEs-/releases/download/media-v1/video.mp4) |
-| Slide deck — architecture & engineering mechanism, 14 slides (Canva) | [View on Canva](https://www.canva.com/d/5t9mI8-0ZRIQcT_) |
+> Regenerated 2026-09-27 to cover the Agent QA Gate framework (the previous video/slide deck/diagram set only covered the Skill Versioning Gate rollout and has been replaced).
+
+| Format | Content | Link |
+|--------|---------|------|
+| Slide deck (Canva) | Agent QA Gate — the problem, the fix, rollout, result | [View on Canva](https://canva.link/0fuh76whlu2g8xp) |
+| Explainer video (HyperFrames by HeyGen) | Agent QA Gate — the problem, the fix, rollout, result | _Pending — YouTube link to be added once uploaded_ |
+
+**Architecture diagrams** (SVG, saved in [`docs/architecture/`](docs/architecture/)):
+
+**Agent QA Gate — 5-check onboarding flow**
+
+![Agent QA Gate Architecture](docs/architecture/agent-qa-gate-flow.svg)
+
+**Skill Versioning & Regression Gate — 3-check promote flow**
+
+![Skill Versioning Gate Architecture](docs/architecture/skill-versioning-gate-flow.svg)
 
 ---
 
@@ -298,29 +386,29 @@ For targeted work:
 
 ```
 digital_factory/
-├── agents/                    # FTE Agent definitions
-│   ├── orchestrator.md        # Master orchestrator
-│   ├── backend-developer.md
-│   ├── frontend-developer.md
-│   ├── fullstack-architect.md
-│   ├── database-engineer.md
-│   ├── devops-engineer.md
-│   ├── security-engineer.md
-│   ├── qa-engineer.md
-│   ├── live-skill-learner/    # Real-time skill learning
-│   └── ... (15+ agents)
+├── .claude/
+│   ├── CLAUDE.md               # Instructions for Claude working on this repo
+│   ├── agents/                 # 18 FTE Agent definitions (.md persona files)
+│   │   ├── orchestrator.md     # Master orchestrator
+│   │   ├── backend-developer.md
+│   │   ├── frontend-developer.md
+│   │   ├── ...                 # 14 more specialist agents
+│   │   ├── live-skill-learner.md
+│   │   ├── live-change-management.md
+│   │   ├── _framework/         # agent_gate.py — structural + live-eval QA gate
+│   │   └── _meta/<agent>/      # eval_scenarios.yaml, redteam_prompts.yaml,
+│   │                           # version.json, eval_results.json per agent
+│   ├── skills/                 # 59 reusable skills
+│   │   ├── new-feature/        # Spec scaffolding
+│   │   ├── api-contract-design/# OpenAPI contracts
+│   │   ├── jwt-authentication/
+│   │   ├── ...                 # more skills, each with scripts/, tests/,
+│   │   │                       # version.json, CHANGELOG.md
+│   │   ├── _framework/         # skill_gate.py — versioning & regression gate
+│   │   └── _archive/           # every prior version of every promoted skill
+│   └── docs/                   # policy & reference docs
 │
-├── skills/                    # Reusable Intelligence (40+ skills)
-│   ├── new-feature/           # Spec scaffolding
-│   ├── api-contract-design/   # OpenAPI contracts
-│   ├── prompt-analyzer/       # Intent & skill mapping
-│   ├── edge-case-tester/      # Edge case coverage
-│   ├── jwt-authentication/
-│   ├── aws-eks-deploy/
-│   ├── azure-aks-deploy/
-│   └── ... (40+ skills)
-│
-└── README.md                  # This file
+└── README.md                   # This file
 ```
 
 ---
