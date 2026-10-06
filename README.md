@@ -327,14 +327,13 @@ per-agent status table.
 
 ## 🖼️ Visual Guides
 
-> Updated 2026-09-29 to cover both frameworks: the Agent QA Gate (new) and the Skill Versioning & Regression Gate (original). Each has its own slide deck, video, and architecture diagram; the Skill Versioning Gate video is the original walkthrough and its on-screen numbers are outdated (see the caveat in the table).
+> Updated 2026-10-06 to cover both frameworks: the Agent QA Gate (new) and the Skill Versioning & Regression Gate (original). Each has its own slide deck and architecture diagram; the Agent QA Gate also has an explainer video.
 
 | Format | Content | Link |
 |--------|---------|------|
 | Slide deck (Canva) | Agent QA Gate — the problem, the fix, rollout, result | [View on Canva](https://canva.link/i54hewlkk55ibcf) |
 | Slide deck (Canva) | Skill Versioning & Regression Gate — the problem, the fix, promotion flow, scale | [View on Canva](https://canva.link/x5wbpd7u0t1rat8) |
 | Explainer video (YouTube) | Agent QA Gate — the problem, the fix, rollout, result | [Watch on YouTube](https://youtu.be/M2g6wK_aavU) |
-| Explainer video (YouTube) | Skill Versioning & Regression Gate — the original walkthrough. ⚠️ Numbers shown (346 tests / 34 skills) are outdated — the gate now covers 59 skills / 2604 tests | [Watch on YouTube](https://youtu.be/-CMmae5FSTg) |
 
 **Architecture diagrams** (SVG, saved in [`docs/architecture/`](docs/architecture/)):
 
